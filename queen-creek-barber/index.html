@@ -4,8 +4,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#090909">
-<meta name="description" content="Queen Creek Barber Shop — Queen Creek, AZ. Concept website preview.">
-<title>Queen Creek Barber Shop — Cuts</title>
+<meta name="description" content="Queen Creek Barber - Queen Creek, Arizona. Concept website preview.">
+<title>Queen Creek Barber - Cuts</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=IBM+Plex+Mono:wght@400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
@@ -26,19 +26,28 @@ em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--ink)}
 .btn--solid{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn:hover{filter:brightness(.92)}
 
+.mono{position:relative;width:100%;height:100%;display:grid;place-items:center;overflow:hidden;
+ background:radial-gradient(120% 100% at 25% 15%,rgba(219,75,53,.16),transparent 60%),
+  linear-gradient(160deg,#191919,#0b0b0b 70%)}
+.mono::before{content:"";position:absolute;inset:0;opacity:.5;
+ background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:38px 38px}
+.mono b{position:relative;font-size:clamp(54px,13vw,150px);line-height:1;letter-spacing:-.07em;
+ font-weight:600;color:rgba(240,238,233,.14)}
+.mono i{position:absolute;left:14px;bottom:12px;font:400 9px/1 var(--mono);font-style:normal;
+ letter-spacing:.12em;color:rgba(240,238,233,.4);text-transform:uppercase}
+
 header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
- padding:16px 4vw;background:rgba(9,9,9,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+ gap:14px;padding:16px 4vw;background:rgba(9,9,9,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 header b{font-size:17px;letter-spacing:-.03em}
 header b i{color:var(--accent);font-style:normal}
 header .nav{display:flex;gap:22px}
-@media(max-width:760px){header .nav{display:none}}
+@media(max-width:860px){header .nav{display:none}}
 
 .hero{position:relative;min-height:84svh;display:flex;align-items:flex-end;overflow:hidden;border-bottom:1px solid var(--line)}
 .hero__bg{position:absolute;inset:0}
 .hero__bg img{width:100%;height:100%;object-fit:cover;filter:saturate(.78) contrast(1.06) brightness(.6)}
-.hero__bg .ph{width:100%;height:100%;background:
- radial-gradient(120% 90% at 20% 10%,#1d1d1d,#0a0a0a 70%)}
-.hero__wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,.72) 88%),linear-gradient(90deg,rgba(0,0,0,.6),transparent 62%)}
+.hero__wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,.72) 88%),linear-gradient(90deg,rgba(0,0,0,.62),transparent 62%)}
 .hero__in{position:relative;padding:120px 0 48px}
 .hero h1{margin:22px 0 0;font-size:clamp(40px,6.6vw,104px);line-height:.88;letter-spacing:-.055em;font-weight:500;max-width:20ch}
 .hero p{margin:22px 0 0;color:#c4beb5;max-width:44ch;font-size:15px}
@@ -63,8 +72,6 @@ h2{font-size:clamp(32px,4.4vw,64px);line-height:.94;letter-spacing:-.05em;font-w
 .gal figure{margin:0;aspect-ratio:4/5;overflow:hidden;background:#141414}
 .gal img{width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.04);transition:transform .8s var(--ease)}
 .gal figure:hover img{transform:scale(1.04)}
-.gal .ph{width:100%;height:100%;display:grid;place-items:center;border:1px dashed var(--line);
- font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:#5c5852}
 
 .book{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center}
 .book ul{list-style:none;padding:0;margin:26px 0 0}
@@ -73,7 +80,7 @@ h2{font-size:clamp(32px,4.4vw,64px);line-height:.94;letter-spacing:-.05em;font-w
 .book .card{border:1px solid var(--line);padding:32px}
 .book .card h3{margin:0 0 8px;font-size:26px;letter-spacing:-.04em;font-weight:500}
 .book .card p{color:var(--muted);font-size:14px}
-.book .card .btn{width:100%;justify-content:center;margin-top:14px}
+.book .card .btn{width:100%;justify-content:center;margin-top:10px}
 @media(max-width:860px){.book{grid-template-columns:1fr}}
 
 footer{padding:44px 0 60px}
@@ -85,57 +92,57 @@ footer{padding:44px 0 60px}
 </style></head><body>
 
 <header>
-  <b>Queen Creek Barber S….</b>
+  <b>Queen Creek Barber<i>.</i></b>
   <div class="nav micro"><a href="#services">SERVICES</a><a href="#work">THE WORK</a><a href="#book">CONTACT</a></div>
-  <a class="btn" href="https://wa.me/14809877785">BOOK A CHAIR ↗</a>
+  <a class="btn" href="ССЫЛКА_ИХ_BOOKSY">BOOK A CHAIR</a>
 </header>
 
 <div class="hero">
-  <div class="hero__bg"><div class="ph"></div></div>
+  <div class="hero__bg"><div class="mono"><b>QCB</b><i>photo placeholder - your images go here</i></div></div>
   <div class="hero__wash"></div>
   <div class="shell hero__in">
-    <span class="micro">CUTS / BEARD / STRAIGHT RAZOR · Queen Creek, AZ</span>
+    <span class="micro">CUTS / BEARD / STRAIGHT RAZOR · Queen Creek, Arizona</span>
     <h1>A cut that still looks right on <em>day nine</em>.</h1>
-    <p>Book your barber and your time in two taps — no phone calls, no waiting room.</p>
+    <p>Your barber, your time, two taps. No phone calls, no waiting room.</p>
     <div class="row">
-      <a class="btn btn--solid" href="https://wa.me/14809877785">BOOK A CHAIR ↗</a>
-      <a class="btn" href="tel:+14809877785">+1 480 987 7785</a>
+      <a class="btn btn--solid" href="ССЫЛКА_ИХ_BOOKSY">BOOK A CHAIR</a>
+      <a class="btn" href="https://wa.me/14809877785">WHATSAPP</a><a class="btn" href="https://instagram.com/queencreekbarbershop" target="_blank" rel="noopener">INSTAGRAM</a>
     </div>
   </div>
 </div>
 
-<div class="facts"><div><b>Walk-ins</b><span class='micro'>When the chair is free</span></div><div><b>Online booking</b><span class='micro'>Pick your barber</span></div><div><b>Since day one</b><span class='micro'>Same hands</span></div></div>
+<div class="facts"><div><b>Walk-ins</b><span class='micro'>When the chair is free</span></div><div><b>Online booking</b><span class='micro'>Pick your barber</span></div><div><b>Same hands</b><span class='micro'>Every visit</span></div></div>
 
 <section id="services"><div class="shell">
   <span class="micro">01 / SERVICES</span>
   <h2>What you actually get.</h2>
-  <div class="svc"><article><span class="micro">01</span><h3>Signature cut</h3><p>Consultation, cut and finish with styling that holds.</p><div class="tag">45 min</div></article><article><span class="micro">02</span><h3>Cut & beard</h3><p>Full shape-up with hot towel and razor detail.</p><div class="tag">60 min</div></article><article><span class="micro">03</span><h3>Straight razor shave</h3><p>Traditional shave, hot towel, aftercare.</p><div class="tag">40 min</div></article></div>
+  <div class="svc"><article><span class="micro">01</span><h3>Haircut .5 to Skin Fade</h3><p>Consultation, cut and finish that holds</p><div class="tag">35 USD - 30 min</div></article><article><span class="micro">02</span><h3>Haircut and beard, hot towel</h3><p>Full shape-up and razor detail</p><div class="tag">55 USD - 50 min</div></article><article><span class="micro">03</span><h3>Beard trim</h3><p>Shape and line-up</p><div class="tag">20 USD - 15 min</div></article></div>
 </div></section>
 
 <section id="work"><div class="shell">
   <span class="micro">02 / THE WORK</span>
   <h2>The work speaks first.</h2>
-  <div class="gal"><figure><div class="ph">YOUR PHOTO 1</div></figure><figure><div class="ph">YOUR PHOTO 2</div></figure><figure><div class="ph">YOUR PHOTO 3</div></figure><figure><div class="ph">YOUR PHOTO 4</div></figure></div>
+  <div class="gal"><figure><div class="mono"><b>QCB</b><i>your photo 1</i></div></figure><figure><div class="mono"><b>QCB</b><i>your photo 2</i></div></figure><figure><div class="mono"><b>QCB</b><i>your photo 3</i></div></figure><figure><div class="mono"><b>QCB</b><i>your photo 4</i></div></figure></div>
 </div></section>
 
 <section id="book"><div class="shell book">
   <div>
     <span class="micro">03 / CONTACT</span>
     <h2>Two taps, not a phone tag.</h2>
-    <ul><li><span>PHONE</span>+1 480 987 7785</li><li><span>EMAIL</span>queencreekbarbershop@gmail.com</li><li><span>AREA</span>Queen Creek, AZ</li><li><span>REPLY TIME</span>Same day</li></ul>
+    <ul><li><span>WHATSAPP</span>+1 480 987 7785</li><li><span>INSTAGRAM</span>@queencreekbarbershop</li><li><span>PHONE</span>+1 480 987 7785</li><li><span>EMAIL</span>queencreekbarbershop@gmail.com</li><li><span>AREA</span>Queen Creek, Arizona</li><li><span>REPLY TIME</span>Same day</li></ul>
   </div>
   <div class="card">
     <h3>Book A Chair</h3>
     <p>Send one message and get a time slot back the same day.</p>
-    <a class="btn btn--solid" href="https://wa.me/14809877785">BOOK A CHAIR ↗</a>
-    <a class="btn" href="mailto:queencreekbarbershop@gmail.com" style="width:100%;justify-content:center;margin-top:10px">EMAIL US ↗</a>
+    <a class="btn btn--solid" href="ССЫЛКА_ИХ_BOOKSY">BOOK A CHAIR</a>
+    <a class="btn" href="https://wa.me/14809877785">WHATSAPP</a><a class="btn" href="https://instagram.com/queencreekbarbershop" target="_blank" rel="noopener">INSTAGRAM</a><a class="btn" href="mailto:queencreekbarbershop@gmail.com">EMAIL US</a>
   </div>
 </div></section>
 
 <footer><div class="shell credit">
-  <p>CONCEPT PREVIEW · Built for Queen Creek Barber Shop as an unsolicited design proposal. Not an official page,
+  <p>CONCEPT PREVIEW · Built for Queen Creek Barber as an unsolicited design proposal. Not an official page,
      not affiliated with the business, no data collected. Photos belong to their owners and are used
      here only to show layout. Say the word and it comes down.</p>
-  <a href="https://matras0v.github.io/portfolio_orig/">Built by MATRAS0V. ↗</a>
+  <a href="https://matras0v.github.io/portfolio_orig/">Built by MATRAS0V.</a>
 </div></footer>
 </body></html>
