@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#38181C">
+<meta name="robots" content="noindex, nofollow">
+
+<title>Ember &amp; Oak — the menu</title>
+<meta name="description" content="A wood-fired kitchen. The menu is the website, tonight's remaining tables are printed on it, and you book from the line you are reading.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================================
+   EMBER & OAK
+   A restaurant's real front page has always been its menu, so that is what
+   this is: one column, set the way a menu is set, with the booking printed
+   inside it. One typeface throughout — no sans anywhere, on purpose.
+   ========================================================================== */
+:root{
+  --wine:   #38181C;
+  --wine-2: #2B1114;
+  --wine-3: #472124;
+  --bone:   #F0E9DC;
+  --bone-2: rgba(240,233,220,.70);
+  --bone-3: rgba(240,233,220,.50);
+  --ember:  #E08A50;   /* 5.6:1 on wine */
+  --line:   rgba(240,233,220,.20);
+  --line-2: rgba(240,233,220,.38);
+
+  --f: "EB Garamond", Garamond, Georgia, serif;
+
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:96px; --s7:140px;
+  --ease-out: cubic-bezier(.23,1,.32,1);
+  --menu: 720px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+body{
+  background:var(--wine);color:var(--bone);
+  font-family:var(--f);font-size:19px;line-height:1.5;
+  min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button,input,select{font:inherit;color:inherit;background:none;border:0;}
+:focus-visible{outline:2px solid var(--ember);outline-offset:3px;}
+
+.wrap{width:100%;max-width:var(--menu);margin-inline:auto;padding-inline:var(--s3);}
+.wide{max-width:1180px;}
+.caps{
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:500;line-height:1.5;
+}
+.skip{position:absolute;left:-9999px;top:0;z-index:300;background:var(--bone);color:var(--wine);padding:12px 18px;}
+.skip:focus{left:0;}
+
+/* ------------------------------------------------------------------ nav -- */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:color-mix(in srgb,var(--wine) 92%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{
+  display:flex;align-items:center;gap:var(--s3);height:60px;
+  max-width:1180px;margin-inline:auto;padding-inline:var(--s3);
+}
+.brand{
+  letter-spacing:.24em;text-transform:uppercase;font-size:14px;font-weight:500;
+  margin-right:auto;white-space:nowrap;
+  display:inline-flex;align-items:center;min-height:44px;
+}
+.chip-concept{
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  border:1px solid var(--line-2);color:var(--bone-3);padding:4px 8px;white-space:nowrap;
+}
+.nav-links{display:none;gap:var(--s3);}
+@media (min-width:800px){.nav-links{display:flex;}}
+.nav-links a{color:var(--bone-2);transition:color .16s ease;}
+.nav-links a:hover{color:var(--bone);}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:0 20px;cursor:pointer;
+  background:var(--bone);color:var(--wine);border:1px solid var(--bone);
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;
+  transition:transform .18s var(--ease-out),background-color .18s ease;
+  white-space:nowrap;
+}
+.btn:hover{background:var(--ember);border-color:var(--ember);color:var(--wine);}
+.btn:active{transform:scale(.97);}
+.btn-line{background:transparent;color:var(--bone);border-color:var(--line-2);}
+.btn-line:hover{background:transparent;border-color:var(--bone);color:var(--bone);}
+.btn[disabled]{opacity:.4;cursor:not-allowed;}
+.lbl-short{display:none;}
+@media (max-width:620px){
+  .lbl-long{display:none;}
+  .lbl-short{display:inline;}
+  .nav-in{gap:var(--s2);}
+  .brand{font-size:12px;letter-spacing:.18em;}
+}
+
+/* --------------------------------------------------------------- header -- */
+.head{padding-block:var(--s6) var(--s5);text-align:center;}
+h1{
+  font-weight:400;font-size:clamp(44px,8vw,84px);
+  line-height:1;letter-spacing:.01em;
+}
+h1 span{display:block;font-style:italic;font-size:.44em;letter-spacing:0;color:var(--bone-2);margin-top:14px;}
+.head .caps{color:var(--bone-3);margin-top:var(--s4);}
+.rule{
+  width:100%;max-width:120px;height:1px;background:var(--line-2);
+  margin:var(--s4) auto;
+}
+
+/* --------------------------------------------------------------- tonight- */
+.tonight{
+  border:1px solid var(--line-2);
+  padding:var(--s3);margin-block:var(--s4);
+}
+.tonight-top{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s1) var(--s2);
+  margin-bottom:var(--s3);
+}
+.tonight-top .caps{color:var(--bone-3);}
+.live{display:inline-flex;align-items:center;gap:8px;color:var(--ember);}
+.live i{
+  width:6px;height:6px;border-radius:50%;background:var(--ember);position:relative;
+}
+.live i::after{
+  content:"";position:absolute;inset:-3px;border:1px solid var(--ember);border-radius:50%;
+  animation:ping 2.6s var(--ease-out) infinite;
+}
+@keyframes ping{0%{transform:scale(.7);opacity:.9}70%{transform:scale(1.8);opacity:0}100%{transform:scale(1.8);opacity:0}}
+@media (prefers-reduced-motion:reduce){.live i::after{animation:none;opacity:.4;}}
+
+.slots{display:flex;flex-wrap:wrap;gap:8px;}
+.slot{
+  min-height:44px;padding:0 15px;cursor:pointer;
+  border:1px solid var(--line-2);font-variant-numeric:tabular-nums;font-size:17px;
+  transition:background-color .16s ease,border-color .16s ease,transform .16s var(--ease-out);
+}
+.slot:hover{border-color:var(--bone);}
+.slot:active{transform:scale(.96);}
+.slot[aria-pressed="true"]{background:var(--ember);border-color:var(--ember);color:var(--wine);}
+.slot[disabled]{opacity:.32;cursor:not-allowed;text-decoration:line-through;}
+.tonight-note{color:var(--bone-3);font-size:16px;margin-top:var(--s2);font-style:italic;}
+
+/* ---------------------------------------------------------------- menu --- */
+.course{margin-top:var(--s6);}
+.course > h2{
+  text-align:center;font-weight:400;font-size:15px;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--bone-3);
+  margin-bottom:var(--s4);
+}
+.dish{
+  display:block;width:100%;text-align:left;cursor:default;
+  padding:14px 0;border-bottom:1px solid var(--line);
+}
+.dish.has{cursor:pointer;}
+.dish-line{display:flex;align-items:baseline;gap:10px;}
+.dish-name{font-weight:500;font-size:21px;white-space:nowrap;}
+.dish-name em{font-style:italic;font-weight:400;color:var(--bone-2);}
+.dots{flex:1;border-bottom:1px dotted var(--line-2);transform:translateY(-4px);min-width:20px;}
+.dish-price{font-variant-numeric:tabular-nums;font-size:19px;}
+.dish-desc{color:var(--bone-2);font-style:italic;margin-top:4px;padding-right:60px;}
+.dish-tags{color:var(--bone-3);font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin-top:6px;}
+@media (max-width:700px){
+  /* a nowrap dish name pushes the price off a phone, so the leader goes and
+     the name wraps instead */
+  .dish-name{white-space:normal;flex:1;}
+  .dots{display:none;}
+  .dish-line{gap:14px;}
+  .dish-price{flex:none;}
+  .dish-desc{padding-right:0;}
+}
+.dish.has .dish-name::after{
+  content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
+  background:var(--ember);margin-left:8px;vertical-align:middle;opacity:.75;
+}
+
+/* the photograph appears only when asked for, so the page stays a menu */
+.plateview{
+  display:none;
+  position:fixed;right:var(--s4);top:50%;transform:translateY(-50%);
+  width:300px;z-index:60;pointer-events:none;
+}
+@media (min-width:1400px){.plateview{display:block;}}
+.plateview figure{
+  margin:0;opacity:0;transform:translateY(10px) scale(.98);
+  transition:opacity .3s var(--ease-out),transform .3s var(--ease-out);
+}
+.plateview.on figure{opacity:1;transform:none;}
+.plateview img{width:100%;aspect-ratio:1/1;object-fit:cover;}
+.plateview figcaption{margin-top:10px;color:var(--bone-3);}
+@media (prefers-reduced-motion:reduce){.plateview figure{transition:none;}}
+
+/* on smaller screens the photograph opens under the dish instead */
+.dish-photo{
+  display:none;overflow:hidden;margin-top:var(--s2);
+}
+.dish.open .dish-photo{display:block;animation:grow .38s var(--ease-out);}
+@keyframes grow{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+@media (min-width:1400px){.dish.open .dish-photo{display:none;}}
+.dish-photo img{width:100%;aspect-ratio:16/10;object-fit:cover;}
+
+/* ----------------------------------------------------------------- set --- */
+.set{
+  margin-top:var(--s6);border:1px solid var(--line-2);padding:var(--s4);text-align:center;
+}
+.set h3{font-weight:400;font-size:clamp(26px,4vw,34px);}
+.set .caps{color:var(--bone-3);margin-bottom:var(--s2);}
+.set p{color:var(--bone-2);font-style:italic;margin-top:var(--s2);}
+.set-price{font-size:22px;margin-top:var(--s3);font-variant-numeric:tabular-nums;}
+
+/* ---------------------------------------------------------------- book --- */
+.book{background:var(--wine-2);border-top:1px solid var(--line);margin-top:var(--s7);}
+.book-in{padding-block:var(--s6);}
+.book h2{font-weight:400;font-size:clamp(30px,5vw,46px);text-align:center;}
+.book-sub{text-align:center;color:var(--bone-2);font-style:italic;margin-top:var(--s2);}
+.form{margin-top:var(--s5);display:grid;gap:var(--s3);}
+.row{display:grid;gap:var(--s3);grid-template-columns:1fr;}
+@media (min-width:600px){.row{grid-template-columns:1fr 1fr;}}
+.field{display:grid;gap:6px;}
+.field label{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-3);}
+.field input,.field select{
+  min-height:50px;padding:12px 14px;
+  background:rgba(240,233,220,.05);border:1px solid var(--line-2);
+  transition:border-color .16s ease;
+}
+.field input:hover,.field select:hover{border-color:var(--bone-2);}
+.field select option{background:var(--wine-2);color:var(--bone);}
+.field .err{color:var(--ember);font-size:16px;font-style:italic;display:none;}
+.field.bad input,.field.bad select{border-color:var(--ember);}
+.field.bad .err{display:block;}
+.picked{
+  border:1px solid var(--line-2);padding:var(--s3);
+  display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);align-items:baseline;
+}
+.picked b{font-weight:500;}
+.picked span{color:var(--bone-3);}
+.done{
+  display:none;gap:12px;border:1px solid var(--line-2);padding:var(--s3);
+  background:rgba(240,233,220,.05);
+}
+.done.on{display:flex;animation:grow .38s var(--ease-out);}
+.done b{display:block;margin-bottom:4px;}
+.done p{color:var(--bone-2);font-size:17px;font-style:italic;}
+
+/* ---------------------------------------------------------------- room --- */
+.room{padding-block:var(--s6);border-top:1px solid var(--line);}
+.room-grid{display:grid;gap:var(--s2);grid-template-columns:1fr;}
+@media (min-width:760px){.room-grid{grid-template-columns:1.3fr 1fr;}}
+.room-grid figure{margin:0;overflow:hidden;}
+.room-grid img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;}
+.room-col{display:grid;gap:var(--s2);}
+.room-text{margin-top:var(--s4);display:grid;gap:var(--s3);grid-template-columns:1fr;}
+@media (min-width:760px){.room-text{grid-template-columns:1fr 1fr;gap:var(--s5);}}
+.room-text p{color:var(--bone-2);}
+.room-text p + p{margin-top:var(--s2);}
+
+.facts{border-top:1px solid var(--line-2);}
+.facts div{display:flex;justify-content:space-between;gap:var(--s2);padding:12px 0;border-bottom:1px solid var(--line);}
+.facts dt{color:var(--bone-3);}
+.facts dd{text-align:right;}
+
+footer{border-top:1px solid var(--line);padding-block:var(--s4);}
+.foot{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);color:var(--bone-3);}
+.disclosure{
+  margin-top:var(--s3);padding-top:var(--s3);border-top:1px solid var(--line);
+  color:var(--bone-3);font-size:16px;display:flex;flex-wrap:wrap;gap:6px var(--s2);
+}
+.disclosure a{color:var(--bone);border-bottom:1px solid var(--line-2);}
+.disclosure a:hover{border-color:var(--bone);}
+
+.rv{opacity:0;transform:translateY(12px);}
+.rv.in{opacity:1;transform:none;transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none;}}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#menu">Skip to the menu</a>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top">Ember &amp; Oak</a>
+    <span class="chip-concept">Concept</span>
+    <nav class="nav-links caps" aria-label="Sections">
+      <a href="#menu">Menu</a>
+      <a href="#room">The room</a>
+      <a href="#book">Book</a>
+    </nav>
+    <a class="btn" href="#book"><span class="lbl-long">Book a table</span><span class="lbl-short">Book</span></a>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<section class="head">
+  <div class="wrap">
+    <h1>Ember &amp; Oak<span>everything over wood, nothing over-explained</span></h1>
+    <p class="caps">Dinner Tuesday to Saturday · 42 Bathurst Street</p>
+    <div class="rule" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ============================================================ tonight -- -->
+<section class="wrap">
+  <div class="tonight rv" id="tonight">
+    <div class="tonight-top">
+      <span class="live caps"><i aria-hidden="true"></i> Tonight</span>
+      <span class="caps" id="tDate"></span>
+      <span class="caps" style="margin-left:auto" id="tLeft"></span>
+    </div>
+    <div class="slots" id="slots" role="group" aria-label="Choose a time for tonight"></div>
+    <p class="tonight-note">Two seats at the counter are held back until 18:00 each day, and never taken by phone.</p>
+  </div>
+</section>
+
+<!-- =============================================================== menu -- -->
+<section id="menu">
+  <div class="wrap" id="menuBody"></div>
+
+  <div class="wrap">
+    <div class="set rv">
+      <p class="caps">Five courses</p>
+      <h3>The whole fire</h3>
+      <p>What the kitchen is cooking that week, in order, with no choices to make. Written on the morning it is served.</p>
+      <p class="set-price">£78 a person · £48 with the wines</p>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== book -- -->
+<section class="book" id="book">
+  <div class="wrap book-in">
+    <h2>Book a table</h2>
+    <p class="book-sub">Or pick a time from tonight's list above and it fills this in for you.</p>
+
+    <form class="form" id="bookForm" novalidate>
+      <div class="picked" id="picked">
+        <b id="pickedTime">No time chosen yet</b>
+        <span id="pickedDate"></span>
+        <span style="margin-left:auto"><a href="#tonight" style="border-bottom:1px solid var(--line-2)">Choose from tonight</a></span>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="bname">Name</label>
+          <input id="bname" type="text" autocomplete="name" required>
+          <span class="err">We need a name for the book.</span>
+        </div>
+        <div class="field">
+          <label for="bphone">Phone</label>
+          <input id="bphone" type="tel" inputmode="tel" autocomplete="tel" required>
+          <span class="err">A number, in case the kitchen runs late.</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="bpeople">People</label>
+          <select id="bpeople">
+            <option>1</option><option selected>2</option><option>3</option>
+            <option>4</option><option>5</option><option>6</option>
+            <option>More than 6</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="bnote">Anything we should know</label>
+          <input id="bnote" type="text" placeholder="Allergies, a birthday, a pushchair">
+        </div>
+      </div>
+      <button class="btn" type="submit" id="bookBtn" style="justify-self:start;padding-inline:32px">Request the table</button>
+
+      <div class="done" id="done" role="status">
+        <div>
+          <b>That would have gone to the pass.</b>
+          <p>Ember &amp; Oak is a concept, so nothing left your browser. On a real restaurant's site this would land in the book and text you back within the hour.</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- =============================================================== room -- -->
+<section class="room" id="room">
+  <div class="wrap wide">
+    <div class="room-grid rv">
+      <figure>
+        <picture>
+          <source type="image/avif" srcset="img/room-600.avif 600w, img/room-1200.avif 1200w" sizes="(min-width:760px) 55vw, 100vw">
+          <img src="img/room-1200.jpg" width="1200" height="800" loading="lazy" alt="A long table laid with wine glasses and small plates, guests mid-meal.">
+        </picture>
+      </figure>
+      <div class="room-col">
+        <figure>
+          <picture>
+            <source type="image/avif" srcset="img/pour-600.avif 600w, img/pour-1200.avif 1200w" sizes="(min-width:760px) 40vw, 100vw">
+            <img src="img/pour-600.jpg" width="600" height="600" loading="lazy" alt="A cook spooning sauce over a plated dish under a low light.">
+          </picture>
+        </figure>
+        <figure>
+          <picture>
+            <source type="image/avif" srcset="img/glass-600.avif 600w, img/glass-1200.avif 900w" sizes="(min-width:760px) 40vw, 100vw">
+            <img src="img/glass-600.jpg" width="600" height="800" loading="lazy" alt="A glass of sparkling wine beside a stoneware bowl in raking light.">
+          </picture>
+        </figure>
+      </div>
+    </div>
+
+    <div class="room-text">
+      <div>
+        <p class="caps" style="color:var(--bone-3);margin-bottom:var(--s2)">The room</p>
+        <p>Thirty-four covers, one fire, and a counter for eight that looks straight into it. The kitchen has no gas — everything that reaches the table has been over oak or embers, including the bread and most of the puddings.</p>
+        <p>We take one sitting a night. The table is yours until you leave it.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Dinner</dt><dd>Tuesday – Saturday, from 18:00</dd></div>
+        <div><dt>Counter</dt><dd>Eight seats, walk-ins from 18:00</dd></div>
+        <div><dt>Corkage</dt><dd>£20, one bottle a table</dd></div>
+        <div><dt>Address</dt><dd>42 Bathurst Street</dd></div>
+        <div><dt>Allergens</dt><dd>Tell us when you book, not on the night</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="plateview" id="plateview" aria-hidden="true">
+  <figure>
+    <img id="pvImg" src="" alt="">
+    <figcaption class="caps" id="pvCap"></figcaption>
+  </figure>
+</div>
+
+<footer>
+  <div class="wrap wide">
+    <div class="foot caps">
+      <span>Ember &amp; Oak</span>
+      <span>42 Bathurst Street</span>
+      <span style="margin-left:auto">Dinner Tue–Sat</span>
+    </div>
+    <p class="disclosure">
+      <span><b>This is a concept.</b> Ember &amp; Oak is an invented restaurant, built as a portfolio piece by <a href="../../">Vadim Ivancenko</a>. The address and the menu are not real.</span>
+      <span><a href="../../#work">See the real client work →</a></span>
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var rv = new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rv.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
+  function watch(){ document.querySelectorAll('.rv:not(.in)').forEach(function(el){ rv.observe(el); }); }
+
+  /* ------------------------------------------------------------------ menu */
+  var MENU = [
+    {course:'To begin', dishes:[
+      {n:'Bread, dripping, burnt onion', p:'6', d:'Baked in the fire that morning. It comes whether you order it or not.'},
+      {n:'Oysters over coals', p:'4 each', d:'Six minutes over embers, seaweed butter, a squeeze of lemon.', img:'plate', tags:'Two minimum'},
+      {n:'Smoked cod roe, charred flatbread', p:'11', d:'Cured in-house for four days, whipped with brown butter.'},
+      {n:'Beetroot cooked in embers, aged goat', p:'12', d:'Buried in the ash overnight and peeled to order.', img:'minimal'}
+    ]},
+    {course:'From the fire', dishes:[
+      {n:'Lobster, fennel, saffron butter', p:'34', d:'Split, grilled shell-down, finished with its own reduction.', img:'lobster'},
+      {n:'Aged Longhorn rib for two', p:'78', d:'Forty-five days on the bone, rested in front of the fire for as long as it cooked.', img:'pour', tags:'Forty minutes'},
+      {n:'Whole turbot, brown butter, capers', p:'62', d:'Depending on the boat. Ask what came in.', tags:'For two'},
+      {n:'Hispi cabbage, hazelnut, aged parmesan', p:'16', d:'Halved, charred hard, dressed while it is still steaming.'}
+    ]},
+    {course:'Alongside', dishes:[
+      {n:'Potatoes in beef fat', p:'7', d:''},
+      {n:'Leaves, sherry vinegar', p:'6', d:''},
+      {n:'Grilled leeks, egg yolk, chive', p:'9', d:''}
+    ]},
+    {course:'To finish', dishes:[
+      {n:'Burnt honey ice cream', p:'8', d:'Made with the honey from the roof, burnt until it is almost too far.'},
+      {n:'Roasted pear, oat crumble, cream', p:'9', d:''},
+      {n:'A wedge of something British', p:'11', d:'Three cheeses, oatcakes, quince.'}
+    ]}
+  ];
+
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  document.getElementById('menuBody').innerHTML = MENU.map(function(c){
+    return '<section class="course rv"><h2>'+esc(c.course)+'</h2>' +
+      c.dishes.map(function(d){
+        var has = !!d.img;
+        return '<'+(has?'button type="button"':'div')+' class="dish'+(has?' has':'')+'"'+
+               (has?' data-img="'+d.img+'" data-name="'+esc(d.n)+'" aria-expanded="false"':'')+'>' +
+          '<span class="dish-line">' +
+            '<span class="dish-name">'+esc(d.n)+'</span>' +
+            '<span class="dots" aria-hidden="true"></span>' +
+            '<span class="dish-price">£'+esc(d.p)+'</span>' +
+          '</span>' +
+          (d.d ? '<span class="dish-desc" style="display:block">'+esc(d.d)+'</span>' : '') +
+          (d.tags ? '<span class="dish-tags" style="display:block">'+esc(d.tags)+'</span>' : '') +
+          (has ? '<span class="dish-photo" style="display:none">' +
+            '<picture><source type="image/avif" srcset="img/'+d.img+'-600.avif 600w, img/'+d.img+'-1200.avif 1200w" sizes="100vw">' +
+            '<img src="img/'+d.img+'-600.jpg" loading="lazy" alt="'+esc(d.n)+'"></picture></span>' : '') +
+        '</'+(has?'button':'div')+'>';
+      }).join('') +
+    '</section>';
+  }).join('');
+
+  watch();
+
+  /* the photograph: a fixed plate on wide screens, an accordion on narrow */
+  var pv    = document.getElementById('plateview');
+  var pvImg = document.getElementById('pvImg');
+  var pvCap = document.getElementById('pvCap');
+  var wide  = matchMedia('(min-width: 1400px)');
+
+  document.querySelectorAll('.dish.has').forEach(function(d){
+    function showPlate(){
+      if(!wide.matches) return;
+      pvImg.src = 'img/' + d.dataset.img + '-600.jpg';
+      pvImg.alt = d.dataset.name;
+      pvCap.textContent = d.dataset.name;
+      pv.classList.add('on');
+    }
+    function hidePlate(){ pv.classList.remove('on'); }
+
+    d.addEventListener('pointerenter', showPlate);
+    d.addEventListener('focus', showPlate);
+    d.addEventListener('pointerleave', hidePlate);
+    d.addEventListener('blur', hidePlate);
+    d.addEventListener('click', function(){
+      if(wide.matches){ showPlate(); return; }
+      var open = d.classList.toggle('open');
+      d.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var ph = d.querySelector('.dish-photo');
+      if(ph) ph.style.display = open ? 'block' : 'none';
+    });
+  });
+
+  /* --------------------------------------------------------------- tonight */
+  var TIMES = [
+    {t:'18:00', free:false},{t:'18:30', free:false},{t:'19:15', free:true},
+    {t:'20:00', free:false},{t:'20:45', free:false},{t:'21:30', free:true}
+  ];
+  var now = new Date();
+  var fmt = new Intl.DateTimeFormat('en-GB', {weekday:'long', day:'numeric', month:'long'});
+  document.getElementById('tDate').textContent = fmt.format(now);
+
+  var free = TIMES.filter(function(x){ return x.free; }).length;
+  document.getElementById('tLeft').textContent =
+    free ? free + ' table' + (free>1?'s':'') + ' left' : 'Fully booked';
+
+  var slots = document.getElementById('slots');
+  slots.innerHTML = TIMES.map(function(x){
+    return '<button class="slot" type="button" data-t="'+x.t+'" aria-pressed="false"' +
+           (x.free ? '' : ' disabled aria-label="'+x.t+', fully booked"') + '>'+x.t+'</button>';
+  }).join('');
+
+  var chosen = null;
+  slots.addEventListener('click', function(e){
+    var b = e.target.closest('.slot'); if(!b || b.disabled) return;
+    chosen = b.dataset.t;
+    slots.querySelectorAll('.slot').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+    b.setAttribute('aria-pressed','true');
+    document.getElementById('pickedTime').textContent = 'Tonight at ' + chosen;
+    document.getElementById('pickedDate').textContent = fmt.format(now);
+    document.getElementById('book').scrollIntoView({behavior:'smooth', block:'start'});
+    setTimeout(function(){ document.getElementById('bname').focus({preventScroll:true}); }, 520);
+  });
+
+  /* ------------------------------------------------------------------ book */
+  var form = document.getElementById('bookForm');
+  function ok(el){
+    if(el.id === 'bphone') return el.value.replace(/\D/g,'').length >= 7;
+    return el.value.trim().length > 0;
+  }
+  ['bname','bphone'].forEach(function(id){
+    var el = document.getElementById(id);
+    el.addEventListener('blur', function(){ el.closest('.field').classList.toggle('bad', !ok(el)); });
+    el.addEventListener('input', function(){
+      if(el.closest('.field').classList.contains('bad') && ok(el)) el.closest('.field').classList.remove('bad');
+    });
+  });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var first = null;
+    ['bname','bphone'].forEach(function(id){
+      var el = document.getElementById(id);
+      var good = ok(el);
+      el.closest('.field').classList.toggle('bad', !good);
+      el.setAttribute('aria-invalid', good ? 'false' : 'true');
+      if(!good && !first) first = el;
+    });
+    if(first){ first.focus(); return; }
+    document.getElementById('done').classList.add('on');
+    var b = document.getElementById('bookBtn');
+    b.disabled = true; b.textContent = 'Requested';
+  });
+})();
+</script>
+</body>
+</html>

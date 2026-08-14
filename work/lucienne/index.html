@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#EDEAE4">
+<meta name="robots" content="noindex, nofollow">
+
+<title>Lucienne — ready-to-wear</title>
+<meta name="description" content="A lookbook you can buy from. Fourteen pieces a season, made in Portugal, sold direct.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================================
+   LUCIENNE — ready-to-wear
+   Most shops photograph the clothes twice: once for the campaign, once flat
+   for the grid. Here there is one set of pictures, and you buy from it. The
+   only accent is tan, taken straight out of the camel coat in the first frame.
+   ========================================================================== */
+:root{
+  --bone:   #EDEAE4;
+  --bone-2: #E3DFD7;
+  --paper:  #F7F5F1;
+  --ink:    #191917;
+  --ink-2:  #56544E;   /* 6.4:1 on bone */
+  --ink-3:  #67655E;   /* 5.0:1 on bone */
+  --tan:    #6E4A2F;   /* out of the coat */
+  --tan-2:  #52351F;
+  --line:   rgba(25,25,23,.14);
+  --line-2: rgba(25,25,23,.30);
+
+  --f-display: "Bodoni Moda", Didot, Georgia, serif;
+  --f-body:    "Hanken Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:96px; --s7:150px;
+  --ease-out:    cubic-bezier(.23,1,.32,1);
+  --ease-drawer: cubic-bezier(.32,.72,0,1);
+  --wrap:1320px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+body{
+  background:var(--bone);color:var(--ink);
+  font-family:var(--f-body);font-size:16px;line-height:1.55;
+  min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body.locked{overflow:hidden;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button,select{font:inherit;color:inherit;background:none;border:0;}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--s3);}
+@media (min-width:900px){.wrap{padding-inline:var(--s4);}}
+.lbl{
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:500;line-height:1.4;
+}
+.skip{position:absolute;left:-9999px;top:0;z-index:400;background:var(--ink);color:var(--paper);padding:12px 18px;}
+.skip:focus{left:0;}
+
+/* ------------------------------------------------------------------ nav -- */
+.nav{
+  position:sticky;top:0;z-index:120;
+  background:color-mix(in srgb,var(--bone) 92%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{display:flex;align-items:center;gap:var(--s3);height:64px;}
+.brand{
+  font-family:var(--f-display);font-weight:400;font-size:24px;
+  letter-spacing:.06em;margin-right:auto;
+  display:inline-flex;align-items:center;min-height:44px;white-space:nowrap;
+}
+.chip-concept{
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+  border:1px solid var(--line-2);color:var(--ink-3);padding:4px 8px;white-space:nowrap;
+}
+.nav-links{display:none;gap:var(--s4);}
+@media (min-width:820px){.nav-links{display:flex;}}
+.nav-links a{color:var(--ink-2);transition:color .16s ease;}
+.nav-links a:hover{color:var(--ink);}
+.cart-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:44px;padding:0 6px;cursor:pointer;
+}
+.cart-btn b{
+  display:grid;place-items:center;min-width:19px;height:19px;padding:0 5px;
+  background:var(--ink);color:var(--paper);border-radius:999px;
+  font-size:11px;font-weight:600;font-variant-numeric:tabular-nums;
+  transition:transform .2s var(--ease-out);
+}
+.cart-btn b[data-n="0"]{background:transparent;color:var(--ink-3);}
+.cart-btn.bump b{transform:scale(1.22);}
+
+/* ----------------------------------------------------------------- hero -- */
+.hero{padding-block:var(--s5) var(--s6);}
+h1{
+  font-family:var(--f-display);font-weight:400;
+  font-size:clamp(46px,8.4vw,108px);line-height:.9;letter-spacing:-.026em;
+}
+h1 em{font-style:italic;}
+.hero-sub{
+  margin-top:var(--s3);max-width:44ch;color:var(--ink-2);
+  font-size:clamp(16px,1.6vw,18px);
+}
+.hero-row{
+  display:grid;gap:var(--s3);grid-template-columns:1fr;
+  margin-top:var(--s4);align-items:end;
+}
+@media (min-width:800px){.hero-row{grid-template-columns:1fr 1fr 1fr;gap:var(--s4);}}
+.hero-fig{margin:0;overflow:hidden;background:var(--bone-2);}
+.hero-fig img{width:100%;aspect-ratio:2/3;object-fit:cover;}
+.hero-meta{color:var(--ink-3);}
+.hero-meta p + p{margin-top:var(--s2);}
+
+/* -------------------------------------------------------------- lookbook -- */
+.band{padding-block:var(--s6);border-top:1px solid var(--line);}
+.band-head{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);align-items:baseline;margin-bottom:var(--s4);}
+h2{
+  font-family:var(--f-display);font-weight:400;
+  font-size:clamp(32px,5.4vw,64px);line-height:.94;letter-spacing:-.02em;
+}
+.band-head p{color:var(--ink-2);max-width:40ch;margin-left:auto;}
+
+.look{
+  display:grid;gap:var(--s3);grid-template-columns:1fr;
+  padding-block:var(--s4);
+}
+@media (min-width:900px){
+  .look{grid-template-columns:1.15fr .85fr;gap:var(--s5);align-items:center;}
+  .look:nth-child(even) .look-fig{order:2;}
+}
+.look-fig{position:relative;margin:0;overflow:hidden;background:var(--bone-2);}
+.look-fig img{width:100%;aspect-ratio:4/5;object-fit:cover;}
+@media (min-width:900px){.look-fig img{aspect-ratio:3/4;}}
+
+/* the hotspot: a real target, not a decoration */
+.spot{
+  position:absolute;transform:translate(-50%,-50%);
+  width:44px;height:44px;display:grid;place-items:center;cursor:pointer;
+}
+.spot i{
+  position:relative;display:grid;place-items:center;
+  width:24px;height:24px;border-radius:50%;
+  background:var(--paper);box-shadow:0 1px 8px rgba(0,0,0,.4);
+  font-style:normal;font-size:11px;font-weight:600;color:var(--ink);
+  transition:transform .2s var(--ease-out),background-color .18s ease,color .18s ease;
+}
+.spot i::after{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  border:1px solid var(--paper);
+  animation:pulse 2.8s var(--ease-out) infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1);opacity:.85;}
+  70%{transform:scale(2.4);opacity:0;}
+  100%{transform:scale(2.4);opacity:0;}
+}
+@media (prefers-reduced-motion:reduce){.spot i::after{animation:none;opacity:.5;}}
+.spot:hover i{transform:scale(1.25);}
+.spot:active i{transform:scale(1.05);}
+.spot[aria-expanded="true"] i{background:var(--tan);color:var(--paper);}
+
+.look-side .lbl{color:var(--ink-3);}
+.look-name{
+  font-family:var(--f-display);font-weight:400;
+  font-size:clamp(26px,3.4vw,40px);line-height:1;letter-spacing:-.015em;margin-top:8px;
+}
+.look-note{color:var(--ink-2);margin-top:var(--s2);max-width:38ch;}
+.look-list{list-style:none;margin-top:var(--s3);border-top:1px solid var(--line);}
+.look-list li{border-bottom:1px solid var(--line);}
+.look-list button{
+  display:flex;align-items:center;gap:var(--s2);width:100%;
+  min-height:52px;padding:8px 0;cursor:pointer;text-align:left;
+  transition:padding-left .2s var(--ease-out);
+}
+.look-list button:hover{padding-left:8px;}
+.look-list em{
+  flex:none;width:20px;height:20px;display:grid;place-items:center;
+  border:1px solid var(--line-2);border-radius:50%;
+  font-style:normal;font-size:10px;font-weight:600;color:var(--ink-3);
+}
+.look-list span{flex:1;}
+.look-list b{font-weight:500;font-variant-numeric:tabular-nums;}
+
+/* ----------------------------------------------------------------- shop -- */
+.grid{display:grid;gap:var(--s3) var(--s2);grid-template-columns:repeat(2,1fr);}
+@media (min-width:760px){.grid{grid-template-columns:repeat(3,1fr);gap:var(--s4) var(--s3);}}
+.card{cursor:pointer;text-align:left;display:block;width:100%;}
+.card-img{overflow:hidden;background:var(--bone-2);position:relative;}
+.card-img img{
+  width:100%;aspect-ratio:3/4;object-fit:cover;
+  transition:transform .5s var(--ease-out);
+}
+.card:hover .card-img img{transform:scale(1.03);}
+.card:active .card-img img{transform:scale(1.01);}
+.card-name{font-family:var(--f-display);font-size:19px;margin-top:12px;}
+.card-row{display:flex;justify-content:space-between;gap:var(--s2);align-items:baseline;margin-top:2px;}
+.card-price{font-variant-numeric:tabular-nums;font-weight:500;}
+.card-col{color:var(--ink-3);font-size:14px;}
+
+/* -------------------------------------------------------------- product -- */
+.sheet{
+  position:fixed;inset:0;z-index:200;
+  display:none;align-items:flex-end;justify-content:center;
+}
+@media (min-width:760px){.sheet{align-items:center;}}
+.sheet.on{display:flex;}
+.scrim{
+  position:absolute;inset:0;background:rgba(15,15,14,.5);
+  opacity:0;transition:opacity .32s var(--ease-out);
+}
+.sheet.in .scrim{opacity:1;}
+.sheet-card{
+  position:relative;width:100%;max-width:820px;max-height:92dvh;overflow:auto;
+  background:var(--paper);
+  display:grid;grid-template-columns:1fr;
+  transform:translateY(24px) scale(.98);opacity:0;
+  transition:transform .38s var(--ease-out),opacity .28s var(--ease-out);
+}
+@media (min-width:760px){.sheet-card{grid-template-columns:1fr 1fr;}}
+.sheet.in .sheet-card{transform:none;opacity:1;}
+@media (prefers-reduced-motion:reduce){
+  .scrim,.sheet-card{transition:none;}
+}
+.sheet-img{background:var(--bone-2);}
+.sheet-img img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4;}
+.sheet-body{padding:var(--s4);display:flex;flex-direction:column;}
+.sheet-close{
+  position:absolute;top:10px;right:10px;z-index:2;
+  width:44px;height:44px;display:grid;place-items:center;cursor:pointer;
+  background:var(--paper);
+  transition:transform .18s var(--ease-out);
+}
+.sheet-close:active{transform:scale(.94);}
+.sheet-name{font-family:var(--f-display);font-size:clamp(28px,3.4vw,38px);line-height:1.02;letter-spacing:-.015em;}
+.sheet-price{font-size:19px;font-weight:500;font-variant-numeric:tabular-nums;margin-top:8px;}
+.sheet-desc{color:var(--ink-2);margin-top:var(--s3);}
+.sheet-spec{list-style:none;margin-top:var(--s3);border-top:1px solid var(--line);}
+.sheet-spec li{display:flex;justify-content:space-between;gap:var(--s2);padding:9px 0;border-bottom:1px solid var(--line);font-size:15px;}
+.sheet-spec span:first-child{color:var(--ink-3);}
+.sizes{display:flex;flex-wrap:wrap;gap:8px;margin-top:var(--s3);}
+.size{
+  min-width:52px;min-height:44px;padding:0 12px;cursor:pointer;
+  border:1px solid var(--line-2);font-variant-numeric:tabular-nums;
+  transition:background-color .16s ease,border-color .16s ease,transform .16s var(--ease-out);
+}
+.size:hover{border-color:var(--ink);}
+.size:active{transform:scale(.96);}
+.size[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+.size[disabled]{opacity:.35;cursor:not-allowed;text-decoration:line-through;}
+.size-note{color:var(--ink-3);font-size:14px;margin-top:10px;min-height:20px;}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:50px;padding:0 22px;cursor:pointer;width:100%;
+  background:var(--ink);color:var(--paper);border:1px solid var(--ink);
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+  transition:transform .18s var(--ease-out),background-color .18s ease;
+}
+.btn:hover{background:var(--tan);border-color:var(--tan);}
+.btn:active{transform:scale(.98);}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-2);}
+.btn-ghost:hover{background:var(--bone-2);color:var(--ink);border-color:var(--ink);}
+.sheet-cta{margin-top:auto;padding-top:var(--s3);}
+
+/* ----------------------------------------------------------------- cart -- */
+.drawer{position:fixed;inset:0;z-index:220;display:none;}
+.drawer.on{display:block;}
+.drawer .scrim{opacity:0;}
+.drawer.in .scrim{opacity:1;}
+.drawer-panel{
+  position:absolute;top:0;right:0;bottom:0;
+  width:min(420px,100%);background:var(--paper);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);
+  transition:transform .42s var(--ease-drawer);
+}
+.drawer.in .drawer-panel{transform:none;}
+.drawer.out .drawer-panel{transform:translateX(100%);transition-duration:.26s;}
+@media (prefers-reduced-motion:reduce){.drawer-panel{transition:none;}}
+.drawer-top{
+  display:flex;align-items:center;gap:var(--s2);
+  padding:var(--s3);border-bottom:1px solid var(--line);
+}
+.drawer-top h3{font-family:var(--f-display);font-size:22px;font-weight:400;margin-right:auto;}
+.drawer-list{flex:1;overflow:auto;padding:var(--s3);display:grid;gap:var(--s3);align-content:start;}
+.line{display:grid;grid-template-columns:64px 1fr;gap:var(--s2);}
+.line img{width:64px;aspect-ratio:3/4;object-fit:cover;background:var(--bone-2);}
+.line-name{font-family:var(--f-display);font-size:17px;}
+.line-meta{color:var(--ink-3);font-size:13px;margin-top:2px;}
+.line-row{display:flex;align-items:center;gap:var(--s2);margin-top:8px;}
+.qty{display:flex;align-items:center;border:1px solid var(--line-2);}
+.qty button{width:34px;height:34px;cursor:pointer;font-size:16px;line-height:1;}
+.qty button:active{background:var(--bone-2);}
+.qty span{min-width:26px;text-align:center;font-variant-numeric:tabular-nums;font-size:14px;}
+.line-price{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:500;}
+.drawer-empty{margin:auto;text-align:center;color:var(--ink-3);padding:var(--s4);}
+.drawer-foot{padding:var(--s3);border-top:1px solid var(--line);display:grid;gap:var(--s2);}
+.total{display:flex;justify-content:space-between;font-size:18px;font-weight:500;font-variant-numeric:tabular-nums;}
+.total span:first-child{font-weight:400;color:var(--ink-2);}
+.ship{color:var(--ink-3);font-size:14px;}
+.checkout-note{
+  display:none;gap:10px;background:var(--bone-2);padding:14px;font-size:14px;color:var(--ink-2);
+}
+.checkout-note.on{display:flex;}
+
+/* --------------------------------------------------------------- footer -- */
+.made{display:grid;gap:var(--s4);grid-template-columns:1fr;}
+@media (min-width:900px){.made{grid-template-columns:1fr 1fr;gap:var(--s5);}}
+.made p{color:var(--ink-2);max-width:50ch;}
+.made p + p{margin-top:var(--s2);}
+.made-fig{margin:0;overflow:hidden;background:var(--bone-2);}
+.made-fig img{width:100%;aspect-ratio:4/3;object-fit:cover;}
+
+footer{border-top:1px solid var(--line);padding-block:var(--s4);}
+.foot{display:grid;gap:var(--s3);grid-template-columns:1fr;}
+@media (min-width:800px){.foot{grid-template-columns:1.4fr 1fr 1fr;}}
+.foot p{color:var(--ink-3);font-size:15px;max-width:40ch;}
+.foot h4{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;}
+.foot ul{list-style:none;}
+.foot li a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink-2);}
+.foot li a:hover{color:var(--ink);}
+.disclosure{
+  margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line);
+  color:var(--ink-3);font-size:14px;display:flex;flex-wrap:wrap;gap:6px var(--s2);
+}
+.disclosure a{color:var(--ink);box-shadow:inset 0 -1px 0 var(--line-2);}
+.disclosure a:hover{box-shadow:inset 0 -1px 0 var(--ink);}
+
+.rv{opacity:0;transform:translateY(14px);}
+.rv.in{opacity:1;transform:none;transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none;}}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">Lucienne</a>
+    <span class="chip-concept">Concept</span>
+    <nav class="nav-links lbl" aria-label="Sections">
+      <a href="#lookbook">Lookbook</a>
+      <a href="#shop">Shop</a>
+      <a href="#made">Made</a>
+    </nav>
+    <button class="cart-btn lbl" id="cartBtn" aria-label="Open the bag">
+      Bag <b id="cartN" data-n="0">0</b>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- ============================================================== hero -- -->
+<section class="hero">
+  <div class="wrap">
+    <h1>Fourteen pieces.<br><em>That is</em> the shop.</h1>
+    <div class="hero-row">
+      <figure class="hero-fig rv">
+        <picture>
+          <source type="image/avif" srcset="img/look1-700.avif 700w, img/look1-1400.avif 933w" sizes="(min-width:800px) 30vw, 100vw">
+          <img src="img/look1-700.jpg" width="700" height="1050" alt="A camel trench coat photographed in movement against a soft grey wall.">
+        </picture>
+      </figure>
+      <div class="hero-meta">
+        <p class="hero-sub">One collection a season, cut in Portugal, sold only here. Nothing is discounted, because nothing is over-made — when a size is gone, it is gone.</p>
+        <p class="lbl">Autumn / Winter · Delivered from 4 February</p>
+      </div>
+      <figure class="hero-fig rv">
+        <picture>
+          <source type="image/avif" srcset="img/knit1-700.avif 700w, img/knit1-1400.avif 933w" sizes="(min-width:800px) 30vw, 100vw">
+          <img src="img/knit1-700.jpg" width="700" height="1050" loading="lazy" alt="Cream cable knit folded over a warmer neutral knit.">
+        </picture>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== lookbook -- -->
+<section class="band" id="lookbook">
+  <div class="wrap">
+    <div class="band-head">
+      <h2>The lookbook<br>is the shop.</h2>
+      <p>There is no second set of pictures on a white background. Tap a mark on the photograph and buy the thing you are looking at.</p>
+    </div>
+    <div id="looks"></div>
+  </div>
+</section>
+
+<!-- ============================================================== shop -- -->
+<section class="band" id="shop">
+  <div class="wrap">
+    <div class="band-head">
+      <h2>Everything,<br>all of it.</h2>
+      <p>Six of the fourteen shown here. Sizes sell out and are not remade.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================== made -- -->
+<section class="band" id="made">
+  <div class="wrap made">
+    <div>
+      <p class="lbl" style="color:var(--ink-3)">How it is made</p>
+      <h2 style="margin-top:12px">Two factories.<br>Both named.</h2>
+      <p style="margin-top:var(--s3)">Outerwear and tailoring are cut in Porto by a family workshop we have used since the first season. Knitwear comes from a mill outside Barcelos that spins its own yarn. We publish both names on the care label, which is unusual and should not be.</p>
+      <p>Producing fourteen pieces instead of ninety is the whole business model. It is why there is no sale, no outlet, and no second-quality channel — there is no surplus to move.</p>
+    </div>
+    <figure class="made-fig rv">
+      <picture>
+        <source type="image/avif" srcset="img/still-700.avif 700w, img/still-1400.avif 1400w" sizes="(min-width:900px) 46vw, 100vw">
+        <img src="img/still-1400.jpg" width="1400" height="933" loading="lazy" alt="Grey and black knitted fabric photographed in raking light.">
+      </picture>
+    </figure>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top" style="font-size:22px">Lucienne</a>
+        <p style="margin-top:8px">Ready-to-wear, made in Portugal, sold direct. Free shipping and returns within the EU and the UK.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#shop">Outerwear</a></li>
+          <li><a href="#shop">Knitwear</a></li>
+          <li><a href="#shop">Tailoring</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#made">Sizing</a></li>
+          <li><a href="#made">Shipping &amp; returns</a></li>
+          <li><a href="#made">Care</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="disclosure">
+      <span><b>This is a concept.</b> Lucienne is an invented label, built as a portfolio piece by <a href="../../">Vadim Ivancenko</a>. Nothing here can be bought.</span>
+      <span><a href="../../#work">See the real client work →</a></span>
+    </p>
+  </div>
+</footer>
+
+<!-- ========================================================== product -- -->
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetName">
+  <div class="scrim" data-close></div>
+  <div class="sheet-card">
+    <button class="sheet-close" data-close aria-label="Close">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="sheet-img"><img id="sheetImg" src="" alt=""></div>
+    <div class="sheet-body">
+      <p class="lbl" id="sheetCat" style="color:var(--ink-3)"></p>
+      <h3 class="sheet-name" id="sheetName"></h3>
+      <p class="sheet-price" id="sheetPrice"></p>
+      <p class="sheet-desc" id="sheetDesc"></p>
+      <ul class="sheet-spec" id="sheetSpec"></ul>
+      <p class="lbl" style="margin-top:var(--s3);color:var(--ink-3)">Size</p>
+      <div class="sizes" id="sheetSizes" role="group" aria-label="Choose a size"></div>
+      <p class="size-note" id="sizeNote"></p>
+      <div class="sheet-cta">
+        <button class="btn" id="addBtn" type="button">Add to bag</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================= cart -- -->
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Your bag">
+  <div class="scrim" data-close></div>
+  <div class="drawer-panel">
+    <div class="drawer-top">
+      <h3>Bag</h3>
+      <button class="sheet-close" data-close aria-label="Close the bag" style="position:static;background:none">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="drawer-list" id="drawerList"></div>
+    <div class="drawer-foot">
+      <div class="total"><span>Subtotal</span><span id="total">€0</span></div>
+      <p class="ship">Shipping and duties calculated at checkout. Free above €300.</p>
+      <button class="btn" id="checkout" type="button">Checkout</button>
+      <div class="checkout-note" id="checkoutNote">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:2px" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
+        <span>Lucienne is a concept site, so there is no checkout behind this button. Your bag is still saved in this browser — reload the page and it will be here.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var rv = new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rv.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
+  function watch(){ document.querySelectorAll('.rv:not(.in)').forEach(function(el){ rv.observe(el); }); }
+
+  /* ------------------------------------------------------------------ data */
+  var P = {
+    trench: {name:'The Trench', cat:'Outerwear', price:690, img:'look1', alt:'A camel trench coat in movement.',
+      desc:'A long trench in a dry cotton gabardine that holds its shape without being stiff. Cut generously through the shoulder so it works over knitwear.',
+      spec:[['Fabric','100% cotton gabardine'],['Made in','Porto, Portugal'],['Lining','Cupro, half-lined']],
+      sizes:[['XS',1],['S',1],['M',1],['L',0],['XL',1]]},
+    shell:  {name:'The Sleeveless Knit', cat:'Knitwear', price:240, img:'look2', alt:'A black sleeveless knit top worn in profile.',
+      desc:'A fine-gauge merino shell that sits close without clinging. The armhole is cut high on purpose so it layers under tailoring.',
+      spec:[['Fabric','Extra-fine merino'],['Made in','Barcelos, Portugal'],['Gauge','14gg']],
+      sizes:[['XS',1],['S',1],['M',1],['L',1],['XL',0]]},
+    jacket: {name:'The Check Jacket', cat:'Tailoring', price:520, img:'look3', alt:'A grey check jacket worn open over a black top.',
+      desc:'An unstructured jacket in a wool check, cut without shoulder padding so it folds rather than holds. It is the piece we remake every season.',
+      spec:[['Fabric','Wool, 320g'],['Made in','Porto, Portugal'],['Construction','Unstructured, unlined body']],
+      sizes:[['XS',0],['S',1],['M',1],['L',1],['XL',1]]},
+    cable:  {name:'The Cable Knit', cat:'Knitwear', price:310, img:'knit1', alt:'A cream cable knit folded.',
+      desc:'A heavy cable in undyed lambswool. The yarn is spun at the mill that knits it, which is why the colour is a colour and not a dye lot.',
+      spec:[['Fabric','Undyed lambswool'],['Made in','Barcelos, Portugal'],['Weight','780g']],
+      sizes:[['S',1],['M',1],['L',1],['XL',1]]},
+    rib:    {name:'The Ribbed Crew', cat:'Knitwear', price:265, img:'knit2', alt:'Ribbed knitted textiles in neutral tones.',
+      desc:'A dense rib that keeps its neckline after a winter of wear. Made in three neutrals and nothing else.',
+      spec:[['Fabric','Lambswool, 2-ply'],['Made in','Barcelos, Portugal'],['Weight','620g']],
+      sizes:[['S',1],['M',0],['L',1],['XL',1]]},
+    shirt:  {name:'The Everyday Shirt', cat:'Shirting', price:195, img:'edit', alt:'A folded shirt beside shoes and a hat.',
+      desc:'A washed cotton poplin with a soft collar that does not need pressing. The one piece we do restock.',
+      spec:[['Fabric','Washed cotton poplin'],['Made in','Porto, Portugal'],['Collar','Soft, unfused']],
+      sizes:[['XS',1],['S',1],['M',1],['L',1],['XL',1]]}
+  };
+
+  /* three frames, each with real marks on real garments */
+  var LOOKS = [
+    {n:'Look 01', title:'The coat, worn open', img:'look1', ratio:'3/4',
+     note:'Photographed in the workshop in Porto on the morning the first ten came off the table.',
+     alt:'A camel trench coat photographed in movement against a soft grey wall.',
+     spots:[{x:52,y:38,id:'trench'},{x:44,y:63,id:'cable'}]},
+    {n:'Look 02', title:'Under everything', img:'look2', ratio:'4/5',
+     note:'The shell is the piece nobody photographs and everybody re-orders.',
+     alt:'A black sleeveless knit top worn in profile against a grey wall.',
+     spots:[{x:53,y:52,id:'shell'},{x:36,y:78,id:'shirt'}]},
+    {n:'Look 03', title:'Tailoring, unstructured', img:'look3', ratio:'4/5',
+     note:'No shoulder pad, no chest canvas. It folds into a bag and comes out wearable.',
+     alt:'A grey check jacket worn open over a black top and dark trousers.',
+     spots:[{x:44,y:42,id:'jacket'},{x:56,y:36,id:'rib'}]}
+  ];
+
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function money(n){ return '€' + n.toLocaleString('en-GB'); }
+  function pic(img, alt, sizes, cls){
+    return '<picture>' +
+      '<source type="image/avif" srcset="img/'+img+'-700.avif 700w, img/'+img+'-1400.avif 1400w" sizes="'+sizes+'">' +
+      '<img src="img/'+img+'-700.jpg" loading="lazy" alt="'+esc(alt)+'"'+(cls?' class="'+cls+'"':'')+'>' +
+    '</picture>';
+  }
+
+  /* --------------------------------------------------------------- looks -- */
+  document.getElementById('looks').innerHTML = LOOKS.map(function(L,i){
+    return '<article class="look rv">' +
+      '<figure class="look-fig">' + pic(L.img, L.alt, '(min-width:900px) 52vw, 100vw') +
+        L.spots.map(function(s,j){
+          return '<button class="spot" style="left:'+s.x+'%;top:'+s.y+'%" data-p="'+s.id+'" '+
+                 'aria-expanded="false" aria-label="'+esc(P[s.id].name)+', '+money(P[s.id].price)+'"><i>'+(j+1)+'</i></button>';
+        }).join('') +
+      '</figure>' +
+      '<div class="look-side">' +
+        '<p class="lbl">'+esc(L.n)+'</p>' +
+        '<p class="look-name">'+esc(L.title)+'</p>' +
+        '<p class="look-note">'+esc(L.note)+'</p>' +
+        '<ul class="look-list">' +
+          L.spots.map(function(s,j){
+            var p = P[s.id];
+            return '<li><button type="button" data-p="'+s.id+'">' +
+              '<em>'+(j+1)+'</em><span>'+esc(p.name)+'</span><b>'+money(p.price)+'</b></button></li>';
+          }).join('') +
+        '</ul>' +
+      '</div>' +
+    '</article>';
+  }).join('');
+
+  /* ---------------------------------------------------------------- grid -- */
+  document.getElementById('grid').innerHTML = Object.keys(P).map(function(k){
+    var p = P[k];
+    return '<button class="card" type="button" data-p="'+k+'">' +
+      '<span class="card-img">' + pic(p.img, p.alt, '(min-width:760px) 30vw, 46vw') + '</span>' +
+      '<span class="card-name">'+esc(p.name)+'</span>' +
+      '<span class="card-row"><span class="card-col">'+esc(p.cat)+'</span>' +
+      '<span class="card-price">'+money(p.price)+'</span></span>' +
+    '</button>';
+  }).join('');
+
+  watch();
+
+  /* ------------------------------------------------------------- product -- */
+  var sheet = document.getElementById('sheet');
+  var openKey = null, size = null, lastTrigger = null;
+
+  function openProduct(key, trigger){
+    var p = P[key]; if(!p) return;
+    openKey = key; size = null; lastTrigger = trigger || null;
+
+    document.getElementById('sheetCat').textContent   = p.cat;
+    document.getElementById('sheetName').textContent  = p.name;
+    document.getElementById('sheetPrice').textContent = money(p.price);
+    document.getElementById('sheetDesc').textContent  = p.desc;
+    document.getElementById('sheetImg').src = 'img/' + p.img + '-700.jpg';
+    document.getElementById('sheetImg').alt = p.alt;
+    document.getElementById('sheetSpec').innerHTML = p.spec.map(function(r){
+      return '<li><span>'+esc(r[0])+'</span><span>'+esc(r[1])+'</span></li>';
+    }).join('');
+    document.getElementById('sheetSizes').innerHTML = p.sizes.map(function(s){
+      return '<button class="size" type="button" data-size="'+s[0]+'" aria-pressed="false"' +
+             (s[1] ? '' : ' disabled aria-label="'+s[0]+', sold out"') + '>'+s[0]+'</button>';
+    }).join('');
+    document.getElementById('sizeNote').textContent = '';
+    document.getElementById('addBtn').textContent = 'Add to bag';
+
+    show(sheet);
+  }
+
+  function show(el){
+    el.classList.add('on');
+    document.body.classList.add('locked');
+    requestAnimationFrame(function(){ el.classList.add('in'); });
+    var f = el.querySelector('button:not([data-close])') || el.querySelector('[data-close]');
+    if(f) setTimeout(function(){ f.focus({preventScroll:true}); }, 60);
+  }
+  function hide(el){
+    el.classList.remove('in');
+    setTimeout(function(){
+      el.classList.remove('on');
+      if(!document.querySelector('.sheet.on, .drawer.on')) document.body.classList.remove('locked');
+    }, 260);
+    if(el === sheet && lastTrigger) lastTrigger.focus({preventScroll:true});
+  }
+
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-p]');
+    if(t){ openProduct(t.dataset.p, t); return; }
+    var c = e.target.closest('[data-close]');
+    if(c){ hide(c.closest('.sheet, .drawer')); return; }
+    var s = e.target.closest('.size');
+    if(s && !s.disabled){
+      size = s.dataset.size;
+      document.querySelectorAll('#sheetSizes .size').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      s.setAttribute('aria-pressed','true');
+      document.getElementById('sizeNote').textContent = '';
+    }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    var open = document.querySelector('.drawer.on') || document.querySelector('.sheet.on');
+    if(open) hide(open);
+  });
+
+  /* ---------------------------------------------------------------- bag --
+     Kept in localStorage so the bag survives a reload, which is the whole
+     point of showing a bag on a portfolio piece. */
+  var KEY = 'lucienne.bag.v1';
+  var bag = [];
+  try{ bag = JSON.parse(localStorage.getItem(KEY)) || []; }catch(err){ bag = []; }
+
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(bag)); }catch(err){} }
+  function count(){ return bag.reduce(function(n,l){ return n + l.q; }, 0); }
+  function sum(){ return bag.reduce(function(n,l){ return n + l.q * P[l.k].price; }, 0); }
+
+  function paint(){
+    var n = count();
+    var badge = document.getElementById('cartN');
+    badge.textContent = n; badge.dataset.n = n;
+
+    var list = document.getElementById('drawerList');
+    if(!bag.length){
+      list.innerHTML = '<div class="drawer-empty"><p>Your bag is empty.</p>' +
+        '<p style="margin-top:8px;font-size:14px">Everything in the lookbook can be added from the photograph.</p></div>';
+    }else{
+      list.innerHTML = bag.map(function(l,i){
+        var p = P[l.k];
+        return '<div class="line">' +
+          '<img src="img/'+p.img+'-700.jpg" alt="">' +
+          '<div>' +
+            '<p class="line-name">'+esc(p.name)+'</p>' +
+            '<p class="line-meta">Size '+esc(l.s)+' · '+esc(p.cat)+'</p>' +
+            '<div class="line-row">' +
+              '<span class="qty"><button type="button" data-d="-1" data-i="'+i+'" aria-label="One fewer">−</button>' +
+              '<span>'+l.q+'</span>' +
+              '<button type="button" data-d="1" data-i="'+i+'" aria-label="One more">+</button></span>' +
+              '<span class="line-price">'+money(p.price * l.q)+'</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+    document.getElementById('total').textContent = money(sum());
+  }
+
+  document.getElementById('drawerList').addEventListener('click', function(e){
+    var b = e.target.closest('[data-d]'); if(!b) return;
+    var i = +b.dataset.i, d = +b.dataset.d;
+    bag[i].q += d;
+    if(bag[i].q < 1) bag.splice(i,1);
+    save(); paint();
+  });
+
+  document.getElementById('addBtn').addEventListener('click', function(){
+    if(!size){
+      document.getElementById('sizeNote').textContent = 'Choose a size first.';
+      var first = document.querySelector('#sheetSizes .size:not([disabled])');
+      if(first) first.focus();
+      return;
+    }
+    var found = bag.filter(function(l){ return l.k === openKey && l.s === size; })[0];
+    if(found) found.q += 1; else bag.push({k:openKey, s:size, q:1});
+    save(); paint();
+
+    this.textContent = 'Added';
+    var btn = document.getElementById('cartBtn');
+    btn.classList.add('bump');
+    setTimeout(function(){ btn.classList.remove('bump'); }, 220);
+    setTimeout(function(){ hide(sheet); }, 380);
+  });
+
+  document.getElementById('cartBtn').addEventListener('click', function(){
+    document.getElementById('checkoutNote').classList.remove('on');
+    show(document.getElementById('drawer'));
+  });
+  document.getElementById('checkout').addEventListener('click', function(){
+    document.getElementById('checkoutNote').classList.add('on');
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>
