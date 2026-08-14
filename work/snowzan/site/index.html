@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#08070C">
+<meta name="robots" content="noindex, nofollow">
+
+<title>Snowzan Mobile Detailing — Mobile Car Detailing in Phoenix, Ahwatukee, Chandler &amp; Tempe</title>
+<meta name="description" content="Professional interior &amp; exterior car detailing brought to your driveway in Phoenix, Ahwatukee, Chandler and Tempe. Full details from $150. 15+ five-star Google reviews. Text 480-753-3993 for a free quote.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snowzan Mobile Detailing — Phoenix, AZ">
+<meta property="og:description" content="Interior &amp; exterior detailing brought straight to your driveway. Full details from $150. Text 480-753-3993.">
+<meta property="og:image" content="images/hero-mercedes.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/sz-logo.png">
+<link rel="apple-touch-icon" href="images/sz-logo.png">
+
+<style>
+/* ============================================================================
+   SNOWZAN MOBILE DETAILING — design tokens
+   Everything visual is controlled from this block.
+   ========================================================================== */
+:root{
+  /* ---- brand palette (violet sampled from the real SZ logo: #382164) ---- */
+  --void:        #08070C;   /* page base — warm-cool near-black, never pure #000 */
+  --void-2:      #0C0B12;   /* alternating band */
+  --panel:       #121019;   /* raised surface */
+  --panel-2:     #17141F;   /* raised surface, hover */
+
+  --ink:         #F4F3F7;   /* primary text on dark */
+  --ink-2:       rgba(244,243,247,.66);  /* secondary text */
+  --ink-3:       rgba(244,243,247,.50);  /* tertiary / captions — 5:1 on --void, still AA */
+
+  --brand:       #382164;   /* logo violet — used for depth, glows, gradients */
+  --violet:      #8E6BFF;   /* accent — CTAs, links, active states (6.4:1 on --void) */
+  --violet-2:    #B39BFF;   /* accent light — hover, highlights */
+  --ice:         #CFE3FF;   /* frost highlight — "snow" side of the brand */
+  --gold:        #E8C879;   /* star rating only */
+
+  --line:        rgba(244,243,247,.10);  /* hairline */
+  --line-2:      rgba(244,243,247,.18);  /* hairline, emphasized */
+
+  /* ---- type ---- */
+  --f-display: "Archivo", "Helvetica Neue", sans-serif;
+  --f-body:    "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --f-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  /* ---- spacing scale (8pt rhythm) ---- */
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 40px;
+  --s5: 64px; --s6: 96px; --s7: 140px;
+
+  /* ---- motion ---- */
+  --ease: cubic-bezier(.16,1,.3,1);
+  --dur:  .55s;
+
+  --radius: 14px;
+  --nav-h: 68px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:90px;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+
+body{
+  background:var(--void);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+  min-height:100dvh;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
+:focus-visible{outline:2px solid var(--violet-2);outline-offset:3px;border-radius:4px;}
+
+/* ---------- shared primitives ---------- */
+.wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 20px;}
+@media(min-width:900px){.wrap{padding:0 var(--s4);}}
+
+.mono{
+  font-family:var(--f-mono);
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+}
+.tnum{font-variant-numeric:tabular-nums;}
+
+/* section label:  01 / SERVICES  */
+.slabel{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--violet-2);margin-bottom:var(--s3);
+}
+.slabel::before{content:"";width:26px;height:1px;background:var(--violet);opacity:.7;}
+
+h1,h2,h3{
+  font-family:var(--f-display);
+  font-weight:600;
+  line-height:1.02;
+  letter-spacing:-.02em;
+}
+h2{font-size:clamp(30px,4.6vw,54px);}
+h3{font-size:clamp(19px,2vw,23px);line-height:1.2;letter-spacing:-.01em;}
+
+.lead{color:var(--ink-2);font-size:clamp(16px,1.4vw,18.5px);max-width:56ch;}
+
+section{position:relative;}
+.band{padding:var(--s6) 0;}
+@media(min-width:900px){.band{padding:var(--s7) 0;}}
+.band-alt{background:var(--void-2);}
+.hr{height:1px;background:var(--line);border:0;}
+
+/* ---------- film grain: the cheapest trick that reads as expensive ---------- */
+.grain{
+  position:fixed;inset:0;pointer-events:none;z-index:900;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+/* ---------- ambient brand light ---------- */
+.aura{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(90px);}
+.aura-a{width:44vw;height:44vw;left:-14vw;top:-10vw;background:radial-gradient(circle,rgba(56,33,100,.55),transparent 68%);}
+.aura-b{width:38vw;height:38vw;right:-12vw;top:38vh;background:radial-gradient(circle,rgba(142,107,255,.14),transparent 70%);}
+.wrap,section,header,footer{position:relative;z-index:1;}
+
+/* ---------- scroll reveal ---------- */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .85s var(--ease),transform .85s var(--ease);}
+.rv.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none;}}
+
+/* ============================ NAV ============================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);
+  display:flex;align-items:center;
+  transition:background .4s var(--ease),border-color .4s var(--ease),backdrop-filter .4s;
+  border-bottom:1px solid transparent;
+}
+/* before the nav condenses it floats over the photo — keep the links legible */
+.nav::before{
+  content:"";position:absolute;inset:0;bottom:-24px;pointer-events:none;
+  background:linear-gradient(to bottom, rgba(8,7,12,.8), rgba(8,7,12,.45) 55%, transparent);
+  transition:opacity .4s var(--ease);
+}
+.nav.stuck::before{opacity:0;}
+.nav .wrap{position:relative;z-index:1;}
+.nav.stuck{
+  background:rgba(8,7,12,.72);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);
+  backdrop-filter:blur(18px) saturate(150%);
+  border-bottom-color:var(--line);
+}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);}
+
+.brand{display:flex;align-items:center;gap:11px;}
+/* the real SZ mark, straight from Snowzan's own branding */
+.brand-mark{
+  width:34px;height:34px;border-radius:9px;flex:none;
+  object-fit:cover;
+  box-shadow:0 0 0 1px rgba(255,255,255,.09) inset, 0 6px 22px -8px rgba(142,107,255,.7);
+}
+.brand-name{font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:-.01em;white-space:nowrap;}
+.brand-sub{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.17em;color:var(--ink-3);text-transform:uppercase;margin-top:1px;white-space:nowrap;}
+@media(max-width:400px){.brand-sub{letter-spacing:.1em;font-size:9px;}}
+.t-short{display:none;}
+@media(max-width:600px){.t-long{display:none;}.t-short{display:inline;}}
+
+.nav-links{display:none;gap:var(--s3);align-items:center;}
+@media(min-width:1000px){.nav-links{display:flex;}}
+.nav-links a{
+  font-size:13.5px;color:var(--ink-2);position:relative;padding:6px 0;
+  transition:color .25s var(--ease);
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--violet);
+  transition:right .35s var(--ease);
+}
+.nav-links a:hover{color:var(--ink);}
+.nav-links a:hover::after{right:0;}
+
+.nav-cta{display:flex;align-items:center;gap:10px;}
+.nav-phone{display:none;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.06em;color:var(--ink-2);transition:color .25s;}
+.nav-phone:hover{color:var(--violet-2);}
+@media(min-width:760px){.nav-phone{display:inline-flex;align-items:center;gap:7px;}}
+
+/* ============================ BUTTONS ============================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:48px;padding:0 22px;border-radius:100px;
+  font-size:14.5px;font-weight:500;letter-spacing:.005em;
+  cursor:pointer;white-space:nowrap;
+  transition:transform .2s var(--ease),background .25s var(--ease),box-shadow .3s var(--ease),border-color .25s;
+}
+.btn:active{transform:scale(.975);}
+.btn svg{flex:none;}
+
+.btn-primary{
+  background:linear-gradient(180deg,#FFFFFF,#DFDCEA);
+  color:#0B0910;font-weight:600;
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 12px 34px -14px rgba(207,227,255,.55);
+}
+.btn-primary:hover{box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 18px 42px -14px rgba(207,227,255,.75);}
+
+.btn-violet{
+  background:linear-gradient(180deg,#9C7CFF,#7A55F5);
+  color:#fff;font-weight:600;
+  box-shadow:0 1px 0 rgba(255,255,255,.22) inset, 0 14px 36px -14px rgba(142,107,255,.85);
+}
+.btn-violet:hover{box-shadow:0 1px 0 rgba(255,255,255,.28) inset, 0 20px 46px -14px rgba(142,107,255,1);}
+
+.btn-ghost{border:1px solid var(--line-2);color:var(--ink);background:rgba(244,243,247,.02);}
+.btn-ghost:hover{background:rgba(244,243,247,.07);border-color:rgba(244,243,247,.3);}
+
+.btn-sm{min-height:42px;padding:0 17px;font-size:13.5px;}
+
+/* ============================ HERO ============================ */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;align-items:flex-end;
+  padding-top:calc(var(--nav-h) + 40px);
+  padding-bottom:var(--s5);
+  overflow:hidden;
+}
+/* MOBILE / TABLET — photo fills the hero, scrim carries the contrast */
+.hero-photo{
+  position:absolute;inset:0;z-index:0;
+  /* Snowzan's own cover shot. The second layer is a fallback so the hero can
+     never render empty if the first file is missing. */
+  background-image:url("images/hero-cover.jpg"), url("images/hero-mercedes.jpg");
+  /* The cover shot is cropped at the top in the file itself, which is what
+     lifts the car in frame. Y-position can't do it here: the photo and this
+     column have nearly the same aspect ratio, so cover leaves no vertical
+     slack to shift. */
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  transform:scale(1.06);
+  will-change:transform;
+  filter:brightness(1.14) contrast(1.04) saturate(1.05);
+}
+@media(min-width:1000px){.hero-photo{filter:none;}}
+.hero-scrim{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(to top, var(--void) 0%, rgba(8,7,12,.82) 30%, rgba(8,7,12,.46) 62%, rgba(8,7,12,.6) 100%),
+    linear-gradient(to right, rgba(8,7,12,.7) 0%, rgba(8,7,12,.26) 60%, rgba(8,7,12,.1) 100%);
+}
+.hero-scrim::after{  /* violet ambience over the paint */
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 70% at 78% 18%, rgba(142,107,255,.22), transparent 62%);
+  mix-blend-mode:screen;
+}
+.hero .wrap{position:relative;z-index:2;width:100%;}
+
+/* DESKTOP — editorial split: type on the left, full-bleed portrait on the right */
+@media(min-width:1000px){
+  .hero{align-items:center;padding-bottom:var(--s5);}
+  .hero-photo{
+    left:auto;right:0;width:47vw;
+    background-position:center;
+    transform:scale(1.04);
+    -webkit-mask-image:linear-gradient(to right, transparent 0, #000 16%, #000 100%);
+    mask-image:linear-gradient(to right, transparent 0, #000 16%, #000 100%);
+  }
+  .hero-scrim{
+    background:
+      linear-gradient(to right, var(--void) 0%, var(--void) 40%, rgba(8,7,12,.55) 54%, rgba(8,7,12,.12) 72%, rgba(8,7,12,.5) 100%),
+      linear-gradient(to top, rgba(8,7,12,.75), transparent 34%);
+  }
+  .hero .wrap > *{max-width:min(560px,50%);}
+}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:7px 14px 7px 11px;margin-bottom:var(--s3);
+  border:1px solid var(--line-2);border-radius:100px;
+  background:rgba(8,7,12,.5);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2);
+}
+.pulse{width:7px;height:7px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:pulse 2.4s infinite;}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(74,222,128,0);}100%{box-shadow:0 0 0 0 rgba(74,222,128,0);}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none;}}
+
+.hero h1{
+  font-size:clamp(42px,8.4vw,104px);
+  font-weight:700;
+  letter-spacing:-.035em;
+  line-height:.95;
+  max-width:14ch;
+  margin-bottom:var(--s3);
+}
+.hero h1 .shine{
+  background:linear-gradient(96deg,#FFFFFF 8%,var(--ice) 34%,#AD90FF 62%,#FFFFFF 90%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:sheen 9s linear infinite;
+}
+@keyframes sheen{to{background-position:220% 0;}}
+@media (prefers-reduced-motion:reduce){.hero h1 .shine{animation:none;}}
+/* under 1000px the headline sits directly on the photo — a moving gradient
+   dips below AA at some frames, so use one solid, always-legible accent */
+@media(max-width:999px){
+  .hero h1 .shine{
+    background-image:none;animation:none;
+    color:var(--violet-2);-webkit-text-fill-color:var(--violet-2);
+  }
+}
+
+.hero-sub{color:var(--ink-2);font-size:clamp(16px,1.6vw,19px);max-width:44ch;margin-bottom:var(--s4);}
+.hero-sub b{color:var(--ink);font-weight:500;}
+/* on small screens the type sits directly on the photo — keep it legible */
+@media(max-width:999px){
+  .hero h1,.hero-sub{text-shadow:0 2px 26px rgba(8,7,12,.95), 0 1px 4px rgba(8,7,12,.7);}
+}
+
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:var(--s4);}
+@media(max-width:560px){
+  .hero-actions{display:grid;grid-template-columns:1fr;}
+  .hero-actions .btn{width:100%;}
+}
+
+.hero-proof{
+  display:flex;flex-wrap:wrap;
+  padding-top:var(--s3);border-top:1px solid var(--line);
+  row-gap:var(--s3);
+}
+.proof-item{
+  display:flex;flex-direction:column;gap:7px;
+  padding-right:26px;margin-right:26px;border-right:1px solid var(--line);
+}
+.proof-item:last-child{border-right:0;margin-right:0;padding-right:0;}
+@media(max-width:640px){
+  /* explicit 2x2 — the longest label needs to wrap rather than claim a whole row */
+  .hero-proof{display:grid;grid-template-columns:repeat(2,1fr);row-gap:var(--s3);}
+  .proof-item{padding-right:14px;margin-right:14px;}
+  .proof-item:nth-child(2n){border-right:0;margin-right:0;padding-right:0;}
+  .proof-v{white-space:normal;}
+}
+.proof-k{
+  font-family:var(--f-display);font-weight:700;
+  font-size:clamp(21px,2.3vw,27px);line-height:1;letter-spacing:-.03em;
+}
+.proof-v{
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);line-height:1.3;white-space:nowrap;
+}
+@media(max-width:999px){
+  .hero-proof{text-shadow:0 1px 14px rgba(8,7,12,.95);}
+}
+.stars{display:flex;gap:2px;color:var(--gold);}
+.proof-item .stars{margin-bottom:-1px;}
+
+.scroll-cue{
+  position:absolute;left:max(40px,calc(50vw - 580px));bottom:22px;z-index:3;
+  display:none;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);
+  align-items:center;gap:9px;
+}
+@media(min-width:1000px) and (min-height:760px){.scroll-cue{display:flex;}}
+.scroll-cue i{display:block;width:1px;height:34px;background:linear-gradient(var(--violet),transparent);animation:drop 2.2s var(--ease) infinite;}
+
+/* desktop split — sizing overrides (must come after the base hero rules) */
+@media(min-width:1000px){
+  .hero .wrap > h1{font-size:clamp(44px,4.75vw,74px);max-width:min(720px,61%);}
+  .hero .wrap > .hero-proof{max-width:min(760px,63%);}
+  /* tighter gutters so the four stats stay on one line */
+  .hero-proof .proof-item{padding-right:16px;margin-right:16px;}
+}
+/* between 1000 and 1240 the row can't hold four — 2x2 reads as deliberate,
+   3+1 reads as broken */
+@media(min-width:1000px) and (max-width:1239px){
+  .hero .wrap > .hero-proof{
+    display:grid;grid-template-columns:repeat(2,1fr);row-gap:var(--s3);
+  }
+  .hero-proof .proof-item:nth-child(2n){border-right:0;margin-right:0;padding-right:0;}
+  .hero .wrap > .hero-sub{max-width:min(470px,42%);}
+}
+@keyframes drop{0%{transform:scaleY(.2);transform-origin:top;opacity:0;}40%{transform:scaleY(1);opacity:1;}100%{transform:scaleY(1);transform-origin:bottom;opacity:0;}}
+
+/* ============================ MARQUEE ============================ */
+.marq{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:15px 0;overflow:hidden;background:rgba(18,16,25,.5);
+}
+.marq-track{display:flex;width:max-content;animation:slide 34s linear infinite;}
+@media (prefers-reduced-motion:reduce){.marq-track{animation:none;}}
+.marq-track span{
+  display:inline-flex;align-items:center;gap:var(--s3);padding-right:var(--s3);
+  font-family:var(--f-mono);font-size:11.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;
+}
+.marq-track span b{color:var(--ink-2);font-weight:400;}
+.marq-dot{width:4px;height:4px;border-radius:50%;background:var(--violet);flex:none;}
+@keyframes slide{to{transform:translateX(-50%);}}
+
+/* ============================ SERVICES ============================ */
+.sec-head{
+  display:grid;gap:var(--s3);margin-bottom:var(--s5);
+  grid-template-columns:1fr;
+}
+@media(min-width:900px){.sec-head{grid-template-columns:1.15fr .85fr;align-items:end;gap:var(--s4);}}
+
+.svc-grid{display:grid;gap:14px;grid-template-columns:1fr;}
+@media(min-width:700px){.svc-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1080px){.svc-grid{grid-template-columns:repeat(4,1fr);}}
+
+.svc{
+  position:relative;display:flex;flex-direction:column;
+  padding:var(--s3) var(--s3) 26px;
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(168deg,var(--panel),rgba(8,7,12,.4));
+  transition:transform .4s var(--ease),border-color .4s,background .4s;
+  overflow:hidden;
+}
+.svc::before{ /* top hairline highlight */
+  content:"";position:absolute;top:0;left:14px;right:14px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(244,243,247,.22),transparent);
+}
+.svc:hover{transform:translateY(-4px);border-color:var(--line-2);background:linear-gradient(168deg,var(--panel-2),rgba(8,7,12,.4));}
+
+.svc-featured{
+  border-color:rgba(142,107,255,.42);
+  background:linear-gradient(168deg,rgba(56,33,100,.42),rgba(8,7,12,.55));
+  box-shadow:0 26px 70px -40px rgba(142,107,255,.9);
+}
+.svc-featured::before{background:linear-gradient(90deg,transparent,rgba(179,155,255,.75),transparent);}
+.svc-tag{
+  position:absolute;top:14px;right:14px;
+  font-family:var(--f-mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  color:#0B0910;background:var(--violet-2);padding:4px 9px;border-radius:100px;font-weight:500;
+}
+.svc-ico{
+  width:38px;height:38px;border-radius:10px;display:grid;place-items:center;margin-bottom:var(--s3);
+  border:1px solid var(--line-2);background:rgba(244,243,247,.04);color:var(--violet-2);
+}
+.svc h3{margin-bottom:8px;}
+.svc-price{
+  display:flex;align-items:baseline;gap:7px;margin-bottom:14px;
+  font-family:var(--f-display);font-weight:700;
+}
+.svc-price em{font-family:var(--f-mono);font-style:normal;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+.svc-price span{font-size:30px;letter-spacing:-.03em;}
+.svc p{font-size:14.5px;color:var(--ink-2);line-height:1.6;}
+.svc ul{list-style:none;margin-top:14px;display:grid;gap:7px;}
+.svc li{display:flex;gap:9px;font-size:13.5px;color:var(--ink-2);line-height:1.45;}
+.svc li svg{flex:none;margin-top:4px;color:var(--violet);}
+
+.addons{
+  margin-top:14px;padding:var(--s3);border:1px dashed var(--line-2);border-radius:var(--radius);
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px var(--s3);
+}
+.addons .mono{color:var(--ink-2);}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 13px;border-radius:100px;border:1px solid var(--line);
+  background:rgba(244,243,247,.03);font-size:13px;color:var(--ink-2);
+}
+.chip svg{color:var(--violet-2);}
+.chip-p{
+  font-family:var(--f-mono);font-size:10px;font-weight:400;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--violet-2);white-space:nowrap;
+  padding-left:9px;margin-left:2px;border-left:1px solid var(--line-2);
+}
+
+.note{margin-top:14px;font-size:13px;color:var(--ink-3);}
+
+/* ============================ ESTIMATOR ============================ */
+.est{
+  display:grid;gap:0;grid-template-columns:1fr;
+  border:1px solid var(--line-2);border-radius:20px;overflow:hidden;
+  background:linear-gradient(150deg,rgba(56,33,100,.30),rgba(18,16,25,.9) 55%);
+  box-shadow:0 50px 110px -60px rgba(142,107,255,.75);
+}
+@media(min-width:940px){.est{grid-template-columns:1.25fr .75fr;}}
+.est-form{padding:var(--s4) 20px;}
+@media(min-width:640px){.est-form{padding:var(--s4);}}
+@media(max-width:600px){
+  .opts{gap:8px;}
+  /* pills stretch to fill each wrapped row — reads as a grid, not a ragged list */
+  .opt{flex:1 1 auto;}
+  .opt span{width:100%;justify-content:center;padding:0 12px;font-size:13.5px;gap:7px;}
+}
+
+.field{margin-bottom:var(--s4);}
+.field:last-of-type{margin-bottom:0;}
+.field-label{display:flex;align-items:baseline;gap:10px;margin-bottom:13px;}
+.field-num{
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;color:var(--violet-2);
+  border:1px solid rgba(142,107,255,.4);border-radius:5px;padding:2px 6px;
+}
+.field-label h4{font-family:var(--f-display);font-weight:600;font-size:16px;letter-spacing:-.005em;}
+
+.opts{display:flex;flex-wrap:wrap;gap:9px;}
+.opt{position:relative;}
+.opt input{position:absolute;opacity:0;width:0;height:0;}
+.opt span{
+  display:inline-flex;align-items:center;gap:9px;
+  min-height:46px;padding:0 17px;border-radius:100px;
+  border:1px solid var(--line);background:rgba(244,243,247,.03);
+  font-size:14px;color:var(--ink-2);cursor:pointer;
+  transition:border-color .25s var(--ease),background .25s var(--ease),color .25s;
+}
+.opt span small{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;color:var(--ink-3);}
+.opt:hover span{border-color:var(--line-2);background:rgba(244,243,247,.06);}
+.opt input:checked + span{
+  border-color:var(--violet);color:var(--ink);
+  background:linear-gradient(180deg,rgba(142,107,255,.26),rgba(142,107,255,.10));
+  box-shadow:0 0 0 1px rgba(142,107,255,.35), 0 10px 30px -16px rgba(142,107,255,.9);
+}
+.opt input:checked + span small{color:var(--violet-2);}
+.opt input:focus-visible + span{outline:2px solid var(--violet-2);outline-offset:3px;}
+
+/* result rail */
+.est-out{
+  padding:var(--s4) 20px;
+  border-top:1px solid var(--line);
+  background:
+    radial-gradient(90% 60% at 50% 0%, rgba(142,107,255,.18), transparent 70%),
+    rgba(8,7,12,.62);
+  display:flex;flex-direction:column;justify-content:center;
+}
+@media(min-width:640px){.est-out{padding:var(--s4);}}
+@media(min-width:940px){.est-out{border-top:0;border-left:1px solid var(--line);}}
+
+.est-amount{
+  font-family:var(--f-display);font-weight:700;
+  font-size:clamp(38px,5.2vw,56px);letter-spacing:-.035em;line-height:1;
+  display:flex;align-items:baseline;gap:6px;margin:12px 0 10px;
+  font-variant-numeric:tabular-nums;
+}
+.est-amount .cur{font-size:.5em;color:var(--ink-3);}
+.est-amount .dash{color:var(--ink-3);font-weight:400;}
+.est-break{font-size:13.5px;color:var(--ink-2);line-height:1.7;margin-bottom:10px;}
+.est-break b{color:var(--ink);font-weight:500;}
+.est-why{
+  font-size:12.5px;color:var(--ink-2);line-height:1.55;margin-bottom:var(--s3);
+  padding-left:11px;border-left:2px solid rgba(142,107,255,.5);
+}
+.est-actions{display:grid;gap:10px;}
+.est-actions .btn{width:100%;}
+.est-fine{margin-top:14px;font-size:11.5px;color:var(--ink-3);line-height:1.55;}
+
+/* ============================ PROCESS ============================ */
+.steps{display:grid;gap:2px;grid-template-columns:1fr;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+@media(min-width:760px){.steps{grid-template-columns:repeat(4,1fr);}}
+.step{background:var(--void);padding:var(--s3);transition:background .35s var(--ease);}
+.band-alt .step{background:var(--void-2);}
+.step:hover{background:var(--panel);}
+.step-n{
+  font-family:var(--f-display);font-weight:700;font-size:34px;letter-spacing:-.04em;
+  color:transparent;-webkit-text-stroke:1px rgba(142,107,255,.55);line-height:1;margin-bottom:16px;
+}
+.step h3{font-size:17px;margin-bottom:7px;}
+.step p{font-size:14px;color:var(--ink-2);line-height:1.6;}
+
+/* ============================ GALLERY ============================ */
+.gal{display:grid;gap:10px;grid-template-columns:repeat(2,1fr);}
+@media(min-width:760px){.gal{grid-template-columns:repeat(4,1fr);gap:12px;}}
+.tile{
+  position:relative;overflow:hidden;border-radius:var(--radius);
+  border:1px solid var(--line);background:var(--panel);
+  aspect-ratio:3/4;cursor:zoom-in;
+  transition:border-color .35s var(--ease);
+}
+.tile.wide{grid-column:span 2;aspect-ratio:3/2;}
+@media(max-width:759px){.tile.wide{aspect-ratio:4/3;}}
+.tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease),filter .5s var(--ease);}
+.tile:hover img{transform:scale(1.06);}
+.tile:hover{border-color:var(--line-2);}
+.tile figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;
+  background:linear-gradient(to top,rgba(8,7,12,.9),transparent);
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);
+  display:flex;justify-content:space-between;align-items:flex-end;gap:10px;
+  opacity:0;transform:translateY(6px);transition:opacity .4s var(--ease),transform .4s var(--ease);
+}
+.tile:hover figcaption,.tile:focus-visible figcaption{opacity:1;transform:none;}
+@media(hover:none){.tile figcaption{opacity:1;transform:none;}}
+@media(max-width:600px){
+  .tile figcaption{font-size:9px;letter-spacing:.08em;padding:22px 11px 10px;}
+  .tile figcaption span:last-child{display:none;}
+}
+
+/* lightbox */
+.lb{
+  position:fixed;inset:0;z-index:1000;display:none;
+  align-items:center;justify-content:center;padding:20px;
+  background:rgba(6,5,9,.93);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+}
+.lb.open{display:flex;animation:fade .3s var(--ease);}
+@keyframes fade{from{opacity:0;}}
+.lb img{max-width:min(94vw,900px);max-height:86vh;border-radius:var(--radius);border:1px solid var(--line-2);object-fit:contain;}
+.lb-close{
+  position:absolute;top:18px;right:18px;width:46px;height:46px;border-radius:50%;
+  border:1px solid var(--line-2);background:rgba(244,243,247,.06);display:grid;place-items:center;color:var(--ink);
+}
+.lb-close:hover{background:rgba(244,243,247,.14);}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;
+  border:1px solid var(--line-2);background:rgba(244,243,247,.06);display:grid;place-items:center;color:var(--ink);
+}
+.lb-nav:hover{background:rgba(244,243,247,.14);}
+.lb-prev{left:14px;} .lb-next{right:14px;}
+.lb-cap{position:absolute;bottom:20px;left:0;right:0;text-align:center;}
+
+/* ============================ REVIEWS ============================ */
+.rev-grid{display:grid;gap:14px;grid-template-columns:1fr;}
+@media(min-width:820px){.rev-grid{grid-template-columns:repeat(3,1fr);}}
+.rev{
+  display:flex;flex-direction:column;
+  padding:var(--s3);border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(168deg,var(--panel),rgba(8,7,12,.35));
+  transition:transform .4s var(--ease),border-color .4s;
+}
+.rev:hover{transform:translateY(-3px);border-color:var(--line-2);}
+.rev-q{
+  font-family:var(--f-display);font-weight:400;
+  font-size:17px;line-height:1.5;letter-spacing:-.005em;color:var(--ink);
+  margin:14px 0 auto;padding-bottom:var(--s3);
+}
+.rev-by{display:flex;align-items:center;gap:11px;padding-top:16px;border-top:1px solid var(--line);}
+.rev-av{
+  width:36px;height:36px;border-radius:50%;flex:none;display:grid;place-items:center;
+  font-family:var(--f-display);font-weight:700;font-size:13px;color:var(--ice);
+  background:linear-gradient(150deg,#3D2470,#1B1130);border:1px solid var(--line-2);
+}
+.rev-name{font-size:14px;font-weight:500;}
+.rev-src{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);}
+
+.rating-bar{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s3);
+  margin-top:14px;padding:var(--s3);border:1px solid var(--line);border-radius:var(--radius);
+  background:rgba(18,16,25,.55);
+}
+.rating-l{display:flex;align-items:center;gap:16px;}
+.rating-num{font-family:var(--f-display);font-weight:700;font-size:38px;letter-spacing:-.03em;line-height:1;}
+
+/* ============================ ABOUT ============================ */
+.about{display:grid;gap:var(--s4);grid-template-columns:1fr;align-items:center;}
+@media(min-width:940px){.about{grid-template-columns:.9fr 1.1fr;gap:var(--s5);}}
+.about-media{
+  position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+  aspect-ratio:4/3;
+}
+@media(min-width:940px){.about-media{aspect-ratio:5/6;}}
+.about-media img{width:100%;height:100%;object-fit:cover;object-position:center 42%;}
+.about-media::after{content:"";position:absolute;inset:0;background:linear-gradient(200deg,rgba(142,107,255,.18),transparent 55%);mix-blend-mode:screen;}
+.about-badge{
+  position:absolute;left:14px;bottom:14px;z-index:2;
+  padding:10px 15px;border-radius:12px;border:1px solid var(--line-2);
+  background:rgba(8,7,12,.72);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+}
+.about-badge .mono{color:var(--ink-3);margin-bottom:3px;}
+.about-badge b{font-family:var(--f-display);font-weight:600;font-size:15px;}
+.about p{color:var(--ink-2);margin-bottom:var(--s2);max-width:56ch;}
+.about p:first-of-type{color:var(--ink);font-size:17.5px;}
+
+.area-list{display:flex;flex-wrap:wrap;gap:9px;margin-top:var(--s3);}
+
+/* ============================ CTA ============================ */
+.cta{
+  position:relative;overflow:hidden;
+  border:1px solid var(--line-2);border-radius:22px;
+  padding:var(--s5) var(--s3);text-align:center;
+  background:
+    radial-gradient(90% 120% at 50% 0%, rgba(142,107,255,.30), transparent 62%),
+    linear-gradient(180deg,rgba(56,33,100,.35),rgba(12,11,18,.9));
+  box-shadow:0 60px 130px -70px rgba(142,107,255,.9);
+}
+@media(min-width:760px){.cta{padding:var(--s6) var(--s4);}}
+.cta h2{margin-bottom:16px;max-width:18ch;margin-inline:auto;text-wrap:balance;}
+.cta .lead{margin:0 auto var(--s4);text-align:center;}
+.cta-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+.cta-meta{
+  margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:12px var(--s4);
+}
+
+/* ============================ FOOTER ============================ */
+footer{border-top:1px solid var(--line);padding:var(--s5) 0 calc(var(--s5) + 70px);}
+@media(min-width:760px){footer{padding-bottom:var(--s5);}}
+.foot{display:grid;gap:var(--s4);grid-template-columns:1fr;}
+@media(min-width:760px){.foot{grid-template-columns:1.4fr 1fr 1fr;gap:var(--s5);}}
+.foot h5{font-family:var(--f-mono);font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px;font-weight:400;}
+.foot ul{list-style:none;display:grid;gap:10px;}
+.foot a{color:var(--ink-2);font-size:14.5px;transition:color .25s;}
+.foot a:hover{color:var(--violet-2);}
+.foot-note{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;}
+
+/* ============================ MOBILE ACTION BAR ============================ */
+.dock{
+  position:fixed;left:0;right:0;bottom:0;z-index:200;
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(8,7,12,.86);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  border-top:1px solid var(--line);
+  transform:translateY(110%);transition:transform .45s var(--ease);
+}
+.dock.up{transform:none;}
+@media(min-width:760px){.dock{display:none;}}
+.dock .btn{width:100%;min-height:50px;}
+
+/* ============================ SR ONLY ============================ */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+.skip{
+  position:absolute;top:-100px;left:16px;z-index:999;padding:12px 18px;border-radius:8px;
+  background:var(--violet);color:#fff;font-size:14px;
+}
+.skip:focus{top:16px;}
+</style>
+<noscript><style>.rv{opacity:1;transform:none;}.dock{transform:none;}</style></noscript>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="aura aura-a" aria-hidden="true"></div>
+<div class="aura aura-b" aria-hidden="true"></div>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Snowzan Mobile Detailing — home">
+      <img class="brand-mark" src="images/sz-logo.png" alt="" width="256" height="256">
+      <span>
+        <span class="brand-name">Snowzan</span>
+        <span class="brand-sub">Mobile Detailing</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#quote">Get a price</a>
+      <a href="#work">Recent work</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#about">About</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a class="nav-phone tnum" href="tel:+14807533993">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        480-753-3993
+      </a>
+      <a class="btn btn-violet btn-sm" href="sms:+14807533993?&body=Hi%20Snowzan%2C%20I%27d%20like%20a%20quote%20for%20a%20detail.">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.4 8.4 0 0 1 3.5 11 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>
+        <span class="t-long">Text for a quote</span><span class="t-short">Text me</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" aria-label="Snowzan Mobile Detailing">
+  <div class="hero-photo" id="heroPhoto" role="img" aria-label="Black Mercedes GLE detailed at sunset in a Phoenix driveway"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <p class="hero-eyebrow">
+      <span class="pulse" aria-hidden="true"></span>
+      <span class="t-long">Now booking · Phoenix · Ahwatukee · Chandler · Tempe</span>
+      <span class="t-short">Now booking · Phoenix &amp; East Valley</span>
+    </p>
+
+    <h1>Showroom finish,<br><span class="shine">in your driveway.</span></h1>
+
+    <p class="hero-sub">Professional interior &amp; exterior detailing brought to you — full equipment, heated extraction, and honest pricing. <b>You don't go anywhere.</b></p>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#quote">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Get your price in 20 seconds
+      </a>
+      <a class="btn btn-ghost" href="tel:+14807533993">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        Call 480-753-3993
+      </a>
+    </div>
+
+    <div class="hero-proof">
+      <div class="proof-item">
+        <span class="stars" aria-hidden="true">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+        </span>
+        <span class="proof-k tnum">5.0<span class="sr"> out of 5 stars</span></span>
+        <span class="proof-v">15+ Google reviews</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-k">100% mobile</span>
+        <span class="proof-v">We come to you</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-k tnum">$150</span>
+        <span class="proof-v">Full detail · Starting at</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-k">4 cities</span>
+        <span class="proof-v">Across the valley</span>
+      </div>
+    </div>
+  </div>
+
+  <span class="scroll-cue" aria-hidden="true">Scroll <i></i></span>
+</section>
+
+<!-- ============================ MARQUEE ============================ -->
+<div class="marq" aria-hidden="true">
+  <div class="marq-track" id="marq">
+    <span><b>Phoenix</b><i class="marq-dot"></i>Ahwatukee<i class="marq-dot"></i><b>Chandler</b><i class="marq-dot"></i>Tempe<i class="marq-dot"></i>Heated extraction<i class="marq-dot"></i><b>Foam bath &amp; hand wash</b><i class="marq-dot"></i>Interior protection<i class="marq-dot"></i>Stain removal<i class="marq-dot"></i><b>Engine bay</b><i class="marq-dot"></i>Trim restoration<i class="marq-dot"></i></span>
+    <span><b>Phoenix</b><i class="marq-dot"></i>Ahwatukee<i class="marq-dot"></i><b>Chandler</b><i class="marq-dot"></i>Tempe<i class="marq-dot"></i>Heated extraction<i class="marq-dot"></i><b>Foam bath &amp; hand wash</b><i class="marq-dot"></i>Interior protection<i class="marq-dot"></i>Stain removal<i class="marq-dot"></i><b>Engine bay</b><i class="marq-dot"></i>Trim restoration<i class="marq-dot"></i></span>
+  </div>
+</div>
+
+<!-- ============================ SERVICES ============================ -->
+<section class="band" id="services">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <p class="slabel">01 — Services</p>
+        <h2>Four packages.<br>No surprise line items.</h2>
+      </div>
+      <p class="lead">Every price below is the real starting price for a standard vehicle. Final cost depends on size and condition — and you'll know it before I start, not after.</p>
+    </div>
+
+    <div class="svc-grid">
+      <!-- Exterior -->
+      <article class="svc rv">
+        <span class="svc-ico" aria-hidden="true">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M3 17v-4l2.2-5.3A2 2 0 0 1 7 6.5h10a2 2 0 0 1 1.8 1.2L21 13v4M3 17v2h3v-2M18 17v2h3v-2"/><circle cx="7.5" cy="13.5" r="1.2"/><circle cx="16.5" cy="13.5" r="1.2"/></svg>
+        </span>
+        <h3>Exterior Detail</h3>
+        <div class="svc-price"><em>from</em><span class="tnum">$40</span></div>
+        <p>Foam bath, thorough hand wash, wheel and tire cleaning, door jambs, exterior glass, tire &amp; trim shine, and hand drying.</p>
+      </article>
+
+      <!-- Wash & Wax -->
+      <article class="svc rv">
+        <span class="svc-ico" aria-hidden="true">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M5 12H3M21 12h-2M6.3 6.3 4.9 4.9M19.1 19.1l-1.4-1.4M17.7 6.3l1.4-1.4M4.9 19.1l1.4-1.4"/><circle cx="12" cy="12" r="4"/></svg>
+        </span>
+        <h3>Wash &amp; Wax</h3>
+        <div class="svc-price"><em>from</em><span class="tnum">$75</span></div>
+        <p>Everything in the exterior detail, plus a protective hand-applied wax for added gloss and protection.</p>
+      </article>
+
+      <!-- Interior -->
+      <article class="svc rv">
+        <span class="svc-ico" aria-hidden="true">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20v-3M18 20v-3M5 17h14a2 2 0 0 0 2-2v-1a3 3 0 0 0-3-3h-1V6a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5H6a3 3 0 0 0-3 3v1a2 2 0 0 0 2 2z"/></svg>
+        </span>
+        <h3>Interior Detail</h3>
+        <div class="svc-price"><em>from</em><span class="tnum">$110</span></div>
+        <p>Deep vacuuming, detailed cleaning of all surfaces and crevices, floor mat cleaning, streak-free glass, and interior protection.</p>
+      </article>
+
+      <!-- Full — featured (the package the owner wants to book) -->
+      <article class="svc svc-featured rv">
+        <span class="svc-tag">Most booked</span>
+        <span class="svc-ico" aria-hidden="true">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 14.6 8l6 .9-4.3 4.2 1 6-5.3-2.8L6.7 19l1-6L3.4 8.9 9.4 8z"/></svg>
+        </span>
+        <h3>Full Detail</h3>
+        <div class="svc-price"><em>from</em><span class="tnum">$150</span></div>
+        <p>Complete interior and exterior detailing for a thorough, top-to-bottom clean.</p>
+        <ul>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5.5 5.5L20 7"/></svg> Foam bath, hand wash &amp; wax-ready finish</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5.5 5.5L20 7"/></svg> Deep vacuum, crevices, mats &amp; glass</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5.5 5.5L20 7"/></svg> Wheels, tires, trim shine &amp; door jambs</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5.5 5.5L20 7"/></svg> Interior protection applied on every surface</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="addons rv">
+      <span class="mono">Available add-ons</span>
+      <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 3s5 5 5 9a5 5 0 0 1-10 0c0-4 5-9 5-9z"/></svg> Heated extraction <b class="chip-p">starting at $35</b></span>
+      <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="m9 15 6-6"/></svg> Stain removal <b class="chip-p">starting at $35</b></span>
+      <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 18 18 4l2 2L6 20z"/><path d="m14 8 2 2"/></svg> Trim restoration <b class="chip-p">starting at $25</b></span>
+      <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="11" rx="2"/><path d="M7 7V5h10v2M8 18v2M16 18v2"/></svg> Engine bay detailing <b class="chip-p">starting at $45</b></span>
+    </div>
+    <p class="note">Final price depends on vehicle size and condition. Text a photo of your vehicle and you'll get an exact number back — no obligation.</p>
+  </div>
+</section>
+
+<!-- ============================ ESTIMATOR ============================ -->
+<section class="band band-alt" id="quote">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <p class="slabel">02 — Instant estimate</p>
+        <h2>Build your detail.<br>See the price.</h2>
+      </div>
+      <p class="lead">Pick your vehicle and package — the estimate updates live. Happy with it? One tap sends it straight to my phone as a text, already filled in.</p>
+    </div>
+
+    <div class="est rv">
+      <!-- ---------- inputs ---------- -->
+      <form class="est-form" id="estForm" novalidate>
+        <fieldset class="field" style="border:0;">
+          <legend class="sr">Vehicle size</legend>
+          <div class="field-label"><span class="field-num">01</span><h4>What are you driving?</h4></div>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="size" value="sedan" checked>
+              <span>Sedan / Coupe</span></label>
+            <label class="opt"><input type="radio" name="size" value="suv">
+              <span>SUV / Crossover <small>+</small></span></label>
+            <label class="opt"><input type="radio" name="size" value="truck">
+              <span>Truck / 3-row <small>++</small></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field" style="border:0;">
+          <legend class="sr">Package</legend>
+          <div class="field-label"><span class="field-num">02</span><h4>Which package?</h4></div>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="pkg" value="ext">
+              <span>Exterior <small>$40+</small></span></label>
+            <label class="opt"><input type="radio" name="pkg" value="ww">
+              <span>Wash &amp; Wax <small>$75+</small></span></label>
+            <label class="opt"><input type="radio" name="pkg" value="int">
+              <span>Interior <small>$110+</small></span></label>
+            <label class="opt"><input type="radio" name="pkg" value="full" checked>
+              <span>Full Detail <small>$150+</small></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field" style="border:0;">
+          <legend class="sr">Add-ons</legend>
+          <div class="field-label"><span class="field-num">03</span><h4>Anything extra? <span style="color:var(--ink-3);font-weight:400;font-size:13px;">(optional)</span></h4></div>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="add" value="extraction" data-price="35" data-label="Heated extraction">
+              <span>Heated extraction <small>from +$35</small></span></label>
+            <label class="opt"><input type="checkbox" name="add" value="stain" data-price="35" data-label="Stain removal">
+              <span>Stain removal <small>from +$35</small></span></label>
+            <label class="opt"><input type="checkbox" name="add" value="trim" data-price="25" data-label="Trim restoration">
+              <span>Trim restoration <small>from +$25</small></span></label>
+            <label class="opt"><input type="checkbox" name="add" value="engine" data-price="45" data-label="Engine bay detailing">
+              <span>Engine bay <small>from +$45</small></span></label>
+          </div>
+        </fieldset>
+      </form>
+
+      <!-- ---------- output ---------- -->
+      <div class="est-out">
+        <span class="mono">Your estimate</span>
+        <p class="est-amount" id="estAmount" aria-live="polite">
+          <span class="cur">$</span><span id="estLow">150</span><span class="dash">–</span><span id="estHigh">190</span>
+        </p>
+        <p class="est-break" id="estBreak"><b>Full Detail</b> · Sedan / Coupe</p>
+        <p class="est-why">The range is based on the vehicle's condition — a well-kept car lands at the lower end, one that needs heavier work at the upper.</p>
+
+        <div class="est-actions">
+          <a class="btn btn-violet" id="estSms" href="sms:+14807533993">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.4 8.4 0 0 1 3.5 11 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>
+            Text this to Snowzan
+          </a>
+          <a class="btn btn-ghost" href="tel:+14807533993">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+            Or call instead
+          </a>
+        </div>
+
+        <p class="est-fine">Estimate only — the exact price is confirmed once I see the vehicle's condition. No deposit, no obligation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PROCESS ============================ -->
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <p class="slabel">03 — How it works</p>
+        <h2>Text on Monday.<br>Spotless by Tuesday.</h2>
+      </div>
+      <p class="lead">No apps, no accounts, no waiting rooms. You send a message, I show up with everything needed and work in your driveway.</p>
+    </div>
+
+    <div class="steps rv">
+      <div class="step">
+        <p class="step-n">01</p>
+        <h3>Send a text</h3>
+        <p>Tell me the vehicle and what you want done. A photo helps me quote it exactly.</p>
+      </div>
+      <div class="step">
+        <p class="step-n">02</p>
+        <h3>Pick a time</h3>
+        <p>Flexible scheduling around your day — mornings, evenings and weekends included.</p>
+      </div>
+      <div class="step">
+        <p class="step-n">03</p>
+        <h3>I come to you</h3>
+        <p>Professional equipment arrives at your driveway. All I need from you is access to a water spigot and an outdoor outlet.</p>
+      </div>
+      <div class="step">
+        <p class="step-n">04</p>
+        <h3>Walk out to it</h3>
+        <p>You inspect the finish before I leave. Not right? I fix it on the spot.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WORK ============================ -->
+<section class="band band-alt" id="work">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <p class="slabel">04 — Recent work</p>
+        <h2>Real cars.<br>Real driveways.</h2>
+      </div>
+      <p class="lead">Every photo below is from a job around the valley — daily drivers, family SUVs, work trucks and the occasional weekend car. Tap any tile to enlarge.</p>
+    </div>
+
+    <div class="gal rv" id="gal">
+      <figure class="tile" tabindex="0" role="button" aria-label="Enlarge: Mercedes GLE, full detail, Ahwatukee">
+        <img src="images/hero-mercedes.jpg" alt="Black Mercedes GLE with a mirror-gloss finish parked in a driveway at sunset" loading="lazy" width="1280" height="1753">
+        <figcaption><span>Mercedes GLE</span><span>Full detail</span></figcaption>
+      </figure>
+      <figure class="tile" tabindex="0" role="button" aria-label="Enlarge: Ford F-150 interior, interior detail">
+        <img src="images/work-f150-interior.jpg" alt="Ford F-150 interior after detailing, clean leather seats and dashboard" loading="lazy" width="1280" height="1753">
+        <figcaption><span>Ford F-150</span><span>Interior</span></figcaption>
+      </figure>
+      <figure class="tile" tabindex="0" role="button" aria-label="Enlarge: Toyota Tacoma, exterior detail">
+        <img src="images/work-tacoma.jpg" alt="Toyota Tacoma washed and detailed in a Phoenix driveway" loading="lazy" width="1280" height="1753">
+        <figcaption><span>Toyota Tacoma</span><span>Wash &amp; wax</span></figcaption>
+      </figure>
+      <figure class="tile" tabindex="0" role="button" aria-label="Enlarge: wheel and tire detail close-up">
+        <img src="images/work-wheel.jpg" alt="Close-up of a cleaned black alloy wheel and dressed tire" loading="lazy" width="1280" height="1753">
+        <figcaption><span>Wheels &amp; tires</span><span>Detail</span></figcaption>
+      </figure>
+      <figure class="tile" tabindex="0" role="button" aria-label="Enlarge: Ram 1500, full detail">
+        <img src="images/work-ram.jpg" alt="Blue Ram 1500 truck detailed in a driveway under an American flag" loading="lazy" width="1280" height="1753">
+        <figcaption><span>Ram 1500</span><span>Full detail</span></figcaption>
+      </figure>
+      <figure class="tile" tabindex="0" role="button" aria-label="Enlarge: Ford Ranger interior, deep clean">
+        <img src="images/work-ranger-interior.jpg" alt="Ford Ranger cloth interior after a deep interior clean" loading="lazy" width="1280" height="1753">
+        <figcaption><span>Ford Ranger</span><span>Deep clean</span></figcaption>
+      </figure>
+      <figure class="tile" tabindex="0" role="button" aria-label="Enlarge: Kia Sorento, exterior detail">
+        <img src="images/work-kia.jpg" alt="Dark green Kia Sorento with a glossy exterior finish at sunset" loading="lazy" width="1280" height="1753">
+        <figcaption><span>Kia Sorento</span><span>Exterior</span></figcaption>
+      </figure>
+      <figure class="tile" tabindex="0" role="button" aria-label="Enlarge: SUV rear seats, heated extraction">
+        <img src="images/work-suv-seats.jpg" alt="Clean SUV rear leather seats and carpets after heated extraction" loading="lazy" width="1280" height="1753">
+        <figcaption><span>SUV seats</span><span>Extraction</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ REVIEWS ============================ -->
+<section class="band" id="reviews">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <p class="slabel">05 — Reviews</p>
+        <h2>15+ five-star<br>Google reviews.</h2>
+      </div>
+      <p class="lead">Repeat customers, referrals from neighbors, and a rating that hasn't dropped. Here's what a few of them wrote.</p>
+    </div>
+
+    <div class="rev-grid">
+      <article class="rev rv">
+        <span class="stars" aria-label="5 out of 5 stars">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+        </span>
+        <p class="rev-q">“Fair prices, flexible scheduling and outstanding attention to detail. He has done 2 vehicles for us and both of them came out spectacular.”</p>
+        <div class="rev-by">
+          <span class="rev-av" aria-hidden="true">PL</span>
+          <span><span class="rev-name">Patrick L.</span><br><span class="rev-src">Google review</span></span>
+        </div>
+      </article>
+
+      <article class="rev rv">
+        <span class="stars" aria-label="5 out of 5 stars">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+        </span>
+        <p class="rev-q">“He consistently does an outstanding job — my car always looks spotless inside and out. He is reliable, professional, and super easy to work with, which makes the whole experience seamless.”</p>
+        <div class="rev-by">
+          <span class="rev-av" aria-hidden="true">JC</span>
+          <span><span class="rev-name">JC</span><br><span class="rev-src">Google review</span></span>
+        </div>
+      </article>
+
+      <article class="rev rv">
+        <span class="stars" aria-label="5 out of 5 stars">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+        </span>
+        <p class="rev-q">“I have a 5 year old car that looks like it just came off the lot brand new. The time and attention to detail is incredible. I am beyond happy and how my car came out. Thank you so much!”</p>
+        <div class="rev-by">
+          <span class="rev-av" aria-hidden="true">KK</span>
+          <span><span class="rev-name">Kimberly Kellogg</span><br><span class="rev-src">Google review</span></span>
+        </div>
+      </article>
+    </div>
+
+    <div class="rating-bar rv">
+      <div class="rating-l">
+        <span class="rating-num tnum">5.0</span>
+        <span>
+          <span class="stars" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.1 4.9 1.3 7L12 18l-6.2 3.4 1.3-7L2 9.5l7-.9z"/></svg>
+          </span>
+          <span class="mono" style="display:block;margin-top:4px;">Average across 15+ Google reviews</span>
+        </span>
+      </div>
+      <a class="btn btn-ghost btn-sm" href="https://www.google.com/search?q=Snowzan+Mobile+Detailing+Phoenix" target="_blank" rel="noopener">
+        Read all reviews on Google
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ABOUT ============================ -->
+<section class="band band-alt" id="about">
+  <div class="wrap">
+    <div class="about">
+      <div class="about-media rv">
+        <img src="images/about-foam.jpg" alt="Snowzan detailing a foam-covered sedan in a Phoenix driveway" loading="lazy" width="1400" height="1032">
+        <div class="about-badge">
+          <p class="mono">Owner-operated</p>
+          <b>Every car, personally</b>
+        </div>
+      </div>
+
+      <div class="rv">
+        <p class="slabel">06 — About</p>
+        <h2 style="margin-bottom:var(--s3);">One person.<br>Every vehicle.</h2>
+        <p>At Snowzan Mobile Detailing, I take pride in delivering professional-quality detailing with honest pricing and attention to every detail. Whether it's a daily driver, family SUV, truck, or luxury vehicle, every vehicle is treated with the same level of care.</p>
+        <p>I bring professional detailing equipment directly to your driveway, saving you time while providing results you can be proud of. Whether you're looking for a one-time detail or regular maintenance, I'd love the opportunity to earn your business.</p>
+
+        <p class="mono" style="margin-top:var(--s4);">Service area</p>
+        <div class="area-list">
+          <span class="chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg> Phoenix</span>
+          <span class="chip">Ahwatukee</span>
+          <span class="chip">Chandler</span>
+          <span class="chip">Tempe</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FINAL CTA ============================ -->
+<section class="band">
+  <div class="wrap">
+    <div class="cta rv">
+      <p class="slabel" style="justify-content:center;">07 — Book it</p>
+      <h2>Your driveway is the appointment.</h2>
+      <p class="lead">Send a text with your vehicle and what you'd like done. You'll get a real price back — usually within hours.</p>
+
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="sms:+14807533993?&body=Hi%20Snowzan%2C%20I%27d%20like%20to%20book%20a%20Full%20Detail.%20My%20vehicle%20is%3A%20">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.4 8.4 0 0 1 3.5 11 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>
+          Text 480-753-3993
+        </a>
+        <a class="btn btn-ghost" href="tel:+14807533993">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+          Call now
+        </a>
+      </div>
+
+      <div class="cta-meta">
+        <span class="mono">Mon–Sun · Flexible hours</span>
+        <span class="mono">Phoenix · Ahwatukee · Chandler · Tempe</span>
+        <span class="mono">No deposit required</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top" style="margin-bottom:16px;">
+          <img class="brand-mark" src="images/sz-logo.png" alt="" width="256" height="256">
+          <span>
+            <span class="brand-name">Snowzan</span>
+            <span class="brand-sub">Mobile Detailing</span>
+          </span>
+        </a>
+        <p style="color:var(--ink-2);font-size:14.5px;max-width:36ch;">Interior &amp; exterior detailing brought straight to your driveway across the Phoenix valley.</p>
+      </div>
+
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li><a class="tnum" href="tel:+14807533993">480-753-3993</a></li>
+          <li><a href="sms:+14807533993?&body=Hi%20Snowzan%2C%20">Text a quote request</a></li>
+          <li><a href="mailto:snowzan.detailing@gmail.com">snowzan.detailing@gmail.com</a></li>
+          <li><a href="https://instagram.com/snowzandetailing" target="_blank" rel="noopener">@snowzandetailing</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>Sections</h5>
+        <ul>
+          <li><a href="#services">Services &amp; pricing</a></li>
+          <li><a href="#quote">Instant estimate</a></li>
+          <li><a href="#work">Recent work</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-note">
+      <span class="mono">© <span id="yr">2026</span> Snowzan Mobile Detailing · Phoenix, AZ</span>
+      <span class="mono">Serving Phoenix · Ahwatukee · Chandler · Tempe</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================ MOBILE DOCK ============================ -->
+<div class="dock" id="dock">
+  <a class="btn btn-ghost" href="tel:+14807533993">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+    Call
+  </a>
+  <a class="btn btn-violet" href="sms:+14807533993?&body=Hi%20Snowzan%2C%20I%27d%20like%20a%20quote%20for%20a%20detail.">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.4 8.4 0 0 1 3.5 11 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>
+    Text a quote
+  </a>
+</div>
+
+<!-- ============================ LIGHTBOX ============================ -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-close" id="lbClose" aria-label="Close photo viewer">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous photo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>
+  </button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next photo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>
+  </button>
+  <p class="lb-cap mono" id="lbCap"></p>
+</div>
+
+<!-- ============================ SEO: LocalBusiness ============================ -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"AutoDetailing",
+  "name":"Snowzan Mobile Detailing",
+  "description":"Mobile interior and exterior car detailing serving Phoenix, Ahwatukee, Chandler and Tempe, Arizona.",
+  "telephone":"+1-480-753-3993",
+  "email":"snowzan.detailing@gmail.com",
+  "priceRange":"$40-$300",
+  "areaServed":[
+    {"@type":"City","name":"Phoenix"},
+    {"@type":"City","name":"Ahwatukee"},
+    {"@type":"City","name":"Chandler"},
+    {"@type":"City","name":"Tempe"}
+  ],
+  "address":{"@type":"PostalAddress","addressLocality":"Phoenix","addressRegion":"AZ","addressCountry":"US"},
+  "sameAs":["https://instagram.com/snowzandetailing"],
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"5","reviewCount":"15"},
+  "hasOfferCatalog":{
+    "@type":"OfferCatalog","name":"Detailing packages",
+    "itemListElement":[
+      {"@type":"Offer","name":"Exterior Detail","price":"40","priceCurrency":"USD"},
+      {"@type":"Offer","name":"Wash & Wax","price":"75","priceCurrency":"USD"},
+      {"@type":"Offer","name":"Interior Detail","price":"110","priceCurrency":"USD"},
+      {"@type":"Offer","name":"Full Detail","price":"150","priceCurrency":"USD"}
+    ]
+  }
+}
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------- year ---------------- */
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* ---------------- nav condense + mobile dock ---------------- */
+  var nav = document.getElementById('nav'), dock = document.getElementById('dock');
+  function onScroll(){
+    var y = window.scrollY;
+    nav.classList.toggle('stuck', y > 40);
+    dock.classList.toggle('up', y > window.innerHeight * 0.55);
+    sweep();
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* ---------------- hero parallax (desktop, motion allowed) ---------------- */
+  var heroPhoto = document.getElementById('heroPhoto'), ticking = false;
+  if(!reduce && window.matchMedia('(min-width: 900px)').matches){
+    window.addEventListener('scroll', function(){
+      if(ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){
+        var y = Math.min(window.scrollY, window.innerHeight);
+        heroPhoto.style.transform = 'scale(1.06) translate3d(0,' + (y * 0.13) + 'px,0)';
+        ticking = false;
+      });
+    }, {passive:true});
+  }
+
+  /* ---------------- scroll reveal ---------------- */
+  /* stagger first — the delays must be on the elements before anything reveals */
+  ['.svc-grid', '.rev-grid', '.gal', '.steps'].forEach(function(sel){
+    var grid = document.querySelector(sel);
+    if(!grid) return;
+    Array.prototype.forEach.call(grid.children, function(child, i){
+      child.style.transitionDelay = Math.min(i * 60, 360) + 'ms';
+    });
+  });
+
+  var items = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  var pending = items.length;
+
+  /* Safety net for the observer below. IntersectionObserver only reports a
+     CHANGE in visibility, so anything jumped over — a deep link like #work, an
+     instant anchor jump under prefers-reduced-motion, a restored scroll
+     position — never fires and would stay at opacity 0 forever. This sweep
+     runs on scroll and on load and reveals whatever is already in view. */
+  function sweep(){
+    if(!pending || !items.length) return;
+    var limit = window.innerHeight * 0.92;
+    for(var i = 0; i < items.length; i++){
+      var el = items[i];
+      if(el.classList.contains('in')) continue;
+      if(el.getBoundingClientRect().top < limit){ el.classList.add('in'); pending--; }
+    }
+  }
+
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting && !e.target.classList.contains('in')){
+          e.target.classList.add('in'); pending--; io.unobserve(e.target);
+        }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    items.forEach(function(el){ io.observe(el); });
+  } else {
+    items.forEach(function(el){ el.classList.add('in'); });
+    pending = 0;
+  }
+
+  window.addEventListener('hashchange', sweep);
+  window.addEventListener('resize', sweep, {passive:true});
+  onScroll();
+  /* anchor landings settle a frame or two after load */
+  setTimeout(sweep, 120);
+  window.addEventListener('load', sweep);
+
+  /* ---------------- estimator ---------------- */
+  var PKG = {
+    ext:  {label:'Exterior Detail', base:40,  size:{sedan:0, suv:15, truck:25}},
+    ww:   {label:'Wash & Wax',      base:75,  size:{sedan:0, suv:20, truck:35}},
+    int:  {label:'Interior Detail', base:110, size:{sedan:0, suv:25, truck:45}},
+    full: {label:'Full Detail',     base:150, size:{sedan:0, suv:35, truck:60}}
+  };
+  var SIZE = {sedan:'Sedan / Coupe', suv:'SUV / Crossover', truck:'Truck / 3-row SUV'};
+  /* how the vehicle reads inside a sentence, e.g. "...for my full-size truck." */
+  var SIZE_SMS = {sedan:'sedan', suv:'SUV', truck:'truck'};
+
+  var form   = document.getElementById('estForm');
+  var elLow  = document.getElementById('estLow');
+  var elHigh = document.getElementById('estHigh');
+  var elBrk  = document.getElementById('estBreak');
+  var elSms  = document.getElementById('estSms');
+
+  function animateTo(el, target){
+    var from = parseInt(el.textContent, 10) || 0;
+    if(reduce || from === target){ el.textContent = target; return; }
+    var start = performance.now(), dur = 380;
+    function tick(now){
+      var p = Math.min((now - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(from + (target - from) * eased);
+      if(p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function update(){
+    var size = form.querySelector('input[name="size"]:checked').value;
+    var pkg  = form.querySelector('input[name="pkg"]:checked').value;
+    var cfg  = PKG[pkg];
+
+    var low = cfg.base + cfg.size[size];
+    var addLabels = [];
+    Array.prototype.forEach.call(form.querySelectorAll('input[name="add"]:checked'), function(cb){
+      low += parseInt(cb.dataset.price, 10);
+      addLabels.push(cb.dataset.label);
+    });
+    var high = Math.round((low * 1.25) / 5) * 5;
+
+    animateTo(elLow, low);
+    animateTo(elHigh, high);
+
+    elBrk.innerHTML = '<b>' + cfg.label + '</b> · ' + SIZE[size] +
+      (addLabels.length ? '<br>Add-ons: ' + addLabels.join(', ') : '');
+
+    var msg = 'Hi Snowzan! I\'d like to book a ' + cfg.label + ' for my ' + SIZE_SMS[size] + '.' +
+      (addLabels.length ? ' Add-ons: ' + addLabels.join(', ') + '.' : '') +
+      ' The site estimated $' + low + '–$' + high + '. When are you available?';
+    elSms.href = 'sms:+14807533993?&body=' + encodeURIComponent(msg);
+  }
+
+  form.addEventListener('change', update);
+  update();
+
+  /* ---------------- lightbox ---------------- */
+  var tiles = Array.prototype.slice.call(document.querySelectorAll('.tile'));
+  var lb    = document.getElementById('lb');
+  var lbImg = document.getElementById('lbImg');
+  var lbCap = document.getElementById('lbCap');
+  var idx   = 0, lastFocus = null;
+
+  function show(i){
+    idx = (i + tiles.length) % tiles.length;
+    var img = tiles[idx].querySelector('img');
+    var caps = tiles[idx].querySelectorAll('figcaption span');
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
+    lbCap.textContent = caps.length === 2 ? caps[0].textContent + ' — ' + caps[1].textContent : '';
+  }
+  function open(i){
+    lastFocus = document.activeElement;
+    show(i);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('lbClose').focus();
+  }
+  function close(){
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    if(lastFocus) lastFocus.focus();
+  }
+
+  tiles.forEach(function(t, i){
+    t.addEventListener('click', function(){ open(i); });
+    t.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(i); }
+    });
+  });
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', function(e){ e.stopPropagation(); show(idx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function(e){ e.stopPropagation(); show(idx + 1); });
+  lb.addEventListener('click', function(e){ if(e.target === lb || e.target === lbImg) close(); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') close();
+    if(e.key === 'ArrowLeft') show(idx - 1);
+    if(e.key === 'ArrowRight') show(idx + 1);
+  });
+})();
+</script>
+</body>
+</html>
