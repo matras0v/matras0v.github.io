@@ -316,6 +316,9 @@ h1 em{
 .sel-no{
   font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;
   color:var(--ink-3);margin-bottom:var(--s2);
+  /* flex + min-height so a card carrying a Concept chip keeps its title
+     on the same baseline as the cards without one */
+  display:flex;align-items:center;gap:var(--s2);min-height:24px;
 }
 .sel-name{
   font-family:var(--f-display);
@@ -349,6 +352,9 @@ h1 em{
   padding:5px 9px;border:1px solid var(--line-2);border-radius:3px;
   color:var(--ink-2);
 }
+/* inside the select label the chip has to fit the 24px row, or the card's
+   title drops below its neighbours */
+.sel-no .tag{padding:3px 8px;line-height:1;}
 .tag.live{color:var(--ink);border-color:var(--ink);}
 .tag.live::before{
   content:"";width:6px;height:6px;border-radius:50%;background:var(--ink);
@@ -498,7 +504,7 @@ footer{
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow mono"><span class="dot" aria-hidden="true"></span> Taking work for March · Phoenix &amp; Dubai</p>
+      <p class="eyebrow mono"><span class="dot" aria-hidden="true"></span> Taking work for August · Phoenix &amp; Dubai</p>
       <h1>Your next customer is<br>looking at your<br>website <em>right now.</em></h1>
       <p class="hero-sub">
         I build websites for local businesses — detailing, clinics, restaurants, trades.
@@ -510,13 +516,13 @@ footer{
       </div>
       <p class="hero-note mono">Or message me right now: <a href="https://wa.me/79184134820" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://t.me/matras0v" target="_blank" rel="noopener">Telegram</a></p>
       <p class="hero-meta mono">
-        <span>Independent</span><span>·</span><span>Since 2024</span><span>·</span><span>Phoenix, AZ / Dubai, UAE</span>
+        <span>Independent</span><span>·</span><span>Since 2024</span><span>·</span><span>Working with Phoenix &amp; Dubai</span>
       </p>
     </div>
 
     <div class="frame rv" data-live="work/snowzan/site/index.html" data-scroll="1500">
       <div class="frame-bar" aria-hidden="true">
-        <i></i><i></i><i></i><span>snowzan.com</span>
+        <i></i><i></i><i></i><span>snowzan-preview.netlify.app</span>
       </div>
       <div class="window">
         <iframe title="Live preview of the Snowzan Mobile Detailing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
@@ -535,7 +541,7 @@ footer{
           <path d="M64 8 C24 10, 6 28, 8 48 C10 70, 44 84, 108 84 C186 84, 228 68, 232 46 C236 24, 196 8, 130 7 C96 6, 62 12, 44 22"/>
         </svg>
       </h2>
-      <p>Real businesses, real money on the line. Every frame below is the site itself, running — not a screenshot of one.</p>
+      <p>One live client, and work I built to show what I can do. Every frame below is the site itself, running — not a screenshot of one.</p>
     </div>
 
     <!-- 01 Snowzan -->
@@ -566,14 +572,14 @@ footer{
     <!-- 02 H&M -->
     <article class="select">
       <div>
-        <p class="sel-no">Select 02 / 03</p>
+        <p class="sel-no">Select 02 / 03 <span class="tag">Concept</span></p>
         <h3 class="sel-name">H&amp;M Car Polishing</h3>
-        <p class="sel-role">A paint-correction bay in Al Quoz, Dubai. The homepage hands you a polisher: drag across a swirled panel and the finish comes up under your finger.</p>
+        <p class="sel-role">A concept for a paint-correction bay. The homepage hands you a polisher: drag across a swirled panel and the finish comes up under your finger.</p>
         <dl class="sel-facts">
-          <div><dt>Where</dt><dd>Al Quoz Industrial 3, Dubai</dd></div>
+          <div><dt>Type</dt><dd>Self-initiated concept</dd></div>
           <div><dt>Scope</dt><dd>Design, build, copy, WhatsApp quote flow</dd></div>
           <div><dt>Signature</dt><dd>Interactive paint-correction demo</dd></div>
-          <div><dt>Status</dt><dd>Built — waiting on the shop's own photography</dd></div>
+          <div><dt>Status</dt><dd>Built to show the approach</dd></div>
         </dl>
         <div class="sel-links">
           <a class="btn" href="work/hm-polishing/">Read the case</a>
@@ -581,7 +587,7 @@ footer{
         </div>
       </div>
       <div class="frame rv" data-live="work/hm-polishing/site/index.html" data-scroll="1800">
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>hmcarpolishing.ae</span></div>
+        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="window">
           <iframe title="Live preview of the H&amp;M Car Polishing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
         </div>
@@ -716,7 +722,7 @@ footer{
       </div>
       <div>
         <p>I write every site by hand, in plain HTML and CSS. That's not nostalgia — it's why the pages load instantly on a phone in a parking lot, why there's no monthly bill, and why <strong>you can walk away from me at any time</strong> and take the whole thing with you.</p>
-        <p>Based between Phoenix and Dubai. I work in English with clients in the US and the UAE, and in Russian with clients who prefer it.</p>
+        <p>I'm based in Russia and work remotely with clients in the US and the UAE — in English, or in Russian if you prefer.</p>
       </div>
     </div>
   </div>
@@ -755,7 +761,7 @@ footer{
 <footer>
   <div class="wrap foot-in mono">
     <span>© <span id="yr">2026</span> Vadim Ivancenko</span>
-    <span>Phoenix, AZ / Dubai, UAE</span>
+    <span>Working with Phoenix &amp; Dubai</span>
     <span>Built by hand</span>
   </div>
 </footer>

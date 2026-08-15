@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#EDECE8">
 
 <title>H&amp;M Car Polishing — case study · Vadim Ivancenko</title>
-<meta name="description" content="A paint-correction bay in Al Quoz, Dubai. The homepage hands you a polisher instead of describing one. Built, and waiting on the shop's own photography.">
+<meta name="description" content="A concept for a paint-correction bay. The homepage hands you a polisher instead of describing one — drag across the panel and the swirls come off under your finger.">
 
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://matras0v.github.io/work/hm-polishing/">
@@ -58,9 +58,17 @@ a{color:inherit;text-decoration:none;}
 .nav-in{display:flex;align-items:center;gap:var(--s3);height:60px;}
 .brand{
   font-family:var(--f-display);font-variation-settings:"wdth" 78,"opsz" 14;
-  font-weight:800;font-size:19px;letter-spacing:-.01em;margin-right:auto;white-space:nowrap;
+  font-weight:800;font-size:19px;letter-spacing:-.01em;white-space:nowrap;
 }
-@media (max-width:520px){.brand{display:none;}.back{margin-right:auto;}}
+/* the chip carries the auto margin, so it sits beside the wordmark and
+   still holds the rest of the nav to the right when the brand is hidden */
+.chip-concept{
+  font-family:var(--f-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--line-2);color:var(--ink-3);
+  padding:4px 8px;border-radius:999px;white-space:nowrap;
+  margin-right:auto;
+}
+@media (max-width:520px){.brand{display:none;}}
 .back{
   display:inline-flex;align-items:center;gap:8px;min-height:44px;
   white-space:nowrap;color:var(--ink-2);transition:color .16s ease;
@@ -178,6 +186,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="../../">MATRAS0V</a>
+    <span class="chip-concept">Concept</span>
     <a class="back mono" href="../../#work">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
       All work
@@ -190,19 +199,19 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
 
 <section class="head">
   <div class="wrap">
-    <p class="kicker mono">Case 02 · Paint correction · Al Quoz, Dubai</p>
+    <p class="kicker mono">Case 02 · Paint correction · Concept</p>
     <h1>You cannot<br>photograph the<br>difference. So the<br>site lets you<br>feel it.</h1>
     <p class="lede">
-      H&amp;M polish paint. The whole product is a change in a surface that a photograph flattens
-      and a customer cannot judge from a phone. Every competitor in Al Quoz solves this the same
-      way: <strong>a gallery of shiny cars that could be anyone's.</strong>
+      Paint correction is a change in a surface that a photograph flattens and a customer cannot
+      judge from a phone. Every polishing shop solves this the same way:
+      <strong>a gallery of shiny cars that could be anyone's.</strong>
     </p>
 
     <dl class="facts">
-      <div><dt>Client</dt><dd>H&amp;M Car Polishing</dd></div>
-      <div><dt>Where</dt><dd>Al Quoz Industrial 3, Dubai</dd></div>
+      <div><dt>Type</dt><dd>Self-initiated concept</dd></div>
+      <div><dt>Subject</dt><dd>A paint-correction bay in Dubai</dd></div>
       <div><dt>Scope</dt><dd>Design, build, copy, WhatsApp flow</dd></div>
-      <div><dt>Status</dt><dd>Built — waiting on the shop's photography</dd></div>
+      <div><dt>Status</dt><dd>Built to show the approach</dd></div>
     </dl>
   </div>
 </section>
@@ -212,11 +221,11 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
   <div class="wrap">
     <div class="band-head">
       <h2>Drag across the panel.</h2>
-      <p>This is the real homepage, running here, with the controls live. Drag over the swirled paint and the correction comes up under your finger — which is the closest a screen gets to the thing they actually sell.</p>
+      <p>This is the homepage itself, running here, with the controls live. Drag over the swirled paint and the correction comes up under your finger — which is the closest a screen gets to the thing a polishing shop actually sells.</p>
     </div>
 
     <div class="demo rv" id="demoFrame">
-      <div class="demo-bar" aria-hidden="true"><i></i><i></i><i></i><span>hmcarpolishing.ae</span></div>
+      <div class="demo-bar" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="demo-window">
         <iframe id="demoSite" title="The H&amp;M Car Polishing homepage, live and interactive" src="site/index.html" loading="lazy"></iframe>
       </div>
@@ -248,14 +257,14 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
       <div><p class="dec-no">Decision 02</p><h3>WhatsApp, because this is Dubai</h3></div>
       <div>
         <p>A contact form would have been the default and the wrong answer. In the UAE the entire trade runs on WhatsApp, and the natural first message is a photograph of your own paint.</p>
-        <p>So the call to action is "send a photo of your paint", and it opens WhatsApp with the message already started. The shop replies with a price from a picture, the way they already work.</p>
+        <p>So the call to action is "send a photo of your paint", and it opens WhatsApp with the message already started. The shop answers with a price from a picture, the way that trade already works.</p>
       </div>
     </article>
 
     <article class="dec rv">
       <div><p class="dec-no">Decision 03</p><h3>The site knows whether they are open</h3></div>
       <div>
-        <p>The bay keeps real hours and closes on Fridays. The site checks the clock in Dubai time and says whether they are open right now, or how long until they are — instead of printing a table of hours and making a customer do the arithmetic.</p>
+        <p>A bay like this keeps long hours and closes on Fridays. The site checks the clock in Dubai time and says whether it is open right now, or how long until it is — instead of printing a table of hours and making a customer do the arithmetic.</p>
       </div>
     </article>
   </div>
@@ -266,13 +275,13 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
   <div class="wrap">
     <div class="open rv">
       <div>
-        <p class="tag-wip mono" style="margin-bottom:var(--s2)"><i aria-hidden="true"></i> In progress</p>
-        <h3>What is not finished, and why it is not finished with stock photos</h3>
+        <p class="tag-wip mono" style="margin-bottom:var(--s2)"><i aria-hidden="true"></i> On purpose</p>
+        <h3>The photo slots are empty, and they are not getting filled with stock</h3>
       </div>
       <div>
         <ul>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v5M12 16.5v.01"/><circle cx="12" cy="12" r="9"/></svg><span>The site says, in its own words, that it is a record of the bay and not stock photography. Filling it with bought pictures of somebody else's workshop would break the only promise on the page.</span></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Every photo slot is a single variable at the top of the file. When the shop sends their photographs it is a ten-minute job, not a rebuild.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Every photo slot is a single variable at the top of the file. For a shop that wants this site, dropping in their own photographs is a ten-minute job, not a rebuild.</span></li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Everything else works: the demo, the WhatsApp flow, the opening hours, the map, the copy.</span></li>
         </ul>
       </div>
@@ -295,7 +304,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
 <footer>
   <div class="wrap foot-in mono">
     <span>© <span id="yr">2026</span> Vadim Ivancenko</span>
-    <span>Client work, shown with the shop's knowledge</span>
+    <span>Self-initiated concept, not a client project</span>
     <span>Built by hand</span>
   </div>
 </footer>
