@@ -10,7 +10,7 @@ Live: https://snowzan-preview.netlify.app (moving to snowzan.com)
 **H&M Car Polishing** — Al Quoz Industrial 3, Dubai. Real client, in progress.
 Awaiting the client's own photography of the bay.
 
-**GrimeVPN** — real product built and operated by Vadim Ivancenko.
+**GrimeVPN** — real product built and operated by Vadim Ivanchenko.
 Telegram: @GrimeVPNbot
 
 ## Concept work
