@@ -15,9 +15,12 @@ Telegram: @GrimeVPNbot
 
 ## Concept work
 
-AURELIS, LUMEN, LUCIENNE and EMBER & OAK are self-initiated concept projects.
-The brands are fictional. They are labelled as concepts on the index and in
-each site's footer.
+AURELIS, LUMEN, LUCIENNE, EMBER & OAK and LUSTRE are self-initiated concept
+projects. The brands are fictional. They are labelled as concepts on the
+index and in each site's footer.
+
+**LUSTRE** — auto detailing studio concept. No photography used; the
+before/after comparison is a CSS illustration, not a real photo.
 
 ## Photography
 
