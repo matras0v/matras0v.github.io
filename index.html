@@ -479,10 +479,58 @@ footer{
 @media (prefers-reduced-motion: reduce){
   .rv{opacity:1;transform:none;transition:none;}
 }
+
+/* ------------------------------------------------------------- motion ----
+   Four moves, and deliberately no more: the headline arrives a line at a
+   time, the rest of the first screen follows it in, buttons lean toward the
+   cursor, and the frames turn a few degrees to follow it. A fixed grain
+   sits over everything. The work inside the frames stays the loudest
+   thing on the page — none of this is allowed to outshout it.             */
+
+/* 1 — the headline arrives a line at a time, each out of its own mask */
+.lines .ln{display:block;overflow:hidden;}
+.lines .ln > i{
+  display:block;font-style:inherit;
+  transform:translateY(106%);
+  transition:transform 1.05s var(--ease-out);
+}
+.ready .lines .ln > i{transform:none;}
+.ready .lines .ln:nth-child(2) > i{transition-delay:.085s;}
+.ready .lines .ln:nth-child(3) > i{transition-delay:.17s;}
+
+/* 2 — the rest of the first screen follows the headline rather than racing it */
+.hero-seq{opacity:0;transform:translateY(16px);}
+.ready .hero-seq{
+  opacity:1;transform:none;
+  transition:opacity .85s var(--ease-out) var(--d,0s),
+             transform .85s var(--ease-out) var(--d,0s);
+}
+
+/* 3 — frames turn toward the cursor. The lift stays in CSS so a touch
+       device still gets it; only the tilt is scripted.                    */
+.frame{perspective:1000px;}
+/* No will-change here: there are nine of these on the page, each already
+   holding a promoted iframe layer. */
+.frame .window{transition:transform .55s var(--ease-out);}
+
+/* 4 — grain. Fixed, so it never repaints as the page scrolls. */
+.grain{
+  position:fixed;inset:0;z-index:80;pointer-events:none;
+  opacity:.5;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.09'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce){
+  .lines .ln > i{transform:none;transition:none;}
+  .hero-seq{opacity:1;transform:none;transition:none;}
+  .frame .window{transition:none;}
+  .grain{display:none;}
+}
 </style>
 </head>
 
 <body>
+<div class="grain" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav">
@@ -504,18 +552,18 @@ footer{
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow mono"><span class="dot" aria-hidden="true"></span> Taking work for August · US &amp; UAE</p>
-      <h1>Your next customer is<br>looking at your<br>website <em>right now.</em></h1>
-      <p class="hero-sub">
+      <p class="eyebrow mono hero-seq"><span class="dot" aria-hidden="true"></span> Taking work for August · US &amp; UAE</p>
+      <h1 class="lines"><span class="ln"><i>Your next customer is</i></span><span class="ln"><i>looking at your</i></span><span class="ln"><i>website <em>right now.</em></i></span></h1>
+      <p class="hero-sub hero-seq" style="--d:.40s">
         I build websites for local businesses — detailing, clinics, restaurants, trades.
         <strong>Two days, not two months.</strong> You own the files, and there is nothing to pay monthly.
       </p>
-      <div class="hero-cta">
+      <div class="hero-cta hero-seq" style="--d:.48s">
         <a class="btn" href="#contact">Start a project</a>
         <a class="btn btn-ghost" href="#work">See the work</a>
       </div>
-      <p class="hero-note mono">Or message me right now: <a href="https://wa.me/79184134820" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://t.me/matras0v" target="_blank" rel="noopener">Telegram</a></p>
-      <p class="hero-meta mono">
+      <p class="hero-note mono hero-seq" style="--d:.55s">Or message me right now: <a href="https://wa.me/79184134820" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://t.me/matras0v" target="_blank" rel="noopener">Telegram</a></p>
+      <p class="hero-meta mono hero-seq" style="--d:.62s">
         <span>Independent</span><span>·</span><span>Since 2024</span><span>·</span><span>Working with Phoenix &amp; Dubai</span>
       </p>
     </div>
@@ -782,6 +830,62 @@ footer{
 
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var coarse  = matchMedia('(hover: none)').matches;
+
+  /* -- the first screen arrives ------------------------------------------
+     One class, and the whole opening sequence is CSS from there. Waiting a
+     frame keeps the browser from collapsing the start and end states into
+     no animation at all.                                                  */
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){ document.documentElement.classList.add('ready'); });
+  });
+
+  /* -- buttons lean toward the cursor -------------------------------------
+     Six pixels at the edge of the button, none at its centre. The CSS
+     transition does the settling, so letting go is not a snap.            */
+  if(!reduced && !coarse){
+    document.querySelectorAll('.btn').forEach(function(b){
+      var raf = 0;
+      b.addEventListener('pointermove', function(e){
+        var r = b.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2);
+        var dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function(){
+          b.style.transform = 'translate(' + (dx * 6).toFixed(2) + 'px,' +
+                                             (dy * 4).toFixed(2) + 'px)';
+        });
+      });
+      b.addEventListener('pointerleave', function(){
+        cancelAnimationFrame(raf);
+        b.style.transform = '';
+      });
+    });
+  }
+
+  /* -- frames turn toward the cursor --------------------------------------
+     Four degrees at the corner. Any more and a screenshot of a website
+     starts reading as a toy.                                              */
+  if(!reduced && !coarse){
+    document.querySelectorAll('.frame').forEach(function(f){
+      var win = f.querySelector('.window');
+      if(!win) return;
+      var raf = 0;
+      f.addEventListener('pointermove', function(e){
+        var r = f.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2);
+        var dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function(){
+          win.style.transform = 'rotateY(' + (dx * 4).toFixed(2) + 'deg) ' +
+                                'rotateX(' + (-dy * 4).toFixed(2) + 'deg)';
+        });
+      });
+      f.addEventListener('pointerleave', function(){
+        cancelAnimationFrame(raf);
+        win.style.transform = '';
+      });
+    });
+  }
 
   /* -- reveal on scroll ------------------------------------------------- */
   var rv = new IntersectionObserver(function(entries){
