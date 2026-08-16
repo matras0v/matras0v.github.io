@@ -1,0 +1,1798 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MotoRefine Detailing Studio — European Paint Protection, Al Quoz, Dubai</title>
+<meta name="description" content="STEK-certified Paint Protection Film, Gtechniq ceramic coating, tint and detailing for Porsche, BMW, Audi and Mercedes. Al Quoz Industrial 3, Dubai. Rated 5.0 on Google.">
+<meta name="theme-color" content="#1C1F20">
+<link rel="icon" href="assets/selected/brand/motorefine-m-mark.png">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/display-400.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/body-400.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/mono-400.woff2" crossorigin>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   FONTS — self-hosted, latin subset, zero third-party requests
+   ═══════════════════════════════════════════════════════════ */
+@font-face{font-family:"Display";src:url("assets/fonts/display-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Display";src:url("assets/fonts/display-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Display";src:url("assets/fonts/display-600.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Body";src:url("assets/fonts/body-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Body";src:url("assets/fonts/body-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Mono";src:url("assets/fonts/mono-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Mono";src:url("assets/fonts/mono-500.woff2") format("woff2");font-weight:500;font-display:swap}
+
+/* ═══════════════════════════════════════════════════════════
+   TOKENS
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --bay-graphite:#1C1F20;
+  --clearcoat:#2B2F31;
+  --panel-white:#EDEDEA;
+  --tile:#A9A69B;
+  --oxide:#B3121B;
+  --filament:#F0641E;
+
+  --hair:rgba(156,153,143,.26);
+  --hair-strong:rgba(156,153,143,.45);
+
+  /* Tightened from 1480: the old width let ch-constrained text blocks (max-
+     width:40–58ch) float in a lot of unused side margin on desktop, which
+     read as "zoomed out" even though the type itself wasn't small. */
+  --wrap-max:1320px;
+  --wrap-pad:clamp(20px,4.2vw,64px);
+  --header-h:76px;
+  --header-h-compact:60px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+
+  /* Every clamp below reaches its new, larger ceiling by ~1440px rather than
+     drifting toward it past 1920px, so 1440–1500px — where this was flagged
+     as too small — actually shows the intended scale. Mobile floors (the
+     first clamp value) are left alone. */
+  --fs-hero:clamp(2.125rem,1rem+5.3vw,5.75rem);
+  --fs-section:clamp(1.75rem,.95rem+3.4vw,4rem);
+  --fs-service:clamp(1.375rem,.9rem+2.1vw,2.75rem);
+  --fs-body-lg:clamp(1.0625rem,1rem+.4vw,1.3125rem);
+  --fs-body:clamp(1rem,.97rem+.2vw,1.125rem);
+  --fs-mono:clamp(.75rem,.72rem+.15vw,.875rem);
+
+  /* ── PRICES — edit here only ─────────────────────────────── */
+  --price-ppf:"Priced after inspection";
+  --price-ceramic:"Priced after inspection";
+  --price-detailing:"Priced after inspection";
+  --price-tint:"Priced after inspection";
+  --price-vinyl:"Priced after inspection";
+  --price-matteppf:"Priced after inspection";
+  --price-arch:"Request a quote";
+  --price-pdr:"Request a quote";
+  --price-leather:"Request a quote";
+  --price-softtop:"Request a quote";
+  --price-moto:"Request a quote";
+  --price-decon:"Request a quote";
+  --price-wash:"Request a quote";
+  --price-wheels:"Request a quote";
+  --price-dent:"Request a quote";
+  --price-bodykit:"Request a quote";
+  --price-paint:"Request a quote";
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESET / BASE
+   ═══════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h-compact) + 16px)}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bay-graphite);color:var(--panel-white);
+  font-family:"Body","Helvetica Neue",Arial,sans-serif;
+  font-size:var(--fs-body);line-height:1.65;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body.is-locked{overflow:hidden}
+img{max-width:100%;display:block}
+h1,h2,h3,h4,p{margin:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+ul,ol{margin:0;padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--filament);outline-offset:3px}
+
+.wrap{max-width:var(--wrap-max);margin-inline:auto;padding-inline:var(--wrap-pad)}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+.eyebrow{
+  font-family:"Mono",monospace;font-size:var(--fs-mono);
+  letter-spacing:.2em;text-transform:uppercase;color:var(--tile);
+}
+.section-head{max-width:58ch;margin-bottom:clamp(32px,5vw,60px)}
+.section-head h2{
+  font-family:"Display",sans-serif;font-weight:400;font-size:var(--fs-section);
+  line-height:1.1;margin-top:.5em;letter-spacing:.005em;
+}
+.section-head p{margin-top:1em;color:var(--tile);font-size:var(--fs-body-lg);max-width:52ch}
+
+.price{font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.1em;color:var(--tile);display:block;white-space:normal;overflow-wrap:break-word}
+.price::before{content:var(--val)}
+
+/* skip link */
+.skip-link{
+  position:absolute;left:12px;top:-64px;z-index:400;
+  background:var(--panel-white);color:var(--bay-graphite);
+  padding:10px 18px;font-family:"Mono",monospace;font-size:.8125rem;letter-spacing:.1em;
+  transition:top .18s var(--ease);
+}
+.skip-link:focus{top:12px}
+
+/* ── PLATE CTA — proportioned like the dealer plate on their cars ── */
+.plate{
+  display:inline-flex;align-items:center;justify-content:center;gap:.65em;
+  padding:1em 1.7em;border:1px solid var(--hair-strong);
+  background:transparent;color:var(--panel-white);
+  font-family:"Mono",monospace;font-size:var(--fs-mono);
+  letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;
+  transition:border-color .2s var(--ease),background .2s var(--ease),transform .12s var(--ease),color .2s var(--ease),letter-spacing .2s var(--ease);
+}
+.plate:hover{border-color:var(--panel-white);letter-spacing:.19em}
+.plate:active{transform:translateY(1px);letter-spacing:.16em}
+.plate--solid{background:var(--filament);border-color:var(--filament);color:#161819;font-weight:500}
+.plate--solid:hover{background:#ff7229;border-color:#ff7229}
+.plate--sm{padding:.7em 1.1em}
+.plate svg{width:1.05em;height:1.05em;flex:none}
+/* safety net for very narrow phones (≤360px): a two-line button beats a
+   button that forces the whole page to scroll sideways */
+@media(max-width:360px){
+  .plate{white-space:normal;text-align:center;padding-inline:1.2em}
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════ */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:var(--header-h);
+  display:flex;align-items:center;
+  background:transparent;
+  border-bottom:1px solid transparent;
+  transition:height .3s var(--ease),background .3s var(--ease),border-color .3s var(--ease);
+}
+.site-header.is-compact{
+  height:var(--header-h-compact);
+  background:rgba(28,31,32,.97);
+  border-bottom-color:var(--hair);
+}
+.header-inner{
+  width:100%;max-width:var(--wrap-max);margin-inline:auto;
+  padding-inline:var(--wrap-pad);
+  display:flex;align-items:center;gap:clamp(16px,3vw,40px);
+}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand img{height:clamp(18px,1.7vw,23px);width:auto;transition:height .3s var(--ease)}
+.site-header.is-compact .brand img{height:18px}
+
+.main-nav{display:none;margin-left:auto;position:relative}
+@media(min-width:1024px){ .main-nav{display:flex;gap:clamp(18px,2.2vw,34px);align-items:center} }
+.main-nav a{
+  font-family:"Mono",monospace;font-size:var(--fs-mono);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--tile);
+  padding:6px 0;transition:color .2s var(--ease);position:relative;
+}
+.main-nav a:hover{color:var(--panel-white)}
+.main-nav a.is-active{color:var(--panel-white)}
+.nav-underline{
+  position:absolute;bottom:0;height:1px;background:var(--filament);
+  width:0;left:0;opacity:0;
+  transition:left .32s var(--ease),width .32s var(--ease),opacity .25s var(--ease);
+  pointer-events:none;
+}
+
+.header-utils{display:flex;align-items:center;gap:14px;margin-left:auto}
+@media(min-width:1024px){ .header-utils{margin-left:clamp(18px,2.4vw,36px)} }
+.header-phone{
+  display:none;font-family:"Mono",monospace;font-size:var(--fs-mono);
+  letter-spacing:.1em;color:var(--tile);transition:color .2s var(--ease);
+}
+.header-phone:hover{color:var(--panel-white)}
+@media(min-width:1180px){ .header-phone{display:inline} }
+.header-cta{display:none}
+@media(min-width:600px){ .header-cta{display:inline-flex} }
+
+/* hamburger */
+.burger{
+  display:flex;flex-direction:column;justify-content:center;gap:5px;
+  width:44px;height:44px;align-items:flex-end;flex:none;
+}
+@media(min-width:1024px){ .burger{display:none} }
+.burger span{display:block;height:1px;background:var(--panel-white);transition:transform .3s var(--ease),opacity .2s var(--ease),width .3s var(--ease)}
+.burger span:nth-child(1){width:24px}
+.burger span:nth-child(2){width:17px}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(3px) rotate(45deg);width:22px}
+.burger[aria-expanded="true"] span:nth-child(2){transform:translateY(-3px) rotate(-45deg);width:22px}
+
+/* mobile menu panel */
+.menu-panel{
+  position:fixed;inset:0;z-index:190;
+  background:var(--bay-graphite);
+  display:flex;flex-direction:column;
+  padding:calc(var(--header-h) + 32px) var(--wrap-pad) calc(32px + env(safe-area-inset-bottom));
+  opacity:0;transform:translateY(-8px);
+  transition:opacity .3s var(--ease),transform .3s var(--ease);
+}
+/* display is gated by [hidden] only — no visibility transition, so a focus()
+   call one frame after opening is never swallowed by a not-yet-visible element */
+.menu-panel[hidden]{display:none}
+.menu-panel.is-open{opacity:1;transform:translateY(0)}
+.menu-panel nav{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--hair)}
+.menu-panel nav a{
+  font-family:"Display",sans-serif;font-weight:400;
+  font-size:clamp(1.5rem,7vw,2rem);letter-spacing:.02em;
+  padding:.62em 0;border-bottom:1px solid var(--hair);
+}
+.menu-foot{margin-top:auto;padding-top:32px;display:flex;flex-direction:column;gap:14px}
+.menu-foot .plate{width:100%}
+.menu-meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--tile)}
+.menu-meta a:hover{color:var(--panel-white)}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════════ */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;isolation:isolate}
+.hero-media{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:58% 40%;z-index:-2;
+  transform:scale(1.045);filter:brightness(.5) blur(8px);
+  transition:transform 1200ms var(--ease),filter 1100ms var(--ease);
+}
+.hero.is-revealed .hero-media{transform:scale(1);filter:brightness(1) blur(0)}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(to top,rgba(9,10,10,.90) 0%,rgba(9,10,10,.70) 26%,rgba(9,10,10,.26) 52%,rgba(9,10,10,.10) 70%,transparent 84%);
+}
+.hero-content{
+  position:relative;width:100%;
+  padding:0 var(--wrap-pad) clamp(84px,12vh,124px);
+  max-width:var(--wrap-max);margin-inline:auto;
+}
+.hero-eyebrow{
+  opacity:0;transform:translateY(8px);
+  transition:opacity .7s var(--ease) .35s,transform .7s var(--ease) .35s;
+}
+.hero.is-revealed .hero-eyebrow{opacity:1;transform:none}
+
+.hero-headline{
+  font-family:"Display",sans-serif;font-weight:400;font-size:var(--fs-hero);
+  line-height:1.05;letter-spacing:.005em;max-width:20ch;margin:.42em 0 .62em;
+}
+.hero-headline .line{display:block;overflow:hidden}
+.hero-headline .line > span{
+  display:block;transform:translateY(105%);
+  transition:transform .95s var(--ease);
+}
+.hero.is-revealed .hero-headline .line > span{transform:translateY(0)}
+.hero.is-revealed .hero-headline .line:nth-child(2) > span{transition-delay:.10s}
+
+.hero-actions{
+  display:flex;flex-wrap:wrap;align-items:center;gap:clamp(14px,2vw,24px);
+  opacity:0;transform:translateY(10px);
+  transition:opacity .7s var(--ease) .62s,transform .7s var(--ease) .62s;
+}
+.hero.is-revealed .hero-actions{opacity:1;transform:none}
+.hero-spec{
+  font-family:"Mono",monospace;font-size:var(--fs-mono);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--tile);
+}
+.scroll-cue{
+  position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+  display:none;flex-direction:column;align-items:center;gap:8px;
+  font-family:"Mono",monospace;font-size:.6875rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--tile);
+  opacity:0;transition:opacity .6s var(--ease) 1s;
+}
+@media(min-width:1024px){ .scroll-cue{display:flex} }
+.hero.is-revealed .scroll-cue{opacity:1}
+.scroll-cue i{display:block;width:1px;height:36px;background:linear-gradient(to bottom,var(--tile),transparent);animation:cueDrop 2.4s var(--ease) infinite}
+@keyframes cueDrop{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ═══════════════════════════════════════════════════════════
+   CREDENTIALS BAR
+   ═══════════════════════════════════════════════════════════ */
+.creds{border-block:1px solid var(--hair);background:var(--clearcoat)}
+.creds-grid{
+  display:grid;grid-template-columns:1fr;
+}
+@media(min-width:760px){ .creds-grid{grid-template-columns:repeat(4,1fr)} }
+.cred{
+  padding:clamp(16px,3vw,34px) 0;
+  border-bottom:1px solid var(--hair);
+}
+.cred:last-child{border-bottom:0}
+@media(min-width:760px){
+  .cred{border-bottom:0;border-left:1px solid var(--hair);padding-inline:clamp(18px,2.2vw,32px)}
+  .cred:first-child{border-left:0;padding-left:0}
+}
+.cred dt{
+  font-family:"Mono",monospace;font-size:var(--fs-mono);
+  letter-spacing:.18em;text-transform:uppercase;color:var(--tile);margin-bottom:.55em;
+}
+.cred dd{
+  margin:0;font-family:"Display",sans-serif;font-weight:500;
+  font-size:clamp(1rem,.9rem+.5vw,1.25rem);letter-spacing:.05em;
+  text-transform:uppercase;line-height:1.25;
+}
+.cred dd small{display:block;font-family:"Body",sans-serif;font-weight:400;text-transform:none;letter-spacing:0;font-size:.8125rem;color:var(--tile);margin-top:.5em}
+
+/* ═══════════════════════════════════════════════════════════
+   WHY
+   ═══════════════════════════════════════════════════════════ */
+.why{padding-block:clamp(72px,11vw,140px)}
+.why-grid{display:grid;grid-template-columns:1fr;gap:clamp(32px,5vw,64px)}
+@media(min-width:960px){ .why-grid{grid-template-columns:1.05fr 1fr;align-items:start} }
+.why-lede{
+  font-family:"Display",sans-serif;font-weight:400;
+  font-size:clamp(1.375rem,1.05rem+1.5vw,2.125rem);line-height:1.3;letter-spacing:.005em;
+}
+.why-body{color:var(--tile);margin-top:1.4em;max-width:52ch;font-size:var(--fs-body-lg)}
+.pillars{display:grid;gap:0;border-top:1px solid var(--hair)}
+.pillar{padding:clamp(20px,2.6vw,28px) 0;border-bottom:1px solid var(--hair);display:grid;gap:.5em}
+.pillar h3{
+  font-family:"Display",sans-serif;font-weight:500;font-size:1.0625rem;
+  letter-spacing:.08em;text-transform:uppercase;
+}
+.pillar p{color:var(--tile);font-size:.9375rem;max-width:46ch}
+
+/* ═══════════════════════════════════════════════════════════
+   SERVICES — index rail + sequential sticky stages
+   ═══════════════════════════════════════════════════════════ */
+.services{padding-block:clamp(64px,9vw,110px) clamp(40px,6vw,80px)}
+.svc-layout{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:1100px){
+  /* narrower index rail frees width for the photography, which is the
+     point of this section — the image should read as premium automotive
+     photography, not a thumbnail beside a wide empty rail */
+  .svc-layout{grid-template-columns:164px 1fr;gap:clamp(28px,3.4vw,56px)}
+}
+
+.svc-rail{display:none}
+@media(min-width:1100px){
+  .svc-rail{
+    display:block;position:sticky;align-self:start;
+    top:calc(var(--header-h-compact) + 48px);
+  }
+}
+.svc-rail ol{border-top:1px solid var(--hair)}
+.svc-rail li{border-bottom:1px solid var(--hair)}
+.svc-rail a{
+  display:flex;gap:10px;align-items:baseline;padding:11px 0;
+  font-family:"Mono",monospace;font-size:var(--fs-mono);
+  letter-spacing:.13em;text-transform:uppercase;color:var(--tile);
+  transition:color .28s var(--ease);
+}
+.svc-rail a em{font-style:normal;color:var(--hair-strong);transition:color .28s var(--ease)}
+.svc-rail a:hover{color:var(--panel-white)}
+.svc-rail li.is-active a{color:var(--panel-white)}
+.svc-rail li.is-active a em{color:var(--filament)}
+
+.svc-rows{display:grid;gap:clamp(48px,6.5vw,96px)}
+
+.svc-row{display:grid;grid-template-columns:1fr;gap:clamp(20px,3vw,40px);align-items:start}
+@media(min-width:820px){
+  /* image column runs slightly wider than copy — this is the section the
+     brief calls out as needing the most visual presence */
+  .svc-row{grid-template-columns:1.15fr 1fr;gap:clamp(32px,4vw,56px)}
+  /* `order` reassigns items to tracks, not just visual position — with
+     asymmetric columns a flipped row would otherwise put the photograph in
+     the narrower track. Mirror the ratio explicitly instead. */
+  .svc-row--flip{grid-template-columns:1fr 1.15fr}
+  .svc-row--flip .svc-media{order:2}
+  .svc-row--flip .svc-copy{order:1}
+}
+.svc-media{position:relative}
+@media(min-width:820px){
+  .svc-media{position:sticky;top:calc(var(--header-h-compact) + 48px)}
+}
+.svc-media img{
+  width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;
+  background:var(--clearcoat);
+}
+.svc-media--wide img{aspect-ratio:1/1}
+/* On a phone a 4:5 image eats 58% of the viewport before a word is read.
+   Cap it so image + copy sit inside roughly one screen. */
+@media(max-width:819px){
+  .svc-media img{aspect-ratio:auto;height:40vh;min-height:260px}
+}
+.svc-copy{display:grid;gap:.85em;align-content:start;padding-top:clamp(0px,1vw,10px)}
+.svc-num{font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.2em;color:var(--filament)}
+.svc-name{
+  font-family:"Display",sans-serif;font-weight:500;font-size:var(--fs-service);
+  letter-spacing:.06em;text-transform:uppercase;line-height:1.1;
+}
+.svc-desc{color:var(--panel-white);font-size:var(--fs-body-lg);max-width:44ch}
+.svc-rule{height:1px;background:var(--hair);border:0;margin:.4em 0;width:100%}
+.svc-spec{font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.13em;text-transform:uppercase;color:var(--tile);line-height:1.7}
+.svc-cta{margin-top:.7em;justify-self:start}
+
+/* ═══════════════════════════════════════════════════════════
+   DIRECTORY
+   ═══════════════════════════════════════════════════════════ */
+.directory{background:var(--clearcoat);padding-block:clamp(64px,9vw,110px);border-block:1px solid var(--hair)}
+.dir-list{display:grid;grid-template-columns:1fr;border-top:1px solid var(--hair)}
+@media(min-width:820px){ .dir-list{grid-template-columns:1fr 1fr;column-gap:clamp(32px,5vw,80px)} }
+.dir-item{
+  /* Below 820px, price sits on its own row: "Request a quote" / "Priced
+     after inspection" are CSS generated content (content:var(--val)) and
+     Chromium will not line-wrap that regardless of white-space/overflow-
+     wrap, so a narrow inline column just overflows instead of wrapping.
+     Stacking sidesteps the issue entirely rather than fighting it. */
+  display:grid;grid-template-columns:auto 1fr;column-gap:.9em;row-gap:.3em;
+  padding:clamp(11px,1.7vw,19px) 0;border-bottom:1px solid var(--hair);
+  position:relative;
+}
+.dir-item .price{grid-column:2;text-align:left}
+@media(min-width:820px){
+  .dir-item{grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;row-gap:0}
+  .dir-item .price{grid-column:auto;text-align:right;white-space:nowrap}
+}
+.dir-item::after{
+  content:"";position:absolute;left:0;bottom:-1px;height:1px;width:0;
+  background:var(--panel-white);transition:width .4s var(--ease);
+}
+.dir-item:hover::after{width:100%}
+.dir-idx{font-family:"Mono",monospace;font-size:var(--fs-mono);color:var(--hair-strong);letter-spacing:.1em}
+.dir-name{font-family:"Display",sans-serif;font-weight:500;font-size:1rem;letter-spacing:.05em;text-transform:uppercase}
+.dir-name span{display:block;font-family:"Body",sans-serif;font-weight:400;font-size:.875rem;letter-spacing:0;text-transform:none;color:var(--tile);margin-top:.35em;max-width:40ch}
+.dir-item .price{text-align:right;white-space:nowrap}
+
+/* ═══════════════════════════════════════════════════════════
+   READ THE LIGHT
+   ═══════════════════════════════════════════════════════════ */
+.inspect{padding-block:clamp(72px,10vw,130px)}
+.inspect-stage-wrap{border:1px solid var(--hair);background:#141617}
+.inspect-bar{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:14px clamp(14px,1.8vw,22px);border-bottom:1px solid var(--hair);
+}
+.inspect-bar-status{display:flex;align-items:center;gap:11px}
+.inspect-dot{
+  width:7px;height:7px;flex:none;border-radius:50%;background:var(--filament);
+  box-shadow:0 0 0 3px rgba(240,100,30,.16);
+  animation:inspectPulse 2.6s ease-in-out infinite;
+}
+@keyframes inspectPulse{0%,100%{opacity:1}50%{opacity:.45}}
+.inspect-bar-status b{
+  display:block;font-family:"Display",sans-serif;font-weight:500;font-size:1.0625rem;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--panel-white);line-height:1.4;
+}
+.inspect-bar-status small{
+  display:block;font-family:"Mono",monospace;font-size:var(--fs-mono);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--tile);line-height:1.5;
+}
+.inspect-bar output{
+  font-family:"Mono",monospace;font-size:1.25rem;letter-spacing:.04em;
+  color:var(--panel-white);font-variant-numeric:tabular-nums;flex:none;
+}
+
+.inspect-stage{
+  position:relative;width:100%;aspect-ratio:4/5;max-height:92vh;
+  overflow:hidden;cursor:grab;touch-action:none;
+  background:var(--clearcoat);
+  -webkit-user-select:none;user-select:none;
+}
+.inspect-stage:active{cursor:grabbing}
+@media(min-width:640px){ .inspect-stage{aspect-ratio:16/10} }
+@media(min-width:1024px){ .inspect-stage{aspect-ratio:2/1} }
+.inspect-layer{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  pointer-events:none;-webkit-user-drag:none;
+}
+.inspect-layer--top{clip-path:inset(0 50% 0 0)}
+.inspect-stage.is-sweeping .inspect-layer--top{transition:clip-path .68s var(--ease)}
+.inspect-stage.is-sweeping .inspect-beam{transition:left .68s var(--ease)}
+
+/* the inspection light itself */
+.inspect-beam{position:absolute;top:0;bottom:0;left:50%;width:0;pointer-events:none}
+.inspect-beam::before{
+  content:"";position:absolute;top:0;bottom:0;left:-48px;width:96px;
+  background:linear-gradient(90deg,transparent,rgba(240,100,30,.09) 38%,rgba(255,214,180,.22) 50%,rgba(240,100,30,.09) 62%,transparent);
+  opacity:.75;transition:opacity .25s var(--ease);
+}
+.inspect-stage.is-dragging .inspect-beam::before{opacity:1}
+.inspect-beam::after{
+  content:"";position:absolute;top:0;bottom:0;left:-1px;width:2px;
+  background:linear-gradient(to bottom,transparent,#fff4e8 8%,#ffe9d2 50%,#fff4e8 92%,transparent);
+  box-shadow:0 0 8px rgba(255,180,110,.55),0 0 18px rgba(240,100,30,.3);
+  transition:box-shadow .25s var(--ease);
+}
+.inspect-stage.is-dragging .inspect-beam::after{box-shadow:0 0 12px rgba(255,190,130,.85),0 0 30px rgba(240,100,30,.55)}
+
+.inspect-handle{
+  position:absolute;top:50%;left:50%;width:46px;height:46px;
+  transform:translate(-50%,-50%) scale(1);
+  border:1px solid rgba(255,233,210,.9);border-radius:50%;
+  background:rgba(20,22,23,.62);
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  color:var(--panel-white);pointer-events:none;
+  box-shadow:0 0 0 1px rgba(0,0,0,.2),0 4px 16px rgba(0,0,0,.35);
+  transition:transform .22s var(--ease),background .22s var(--ease);
+}
+.inspect-stage:hover .inspect-handle{transform:translate(-50%,-50%) scale(1.08)}
+.inspect-stage.is-dragging .inspect-handle{transform:translate(-50%,-50%) scale(1.16);background:rgba(28,20,15,.78)}
+.inspect-tick{position:absolute;left:-8px;width:16px;height:1px;background:#ffd9b3;top:50%;opacity:.9}
+
+.inspect-tag{
+  position:absolute;top:16px;
+  padding:.6em .85em;background:rgba(10,11,11,.58);color:var(--panel-white);
+  pointer-events:none;transition:opacity .3s var(--ease);
+  max-width:min(46%,240px);
+}
+.inspect-tag strong{
+  display:block;font-family:"Display",sans-serif;font-weight:500;font-size:.9375rem;
+  letter-spacing:.06em;text-transform:uppercase;line-height:1.3;
+}
+.inspect-tag small{
+  display:block;font-family:"Mono",monospace;font-size:calc(var(--fs-mono) - 1px);
+  letter-spacing:.06em;color:var(--tile);line-height:1.5;margin-top:.35em;
+}
+.inspect-tag--l{left:16px}
+.inspect-tag--r{right:16px;text-align:right}
+/* on a narrow phone the sub-line wraps to three lines and eats the stage —
+   keep the label itself, drop the sub-line until there is room for it */
+@media(max-width:479px){
+  .inspect-tag{padding:.5em .65em;max-width:44%}
+  .inspect-tag strong{font-size:.8125rem}
+  .inspect-tag small{display:none}
+}
+
+.inspect-note{
+  margin-top:clamp(16px,2.2vw,22px);max-width:74ch;
+  font-family:"Mono",monospace;font-size:calc(var(--fs-mono) - .5px);
+  line-height:1.7;letter-spacing:.02em;color:var(--tile);opacity:.85;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WORK / GALLERY
+   ═══════════════════════════════════════════════════════════ */
+.work{padding-block:clamp(72px,10vw,130px)}
+.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+@media(min-width:820px){ .work-grid{grid-template-columns:repeat(12,1fr);gap:8px} }
+.work-cell{position:relative;overflow:hidden;background:var(--clearcoat);display:block;width:100%;padding:0;border:0;cursor:zoom-in}
+.work-cell img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease),filter .3s var(--ease)}
+.work-cell:hover img,.work-cell:focus-visible img{transform:scale(1.03)}
+.work-grid:hover .work-cell:not(:hover) img{filter:brightness(.72)}
+/* mobile: uniform contact sheet */
+.work-cell{aspect-ratio:4/5}
+/* Desktop: explicit row track + row spans instead of per-cell aspect ratios.
+   Aspect ratios on neighbouring cells of different column spans resolve to
+   different heights and tear a hole in the row; a fixed row height cannot. */
+@media(min-width:820px){
+  .work-grid{grid-auto-rows:clamp(180px,15.5vw,232px)}
+  .work-cell{aspect-ratio:auto;height:100%}
+  .work-cell--a{grid-column:span 7;grid-row:span 3}
+  .work-cell--b{grid-column:span 5;grid-row:span 3}
+  .work-cell--c{grid-column:span 4;grid-row:span 3}
+  .work-cell--d{grid-column:span 4;grid-row:span 3}
+  .work-cell--e{grid-column:span 4;grid-row:span 3}
+  .work-cell--f{grid-column:span 12;grid-row:span 2}
+}
+
+/* lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:300;background:rgba(10,11,11,.96);
+  display:grid;place-items:center;padding:clamp(16px,4vw,56px);
+  opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s;
+}
+.lightbox.is-open{opacity:1;visibility:visible}
+.lightbox img{max-width:100%;max-height:82vh;object-fit:contain;transform:scale(.985);transition:transform .35s var(--ease)}
+.lightbox.is-open img{transform:scale(1)}
+.lb-close{position:absolute;top:clamp(12px,2vw,24px);right:clamp(12px,2vw,24px);width:48px;height:48px;display:grid;place-items:center;border:1px solid var(--hair-strong);color:var(--panel-white)}
+.lb-close:hover{border-color:var(--panel-white)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;display:grid;place-items:center;border:1px solid var(--hair-strong);color:var(--panel-white)}
+.lb-nav:hover{border-color:var(--panel-white)}
+.lb-prev{left:clamp(8px,2vw,28px)}
+.lb-next{right:clamp(8px,2vw,28px)}
+.lb-caption{position:absolute;bottom:clamp(14px,3vw,30px);left:0;right:0;text-align:center;font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.14em;color:var(--tile);padding-inline:70px}
+
+/* ═══════════════════════════════════════════════════════════
+   REVIEWS
+   ═══════════════════════════════════════════════════════════ */
+.reviews{background:var(--clearcoat);padding-block:clamp(72px,10vw,130px);border-block:1px solid var(--hair)}
+.rev-top{display:grid;grid-template-columns:1fr;gap:clamp(20px,3vw,40px);align-items:end;margin-bottom:clamp(38px,5vw,64px)}
+@media(min-width:860px){ .rev-top{grid-template-columns:auto 1fr} }
+.rev-score{display:flex;align-items:baseline;gap:.5em}
+.rev-score b{font-family:"Display",sans-serif;font-weight:400;font-size:clamp(3.5rem,2rem+7vw,6rem);line-height:.85;letter-spacing:-.01em}
+.rev-score span{font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--tile)}
+.rev-top p{color:var(--tile);max-width:46ch;font-size:var(--fs-body-lg)}
+
+.rev-list{display:grid;grid-template-columns:1fr;border-top:1px solid var(--hair)}
+@media(min-width:860px){ .rev-list{grid-template-columns:repeat(2,1fr);border-top:0} }
+.rev{padding:clamp(24px,3vw,32px) 0;border-bottom:1px solid var(--hair)}
+@media(min-width:860px){
+  .rev{border-bottom:0;border-left:1px solid var(--hair);padding:0 clamp(20px,2.4vw,34px)}
+  .rev:first-child{border-left:0;padding-left:0}
+  .rev:last-child{padding-right:0}
+  /* the lead quote spans the full row above the two supporting quotes */
+  .rev--lead{grid-column:1 / -1;border-left:0;padding:0 0 clamp(28px,3.4vw,40px);border-bottom:1px solid var(--hair);margin-bottom:clamp(24px,3vw,32px)}
+}
+.rev-stars{display:flex;gap:3px;margin-bottom:1em}
+.rev-stars i{width:9px;height:9px;background:var(--filament);display:block;transform:rotate(45deg)}
+.rev-quote{font-family:"Display",sans-serif;font-weight:400;font-size:1.0625rem;line-height:1.55;letter-spacing:.005em}
+.rev--lead .rev-quote{font-size:clamp(1.375rem,1.05rem+1.4vw,1.875rem);line-height:1.42;max-width:34ch}
+.rev-meta{margin-top:1.1em;font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--tile);line-height:1.8}
+.rev-foot{margin-top:clamp(28px,3.6vw,44px);display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center}
+.rev-note{font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.1em;color:var(--tile);max-width:62ch;line-height:1.7}
+
+/* ═══════════════════════════════════════════════════════════
+   PROCESS
+   ═══════════════════════════════════════════════════════════ */
+.process{padding-block:clamp(72px,10vw,130px)}
+.steps{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--hair)}
+@media(min-width:860px){ .steps{grid-template-columns:repeat(3,1fr);border-top:1px solid var(--hair)} }
+.step{padding:clamp(26px,3.4vw,40px) 0;border-bottom:1px solid var(--hair)}
+@media(min-width:860px){
+  .step{border-bottom:0;border-left:1px solid var(--hair);padding:clamp(30px,3.4vw,42px) clamp(20px,2.4vw,34px)}
+  .step:first-child{border-left:0;padding-left:0}
+}
+.step-n{font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.2em;color:var(--filament);margin-bottom:1em;display:block}
+.step h3{font-family:"Display",sans-serif;font-weight:500;font-size:1.125rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.6em}
+.step p{color:var(--tile);font-size:.9375rem;max-width:34ch}
+
+/* ═══════════════════════════════════════════════════════════
+   FAQ — native <details>, so keyboard/ARIA/toggle semantics are
+   handled by the browser rather than reimplemented in JS
+   ═══════════════════════════════════════════════════════════ */
+.faq{background:var(--clearcoat);padding-block:clamp(64px,9vw,110px);border-block:1px solid var(--hair)}
+.faq-list{border-top:1px solid var(--hair)}
+.faq-item{border-bottom:1px solid var(--hair)}
+.faq-item summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:clamp(22px,2.6vw,30px) 2px;
+  font-family:"Display",sans-serif;font-weight:500;font-size:1.1875rem;
+  letter-spacing:.02em;color:var(--panel-white);
+  -webkit-tap-highlight-color:transparent;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:hover span{color:var(--filament)}
+.faq-item summary span{transition:color .2s var(--ease)}
+.faq-item summary i{
+  position:relative;flex:none;width:14px;height:14px;
+}
+.faq-item summary i::before,.faq-item summary i::after{
+  content:"";position:absolute;top:50%;left:50%;background:var(--tile);
+  transition:transform .28s var(--ease),background .2s var(--ease);
+}
+.faq-item summary i::before{width:14px;height:1px;transform:translate(-50%,-50%)}
+.faq-item summary i::after{width:1px;height:14px;transform:translate(-50%,-50%)}
+.faq-item[open] summary i::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0}
+.faq-item[open] summary i::before{background:var(--filament)}
+.faq-item p{
+  margin:0 0 clamp(18px,2.2vw,24px);max-width:64ch;
+  color:var(--tile);font-size:var(--fs-body);line-height:1.7;
+}
+.faq-item p a{color:var(--panel-white);text-decoration:underline;text-underline-offset:3px}
+.faq-item p a:hover{color:var(--filament)}
+@media(prefers-reduced-motion:no-preference){
+  .faq-item summary i::before,.faq-item summary i::after{transition-duration:.28s}
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STUDIO
+   ═══════════════════════════════════════════════════════════ */
+.studio{padding-block:0 clamp(72px,10vw,130px)}
+/* Source is a wide 1200×450 establishing shot — the studio, the Ferrari,
+   the tool wall, the glass partition and the motorcycle beyond it all read
+   as one composition. A tall mobile ratio (previously 4:3) forces cover to
+   show only the centre 50% of that width and cuts the story in half. Stay
+   close to the source's own wide ratio at every size instead. */
+.studio-photo{width:100%;aspect-ratio:1200/450;object-fit:cover;object-position:50% 45%;margin-bottom:clamp(40px,6vw,80px)}
+@media(max-width:700px){ .studio-photo{aspect-ratio:16/10} }
+.studio-grid{display:grid;grid-template-columns:1fr;gap:clamp(30px,4vw,56px)}
+@media(min-width:900px){ .studio-grid{grid-template-columns:1fr 1fr} }
+.studio-facts{display:grid;gap:0;border-top:1px solid var(--hair);align-content:start}
+.fact{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:clamp(14px,1.8vw,20px) 0;border-bottom:1px solid var(--hair);align-items:baseline}
+@media(max-width:520px){ .fact{grid-template-columns:1fr;gap:.4em} }
+.fact dt{font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--tile)}
+.fact dd{margin:0;font-size:var(--fs-body-lg)}
+.fact dd small{display:block;color:var(--tile);font-size:.8125rem;margin-top:.3em}
+.studio-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(24px,3vw,34px)}
+
+/* ═══════════════════════════════════════════════════════════
+   FINAL CTA
+   ═══════════════════════════════════════════════════════════ */
+.final{border-top:1px solid var(--hair);padding-block:clamp(84px,12vw,150px)}
+.final h2{font-family:"Display",sans-serif;font-weight:400;font-size:var(--fs-section);line-height:1.12;max-width:17ch;margin-bottom:.85em}
+.final-actions{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center}
+.final-meta{font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.13em;text-transform:uppercase;color:var(--tile)}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════ */
+.site-footer{background:var(--clearcoat);border-top:1px solid var(--hair)}
+.foot-top{
+  display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;
+  padding-block:clamp(30px,4vw,48px);border-bottom:1px solid var(--hair);
+}
+.foot-brand{display:flex;align-items:center;gap:14px}
+.foot-brand img{height:27px;width:auto}
+.foot-brand p{font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--tile)}
+.foot-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+.foot-cols{display:grid;grid-template-columns:repeat(2,1fr);column-gap:24px;padding-block:clamp(28px,4vw,54px) 0}
+@media(min-width:700px){ .foot-cols{column-gap:clamp(24px,3vw,48px)} }
+@media(min-width:1024px){ .foot-cols{grid-template-columns:repeat(4,1fr)} }
+.foot-col{padding:0 0 clamp(22px,3vw,34px)}
+@media(min-width:700px){
+  .foot-col{border-left:1px solid var(--hair);padding-inline:clamp(20px,2.4vw,34px)}
+  .foot-col:nth-child(odd){border-left:0;padding-left:0}
+}
+@media(min-width:1024px){
+  .foot-col{border-left:1px solid var(--hair);padding-left:clamp(20px,2.4vw,34px)}
+  .foot-col:first-child{border-left:0;padding-left:0}
+  .foot-col:nth-child(3){border-left:1px solid var(--hair)}
+}
+.foot-col h3{font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--tile);margin-bottom:1.3em}
+.foot-col li{margin-bottom:.72em}
+.foot-col a,.foot-col span{font-size:1.0625rem;color:var(--panel-white);transition:color .2s var(--ease)}
+/* underline rather than recolour: Filament text on Clearcoat is only 4.21:1,
+   below AA, and the page already rations orange to the CTAs */
+.foot-col a:hover{text-decoration:underline;text-underline-offset:4px}
+.foot-col .muted{color:var(--tile);font-size:.9375rem;display:block;line-height:1.6}
+
+.foot-bottom{
+  display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between;align-items:center;
+  padding-block:clamp(20px,2.6vw,28px);border-top:1px solid var(--hair);
+  font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.12em;color:var(--tile);
+}
+.foot-bottom button{font-family:"Mono",monospace;font-size:var(--fs-mono);letter-spacing:.12em;color:var(--tile);text-transform:uppercase}
+.foot-bottom button:hover{color:var(--panel-white)}
+
+/* privacy dialog */
+dialog.privacy{
+  border:1px solid var(--hair-strong);background:var(--bay-graphite);color:var(--panel-white);
+  max-width:min(620px,92vw);padding:clamp(26px,4vw,44px);
+}
+dialog.privacy::backdrop{background:rgba(9,10,10,.86)}
+dialog.privacy h3{font-family:"Display",sans-serif;font-weight:400;font-size:1.5rem;margin-bottom:.8em}
+dialog.privacy p{color:var(--tile);font-size:.9375rem;margin-bottom:1em}
+dialog.privacy .plate{margin-top:.6em}
+
+/* ═══════════════════════════════════════════════════════════
+   STICKY MOBILE CTA
+   ═══════════════════════════════════════════════════════════ */
+.sticky-cta{
+  position:fixed;left:0;right:0;bottom:0;z-index:180;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(28,31,32,.97);border-top:1px solid var(--hair);
+  transform:translateY(105%);transition:transform .3s var(--ease);
+}
+.sticky-cta.is-visible{transform:translateY(0)}
+.sticky-cta .plate{width:100%;padding-block:1em}
+@media(min-width:1024px){ .sticky-cta{display:none} }
+body{padding-bottom:0}
+/* must clear the sticky bar's real height (~81px) plus the safe-area inset,
+   or the last footer line sits underneath it */
+@media(max-width:1023px){ body{padding-bottom:calc(96px + env(safe-area-inset-bottom))} }
+
+/* ═══════════════════════════════════════════════════════════
+   REVEAL — one masked wipe, used sparingly
+   ═══════════════════════════════════════════════════════════ */
+/* The hidden state is armed by JS only (html.reveal-armed). If JS fails or is
+   blocked, every [data-reveal] element stays fully visible and interactive —
+   a clip-path hidden state must never be able to strand content. */
+html.reveal-armed [data-reveal]{
+  clip-path:inset(100% 0 0 0);transform:translateY(10px);
+  transition:clip-path .85s var(--ease),transform .85s var(--ease);
+}
+html.reveal-armed [data-reveal].is-in{clip-path:inset(0 0 0 0);transform:none}
+
+/* ═══════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  [data-reveal]{clip-path:none;transform:none}
+  .hero-headline .line > span{transform:none}
+  .scroll-cue i{animation:none}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="brand" href="#top" aria-label="MotoRefine — back to top">
+      <img src="assets/selected/brand/motorefine-wordmark.png" alt="MotoRefine" width="1253" height="194">
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#studio">Studio</a>
+      <a href="#contact">Contact</a>
+      <span class="nav-underline" id="navUnderline" aria-hidden="true"></span>
+    </nav>
+
+    <div class="header-utils">
+      <a class="header-phone" href="tel:+971585035855">+971 58 503 5855</a>
+      <a class="plate plate--solid plate--sm header-cta" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20book%20an%20inspection." target="_blank" rel="noopener">WhatsApp</a>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="menuPanel" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="menu-panel" id="menuPanel" hidden>
+  <nav aria-label="Mobile">
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#studio">Studio</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="menu-foot">
+    <a class="plate plate--solid" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20book%20an%20inspection." target="_blank" rel="noopener">Message us on WhatsApp</a>
+    <div class="menu-meta">
+      <a href="tel:+971585035855">+971 58 503 5855</a>
+      <a href="https://www.instagram.com/motorefinedxb/" target="_blank" rel="noopener">Instagram</a>
+      <span>Al Quoz Ind. 3, Dubai</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero" id="top">
+  <picture>
+    <source media="(max-width:719px)" srcset="assets/selected/hero/hero-studio-lamborghinis-mobile.webp" type="image/webp">
+    <source media="(max-width:719px)" srcset="assets/selected/hero/hero-studio-lamborghinis-mobile.jpg">
+    <source srcset="assets/selected/hero/hero-studio-lamborghinis.webp" type="image/webp">
+    <img class="hero-media" src="assets/selected/hero/hero-studio-lamborghinis.jpg"
+         alt="An orange Lamborghini parked in the MotoRefine studio in front of the lit wordmark wall, under the studio's grid ceiling."
+         fetchpriority="high" width="1920" height="1282">
+  </picture>
+
+  <div class="hero-content">
+    <p class="eyebrow hero-eyebrow">European Detailing in Dubai — Al Quoz Industrial 3</p>
+    <h1 class="hero-headline">
+      <span class="line"><span>Dubai's sun ages paint in months.</span></span>
+      <span class="line"><span>We don't let it.</span></span>
+    </h1>
+    <div class="hero-actions">
+      <a class="plate plate--solid" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20book%20an%20inspection." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.92-.26-.09-.45-.14-.64.14-.19.28-.74.92-.9 1.1-.17.19-.33.21-.62.07-.28-.14-1.19-.44-2.27-1.4-.84-.75-1.4-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.46-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.4 0 1.4 1.02 2.76 1.16 2.95.14.19 2 3.05 4.85 4.28.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.19-.54-.33z"/><path d="M12.02 2C6.5 2 2 6.48 2 12c0 1.87.52 3.62 1.42 5.12L2 22l5.02-1.38A9.94 9.94 0 0 0 12.02 22C17.53 22 22 17.52 22 12S17.53 2 12.02 2zm0 18.2c-1.7 0-3.3-.47-4.66-1.28l-.33-.2-3.1.85.83-3.03-.22-.32A8.18 8.18 0 0 1 3.8 12c0-4.53 3.68-8.2 8.22-8.2 4.53 0 8.2 3.67 8.2 8.2 0 4.53-3.67 8.2-8.2 8.2z"/></svg>
+        Book an inspection
+      </a>
+      <p class="hero-spec">STEK Certified · Gtechniq Approved · 9+ Years</p>
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
+</header>
+
+<main id="main">
+
+  <!-- ═══ CREDENTIALS ═══ -->
+  <section class="creds" aria-label="Credentials">
+    <div class="wrap">
+      <dl class="creds-grid">
+        <div class="cred">
+          <dt>Paint protection</dt>
+          <dd>STEK Certified Installer<small>DynoShield, ForceShield and Satin Matte film, backed by a 10-year international warranty.</small></dd>
+        </div>
+        <div class="cred">
+          <dt>Coatings</dt>
+          <dd>Gtechniq Approved<small>Crystal Serum Light, EXOv5 and Wheel Armour, applied by trained installers.</small></dd>
+        </div>
+        <div class="cred">
+          <dt>Rating</dt>
+          <dd>5.0 on Google<small>Rated by customers at the Al Quoz studio.</small></dd>
+        </div>
+        <div class="cred">
+          <dt>Experience</dt>
+          <dd>9+ Years<small>From a mobile detailing van in Chicago to a full studio in Dubai.</small></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ═══ WHY ═══ -->
+  <section class="why" id="why">
+    <div class="wrap why-grid">
+      <div>
+        <p class="eyebrow">Why MotoRefine</p>
+        <p class="why-lede" data-reveal>Two brothers, one detailing van, and a standard that didn't change when the climate did.</p>
+        <p class="why-body">The workshop started on the streets of Chicago — mobile, small, and obsessive about finish. Dubai asked harder questions of paint: relentless UV, fine sand, heat that punishes a clear coat within a season. The answers got better. The standard stayed the same.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <h3>Certified, not self-declared</h3>
+          <p>STEK certification and Gtechniq approval are granted after training and audit. Both are on the wall, and both are on every car that leaves.</p>
+        </div>
+        <div class="pillar">
+          <h3>Built for this climate</h3>
+          <p>Film and coating choices are made for Dubai heat and sand, not copied from a European spec sheet.</p>
+        </div>
+        <div class="pillar">
+          <h3>Inspection before quotation</h3>
+          <p>Every car is looked at under studio light before a price is given. Paint condition decides the work, not a package name.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SERVICES ═══ -->
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Services</p>
+        <h2 data-reveal>Six ways we protect a car, each done the same way every time.</h2>
+      </div>
+
+      <div class="svc-layout">
+        <aside class="svc-rail" aria-label="Service index">
+          <ol id="svcRail">
+            <li class="is-active"><a href="#svc-ppf"><em>01</em> Paint Protection Film</a></li>
+            <li><a href="#svc-ceramic"><em>02</em> Ceramic Coating</a></li>
+            <li><a href="#svc-detailing"><em>03</em> Detailing</a></li>
+            <li><a href="#svc-tint"><em>04</em> Window Tint</a></li>
+            <li><a href="#svc-vinyl"><em>05</em> Colour Change</a></li>
+            <li><a href="#svc-matte"><em>06</em> Matte &amp; Colour PPF</a></li>
+          </ol>
+        </aside>
+
+        <div class="svc-rows">
+
+          <article class="svc-row" id="svc-ppf" data-svc>
+            <div class="svc-media">
+              <picture>
+                <source srcset="assets/selected/services/ppf-cle53-stek-wall.webp" type="image/webp">
+                <img src="assets/selected/services/ppf-cle53-stek-wall.jpg" loading="lazy" width="492" height="650"
+                     alt="A Mercedes CLE 53 in front of stacked STEK Paint Protection Film cartons inside the MotoRefine studio.">
+              </picture>
+            </div>
+            <div class="svc-copy">
+              <span class="svc-num">01</span>
+              <h3 class="svc-name">Paint Protection Film</h3>
+              <p class="svc-desc">Self-healing film cut to every panel that meets sun, sand and gravel. Invisible once it's on, permanent in what it prevents.</p>
+              <hr class="svc-rule">
+              <p class="svc-spec">STEK DynoShield · ForceShield · 10-year international warranty</p>
+              <p class="price" style="--val:var(--price-ppf)"><span class="visually-hidden">Price on request.</span></p>
+              <a class="plate plate--sm svc-cta" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20ask%20about%20Paint%20Protection%20Film." target="_blank" rel="noopener">Ask about PPF</a>
+            </div>
+          </article>
+
+          <article class="svc-row svc-row--flip" id="svc-ceramic" data-svc>
+            <div class="svc-media">
+              <picture>
+                <source srcset="assets/selected/services/ceramic-escalade.webp" type="image/webp">
+                <img src="assets/selected/services/ceramic-escalade.jpg" loading="lazy" width="492" height="650"
+                     alt="A black Cadillac Escalade finished in ceramic coating under the studio's grid ceiling lights.">
+              </picture>
+            </div>
+            <div class="svc-copy">
+              <span class="svc-num">02</span>
+              <h3 class="svc-name">Ceramic Coating</h3>
+              <p class="svc-desc">A hard, hydrophobic layer bonded into the clear coat. Water, brake dust and bird lime lift off before they get the chance to etch.</p>
+              <hr class="svc-rule">
+              <p class="svc-spec">Gtechniq Crystal Serum Light · EXOv5 · 5-year protection</p>
+              <p class="price" style="--val:var(--price-ceramic)"><span class="visually-hidden">Price on request.</span></p>
+              <a class="plate plate--sm svc-cta" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20ask%20about%20ceramic%20coating." target="_blank" rel="noopener">Ask about coating</a>
+            </div>
+          </article>
+
+          <article class="svc-row" id="svc-detailing" data-svc>
+            <div class="svc-media">
+              <picture>
+                <source srcset="assets/selected/services/detailing-landcruiser.webp" type="image/webp">
+                <img src="assets/selected/services/detailing-landcruiser.jpg" loading="lazy" width="492" height="650"
+                     alt="A white Toyota Land Cruiser after a full detail, parked in front of the MotoRefine wall sign.">
+              </picture>
+            </div>
+            <div class="svc-copy">
+              <span class="svc-num">03</span>
+              <h3 class="svc-name">Detailing</h3>
+              <p class="svc-desc">Decontamination and correction that take the surface back to what left the factory — before anything gets sealed on top of it.</p>
+              <hr class="svc-rule">
+              <p class="svc-spec">Paint correction · Full decontamination · Interior deep clean</p>
+              <p class="price" style="--val:var(--price-detailing)"><span class="visually-hidden">Price on request.</span></p>
+              <a class="plate plate--sm svc-cta" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20ask%20about%20detailing." target="_blank" rel="noopener">Ask about detailing</a>
+            </div>
+          </article>
+
+          <article class="svc-row svc-row--flip" id="svc-tint" data-svc>
+            <div class="svc-media">
+              <picture>
+                <source srcset="assets/selected/services/tint-bmw430i-interior.webp" type="image/webp">
+                <img src="assets/selected/services/tint-bmw430i-interior.jpg" loading="lazy" width="492" height="650"
+                     alt="The tinted windscreen and dashboard of a BMW 430i seen from the driver's seat.">
+              </picture>
+            </div>
+            <div class="svc-copy">
+              <span class="svc-num">04</span>
+              <h3 class="svc-name">Window Tint</h3>
+              <p class="svc-desc">Ceramic film that takes the heat out of the cabin without darkening the glass or interfering with signal.</p>
+              <hr class="svc-rule">
+              <p class="svc-spec">Ceramic IR rejection · UV block · Factory-clear visibility</p>
+              <p class="price" style="--val:var(--price-tint)"><span class="visually-hidden">Price on request.</span></p>
+              <a class="plate plate--sm svc-cta" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20ask%20about%20window%20tint." target="_blank" rel="noopener">Ask about tint</a>
+            </div>
+          </article>
+
+          <article class="svc-row" id="svc-vinyl" data-svc>
+            <div class="svc-media">
+              <picture>
+                <source srcset="assets/selected/services/vinyl-audiq6.webp" type="image/webp">
+                <img src="assets/selected/services/vinyl-audiq6.jpg" loading="lazy" width="492" height="650" style="object-position:50% 30%"
+                     alt="An Audi Q6 e-tron in a satin grey vinyl colour change under the studio skylight.">
+              </picture>
+            </div>
+            <div class="svc-copy">
+              <span class="svc-num">05</span>
+              <h3 class="svc-name">Colour Change</h3>
+              <p class="svc-desc">A full new finish laid over the original paint — reversible, cut tight to every panel gap, and protected the same way paint would be.</p>
+              <hr class="svc-rule">
+              <p class="svc-spec">Satin · Matte · Gloss · Full colour library</p>
+              <p class="price" style="--val:var(--price-vinyl)"><span class="visually-hidden">Price on request.</span></p>
+              <a class="plate plate--sm svc-cta" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20ask%20about%20a%20colour%20change%20wrap." target="_blank" rel="noopener">Ask about wraps</a>
+            </div>
+          </article>
+
+          <article class="svc-row svc-row--flip" id="svc-matte" data-svc>
+            <div class="svc-media svc-media--wide">
+              <picture>
+                <source srcset="assets/selected/services/mattePPF-bmw-m4.webp" type="image/webp">
+                <img src="assets/selected/services/mattePPF-bmw-m4.jpg" loading="lazy" width="1280" height="1280" style="object-position:50% 42%"
+                     alt="A BMW M4 in matte copper Satin PPF in front of the lit MotoRefine sign.">
+              </picture>
+            </div>
+            <div class="svc-copy">
+              <span class="svc-num">06</span>
+              <h3 class="svc-name">Matte &amp; Colour PPF</h3>
+              <p class="svc-desc">Satin protection film instead of paint or vinyl — the finish stays stealth and still shrugs off stone chips.</p>
+              <hr class="svc-rule">
+              <p class="svc-spec">STEK Satin Matte PPF · Self-healing top coat</p>
+              <p class="price" style="--val:var(--price-matteppf)"><span class="visually-hidden">Price on request.</span></p>
+              <a class="plate plate--sm svc-cta" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20ask%20about%20matte%20or%20colour%20PPF." target="_blank" rel="noopener">Ask about matte PPF</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ DIRECTORY ═══ -->
+  <section class="directory" aria-label="All services">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Also at the studio</p>
+        <h2 data-reveal>Everything else this climate does to a car.</h2>
+      </div>
+      <div class="dir-list">
+        <div class="dir-item"><span class="dir-idx">07</span><span class="dir-name">Leather Restoration<span>Colour, grain and steering-wheel wear taken back to factory. LeTech system.</span></span><span class="price" style="--val:var(--price-leather)"></span></div>
+        <div class="dir-item"><span class="dir-idx">08</span><span class="dir-name">Paintless Dent Repair<span>Dents and creases worked back out without touching the paint.</span></span><span class="price" style="--val:var(--price-pdr)"></span></div>
+        <div class="dir-item"><span class="dir-idx">09</span><span class="dir-name">Tyre &amp; Wheel Protection<span>Ceramic-coated rims so brake dust rinses off instead of baking on.</span></span><span class="price" style="--val:var(--price-wheels)"></span></div>
+        <div class="dir-item"><span class="dir-idx">10</span><span class="dir-name">Soft Top Restoration<span>Fabric roofs chemically cleaned, re-dyed and sealed against UV.</span></span><span class="price" style="--val:var(--price-softtop)"></span></div>
+        <div class="dir-item"><span class="dir-idx">11</span><span class="dir-name">Full Body Decontamination<span>Iron, tar and rail dust stripped before any correction begins.</span></span><span class="price" style="--val:var(--price-decon)"></span></div>
+        <div class="dir-item"><span class="dir-idx">12</span><span class="dir-name">Motorcycle PPF<span>The same film, cut and wrapped for tanks, fairings and panels.</span></span><span class="price" style="--val:var(--price-moto)"></span></div>
+        <div class="dir-item"><span class="dir-idx">13</span><span class="dir-name">Smart Dent Repair<span>Localised repairs to bumpers, edges and trim without a full respray.</span></span><span class="price" style="--val:var(--price-dent)"></span></div>
+        <div class="dir-item"><span class="dir-idx">14</span><span class="dir-name">Custom Body Kits<span>Fitment, finishing and protection of aftermarket bodywork.</span></span><span class="price" style="--val:var(--price-bodykit)"></span></div>
+        <div class="dir-item"><span class="dir-idx">15</span><span class="dir-name">Auto Body Paint<span>Colour-matched refinishing for panels that film can no longer save.</span></span><span class="price" style="--val:var(--price-paint)"></span></div>
+        <div class="dir-item"><span class="dir-idx">16</span><span class="dir-name">Architectural Tinting<span>Heat-rejecting film for villa glazing and office façades.</span></span><span class="price" style="--val:var(--price-arch)"></span></div>
+        <div class="dir-item"><span class="dir-idx">17</span><span class="dir-name">Express Car Wash<span>A fast, careful wash for cars already under protection.</span></span><span class="price" style="--val:var(--price-wash)"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ READ THE LIGHT ═══ -->
+  <section class="inspect" id="inspect">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Read the light</p>
+        <h2 data-reveal>Studio light reveals what normal daylight hides.</h2>
+        <p>Drag the inspection light. A corrected surface reflects the studio array as one clean line.</p>
+      </div>
+
+      <div class="inspect-stage-wrap">
+        <div class="inspect-bar">
+          <span class="inspect-bar-status">
+            <i class="inspect-dot" aria-hidden="true"></i>
+            <span>
+              <b>Surface inspection</b>
+              <small>Paint reflection analysis</small>
+            </span>
+          </span>
+          <output id="inspectOut" for="inspectStage">50%</output>
+        </div>
+        <div class="inspect-stage" id="inspectStage" role="slider" tabindex="0"
+             aria-label="Drag to compare a simulated dull surface against the finished surface"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Half inspection, half finish">
+          <picture>
+            <source srcset="assets/selected/signature/signature-star-corrected.webp" type="image/webp">
+            <img class="inspect-layer" src="assets/selected/signature/signature-star-corrected.jpg" draggable="false" loading="lazy" width="492" height="650"
+                 alt="A Mercedes-Benz badge on gloss black paint, the studio's grid ceiling reflected in sharp, unbroken lines.">
+          </picture>
+          <picture>
+            <source srcset="assets/selected/signature/signature-star-dull.webp" type="image/webp">
+            <img class="inspect-layer inspect-layer--top" id="inspectTop" src="assets/selected/signature/signature-star-dull.jpg" draggable="false" loading="lazy" width="492" height="650"
+                 alt="The same badge, simulated with a hazed and broken reflection to show how a swirled surface returns the same light.">
+          </picture>
+
+          <div class="inspect-beam" id="inspectBeam" aria-hidden="true">
+            <span class="inspect-tick" id="inspectTick"></span>
+            <span class="inspect-handle" id="inspectHandle">
+              <svg width="10" height="9" viewBox="0 0 10 9" fill="none"><path d="M4 1L1 4.5L4 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="9" viewBox="0 0 10 9" fill="none"><path d="M6 1L9 4.5L6 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+
+          <div class="inspect-tag inspect-tag--l" id="tagL">
+            <strong>Inspection</strong>
+            <small>Reduced clarity, broken reflection</small>
+          </div>
+          <div class="inspect-tag inspect-tag--r" id="tagR">
+            <strong>Finish</strong>
+            <small>Straight light, corrected reflection</small>
+          </div>
+        </div>
+      </div>
+
+      <p class="inspect-note">Inspection visualization, not documentary before/after photography — the same photograph and the same badge on both sides. Only the reflection is altered, to show what an unprotected surface returns under this light.</p>
+    </div>
+  </section>
+
+  <!-- ═══ WORK ═══ -->
+  <section class="work" id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Work</p>
+        <h2 data-reveal>Cars that left Al Quoz protected.</h2>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="work-grid" id="workGrid">
+        <button class="work-cell work-cell--a" data-reveal type="button" aria-label="View larger: Porsche 997 Carrera 4S">
+          <picture><source srcset="assets/selected/gallery/gallery-porsche997-front.webp" type="image/webp">
+          <img src="assets/selected/gallery/gallery-porsche997-front.jpg" loading="lazy" width="492" height="650" style="object-position:50% 35%"
+               alt="A white Porsche 997 Carrera 4S in front of the MotoRefine wall sign and stacked STEK cartons."></picture>
+        </button>
+        <button class="work-cell work-cell--b" data-reveal type="button" aria-label="View larger: Porsche 718 Cayman rear">
+          <picture><source srcset="assets/selected/gallery/gallery-cayman-rear.webp" type="image/webp">
+          <img src="assets/selected/gallery/gallery-cayman-rear.jpg" loading="lazy" width="492" height="650"
+               alt="The rear of a Porsche 718 Cayman, its glass mirroring the studio's full grid ceiling."></picture>
+        </button>
+        <button class="work-cell work-cell--c" data-reveal type="button" aria-label="View larger: Mercedes rear detail">
+          <picture><source srcset="assets/selected/gallery/gallery-bmw-m60i-badge.webp" type="image/webp">
+          <img src="assets/selected/gallery/gallery-bmw-m60i-badge.jpg" loading="lazy" width="492" height="622"
+               alt="Rear quarter of a silver Mercedes coupé with the ceiling grid drawn across the paint."></picture>
+        </button>
+        <button class="work-cell work-cell--d" data-reveal type="button" aria-label="View larger: Range Rover rear">
+          <picture><source srcset="assets/selected/gallery/gallery-rangerover-rear.webp" type="image/webp">
+          <img src="assets/selected/gallery/gallery-rangerover-rear.jpg" loading="lazy" width="482" height="650"
+               alt="The rear of a matte-finish Range Rover with a MotoRefine plate, lit from the ceiling panels."></picture>
+        </button>
+        <button class="work-cell work-cell--e" data-reveal type="button" aria-label="View larger: Range Rover interior">
+          <picture><source srcset="assets/selected/services/leather-rangerover-interior.webp" type="image/webp">
+          <img src="assets/selected/services/leather-rangerover-interior.jpg" loading="lazy" width="492" height="650"
+               alt="The red-brown leather steering wheel and dashboard of a Range Rover."></picture>
+        </button>
+        <button class="work-cell work-cell--f" data-reveal type="button" aria-label="View larger: Cadillac tailgate detail">
+          <picture><source srcset="assets/selected/gallery/gallery-cadillac-tailgate.webp" type="image/webp">
+          <img src="assets/selected/gallery/gallery-cadillac-tailgate.jpg" loading="lazy" width="492" height="650" style="object-position:50% 30%"
+               alt="Close-up of a Cadillac crest and MotoRefine dealer plate on black gloss paint."></picture>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ REVIEWS ═══ -->
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:0">
+        <p class="eyebrow">Reviews</p>
+      </div>
+      <div class="rev-top">
+        <div class="rev-score" data-reveal>
+          <b>5.0</b><span>on Google · 99 reviews</span>
+        </div>
+        <p>Read directly from MotoRefine's Google Business listing. Nothing below is written on a customer's behalf.</p>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════════════════
+           REVIEWS — verbatim, sourced live from the Google Business listing
+           on 2026-08-16 (place_id ChIJ_4K8FU9r_z4RQXa62rD31fs, 99 reviews,
+           5.0 average). Each quote below is trimmed at the reviewer's own
+           sentence boundary where Google truncates with "… More" — nothing
+           past that point is inferred or completed. Full source text and
+           method are logged in assets/asset-audit.md.
+
+           LIVE SYNC: this is a static single-file page, so these reviews do
+           not update automatically. Wiring this section to Google's live
+           Places API/Reviews feed would need a small backend (Google's API
+           requires a server-side key — it cannot be called safely from a
+           static page) or a third-party review-embed service. Worth adding
+           only if MotoRefine wants reviews to refresh without a manual edit;
+           until then, update the three quotes below by hand when needed —
+           the markup needs no other change to accept new text.
+           ══════════════════════════════════════════════════════════════ -->
+      <div class="rev-list">
+        <blockquote class="rev rev--lead" data-reveal>
+          <div class="rev-stars" aria-label="5 out of 5"><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="rev-quote">"Honest, helpful and trustworthy. I was kept updated throughout the whole process and they were transparent about&nbsp;&hellip;"</p>
+          <footer class="rev-meta">— Amelia Anderson<br>Google · a month ago</footer>
+        </blockquote>
+        <blockquote class="rev" data-reveal>
+          <div class="rev-stars" aria-label="5 out of 5"><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="rev-quote">"Absolutely fantastic service! Had my car tinted here, and they did an amazing job — flawless application, high-quality materials, and great attention to detail. The team was professional, friendly, and completed the job on time."</p>
+          <footer class="rev-meta">— Rasem Khulusi<br>Google · a year ago</footer>
+        </blockquote>
+        <blockquote class="rev" data-reveal>
+          <div class="rev-stars" aria-label="5 out of 5"><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="rev-quote">"Just had my truck's PPF and windows tinting installed on my new truck in MotoRefine. The job was executed beautifully, and the truck looked amazing."</p>
+          <footer class="rev-meta">— Maurice Irani<br>Google · a year ago</footer>
+        </blockquote>
+      </div>
+
+      <div class="rev-foot">
+        <a class="plate plate--sm" href="https://maps.app.goo.gl/v1pAQUgr4thRysF67" target="_blank" rel="noopener">Read all reviews on Google</a>
+        <p class="rev-note">Also mentioned by name in recent reviews: Wael Hashem on PPF installation, Joshua Rosen on his Jetour T2, Humaid AlHammadi on a full Tesla Model Y package.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROCESS ═══ -->
+  <section class="process" id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2 data-reveal>Three steps between a message and a protected car.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-n">Step 01</span>
+          <h3>Message us</h3>
+          <p>Send the car, the year and what you're worried about. You'll get an answer from the studio, not a call centre.</p>
+        </div>
+        <div class="step">
+          <span class="step-n">Step 02</span>
+          <h3>Vehicle inspection</h3>
+          <p>Bring it to Al Quoz. We read the paint under studio light and tell you what it actually needs — before quoting.</p>
+        </div>
+        <div class="step">
+          <span class="step-n">Step 03</span>
+          <h3>Book the work</h3>
+          <p>You get the scope, the film or coating spec, the warranty and the timeline in writing. Then we book the bay.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Questions</p>
+        <h2 data-reveal>Before you message us.</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary><span>How do I get a quote?</span><i aria-hidden="true"></i></summary>
+          <p>Message the studio on WhatsApp with the car, the year and what you're asking about. We look at the paint in person before we give you a number — that's step two of the three above.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>Why does the car need an inspection first?</span><i aria-hidden="true"></i></summary>
+          <p>Paint condition decides the work, not a package name. Two cars of the same model can need completely different prep, so we quote after we've actually looked at yours under studio light.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>PPF or ceramic coating — which do I need?</span><i aria-hidden="true"></i></summary>
+          <p>PPF is a physical film that absorbs stone chips and scuffs. Ceramic coating is a bonded layer that repels water and dirt and adds gloss — it doesn't stop a chip. Most cars we protect long-term get both: film where it takes impact, ceramic over the rest. Ask us which panels need which.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>Can I just message you on WhatsApp?</span><i aria-hidden="true"></i></summary>
+          <p>Yes — it's how most of the studio's work starts. <a href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20ask%20about%20protecting%20my%20car." target="_blank" rel="noopener">Message us directly</a> and we'll take it from there.</p>
+        </details>
+        <details class="faq-item">
+          <summary><span>Where is the studio?</span><i aria-hidden="true"></i></summary>
+          <p>Al Quoz Industrial Area 3, Dubai — 16 10B Street. Open Monday to Saturday, 10:00–19:00, closed Sunday. <a href="https://maps.app.goo.gl/v1pAQUgr4thRysF67" target="_blank" rel="noopener">Get directions</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ STUDIO ═══ -->
+  <section class="studio" id="studio">
+    <picture>
+      <source srcset="assets/selected/services/studio-ferrari-bay.webp" type="image/webp">
+      <img class="studio-photo" data-reveal src="assets/selected/services/studio-ferrari-bay.jpg" loading="lazy" width="1200" height="450"
+           alt="Inside the MotoRefine bay: a red Ferrari F8 in the foreground, a second car and a motorcycle behind the glass partition, under the lit MotoRefine sign.">
+    </picture>
+    <div class="wrap">
+      <div class="studio-grid">
+        <div>
+          <p class="eyebrow">The studio</p>
+          <h2 class="why-lede" data-reveal style="margin-top:.5em">Al Quoz Industrial 3. Come and look at the light.</h2>
+          <p class="why-body">The bay is the instrument. Every car is judged under the same ceiling array you can see reflected in the paint throughout this page — which is why the inspection happens here and not in a car park.</p>
+          <div class="studio-actions">
+            <a class="plate plate--solid" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20book%20an%20inspection." target="_blank" rel="noopener">Book an inspection</a>
+            <a class="plate" href="https://maps.app.goo.gl/v1pAQUgr4thRysF67" target="_blank" rel="noopener">Open in Google Maps</a>
+          </div>
+        </div>
+        <dl class="studio-facts">
+          <div class="fact"><dt>Address</dt><dd>16 10B Street, Al Quoz Industrial Area 3, Dubai, UAE<small>Plus code 4696+JP Dubai</small></dd></div>
+          <div class="fact"><dt>Hours</dt><dd>Monday – Saturday, 10:00 – 19:00<small>Closed Sunday</small></dd></div>
+          <div class="fact"><dt>Phone</dt><dd><a href="tel:+971585035855">+971 58 503 5855</a></dd></div>
+          <div class="fact"><dt>WhatsApp</dt><dd><a href="https://wa.me/971585035855" target="_blank" rel="noopener">+971 58 503 5855</a></dd></div>
+          <div class="fact"><dt>Instagram</dt><dd><a href="https://www.instagram.com/motorefinedxb/" target="_blank" rel="noopener">@motorefinedxb</a></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FINAL CTA ═══ -->
+  <section class="final" id="contact">
+    <div class="wrap">
+      <h2 data-reveal>Message us before the sun gets to it.</h2>
+      <div class="final-actions">
+        <a class="plate plate--solid" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20book%20an%20inspection." target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.92-.26-.09-.45-.14-.64.14-.19.28-.74.92-.9 1.1-.17.19-.33.21-.62.07-.28-.14-1.19-.44-2.27-1.4-.84-.75-1.4-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.46-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.4 0 1.4 1.02 2.76 1.16 2.95.14.19 2 3.05 4.85 4.28.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.19-.54-.33z"/><path d="M12.02 2C6.5 2 2 6.48 2 12c0 1.87.52 3.62 1.42 5.12L2 22l5.02-1.38A9.94 9.94 0 0 0 12.02 22C17.53 22 22 17.52 22 12S17.53 2 12.02 2zm0 18.2c-1.7 0-3.3-.47-4.66-1.28l-.33-.2-3.1.85.83-3.03-.22-.32A8.18 8.18 0 0 1 3.8 12c0-4.53 3.68-8.2 8.22-8.2 4.53 0 8.2 3.67 8.2 8.2 0 4.53-3.67 8.2-8.2 8.2z"/></svg>
+          Book an inspection
+        </a>
+        <a class="plate" href="tel:+971585035855">Call +971 58 503 5855</a>
+        <span class="final-meta">Mon–Sat 10:00–19:00</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <img src="assets/selected/brand/motorefine-wordmark.png" alt="MotoRefine Detailing Studio" width="1253" height="194">
+          <p>European Detailing in Dubai</p>
+        </div>
+        <div class="foot-actions">
+          <a class="plate plate--sm" href="https://www.instagram.com/motorefinedxb/" target="_blank" rel="noopener">Instagram</a>
+          <a class="plate plate--sm" href="tel:+971585035855">+971 58 503 5855</a>
+          <a class="plate plate--solid plate--sm" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20book%20an%20inspection." target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="#svc-ppf">Paint Protection Film</a></li>
+            <li><a href="#svc-ceramic">Ceramic Coating</a></li>
+            <li><a href="#svc-detailing">Detailing</a></li>
+            <li><a href="#svc-tint">Window Tint</a></li>
+            <li><a href="#svc-vinyl">Colour Change</a></li>
+            <li><a href="#svc-matte">Matte &amp; Colour PPF</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="#why">Why MotoRefine</a></li>
+            <li><a href="#inspect">Read the Light</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#studio">Studio</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="tel:+971585035855">+971 58 503 5855</a></li>
+            <li><a href="https://wa.me/971585035855" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="https://www.instagram.com/motorefinedxb/" target="_blank" rel="noopener">@motorefinedxb</a></li>
+            <li><a href="https://maps.app.goo.gl/v1pAQUgr4thRysF67" target="_blank" rel="noopener">Directions</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h3>Studio</h3>
+          <ul>
+            <li><span class="muted">16 10B Street<br>Al Quoz Industrial Area 3<br>Dubai, UAE</span></li>
+            <li><span class="muted">Mon–Sat 10:00–19:00<br>Closed Sunday</span></li>
+            <li><span class="muted">Plus code 4696+JP</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="foot-bottom">
+        <span>© 2026 MotoRefine Detailing Studio · All rights reserved</span>
+        <button type="button" id="privacyBtn">Privacy</button>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<dialog class="privacy" id="privacyDialog" aria-labelledby="privacyTitle">
+  <h3 id="privacyTitle">Privacy</h3>
+  <p>This page sets no cookies, runs no analytics, loads no tracking pixels and collects no personal data. Nothing you do here is recorded or sent anywhere.</p>
+  <p>All fonts and images are served from this site itself — there are no third-party requests. The WhatsApp, Instagram and Google Maps links open external services that operate under their own privacy policies.</p>
+  <p>If MotoRefine later adds a contact form, booking system or analytics, this notice will need to be replaced with a full privacy policy.</p>
+  <button class="plate plate--sm" type="button" id="privacyClose" autofocus>Close</button>
+</dialog>
+
+<div class="sticky-cta" id="stickyCta">
+  <a class="plate plate--solid" href="https://wa.me/971585035855?text=Hi%20MotoRefine%2C%20I%27d%20like%20to%20book%20an%20inspection." target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.28-.14-1.67-.82-1.93-.92-.26-.09-.45-.14-.64.14-.19.28-.74.92-.9 1.1-.17.19-.33.21-.62.07-.28-.14-1.19-.44-2.27-1.4-.84-.75-1.4-1.67-1.57-1.95-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.46-.48-.64-.49h-.55c-.19 0-.5.07-.76.35-.26.28-1 .98-1 2.4 0 1.4 1.02 2.76 1.16 2.95.14.19 2 3.05 4.85 4.28.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.19-.54-.33z"/><path d="M12.02 2C6.5 2 2 6.48 2 12c0 1.87.52 3.62 1.42 5.12L2 22l5.02-1.38A9.94 9.94 0 0 0 12.02 22C17.53 22 22 17.52 22 12S17.53 2 12.02 2zm0 18.2c-1.7 0-3.3-.47-4.66-1.28l-.33-.2-3.1.85.83-3.03-.22-.32A8.18 8.18 0 0 1 3.8 12c0-4.53 3.68-8.2 8.22-8.2 4.53 0 8.2 3.67 8.2 8.2 0 4.53-3.67 8.2-8.2 8.2z"/></svg>
+    Book an inspection
+  </a>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+  <button class="lb-close" id="lbClose" type="button" aria-label="Close viewer">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1 1l16 16M17 1L1 17"/></svg>
+  </button>
+  <button class="lb-nav lb-prev" id="lbPrev" type="button" aria-label="Previous image">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M10 2L4 8l6 6"/></svg>
+  </button>
+  <img id="lbImg" alt="" decoding="async">
+  <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="Next image">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 2l6 6-6 6"/></svg>
+  </button>
+  <p class="lb-caption" id="lbCaption"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $  = function(s,c){ return (c||document).querySelector(s); };
+  var $$ = function(s,c){ return Array.prototype.slice.call((c||document).querySelectorAll(s)); };
+
+  /* ── 1. HERO REVEAL ───────────────────────────────────── */
+  var hero = $(".hero");
+  function revealHero(){
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ hero.classList.add("is-revealed"); });
+    });
+  }
+  if (document.readyState === "complete") revealHero();
+  else window.addEventListener("load", revealHero);
+
+  /* ── 2. HEADER STATE + SCROLL SPY ─────────────────────── */
+  var header = $("#siteHeader");
+  var navLinks = $$("#mainNav a");
+  var underline = $("#navUnderline");
+
+  function onScroll(){
+    var y = window.scrollY || window.pageYOffset;
+    header.classList.toggle("is-compact", y > window.innerHeight * 0.72);
+  }
+  onScroll();
+  window.addEventListener("scroll", onScroll, {passive:true});
+
+  function moveUnderline(link){
+    if (!link || !underline) return;
+    underline.style.left  = link.offsetLeft + "px";
+    underline.style.width = link.offsetWidth + "px";
+    underline.style.opacity = "1";
+  }
+  function setActiveNav(id){
+    var found = null;
+    navLinks.forEach(function(a){
+      var on = a.getAttribute("href") === "#" + id;
+      a.classList.toggle("is-active", on);
+      if (on) found = a;
+    });
+    if (found) moveUnderline(found);
+    else if (underline) underline.style.opacity = "0";
+  }
+
+  var spyIds = ["services","work","reviews","studio","contact"];
+  var spySections = spyIds.map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  if ("IntersectionObserver" in window && spySections.length){
+    var visible = {};
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ visible[e.target.id] = e.isIntersecting ? e.intersectionRatio : 0; });
+      var best = null, bestR = 0;
+      spyIds.forEach(function(id){ if ((visible[id]||0) > bestR){ bestR = visible[id]; best = id; } });
+      if (best) setActiveNav(best); else setActiveNav("");
+    }, { rootMargin: "-45% 0px -45% 0px", threshold:[0,.01,.5,1] });
+    spySections.forEach(function(s){ spy.observe(s); });
+  }
+  window.addEventListener("resize", function(){
+    var cur = navLinks.filter(function(a){ return a.classList.contains("is-active"); })[0];
+    if (cur) moveUnderline(cur);
+  });
+
+  /* ── 3. SERVICE RAIL ACTIVE STATE ─────────────────────── */
+  var rail = $("#svcRail");
+  var svcRows = $$("[data-svc]");
+  if (rail && svcRows.length && "IntersectionObserver" in window){
+    var railItems = $$("li", rail);
+    var svcVis = {};
+    var svcSpy = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ svcVis[e.target.id] = e.isIntersecting ? e.intersectionRatio : 0; });
+      var bi = 0, br = -1;
+      svcRows.forEach(function(row, i){
+        var r = svcVis[row.id] || 0;
+        if (r > br){ br = r; bi = i; }
+      });
+      railItems.forEach(function(li,i){ li.classList.toggle("is-active", i === bi); });
+    }, { rootMargin:"-40% 0px -40% 0px", threshold:[0,.01,.5,1] });
+    svcRows.forEach(function(r){ svcSpy.observe(r); });
+  }
+
+  /* ── 4. MOBILE MENU ───────────────────────────────────── */
+  var burger = $("#burger"), panel = $("#menuPanel");
+  var lastFocus = null;
+  function openMenu(){
+    lastFocus = document.activeElement;
+    panel.hidden = false;
+    burger.setAttribute("aria-expanded","true");
+    burger.setAttribute("aria-label","Close menu");
+    document.body.classList.add("is-locked");
+    requestAnimationFrame(function(){
+      panel.classList.add("is-open");
+      /* focus only once the panel is actually visible — an element inside a
+         visibility:hidden container cannot take focus, and the call fails silently */
+      requestAnimationFrame(function(){
+        var first = $("a", panel); if (first) first.focus();
+      });
+    });
+  }
+  function closeMenu(){
+    panel.classList.remove("is-open");
+    burger.setAttribute("aria-expanded","false");
+    burger.setAttribute("aria-label","Open menu");
+    document.body.classList.remove("is-locked");
+    window.setTimeout(function(){ if (!panel.classList.contains("is-open")) panel.hidden = true; }, 320);
+    if (lastFocus) lastFocus.focus();
+  }
+  if (burger && panel){
+    burger.addEventListener("click", function(){
+      if (burger.getAttribute("aria-expanded") === "true") closeMenu(); else openMenu();
+    });
+    $$("a", panel).forEach(function(a){ a.addEventListener("click", closeMenu); });
+    /* Escape is bound to the document, not the panel: focus can legitimately sit
+       on the burger (outside the panel) while the menu is open */
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape" && burger.getAttribute("aria-expanded") === "true") closeMenu();
+    });
+    panel.addEventListener("keydown", function(e){
+      if (e.key !== "Tab") return;
+      var f = $$("a,button", panel).filter(function(el){ return el.offsetParent !== null; });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length-1];
+      if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    });
+  }
+
+  /* ── 5. READ THE LIGHT ────────────────────────────────── */
+  var stage = $("#inspectStage");
+  if (stage){
+    var top     = $("#inspectTop");
+    var beam    = $("#inspectBeam");
+    var tick    = $("#inspectTick");
+    var out     = $("#inspectOut");
+    var tagL    = $("#tagL");
+    var tagR    = $("#tagR");
+
+    var pos = 50;
+    var dragging = false;
+    var userTouched = false;      // ← the guard that fixes the V1 bug
+    var sweepTimers = [];
+    var rafId = null;
+    var pending = null;
+
+    function paint(p, clientY){
+      pos = Math.min(100, Math.max(0, p));
+      top.style.clipPath = "inset(0 " + (100 - pos) + "% 0 0)";
+      beam.style.left = pos + "%";
+      stage.setAttribute("aria-valuenow", String(Math.round(pos)));
+      stage.setAttribute("aria-valuetext",
+        pos < 34 ? "Mostly finished surface" : (pos > 66 ? "Mostly simulated dull surface" : "Half inspection, half finish"));
+      if (out) out.textContent = Math.round(pos) + "%";
+      if (tagL) tagL.style.opacity = pos > 14 ? "1" : "0";
+      if (tagR) tagR.style.opacity = pos < 86 ? "1" : "0";
+      if (clientY != null && tick){
+        var r = stage.getBoundingClientRect();
+        var y = ((clientY - r.top) / r.height) * 100;
+        tick.style.top = Math.min(96, Math.max(4, y)) + "%";
+      }
+    }
+    paint(50);
+
+    function cancelSweep(){
+      userTouched = true;
+      sweepTimers.forEach(clearTimeout);
+      sweepTimers.length = 0;
+      stage.classList.remove("is-sweeping");   // removed synchronously — no transition bleed
+    }
+    function pctFromX(x){
+      var r = stage.getBoundingClientRect();
+      return ((x - r.left) / r.width) * 100;
+    }
+    function schedule(x, y){
+      pending = {x:x, y:y};
+      if (rafId) return;
+      rafId = requestAnimationFrame(function(){
+        rafId = null;
+        if (pending) paint(pctFromX(pending.x), pending.y);
+        pending = null;
+      });
+    }
+
+    stage.addEventListener("pointerdown", function(e){
+      cancelSweep();
+      dragging = true;
+      stage.classList.add("is-dragging");
+      try { stage.setPointerCapture(e.pointerId); } catch(err){}
+      paint(pctFromX(e.clientX), e.clientY);
+      e.preventDefault();
+    });
+    stage.addEventListener("pointermove", function(e){
+      if (!dragging) return;
+      schedule(e.clientX, e.clientY);
+    });
+    function endDrag(e){
+      if (!dragging) return;
+      dragging = false;
+      stage.classList.remove("is-dragging");
+      /* flush any move still waiting on a frame — cancelling it would drop
+         the last position of a fast flick and leave the bar behind the finger */
+      if (rafId){ cancelAnimationFrame(rafId); rafId = null; }
+      if (pending){ paint(pctFromX(pending.x), pending.y); pending = null; }
+      try { if (e && e.pointerId != null) stage.releasePointerCapture(e.pointerId); } catch(err){}
+    }
+    stage.addEventListener("pointerup", endDrag);
+    stage.addEventListener("pointercancel", endDrag);
+    stage.addEventListener("lostpointercapture", endDrag);
+
+    stage.addEventListener("keydown", function(e){
+      var step = e.shiftKey ? 10 : 4;
+      var handled = true;
+      if (e.key === "ArrowLeft" || e.key === "ArrowDown") paint(pos - step);
+      else if (e.key === "ArrowRight" || e.key === "ArrowUp") paint(pos + step);
+      else if (e.key === "Home") paint(0);
+      else if (e.key === "End") paint(100);
+      else handled = false;
+      if (handled){ cancelSweep(); e.preventDefault(); }
+    });
+
+    /* one-time entrance sweep — 50% -> ~63% -> 50%, ~1.5s total, fully
+       cancellable the instant the user touches the control, and never
+       overrides a position the user has already set */
+    if (!reduce && "IntersectionObserver" in window){
+      var sweepIO = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (!entry.isIntersecting) return;
+          sweepIO.unobserve(stage);
+          if (userTouched) return;
+          stage.classList.add("is-sweeping");
+          paint(63);
+          sweepTimers.push(setTimeout(function(){ if (userTouched) return; paint(50); }, 750));
+          sweepTimers.push(setTimeout(function(){ if (!userTouched) stage.classList.remove("is-sweeping"); }, 1500));
+        });
+      }, {threshold:.45});
+      sweepIO.observe(stage);
+    }
+  }
+
+  /* ── 6. LIGHTBOX ──────────────────────────────────────── */
+  var lb = $("#lightbox"), lbImg = $("#lbImg"), lbCap = $("#lbCaption");
+  var cells = $$(".work-cell");
+  var lbIndex = 0, lbOpener = null;
+  function lbShow(i){
+    lbIndex = (i + cells.length) % cells.length;
+    var img = $("img", cells[lbIndex]);
+    lbImg.src = img.currentSrc || img.src;
+    lbImg.alt = img.alt;
+    lbCap.textContent = img.alt;
+  }
+  function lbOpen(i){
+    lbOpener = cells[i];
+    lb.hidden = false;
+    requestAnimationFrame(function(){ lb.classList.add("is-open"); });
+    lbShow(i);
+    document.body.classList.add("is-locked");
+    $("#lbClose").focus();
+  }
+  function lbClose(){
+    lb.classList.remove("is-open");
+    document.body.classList.remove("is-locked");
+    window.setTimeout(function(){ if (!lb.classList.contains("is-open")) lb.hidden = true; }, 320);
+    if (lbOpener) lbOpener.focus();
+  }
+  cells.forEach(function(c,i){ c.addEventListener("click", function(){ lbOpen(i); }); });
+  if (lb){
+    $("#lbClose").addEventListener("click", lbClose);
+    $("#lbPrev").addEventListener("click", function(){ lbShow(lbIndex-1); });
+    $("#lbNext").addEventListener("click", function(){ lbShow(lbIndex+1); });
+    lb.addEventListener("click", function(e){ if (e.target === lb) lbClose(); });
+    document.addEventListener("keydown", function(e){
+      if (lb.hidden) return;
+      if (e.key === "Escape") lbClose();
+      else if (e.key === "ArrowLeft") lbShow(lbIndex-1);
+      else if (e.key === "ArrowRight") lbShow(lbIndex+1);
+      else if (e.key === "Tab"){
+        var f = $$("button", lb);
+        var first = f[0], last = f[f.length-1];
+        if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+    });
+  }
+
+  /* ── 7. MASKED REVEAL (the only entry animation) ──────────
+     Scroll-driven rather than IntersectionObserver on purpose: an anchor jump
+     (the nav links do exactly this) can move an element from below the fold to
+     above it between two frames. IO reports no intersection change for that, so
+     the element would never reveal and — because the hidden state clips it —
+     would be invisible AND unclickable. A rect check on every scroll cannot
+     miss that case. */
+  var revealEls = $$("[data-reveal]");
+  if (reduce){
+    revealEls.forEach(function(el){ el.classList.add("is-in"); });
+  } else {
+    document.documentElement.classList.add("reveal-armed");
+    var pendingReveal = revealEls.slice();
+    var revealTick = null;
+    function runReveal(){
+      revealTick = null;
+      var vh = window.innerHeight;
+      var still = [];
+      var shownThisPass = 0;
+      pendingReveal.forEach(function(el){
+        var r = el.getBoundingClientRect();
+        // reveal once any part has reached the trigger line, or once it is above the fold
+        if (r.top < vh * 0.94 && r.bottom > -1){
+          el.style.transitionDelay = (Math.min(shownThisPass, 5) * 0.06) + "s";
+          shownThisPass++;
+          el.classList.add("is-in");
+        } else if (r.bottom <= -1){
+          el.classList.add("is-in");           // already scrolled past — show, no delay
+        } else {
+          still.push(el);
+        }
+      });
+      pendingReveal = still;
+      if (!pendingReveal.length){
+        window.removeEventListener("scroll", queueReveal);
+        window.removeEventListener("resize", queueReveal);
+      }
+    }
+    function queueReveal(){ if (!revealTick) revealTick = requestAnimationFrame(runReveal); }
+    window.addEventListener("scroll", queueReveal, {passive:true});
+    window.addEventListener("resize", queueReveal);
+    queueReveal();
+    // safety net: never leave content clipped, whatever happens
+    window.setTimeout(function(){ revealEls.forEach(function(el){ el.classList.add("is-in"); }); }, 6000);
+  }
+
+  /* ── 8. STICKY MOBILE CTA ─────────────────────────────── */
+  var sticky = $("#stickyCta");
+  if (sticky && hero && "IntersectionObserver" in window){
+    var sIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        sticky.classList.toggle("is-visible", !e.isIntersecting && e.boundingClientRect.top < 0);
+      });
+    }, {threshold:0});
+    sIO.observe(hero);
+  } else if (sticky){ sticky.classList.add("is-visible"); }
+
+  /* ── 9. PRIVACY DIALOG ────────────────────────────────── */
+  var dlg = $("#privacyDialog"), pBtn = $("#privacyBtn"), pClose = $("#privacyClose");
+  if (dlg && pBtn){
+    pBtn.addEventListener("click", function(){
+      if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open","");
+    });
+    pClose.addEventListener("click", function(){
+      if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open");
+    });
+  }
+})();
+</script>
+</body>
+</html>
