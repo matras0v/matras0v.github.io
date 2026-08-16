@@ -671,7 +671,7 @@ footer{
       </a>
 
       <a class="cell rv" href="work/lustre/">
-        <div class="frame" data-live="work/lustre/index.html" data-scroll="1800">
+        <div class="frame" data-live="work/lustre/index.html" data-start="1700" data-scroll="1400">
           <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>lustre</span></div>
           <div class="window"><iframe title="Live preview of the LUSTRE site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
         </div>
@@ -815,6 +815,12 @@ footer{
      you see. On a desktop, render it at desktop width. */
   function srcWidth(){ return innerWidth < 760 ? 430 : 1400; }
 
+  /* Where the still should sit. A site whose first screen is a full-height
+     hero puts its content at the bottom of a viewport the iframe renders as
+     2600px tall, so the top of the frame is empty. data-start moves the
+     resting position down to where that content actually is. */
+  function startOf(frame){ return parseInt(frame.dataset.start || '0', 10); }
+
   function fit(frame){
     var win = frame.querySelector('.window');
     var fr  = frame.querySelector('iframe');
@@ -823,7 +829,7 @@ footer{
     fr.style.setProperty('--srcw', sw + 'px');
     var k = win.clientWidth / sw;
     fr.dataset.scale = k;
-    fr.style.transform = 'scale(' + k + ')';
+    fr.style.transform = 'scale(' + k + ') translateY(' + (-startOf(frame)) + 'px)';
   }
 
   var load = new IntersectionObserver(function(entries){
@@ -852,13 +858,13 @@ footer{
     frame.addEventListener('pointerenter', function(){
       var k = parseFloat(fr.dataset.scale || '1');
       fr.style.transition = 'transform 7s linear';
-      fr.style.transform  = 'scale(' + k + ') translateY(' + (-dist) + 'px)';
+      fr.style.transform  = 'scale(' + k + ') translateY(' + (-(startOf(frame) + dist)) + 'px)';
     });
     frame.addEventListener('pointerleave', function(){
       var k = parseFloat(fr.dataset.scale || '1');
       /* coming back is a return to rest, not a journey: ease-out, and fast */
       fr.style.transition = 'transform .7s cubic-bezier(.23,1,.32,1)';
-      fr.style.transform  = 'scale(' + k + ')';
+      fr.style.transform  = 'scale(' + k + ') translateY(' + (-startOf(frame)) + 'px)';
     });
     frame.addEventListener('pointercancel', function(){
       clearTimeout(timer);
