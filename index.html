@@ -828,8 +828,14 @@ footer{
 (function(){
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var coarse  = matchMedia('(hover: none)').matches;
+  /* Asked at the moment of the gesture, not once at load. A hybrid laptop
+     reports `hover: none` while its trackpad sits idle, and an embedded
+     preview can report it before the pane has finished setting itself up —
+     either way, deciding at load time leaves the pointer effects dead. */
+  function fine(){
+    return !matchMedia('(prefers-reduced-motion: reduce)').matches &&
+           !matchMedia('(hover: none)').matches;
+  }
 
   /* -- the first screen arrives ------------------------------------------
      One class, and the whole opening sequence is CSS from there. Waiting a
@@ -842,50 +848,48 @@ footer{
   /* -- buttons lean toward the cursor -------------------------------------
      Six pixels at the edge of the button, none at its centre. The CSS
      transition does the settling, so letting go is not a snap.            */
-  if(!reduced && !coarse){
-    document.querySelectorAll('.btn').forEach(function(b){
-      var raf = 0;
-      b.addEventListener('pointermove', function(e){
-        var r = b.getBoundingClientRect();
-        var dx = (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2);
-        var dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(function(){
-          b.style.transform = 'translate(' + (dx * 6).toFixed(2) + 'px,' +
-                                             (dy * 4).toFixed(2) + 'px)';
-        });
-      });
-      b.addEventListener('pointerleave', function(){
-        cancelAnimationFrame(raf);
-        b.style.transform = '';
+  document.querySelectorAll('.btn').forEach(function(b){
+    var raf = 0;
+    b.addEventListener('pointermove', function(e){
+      if(!fine()) return;
+      var r = b.getBoundingClientRect();
+      var dx = (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2);
+      var dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function(){
+        b.style.transform = 'translate(' + (dx * 6).toFixed(2) + 'px,' +
+                                           (dy * 4).toFixed(2) + 'px)';
       });
     });
-  }
+    b.addEventListener('pointerleave', function(){
+      cancelAnimationFrame(raf);
+      b.style.transform = '';
+    });
+  });
 
   /* -- frames turn toward the cursor --------------------------------------
      Four degrees at the corner. Any more and a screenshot of a website
      starts reading as a toy.                                              */
-  if(!reduced && !coarse){
-    document.querySelectorAll('.frame').forEach(function(f){
-      var win = f.querySelector('.window');
-      if(!win) return;
-      var raf = 0;
-      f.addEventListener('pointermove', function(e){
-        var r = f.getBoundingClientRect();
-        var dx = (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2);
-        var dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(function(){
-          win.style.transform = 'rotateY(' + (dx * 4).toFixed(2) + 'deg) ' +
-                                'rotateX(' + (-dy * 4).toFixed(2) + 'deg)';
-        });
-      });
-      f.addEventListener('pointerleave', function(){
-        cancelAnimationFrame(raf);
-        win.style.transform = '';
+  document.querySelectorAll('.frame').forEach(function(f){
+    var win = f.querySelector('.window');
+    if(!win) return;
+    var raf = 0;
+    f.addEventListener('pointermove', function(e){
+      if(!fine()) return;
+      var r = f.getBoundingClientRect();
+      var dx = (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2);
+      var dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function(){
+        win.style.transform = 'rotateY(' + (dx * 4).toFixed(2) + 'deg) ' +
+                              'rotateX(' + (-dy * 4).toFixed(2) + 'deg)';
       });
     });
-  }
+    f.addEventListener('pointerleave', function(){
+      cancelAnimationFrame(raf);
+      win.style.transform = '';
+    });
+  });
 
   /* -- reveal on scroll ------------------------------------------------- */
   var rv = new IntersectionObserver(function(entries){
@@ -953,13 +957,12 @@ footer{
   frames.forEach(function(frame){
     load.observe(frame);
 
-    if(reduced || coarse) return;
-
     var fr    = frame.querySelector('iframe');
     var dist  = parseInt(frame.dataset.scroll || '1600', 10);
     var timer = null;
 
     frame.addEventListener('pointerenter', function(){
+      if(!fine()) return;
       var k = parseFloat(fr.dataset.scale || '1');
       fr.style.transition = 'transform 7s linear';
       fr.style.transform  = 'scale(' + k + ') translateY(' + (-(startOf(frame) + dist)) + 'px)';
