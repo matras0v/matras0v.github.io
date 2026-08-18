@@ -142,7 +142,7 @@ h3{font-size:20px;letter-spacing:-.01em}
 .fact b{display:block;font-family:var(--mono);font-size:20px;font-weight:700;letter-spacing:-.02em}
 .fact span{font-size:12.5px;color:var(--mist)}
 
-/* сигнатура — шкала абразивности. Зерно рисуется точками: чем финишнее шаг, тем мельче */
+/* сигнатура — шкала абразивности, каждый шаг подписан фото банки этого этапа */
 .scale{border-top:1px solid rgba(255,255,255,.16)}
 .scale-lab{
   display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
@@ -157,11 +157,8 @@ h3{font-size:20px;letter-spacing:-.01em}
 }
 .step:hover,.step:focus-visible{background:var(--slate)}
 .step-no{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--mist)}
-.grain{height:44px;width:100%}
-.grain.g1{background-image:radial-gradient(circle,#fff 3px,transparent 3.1px);background-size:14px 14px}
-.grain.g2{background-image:radial-gradient(circle,#fff 2px,transparent 2.1px);background-size:9px 9px}
-.grain.g3{background-image:radial-gradient(circle,#fff 2.3px,transparent 2.4px);background-size:11px 11px}
-.grain.g4{background-image:radial-gradient(circle,#fff 1.3px,transparent 1.4px);background-size:5px 5px}
+.step-photo{width:60px;height:60px;background:var(--white);display:flex;align-items:center;justify-content:center;padding:8px;flex-shrink:0}
+.step-photo img{width:100%;height:100%;object-fit:contain}
 .step-code{font-family:var(--mono);font-size:23px;font-weight:700;letter-spacing:-.02em}
 .step-name{font-size:15px;font-weight:700}
 .step-note{font-size:12.5px;color:var(--mist);line-height:1.45}
@@ -169,20 +166,25 @@ h3{font-size:20px;letter-spacing:-.01em}
 
 /* ─────────── категории ─────────── */
 .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.tile{background:var(--white);padding:26px 24px;display:flex;flex-direction:column;gap:12px;min-height:132px}
-.tile:hover{background:var(--ink);color:var(--white)}
-.tile:hover .tile-n{color:var(--mist)}
-.tile svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.4}
-.tile-name{font-size:16px;font-weight:700;margin-top:auto}
-.tile-n{font-family:var(--mono);font-size:11.5px;color:var(--steel)}
+.tile{position:relative;overflow:hidden;background:var(--ink);padding:22px 22px 20px;display:flex;flex-direction:column;gap:12px;min-height:148px;color:var(--white)}
+.tile-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .3s}
+.tile::after{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(10,10,11,.32) 0%,rgba(10,10,11,.5) 55%,rgba(10,10,11,.92) 100%);}
+.tile > :not(.tile-bg){position:relative;z-index:2}
+.tile:hover .tile-bg{transform:scale(1.05)}
+.tile svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:1.4}
+.tile-name{font-size:16px;font-weight:700;margin-top:auto;color:#fff}
+.tile-n{font-family:var(--mono);font-size:11.5px;color:rgba(255,255,255,.72)}
 
 /* ─────────── бренды ─────────── */
 .brands{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .brands .wrap{display:flex;align-items:center;gap:40px;padding:26px 0;flex-wrap:wrap}
 .brands-lab{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);white-space:nowrap}
-.brand-list{display:flex;gap:34px;flex-wrap:wrap;align-items:baseline}
-.brand-chip{font-size:17px;font-weight:800;letter-spacing:-.01em;color:var(--slate)}
+.brand-list{display:flex;gap:30px;flex-wrap:wrap;align-items:center}
+.brand-chip{display:inline-flex;align-items:center;gap:12px;color:var(--slate)}
 .brand-chip:hover{color:var(--ink)}
+.brand-chip img{width:38px;height:38px;object-fit:contain;background:var(--paper);border:1px solid var(--line);flex-shrink:0}
+.brand-chip b{font-size:17px;font-weight:800;letter-spacing:-.01em;display:block}
 .brand-chip i{display:block;font-family:var(--mono);font-size:10px;font-style:normal;font-weight:400;letter-spacing:.1em;color:var(--mist);margin-top:2px}
 
 /* ─────────── сетка товаров ─────────── */
@@ -220,7 +222,7 @@ h3{font-size:20px;letter-spacing:-.01em}
 .side h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);font-weight:400;margin:0 0 12px}
 .side-block{border-top:1px solid var(--line);padding:18px 0}
 .side-block:first-child{border-top:none;padding-top:0}
-.side-link{display:flex;justify-content:space-between;gap:8px;padding:6px 0;font-size:13.5px;color:var(--slate)}
+.side-link{display:flex;justify-content:space-between;gap:8px;padding:6px 0;font-size:13.5px;color:var(--slate);cursor:pointer}
 .side-link:hover{color:var(--ink)}
 .side-link.on{color:var(--ink);font-weight:700}
 .side-link span{font-family:var(--mono);font-size:11px;color:var(--mist)}
@@ -371,16 +373,6 @@ footer{background:var(--graphite);color:var(--mist);margin-top:0}
 .city-opt i{display:block;font-style:normal;font-family:var(--mono);font-size:10px;color:var(--mist);margin-top:2px}
 .city-opt:hover i,.city-opt.on i{color:rgba(255,255,255,.6)}
 
-/* ─────────── плашка «демо» ─────────── */
-.demo-mark{
-  display:inline-flex;align-items:center;gap:7px;
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--white);border:1px solid rgba(255,255,255,.3);padding:3px 9px;
-}
-.demo-mark:hover{background:var(--white);color:var(--ink)}
-.demo-mark:hover b{background:var(--ink)}
-.demo-mark b{width:5px;height:5px;background:var(--white);border-radius:50%;flex-shrink:0}
-
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -426,7 +418,7 @@ footer{background:var(--graphite);color:var(--mist);margin-top:0}
   .send-row{grid-template-columns:minmax(0,1fr)}
   .promo-band{padding:28px 22px}
   .product-photo{padding:24px}
-  .topbar-right a:not(.demo-mark){display:none}
+  .topbar-right a{display:none}
   .foot-top{grid-template-columns:minmax(0,1fr)}
 }
 @media(max-width:420px){
@@ -445,7 +437,6 @@ footer{background:var(--graphite);color:var(--mist);margin-top:0}
       <span id="cityName">Ростов-на-Дону</span>
     </button>
     <div class="topbar-right">
-      <a class="demo-mark" href="#/scale"><b></b> Демо-концепт</a>
       <a href="#/delivery">Доставка и оплата</a>
       <a href="#/wholesale">Оптовым клиентам</a>
       <a class="topbar-phone" id="topPhone" href="tel:+79613011919">+7 961 301-19-19</a>
@@ -515,7 +506,7 @@ footer{background:var(--graphite);color:var(--mist);margin-top:0}
           <svg viewBox="0 0 24 24"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/></svg> Telegram
         </a>
         <a class="chat" style="border-color:rgba(255,255,255,.3);color:#fff" href="https://wa.me/79613011919" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M4 20l1.4-4.2A7.9 7.9 0 1 1 8.6 19L4 20Z"/></svg> WhatsApp
+          <svg viewBox="0 0 24 24"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21z"/><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0-1h-1a.5 .5 0 0 0 0 1"/></svg> WhatsApp
         </a>
       </div>
     </div>
@@ -595,7 +586,7 @@ footer{background:var(--graphite);color:var(--mist);margin-top:0}
         <input id="lcode" type="text" inputmode="numeric" placeholder="0000" required>
       </div>
       <button class="btn" type="submit" style="width:100%">Войти</button>
-      <p class="note">Демо-вход: любой телефон, код <b class="mono">0000</b>. После входа по каталогу появятся оптовые цены.</p>
+      <p class="note">Любой телефон, код <b class="mono">0000</b>. После входа по каталогу появятся оптовые цены.</p>
     </form>
   </div>
 </div>
@@ -629,10 +620,10 @@ const CAT_ICON = {
 
 // Ступени полировки Koch Chemie: буква артикула = шаг процесса, не маркетинг
 const STEPS = [
-  {code:"H", no:"Шаг 01", grain:"g1", name:"Съём",        note:"Heavy Cut. Убирает глубокую риску и следы шлифовки на твёрдых лаках."},
-  {code:"F", no:"Шаг 02", grain:"g2", name:"Выравнивание", note:"Fine Cut. Снимает след абразива и выводит лак к глубине."},
-  {code:"M", no:"Шаг 03", grain:"g4", name:"Финиш",       note:"Micro Cut. Убирает голограммы — на тёмных кузовах обязателен."},
-  {code:"P", no:"01–03 за проход", grain:"g3", name:"Одношаговые", note:"One Cut &amp; Finish. Режет и полирует сразу — для потока на мойке."},
+  {code:"H", no:"Шаг 01", name:"Съём",        note:"Heavy Cut. Убирает глубокую риску и следы шлифовки на твёрдых лаках."},
+  {code:"F", no:"Шаг 02", name:"Выравнивание", note:"Fine Cut. Снимает след абразива и выводит лак к глубине."},
+  {code:"M", no:"Шаг 03", name:"Финиш",       note:"Micro Cut. Убирает голограммы — на тёмных кузовах обязателен."},
+  {code:"P", no:"01–03 за проход", name:"Одношаговые", note:"One Cut &amp; Finish. Режет и полирует сразу — для потока на мойке."},
 ];
 
 const CITIES = [
@@ -724,6 +715,16 @@ function toggleFav(i){
   save("pt_fav", store.fav); paintChrome(); render();
 }
 
+/* Первое фото товара раздела/бренда — для подложек на главной. Предпочитаем то, что в наличии. */
+function repImg(pred){
+  const idx = P.map((p,i) => i).filter(pred);
+  const inStock = idx.find(i => P[i][F.ST]);
+  return P[inStock !== undefined ? inStock : idx[0]][F.IMG];
+}
+const catThumb = catId => repImg(i => P[i][F.CAT] === catId);
+const brandThumb = brandIdx => repImg(i => P[i][F.B] === brandIdx);
+const stepThumb = code => repImg(i => STEP[i] === code);
+
 /* ═══════════════════ карточка товара в сетке ═══════════════════ */
 function cardHTML(i){
   const p = P[i];
@@ -797,7 +798,7 @@ view.home = () => {
           ${STEPS.map(s => `
             <button class="step" data-step="${s.code}">
               <span class="step-no">${s.no}</span>
-              <span class="grain ${s.grain}" aria-hidden="true"></span>
+              <span class="step-photo"><img src="img/${stepThumb(s.code)}" alt="" loading="lazy"></span>
               <span class="step-code">${s.code}</span>
               <span class="step-name">${s.name}</span>
               <span class="step-note">${s.note}</span>
@@ -817,6 +818,7 @@ view.home = () => {
       <div class="tiles">
         ${CATS.map(c => `
           <a class="tile" href="#/catalog/${c.id}">
+            <img class="tile-bg" src="img/${catThumb(c.id)}" alt="" loading="lazy">
             <svg viewBox="0 0 24 24">${CAT_ICON[c.id]}</svg>
             <span class="tile-name">${c.name}</span>
             <span class="tile-n">${c.note} · ${P.filter(p => p[F.CAT] === c.id).length}</span>
@@ -829,7 +831,10 @@ view.home = () => {
     <div class="wrap">
       <span class="brands-lab">Представляем официально</span>
       <div class="brand-list">
-        ${BR.map((b,i) => `<a class="brand-chip" href="#/catalog?brand=${encodeURIComponent(b)}">${esc(b)}<i>${P.filter(p => p[F.B] === i).length} позиций</i></a>`).join("")}
+        ${BR.map((b,i) => `<a class="brand-chip" href="#/catalog?brand=${encodeURIComponent(b)}">
+          <img src="img/${brandThumb(i)}" alt="" loading="lazy">
+          <span><b>${esc(b)}</b><i>${P.filter(p => p[F.B] === i).length} позиций</i></span>
+        </a>`).join("")}
       </div>
     </div>
   </div>
@@ -1093,7 +1098,7 @@ view.done = () => {
 
       <div class="send-row">
         <a class="send" href="https://wa.me/${WA_NUMBER}?text=${enc}" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M4 20l1.4-4.2A7.9 7.9 0 1 1 8.6 19L4 20Z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21z"/><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0-1h-1a.5 .5 0 0 0 0 1"/></svg>
           Продублировать<br>в WhatsApp
         </a>
         <a class="send" href="https://t.me/share/url?url=${encodeURIComponent("Заказ № "+o.no)}&text=${enc}" target="_blank" rel="noopener">
@@ -1148,9 +1153,9 @@ view.account = () => {
         <button class="btn" id="openLogin">Войти в кабинет</button>
       </div>
       <div class="form-card">
-        <p class="eyebrow">Как это смотреть</p>
-        <h3>Демо-вход</h3>
-        <p style="font-size:14px;color:var(--steel);margin:14px 0 0">Введите любой телефон и код <b class="mono">0000</b>. Регистрации и СМС в прототипе нет — важно показать, что меняется <em>после</em> входа: по всему каталогу вместо розничной цены появляется оптовая.</p>
+        <p class="eyebrow">Быстрый доступ</p>
+        <h3>Вход без регистрации</h3>
+        <p style="font-size:14px;color:var(--steel);margin:14px 0 0">Введите любой телефон и код <b class="mono">0000</b>. Важно показать, что меняется <em>после</em> входа: по всему каталогу вместо розничной цены появляется оптовая.</p>
       </div>
     </div>
   </div></section>`;
@@ -1348,7 +1353,7 @@ view.contacts = () => {
         <div class="cline"><i>Почта</i><b><a href="mailto:${SHOP_EMAIL}">${SHOP_EMAIL}</a></b></div>
         <div class="chats">
           <a class="chat" href="https://t.me/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/></svg> Telegram</a>
-          <a class="chat" href="https://wa.me/${WA_NUMBER}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4 20l1.4-4.2A7.9 7.9 0 1 1 8.6 19L4 20Z"/></svg> WhatsApp</a>
+          <a class="chat" href="https://wa.me/${WA_NUMBER}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21z"/><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0-1h-1a.5 .5 0 0 0 0 1"/></svg> WhatsApp</a>
         </div>
       </div>
       <div class="contact-card">
