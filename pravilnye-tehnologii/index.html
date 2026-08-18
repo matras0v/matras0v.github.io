@@ -157,8 +157,8 @@ h3{font-size:20px;letter-spacing:-.01em}
 }
 .step:hover,.step:focus-visible{background:var(--slate)}
 .step-no{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--mist)}
-.step-photo{width:60px;height:60px;background:var(--white);display:flex;align-items:center;justify-content:center;padding:8px;flex-shrink:0}
-.step-photo img{width:100%;height:100%;object-fit:contain}
+.step-photo{width:100%;height:128px;background:var(--white);display:flex;align-items:center;justify-content:center;padding:14px;flex-shrink:0}
+.step-photo img{max-width:100%;max-height:100%;object-fit:contain}
 .step-code{font-family:var(--mono);font-size:23px;font-weight:700;letter-spacing:-.02em}
 .step-name{font-size:15px;font-weight:700}
 .step-note{font-size:12.5px;color:var(--mist);line-height:1.45}
@@ -183,7 +183,7 @@ h3{font-size:20px;letter-spacing:-.01em}
 .brand-list{display:flex;gap:30px;flex-wrap:wrap;align-items:center}
 .brand-chip{display:inline-flex;align-items:center;gap:12px;color:var(--slate)}
 .brand-chip:hover{color:var(--ink)}
-.brand-chip img{width:38px;height:38px;object-fit:contain;background:var(--paper);border:1px solid var(--line);flex-shrink:0}
+.brand-chip img{width:64px;height:40px;object-fit:contain;background:var(--paper);border:1px solid var(--line);flex-shrink:0;padding:5px;box-sizing:border-box}
 .brand-chip b{font-size:17px;font-weight:800;letter-spacing:-.01em;display:block}
 .brand-chip i{display:block;font-family:var(--mono);font-size:10px;font-style:normal;font-weight:400;letter-spacing:.1em;color:var(--mist);margin-top:2px}
 
@@ -331,6 +331,8 @@ h3{font-size:20px;letter-spacing:-.01em}
 .dir .eyebrow{margin-bottom:8px}
 .dir h3{margin-bottom:10px}
 .dir p{margin:0;font-size:13.5px;color:var(--steel);line-height:1.6}
+.dir-thumb{width:140px;height:80px;background:var(--paper);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;padding:12px;margin-bottom:16px}
+.dir-thumb img{max-width:100%;max-height:100%;object-fit:contain}
 
 /* ─────────── контакты ─────────── */
 .contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
@@ -534,10 +536,10 @@ footer{background:var(--graphite);color:var(--mist);margin-top:0}
     <div class="foot-col">
       <h5>Контакты</h5>
       <ul>
-        <li><a class="mono" href="tel:+79613011919">+7 961 301-19-19</a></li>
-        <li><a class="mono" href="tel:+79613011818">+7 961 301-18-18</a></li>
+        <li><a class="mono" href="tel:+79613011919">+7 961 301-19-19</a> <span style="color:var(--steel)">(Ростовская обл.)</span></li>
+        <li><a class="mono" href="tel:+79613011818">+7 961 301-18-18</a> <span style="color:var(--steel)">(Краснодарский край)</span></li>
         <li><a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a></li>
-        <li>Ростов-на-Дону,<br>ул. Доватора, 151</li>
+        <li>Ростов-на-Дону,<br>ул. Ерёменко, 45</li>
         <li>Пн–Пт 09:00–18:00</li>
       </ul>
     </div>
@@ -627,7 +629,7 @@ const STEPS = [
 ];
 
 const CITIES = [
-  {n:"Ростов-на-Дону",  o:1, ph:"+79613011919", a:"ул. Доватора, 151"},
+  {n:"Ростов-на-Дону",  o:1, ph:"+79613011919", a:"ул. Ерёменко, 45"},
   {n:"Краснодар",       o:1, ph:"+79613011818"},
   {n:"Сочи",            o:1, ph:"+79613011818"},
   {n:"Новороссийск",    o:1, ph:"+79613011818"},
@@ -725,6 +727,10 @@ const catThumb = catId => repImg(i => P[i][F.CAT] === catId);
 const brandThumb = brandIdx => repImg(i => P[i][F.B] === brandIdx);
 const stepThumb = code => repImg(i => STEP[i] === code);
 
+/* Официальные логотипы там, где они у нас есть; для остальных брендов — фото их товара. */
+const BRAND_LOGO = {"Koch Chemie":"brands/koch-chemie.svg", "Zvizzer":"brands/zvizzer.png"};
+const brandVisual = (b, i) => BRAND_LOGO[b] || brandThumb(i);
+
 /* ═══════════════════ карточка товара в сетке ═══════════════════ */
 function cardHTML(i){
   const p = P[i];
@@ -792,7 +798,6 @@ view.home = () => {
       <div class="scale">
         <div class="scale-lab">
           <span>Полировка по шагам — от съёма к финишу</span>
-          <span>Индекс Koch Chemie: H → F → M</span>
         </div>
         <div class="scale-row">
           ${STEPS.map(s => `
@@ -832,7 +837,7 @@ view.home = () => {
       <span class="brands-lab">Представляем официально</span>
       <div class="brand-list">
         ${BR.map((b,i) => `<a class="brand-chip" href="#/catalog?brand=${encodeURIComponent(b)}">
-          <img src="img/${brandThumb(i)}" alt="" loading="lazy">
+          <img src="img/${brandVisual(b,i)}" alt="" loading="lazy">
           <span><b>${esc(b)}</b><i>${P.filter(p => p[F.B] === i).length} позиций</i></span>
         </a>`).join("")}
       </div>
@@ -1060,8 +1065,8 @@ view.checkout = () => {
         <div class="field">
           <label>Получение</label>
           <div class="radios">
-            <label class="radio on"><input type="radio" name="ship" value="Самовывоз, Ростов-на-Дону, ул. Доватора, 151" checked>
-              <span><b>Самовывоз со склада</b><span>Ростов-на-Дону, ул. Доватора, 151 · Пн–Пт 09:00–18:00</span></span></label>
+            <label class="radio on"><input type="radio" name="ship" value="Самовывоз, Ростов-на-Дону, ул. Ерёменко, 45" checked>
+              <span><b>Самовывоз со склада</b><span>Ростов-на-Дону, ул. Ерёменко, 45 · Пн–Пт 09:00–18:00</span></span></label>
             <label class="radio"><input type="radio" name="ship" value="Доставка транспортной компанией">
               <span><b>Доставка транспортной компанией</b><span>По югу России и в другие регионы, стоимость по тарифу перевозчика</span></span></label>
           </div>
@@ -1241,6 +1246,7 @@ view.brands = () => {
     <div class="head"><div><p class="eyebrow">Прямые поставки</p><h2>Бренды в каталоге</h2></div></div>
     <div class="dir-grid">
       ${BR.map((b,i) => `<a class="dir" href="#/catalog?brand=${encodeURIComponent(b)}">
+        <span class="dir-thumb"><img src="img/${brandVisual(b,i)}" alt="" loading="lazy"></span>
         <p class="eyebrow">${P.filter(p => p[F.B]===i).length} позиций</p>
         <h3>${esc(b)}</h3>
         <p>${esc(info[b] || "Позиции этого бренда в нашем каталоге.")}</p>
@@ -1333,7 +1339,7 @@ view.delivery = () => `<section class="screen on"><div class="wrap">
     </div>
     <div class="dir">
       <p class="eyebrow">Шаг 04</p><h3>Получение</h3>
-      <p>Самовывоз со склада в Ростове-на-Дону, ул. Доватора, 151. По югу России и в другие регионы — транспортной компанией, тариф перевозчика.</p>
+      <p>Самовывоз со склада в Ростове-на-Дону, ул. Ерёменко, 45. По югу России и в другие регионы — транспортной компанией, тариф перевозчика.</p>
     </div>
   </div>
   <p class="note" style="margin-top:26px">Химия перевозится с соблюдением температурного режима: часть составов нельзя замораживать, зимой это учитывается при отгрузке.</p>
@@ -1348,7 +1354,7 @@ view.contacts = () => {
     <div class="contact-grid">
       <div class="contact-card">
         <h3>Склад и магазин</h3>
-        <div class="cline"><i>Адрес</i><b>Ростов-на-Дону, ул. Доватора, 151</b></div>
+        <div class="cline"><i>Адрес</i><b>Ростов-на-Дону, ул. Ерёменко, 45</b></div>
         <div class="cline"><i>Режим</i><b>Пн–Пт 09:00–18:00 · Сб–Вс выходной</b></div>
         <div class="cline"><i>Почта</i><b><a href="mailto:${SHOP_EMAIL}">${SHOP_EMAIL}</a></b></div>
         <div class="chats">
@@ -1553,7 +1559,7 @@ function openCity(){
       <button class="city-opt ${c.n===store.city?"on":""}" data-city="${c.n}">
         ${c.n}<i>${phoneFmt(c.ph)}</i>
       </button>`).join("")}</div>
-  </div>`).join("") + `<p class="note">От города зависит телефон менеджера и способ получения. Адрес склада — Ростов-на-Дону, ул. Доватора, 151.</p>`;
+  </div>`).join("") + `<p class="note">От города зависит телефон менеджера и способ получения. Адрес склада — Ростов-на-Дону, ул. Ерёменко, 45.</p>`;
   $("#cityModal").classList.add("on");
 }
 
