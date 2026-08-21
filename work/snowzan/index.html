@@ -270,6 +270,23 @@ h2{
   border:0;transform-origin:0 0;pointer-events:none;will-change:transform;
 }
 
+/* --------------------------------------------------------- testimonial -- */
+.testimonial{
+  padding:var(--s4) var(--s4) var(--s4) calc(var(--s4) + 4px);
+  border-left:3px solid var(--ink);
+}
+.testimonial blockquote{
+  max-width:62ch;
+  font-family:var(--f-display);font-variation-settings:"wdth" 84,"opsz" 32;
+  font-weight:600;font-size:clamp(19px,2.3vw,25px);
+  line-height:1.32;letter-spacing:-.014em;color:var(--ink);
+}
+.testimonial cite{
+  display:block;margin-top:var(--s3);font-style:normal;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;
+  color:var(--ink-3);text-transform:uppercase;
+}
+
 /* -------------------------------------------------------------- handed -- */
 .handed{
   display:grid;gap:var(--s3);grid-template-columns:1fr;
@@ -478,6 +495,15 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>His domain, still registered where it always was, still under his name.</span></li>
         <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Two instruction sheets, written for someone who has never opened a code editor.</span></li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="testimonial rv">
+      <blockquote>&ldquo;Working with Vadim was a great experience. He completely redesigned my website and made it look much more professional than what I had before. He was very responsive throughout the process, listened to all of the changes I wanted, and was patient even when the payment process became complicated. I&rsquo;m extremely happy with how the Snowzan Mobile Detailing website turned out, and I&rsquo;ve already seen an increase in bookings just a few days after the new site went live. I would definitely recommend Vadim to anyone looking for a professional website.&rdquo;</blockquote>
+      <cite>Owner, Snowzan Mobile Detailing</cite>
     </div>
   </div>
 </section>
