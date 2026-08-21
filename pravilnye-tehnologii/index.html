@@ -97,8 +97,9 @@ h3{font-size:20px;letter-spacing:-.01em}
 
 /* ─────────── навигация ─────────── */
 .mainnav{background:var(--graphite);position:sticky;top:0;z-index:40}
-.mainnav .wrap{display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none}
+.mainnav .wrap{display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;padding-right:8px}
 .mainnav .wrap::-webkit-scrollbar{display:none}
+.mainnav-fade{display:none;position:absolute;top:0;right:0;bottom:0;width:32px;background:linear-gradient(to right,transparent,var(--graphite));pointer-events:none}
 .mainnav a{
   color:var(--mist);font-size:13.5px;padding:0 20px;height:52px;
   display:flex;align-items:center;white-space:nowrap;border-bottom:2px solid transparent;
@@ -208,7 +209,7 @@ h3{font-size:20px;letter-spacing:-.01em}
 .add:hover{background:var(--slate)}
 .add.in{background:var(--white);color:var(--ink);border:1.5px solid var(--ink)}
 .add svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2}
-.fav{position:absolute;top:10px;right:10px;background:none;border:none;padding:5px;z-index:2;line-height:0}
+.fav{position:absolute;top:8px;right:8px;background:none;border:none;padding:0;z-index:2;display:flex;align-items:center;justify-content:center}
 .fav svg{width:18px;height:18px;stroke:var(--steel);fill:none;stroke-width:1.6}
 .fav.on svg{fill:var(--ink);stroke:var(--ink)}
 .flag{
@@ -397,6 +398,10 @@ footer{background:var(--graphite);color:var(--mist);margin-top:0}
   .side-wrap{display:none}
   .side-wrap.open{display:block;margin-bottom:24px}
   .filters-toggle{display:inline-flex}
+  .mainnav-fade{display:block}
+  .city-btn{min-height:44px}
+  .fav{width:40px;height:40px}
+  .add{width:44px;height:44px}
   .product{grid-template-columns:1fr;gap:32px}
   .cart-layout{grid-template-columns:minmax(0,1fr)}
   .summary{position:static}
@@ -493,6 +498,7 @@ footer{background:var(--graphite);color:var(--mist);margin-top:0}
     <a href="#/delivery">Доставка и оплата</a>
     <a href="#/contacts">Контакты</a>
   </div>
+  <div class="mainnav-fade" aria-hidden="true"></div>
 </nav>
 
 <main id="main"></main>
