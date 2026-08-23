@@ -197,6 +197,7 @@ h3{font-size:20px;letter-spacing:-.01em}
 .card-body{padding:0 16px 16px;display:flex;flex-direction:column;gap:7px;flex:1}
 .card-brand{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
 .card-name{font-size:13.5px;font-weight:600;line-height:1.35;flex:1;overflow-wrap:anywhere}
+.card-art{font-size:10.5px;color:var(--mist)}
 .card-name:hover{text-decoration:underline}
 .card-meta{font-family:var(--mono);font-size:11.5px;color:var(--steel);display:flex;gap:10px;flex-wrap:wrap}
 .stock{font-family:var(--mono);font-size:11px;letter-spacing:.03em}
@@ -281,6 +282,9 @@ h3{font-size:20px;letter-spacing:-.01em}
 }
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ink)}
 .field textarea{min-height:88px;resize:vertical;font-family:inherit}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.two-col .field{margin-bottom:16px}
+@media(max-width:520px){.two-col{grid-template-columns:1fr}}
 .radios{display:grid;gap:10px}
 .radio{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);background:var(--white);padding:14px 16px;cursor:pointer}
 .radio.on{border-color:var(--ink)}
@@ -605,7 +609,7 @@ footer{background:var(--graphite);color:var(--mist);margin-top:0}
 
 /* ═══════════════════ данные ═══════════════════ */
 // P: [название, бренд(idx), цена, файл, наличие, категория, описание(idx), фасовка]
-const F = {N:0, B:1, PR:2, IMG:3, ST:4, CAT:5, D:6, VOL:7};
+const F = {N:0, B:1, PR:2, IMG:3, ST:4, CAT:5, D:6, VOL:7, ART:8};
 
 const CATS = [
   {id:"polish",    name:"Полировка",         note:"Пасты, круги, подложки"},
@@ -757,6 +761,7 @@ function cardHTML(i){
     <div class="card-body">
       <span class="card-brand">${esc(BR[p[F.B]])}</span>
       <a class="card-name" href="#/product/${i}">${esc(p[F.N])}</a>
+      ${p[F.ART] ? `<span class="card-art mono">арт. ${esc(p[F.ART])}</span>` : ""}
       <div class="card-meta">
         ${p[F.VOL] ? `<span>${esc(p[F.VOL])}</span>` : ""}
         <span class="stock ${p[F.ST]?"yes":"no"}">${p[F.ST]?"в наличии":"нет в наличии"}</span>
@@ -964,6 +969,7 @@ view.product = id => {
       <div>
         <p class="eyebrow">${esc(BR[p[F.B]])}</p>
         <h1>${esc(p[F.N])}</h1>
+        ${p[F.ART] ? `<p class="mono" style="font-size:12.5px;color:var(--steel);margin:2px 0 0">арт. ${esc(p[F.ART])}</p>` : ""}
         <p class="product-desc">${esc(DS[p[F.D]])}</p>
         <table class="spec">
           <tr><td>Бренд</td><td>${esc(BR[p[F.B]])}</td></tr>
@@ -1244,6 +1250,10 @@ view.brands = () => {
     "AuTech":"Оснастка, ёмкости, держатели и круги — то, что расходуется на посту каждый день.",
     "Marolex":"Польша. Помповые опрыскиватели с кислотостойкими уплотнениями.",
     "Cyclone":"Вихревые аппараты для чистки труднодоступных зон.",
+    "ColourLock":"Германия. Уход за кожей, алькантарой и тканью салона — чистка, консерванты, устранение запахов.",
+    "Finisher":"Полироли и шампуни для финишной обработки и мойки — от одношаговых составов до пенных консервантов.",
+    "PACA":"Технические смазки и очистители для поста: тормозные механизмы, металл, термостойкие узлы.",
+    "Joybond":"Полировочная и полимерная глина для подготовки лака перед полировкой.",
   };
   return `<section class="screen on"><div class="wrap">
     <p class="crumbs"><a href="#/">Главная</a> / Бренды</p>
@@ -1312,12 +1322,36 @@ view.wholesale = () => `<section class="screen on"><div class="wrap">
     <form class="form-card" id="partnerForm">
       <p class="eyebrow">Заявка</p>
       <h3 style="margin-bottom:20px">Получить оптовые условия</h3>
-      <div class="field"><label for="pname">Имя</label><input id="pname" required placeholder="Как к вам обращаться"></div>
-      <div class="field"><label for="pcomp">Компания</label><input id="pcomp" required placeholder="Название мойки или студии"></div>
-      <div class="field"><label for="pphone">Телефон</label><input id="pphone" type="tel" required placeholder="+7 900 000-00-00"></div>
-      <div class="field"><label for="pcity">Город</label>
-        <select id="pcity">${CITIES.map(c => `<option ${c.n===store.city?"selected":""}>${c.n}</option>`).join("")}</select>
+      <div class="two-col">
+        <div class="field"><label for="pname">Имя</label><input id="pname" required placeholder="Как к вам обращаться"></div>
+        <div class="field"><label for="pphone">Телефон</label><input id="pphone" type="tel" required placeholder="+7 900 000-00-00"></div>
       </div>
+      <div class="field"><label for="pcomp">Компания</label><input id="pcomp" required placeholder="Название мойки, студии или магазина"></div>
+      <div class="two-col">
+        <div class="field"><label for="pform">Форма организации</label>
+          <select id="pform">
+            <option>ООО</option><option>ИП</option><option>Самозанятый</option><option>Ещё не оформлено</option>
+          </select>
+        </div>
+        <div class="field"><label for="pinn">ИНН</label><input id="pinn" placeholder="10 или 12 цифр" inputmode="numeric"></div>
+      </div>
+      <div class="field"><label for="pemail">Почта</label><input id="pemail" type="email" placeholder="mail@company.ru"></div>
+      <div class="two-col">
+        <div class="field"><label for="pcity">Город</label>
+          <select id="pcity">${CITIES.map(c => `<option ${c.n===store.city?"selected":""}>${c.n}</option>`).join("")}</select>
+        </div>
+        <div class="field"><label for="pactivity">Профиль</label>
+          <select id="pactivity">
+            <option>Автомойка</option><option>Детейлинг-студия</option><option>Магазин автотоваров</option><option>СТО</option><option>Другое</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label for="pvolume">Ожидаемый объём закупок в месяц</label>
+        <select id="pvolume">
+          <option>До 50 000 ₽</option><option>50 000 – 200 000 ₽</option><option>200 000 – 500 000 ₽</option><option>Свыше 500 000 ₽</option><option>Пока не считал</option>
+        </select>
+      </div>
+      <div class="field"><label for="pcomment">Комментарий</label><textarea id="pcomment" rows="2" placeholder="Что уже используете, что интересует в первую очередь"></textarea></div>
       <button class="btn" type="submit" style="width:100%">Отправить заявку</button>
       <p class="note" id="partnerNote">Ответим в рабочее время, Пн–Пт с 09:00 до 18:00.</p>
     </form>
@@ -1604,7 +1638,18 @@ document.addEventListener("submit", e => {
 
   if (e.target.id === "partnerForm"){
     e.preventDefault();
-    const body = `Заявка на оптовые условия\n\nИмя: ${$("#pname").value}\nКомпания: ${$("#pcomp").value}\nТелефон: ${$("#pphone").value}\nГород: ${$("#pcity").value}`;
+    const body = `Заявка на оптовые условия
+
+Имя: ${$("#pname").value}
+Телефон: ${$("#pphone").value}
+Компания: ${$("#pcomp").value}
+Форма организации: ${$("#pform").value}
+ИНН: ${$("#pinn").value || "не указан"}
+Почта: ${$("#pemail").value || "не указана"}
+Город: ${$("#pcity").value}
+Профиль: ${$("#pactivity").value}
+Ожидаемый объём закупок: ${$("#pvolume").value}
+Комментарий: ${$("#pcomment").value || "—"}`;
     sendToInbox("Заявка на оптовые условия", body);
     e.target.innerHTML = `<p class="eyebrow">Принято</p><h3>Заявка отправлена</h3>
       <p style="font-size:14px;color:var(--steel);margin:14px 0 0">Менеджер свяжется в рабочее время, Пн–Пт с 09:00 до 18:00.</p>
