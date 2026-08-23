@@ -586,15 +586,15 @@ footer{background:var(--graphite);color:var(--mist);margin-top:0}
     </div>
     <form id="loginForm">
       <div class="field">
-        <label for="lphone">Телефон</label>
-        <input id="lphone" type="tel" placeholder="+7 900 000-00-00" required>
+        <label for="llogin">Телефон или почта</label>
+        <input id="llogin" type="text" placeholder="+7 900 000-00-00 или mail@company.ru" required>
       </div>
       <div class="field">
-        <label for="lcode">Код из СМС</label>
-        <input id="lcode" type="text" inputmode="numeric" placeholder="0000" required>
+        <label for="lpass">Пароль</label>
+        <input id="lpass" type="password" placeholder="Пароль" required>
       </div>
       <button class="btn" type="submit" style="width:100%">Войти</button>
-      <p class="note">Любой телефон, код <b class="mono">0000</b>. После входа по каталогу появятся оптовые цены.</p>
+      <p class="note">Любой логин и пароль от 4 символов. После входа по каталогу появятся оптовые цены.</p>
     </form>
   </div>
 </div>
@@ -646,7 +646,6 @@ const CITIES = [
   {n:"Ставрополь",      o:0, ph:"+79613011818"},
   {n:"Пятигорск",       o:0, ph:"+79613011818"},
   {n:"Волгоград",       o:0, ph:"+79613011919"},
-  {n:"Астрахань",       o:0, ph:"+79613011919"},
   {n:"Симферополь",     o:0, ph:"+79613011818"},
   {n:"Другой город",    o:0, ph:"+79613011919"},
 ];
@@ -738,11 +737,7 @@ const BRAND_LOGO = {
   "Koch Chemie":"brands/koch-chemie.svg",
   "Zvizzer":"brands/zvizzer.png",
   "AuTech":"brands/autech.png",
-  "Flex-Tools":"brands/flex-tools.svg",
-  "Kunzer GmbH":"brands/kunzer-gmbh.svg",
-  "Reflexx":"brands/reflexx.png",
   "Marolex":"brands/marolex.png",
-  "Tornador":"brands/tornador.png",
 };
 const brandVisual = (b, i) => BRAND_LOGO[b] || brandThumb(i);
 
@@ -1247,14 +1242,8 @@ view.brands = () => {
     "Koch Chemie":"Германия. Автохимия, одобренная Mercedes-Benz, BMW и Volkswagen. Мы привезли её на юг России в 2007 году и остаёмся официальным дилером.",
     "Zvizzer":"Германия. Полировальные круги: поролон, шерсть, гибрид и микрофибра. Термостойкие составы под длинную смену.",
     "AuTech":"Оснастка, ёмкости, держатели и круги — то, что расходуется на посту каждый день.",
-    "Reflexx":"Италия. Одноразовые и многоразовые перчатки под работу с агрессивной химией.",
     "Marolex":"Польша. Помповые опрыскиватели с кислотостойкими уплотнениями.",
-    "Flex-Tools":"Германия. Профессиональные полировальные машинки для потока.",
-    "Tornador":"Пневматические аппараты для химчистки салона.",
     "Cyclone":"Вихревые аппараты для чистки труднодоступных зон.",
-    "Epoca":"Расходные материалы для мойки и уборки.",
-    "Q-GLYM":"Автокосметика для финишного ухода.",
-    "Kunzer GmbH":"Германия. Инструмент и оснастка для сервиса.",
   };
   return `<section class="screen on"><div class="wrap">
     <p class="crumbs"><a href="#/">Главная</a> / Бренды</p>
@@ -1581,13 +1570,13 @@ function openCity(){
 /* вход */
 $("#loginForm").addEventListener("submit", e => {
   e.preventDefault();
-  const phone = $("#lphone").value.trim() || "+7 900 000-00-00";
-  if ($("#lcode").value.trim() !== "0000"){
-    $("#lcode").style.borderColor = "var(--signal)";
-    $("#lcode").value = ""; $("#lcode").placeholder = "Код 0000";
+  const login = $("#llogin").value.trim() || "+7 900 000-00-00";
+  if ($("#lpass").value.trim().length < 4){
+    $("#lpass").style.borderColor = "var(--signal)";
+    $("#lpass").value = ""; $("#lpass").placeholder = "Минимум 4 символа";
     return;
   }
-  store.user = {phone, company:"Детейлинг-центр «Юг»"};
+  store.user = {phone: login, company:"Детейлинг-центр «Юг»"};
   save("pt_user", store.user);
   $("#loginModal").classList.remove("on");
   location.hash = "#/account"; render();
