@@ -979,7 +979,7 @@ view.product = id => {
         </table>
         <div class="buy">
           <div>
-            <span class="price">${money(price(p))}</span>
+            <span class="price" id="pdpPrice" data-unit="${price(p)}">${money(price(p))}</span>
             ${isOpt()
               ? `<span class="price-opt">розница ${money(p[F.PR])} · ваша скидка ${OPT_DISCOUNT*100}%</span>`
               : `<span class="price-opt">оптовая цена — в личном кабинете</span>`}
@@ -1525,7 +1525,10 @@ document.addEventListener("click", e => {
 
   const q = t.closest("[data-q]");
   if (q){ const el = $("#qtyVal"); let v = parseInt(el.textContent,10);
-    v = q.dataset.q === "+" ? v+1 : Math.max(1, v-1); el.textContent = v; return; }
+    v = q.dataset.q === "+" ? v+1 : Math.max(1, v-1); el.textContent = v;
+    const priceEl = $("#pdpPrice");
+    if (priceEl) priceEl.textContent = money(Number(priceEl.dataset.unit) * v);
+    return; }
 
   const cq = t.closest("[data-cq]");
   if (cq){ const i = cq.dataset.cq; setQty(i, (store.cart[i]||0) + parseInt(cq.dataset.d,10)); return; }
