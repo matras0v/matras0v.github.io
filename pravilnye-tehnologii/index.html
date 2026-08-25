@@ -6,6 +6,9 @@
 <title>Правильные технологии — автохимия и оборудование для детейлинга</title>
 <meta name="description" content="Официальный дилер Koch Chemie на юге России. Автохимия, полировальные пасты, круги, оборудование и расходники для автомоек и детейлинг-центров.">
 <link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#0A0A0B;
@@ -20,6 +23,7 @@
 
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --display:"Saira Condensed","Arial Narrow",var(--sans);
 
   --wrap:1280px;
   --gut:32px;
@@ -57,7 +61,7 @@ img{max-width:100%;display:block}
   font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--steel);margin:0 0 10px;
 }
-h1,h2,h3,h4{margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.08}
+h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:800;letter-spacing:-.01em;line-height:1.04;text-transform:uppercase}
 h2{font-size:30px}
 h3{font-size:20px;letter-spacing:-.01em}
 
@@ -80,7 +84,7 @@ h3{font-size:20px;letter-spacing:-.01em}
 .logo-mark{
   width:46px;height:46px;border-radius:9px;object-fit:cover;flex-shrink:0;
 }
-.logo b{display:block;font-size:16px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.logo b{display:block;font-family:var(--display);font-size:19px;font-weight:800;letter-spacing:0;line-height:1.15;text-transform:uppercase}
 .logo span{
   display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--steel);margin-top:3px;
@@ -151,7 +155,31 @@ h3{font-size:20px;letter-spacing:-.01em}
 .fact b{display:block;font-family:var(--mono);font-size:20px;font-weight:700;letter-spacing:-.02em}
 .fact span{font-size:12.5px;color:var(--mist)}
 
-/* сигнатура — шкала абразивности, каждый шаг подписан фото банки этого этапа */
+/* карусель на главной — вместо старой шкалы шагов, точки снизу как на autech.ru/leraton */
+.banner{position:relative;overflow:hidden;margin-top:32px;border-top:1px solid rgba(255,255,255,.16)}
+.banner-track{display:flex;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.banner-slide{
+  flex:0 0 100%;position:relative;min-height:280px;display:flex;align-items:flex-end;
+  background-size:cover;background-position:center;background-color:var(--ink);
+}
+.banner-slide::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg, rgba(10,10,11,.94) 0%, rgba(10,10,11,.65) 48%, rgba(10,10,11,.15) 100%);
+}
+.banner-slide-body{position:relative;z-index:1;padding:32px 36px 40px;max-width:480px}
+.banner-slide-body .eyebrow{margin-bottom:10px}
+.banner-slide-body h3{font-size:27px;margin:0 0 10px;color:var(--white)}
+.banner-slide-body p{font-size:14px;color:var(--mist);margin:0 0 20px;line-height:1.5}
+.banner-dots{position:absolute;left:36px;bottom:16px;z-index:2;display:flex;gap:8px}
+.banner-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);border:none;padding:0;cursor:pointer}
+.banner-dot.on{background:var(--white);width:22px;border-radius:5px}
+@media(max-width:640px){
+  .banner-slide{min-height:340px;align-items:flex-end}
+  .banner-slide-body{padding:24px 20px 28px;max-width:100%}
+  .banner-slide-body h3{font-size:22px}
+}
+
+/* сигнатура — шкала абразивности, каждый шаг подписан фото банки этого этапа (страница #/scale) */
 .scale{border-top:1px solid rgba(255,255,255,.16)}
 .scale-lab{
   display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
@@ -195,6 +223,21 @@ h3{font-size:20px;letter-spacing:-.01em}
 .brand-chip img{width:64px;height:40px;object-fit:contain;background:var(--paper);border:1px solid var(--line);flex-shrink:0;padding:5px;box-sizing:border-box}
 .brand-chip b{font-size:17px;font-weight:800;letter-spacing:-.01em;display:block}
 .brand-chip i{display:block;font-family:var(--mono);font-size:10px;font-style:normal;font-weight:400;letter-spacing:.1em;color:var(--mist);margin-top:2px}
+
+/* ─────────── отзывы ─────────── */
+.reviews-summary{display:flex;align-items:baseline;gap:12px;margin-bottom:24px}
+.reviews-summary b{font-family:var(--display);font-size:32px;font-weight:800}
+.reviews-summary .stars{color:#E3A400;font-size:15px;letter-spacing:1px}
+.reviews-summary span:last-child{font-size:13px;color:var(--steel)}
+.reviews-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.review-card{background:var(--white);border:1px solid var(--line);padding:18px}
+.review-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.review-head b{font-size:14px;font-weight:700}
+.review-head .stars{color:#E3A400;font-size:12px;letter-spacing:1px}
+.review-card p{font-size:13px;color:var(--slate);line-height:1.5;margin:0 0 10px}
+.review-date{font-family:var(--mono);font-size:10.5px;color:var(--mist);text-transform:uppercase;letter-spacing:.06em}
+@media(max-width:900px){.reviews-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.reviews-grid{grid-template-columns:1fr}}
 
 /* ─────────── сетка товаров ─────────── */
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
@@ -684,11 +727,44 @@ const CITIES = [
   {n:"Другой город",    o:0, ph:"+79613011919"},
 ];
 
+/* Снимок отзывов с Яндекс.Карт от 26.08.2026 (карточка организации, 40 отзывов, средняя 5.0).
+   Текст — краткий пересказ своими словами, не дословная цитата; полный текст — по ссылке. */
+const YANDEX_REVIEWS_URL = "https://yandex.ru/maps/org/pravilnyye_tekhnologii/81518304967/reviews/";
+const YANDEX_REVIEWS = [
+  {name:"Елена Милюкова", rating:5, date:"март", text:"Большой выбор, внимательные сотрудники — увлечённые своим делом профессионалы, подробно ответили на вопросы."},
+  {name:"Максим Ш.", rating:5, date:"октябрь 2025", text:"Профессиональный подход, опытные сотрудники подробно объясняют, как применять состав."},
+  {name:"Иван Костенко", rating:5, date:"октябрь 2022", text:"Европейское качество химии, адекватные цены, толковые консультации, большой ассортимент."},
+  {name:"Сергей Сургучев", rating:5, date:"февраль 2023", text:"Широкий выбор составов для ухода за лакокрасочным покрытием, сотрудники помогают подобрать нужное."},
+];
+
 const OPT_DISCOUNT = 0.15;   // оптовая скидка партнёра в демо
 const WA_NUMBER = "79613011919";
 const SHOP_EMAIL = "zakaz@qptech.ru";
 // Демо-заявки уходят на почту Вадима, а не на рабочую почту магазина.
 const DEMO_INBOX = "fredtown1999@gmail.com";
+
+/* ── курс евро для Koch Chemie: цены завода привязаны к EUR, у нас — только к рублю на дату сборки каталога ──
+   BASE_EUR_RATE — курс ЦБ на дату, когда были сняты текущие цены (24.08.2026). Дальше цены Koch Chemie
+   масштабируются на (текущий курс / базовый), остальные бренды — без изменений. */
+const BASE_EUR_RATE = 98.0;
+let eurRate = load("pt_eur_rate", null);
+function fxMultiplier(){ return eurRate ? eurRate / BASE_EUR_RATE : 1; }
+async function fetchEurRate(){
+  const today = new Date().toISOString().slice(0,10);
+  const cached = load("pt_eur_rate_date", null);
+  if (cached === today && eurRate) return;
+  try {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 3000);
+    const res = await fetch("https://www.cbr-xml-daily.ru/daily_json.js", {signal: ctrl.signal});
+    clearTimeout(t);
+    const data = await res.json();
+    eurRate = data.Valute.EUR.Value;
+    save("pt_eur_rate", eurRate);
+    save("pt_eur_rate_date", today);
+    render();
+  } catch(e){ /* нет сети — остаёмся на последнем известном или базовом курсе */ }
+}
 
 /* ═══════════════════ состояние ═══════════════════ */
 const store = {
@@ -712,7 +788,8 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">"
 const money = n => n.toLocaleString("ru-RU").replace(/,/g," ") + " ₽";
 const optPrice = n => Math.round(n * (1 - OPT_DISCOUNT) / 10) * 10;
 const isOpt = () => !!store.user;
-const price = p => isOpt() ? optPrice(p[F.PR]) : p[F.PR];
+const fxPrice = p => BR[p[F.B]] === "Koch Chemie" ? Math.round(p[F.PR] * fxMultiplier() / 10) * 10 : p[F.PR];
+const price = p => isOpt() ? optPrice(fxPrice(p)) : fxPrice(p);
 const phoneFmt = ph => ph.replace(/^\+7(\d{3})(\d{3})(\d{2})(\d{2})$/, "+7 $1 $2-$3-$4");
 const cityData = n => CITIES.find(c => c.n === n) || CITIES[0];
 const cartCount = () => Object.values(store.cart).reduce((a,b) => a + b, 0);
@@ -797,7 +874,7 @@ function cardHTML(i){
         <span class="stock ${p[F.ST]?"yes":"no"}">${p[F.ST]?"в наличии":"нет в наличии"}</span>
       </div>
       <div class="card-foot">
-        <span class="price">${money(price(p))}${isOpt()?`<span class="price-opt">розница ${money(p[F.PR])}</span>`:""}</span>
+        <span class="price">${money(price(p))}${isOpt()?`<span class="price-opt">розница ${money(fxPrice(p))}</span>`:""}</span>
         <button class="add ${inCart?"in":""}" data-add="${i}" aria-label="Добавить в корзину">
           ${inCart
             ? `<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>`
@@ -839,22 +916,31 @@ view.home = () => {
         </div>
       </div>
 
-      <div class="scale">
-        <div class="scale-lab">
-          <span>Полировка по шагам — от съёма к финишу</span>
+      ${(() => {
+        const slides = [
+          {img: stepThumb("H"), eyebrow: "Подбор по шагу полировки", title: "От съёма риски до финишного блеска", text: "H → F → M — ступень абразивности зашита прямо в артикуле Koch Chemie. Выбираете шаг работы — попадаете в нужные позиции.", cta: "Смотреть шкалу", href: "#/scale"},
+          {img: brandThumb(5), eyebrow: "Новые бренды", title: "ColourLock, Finisher, PACA, Joybond", text: "Добавили ещё 4 бренда с прямых поставок — уход за кожей и тканью салона, финишные полироли, техническая химия для поста.", cta: "Смотреть бренды", href: "#/brands"},
+          {img: catThumb("equipment"), eyebrow: "Оптовым клиентам", title: "Работаем напрямую, без наценки посредников", text: "Подбираем химию под ваш пост и обучаем работе с ней — от первичной мойки до финишной полировки.", cta: "Получить условия", href: "#/wholesale"},
+          {img: catThumb("polish"), eyebrow: "На складе в Ростове", title: `${P.filter(p=>p[F.ST]).length} позиций в наличии`, text: "Забрать сегодня или отправить транспортной компанией по югу России и дальше.", cta: "Весь каталог", href: "#/catalog?stock=1"},
+        ];
+        return `
+      <div class="banner">
+        <div class="banner-track" id="bannerTrack">
+          ${slides.map(s => `
+            <div class="banner-slide" style="background-image:url('img/${s.img}')">
+              <div class="banner-slide-body">
+                <p class="eyebrow">${esc(s.eyebrow)}</p>
+                <h3>${esc(s.title)}</h3>
+                <p>${esc(s.text)}</p>
+                <a class="btn light" href="${s.href}">${esc(s.cta)}</a>
+              </div>
+            </div>`).join("")}
         </div>
-        <div class="scale-row">
-          ${STEPS.map(s => `
-            <button class="step" data-step="${s.code}">
-              <span class="step-no">${s.no}</span>
-              <span class="step-photo"><img src="img/${stepThumb(s.code)}" alt="" loading="lazy"></span>
-              <span class="step-code">${s.code}</span>
-              <span class="step-name">${s.name}</span>
-              <span class="step-note">${s.note}</span>
-              <span class="step-n">${stepCount(s.code)} позиций →</span>
-            </button>`).join("")}
+        <div class="banner-dots">
+          ${slides.map((s,i) => `<button class="banner-dot ${i===0?"on":""}" data-banner="${i}" aria-label="Слайд ${i+1}"></button>`).join("")}
         </div>
-      </div>
+      </div>`;
+      })()}
     </div>
   </section>
 
@@ -895,6 +981,28 @@ view.home = () => {
         <a class="more" href="#/catalog?stock=1">Всё в наличии →</a>
       </div>
       ${gridHTML(hits.slice(0,8))}
+    </div>
+  </section>
+
+  <section class="screen on">
+    <div class="wrap">
+      <div class="head">
+        <div><p class="eyebrow">Отзывы</p><h2>Что говорят клиенты</h2></div>
+        <a class="more" href="${YANDEX_REVIEWS_URL}" target="_blank" rel="noopener">Все 40 на Яндекс.Картах →</a>
+      </div>
+      <div class="reviews-summary">
+        <b>5.0</b>
+        <span class="stars">★★★★★</span>
+        <span>40 отзывов на Яндекс.Картах</span>
+      </div>
+      <div class="reviews-grid">
+        ${YANDEX_REVIEWS.map(r => `
+          <div class="review-card">
+            <div class="review-head"><b>${esc(r.name)}</b><span class="stars">${"★".repeat(r.rating)}</span></div>
+            <p>${esc(r.text)}</p>
+            <span class="review-date">${esc(r.date)}</span>
+          </div>`).join("")}
+      </div>
     </div>
   </section>
 
@@ -1011,8 +1119,9 @@ view.product = id => {
           <div>
             <span class="price" id="pdpPrice" data-unit="${price(p)}">${money(price(p))}</span>
             ${isOpt()
-              ? `<span class="price-opt">розница ${money(p[F.PR])} · ваша скидка ${OPT_DISCOUNT*100}%</span>`
+              ? `<span class="price-opt">розница ${money(fxPrice(p))} · ваша скидка ${OPT_DISCOUNT*100}%</span>`
               : `<span class="price-opt">оптовая цена — в личном кабинете</span>`}
+            ${BR[p[F.B]] === "Koch Chemie" && eurRate ? `<span class="price-opt" style="display:block;margin-top:2px">цена завода в EUR, пересчитано по курсу ЦБ ${eurRate.toFixed(2)} ₽</span>` : ""}
           </div>
           <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
             <div class="qty">
@@ -1544,6 +1653,24 @@ function render(){
   }
   $("#main").innerHTML = html;
   paintChrome();
+  bannerStart();
+}
+
+/* ── карусель на главной ── */
+let bannerTimer = null, bannerIdx = 0;
+function bannerGoto(i){
+  const track = $("#bannerTrack");
+  if (!track) return;
+  const n = track.children.length;
+  bannerIdx = (i % n + n) % n;
+  track.style.transform = "translateX(-" + (bannerIdx * 100) + "%)";
+  document.querySelectorAll(".banner-dot").forEach((d, idx) => d.classList.toggle("on", idx === bannerIdx));
+}
+function bannerStart(){
+  clearInterval(bannerTimer);
+  if (!$("#bannerTrack")) return;
+  bannerIdx = 0;
+  bannerTimer = setInterval(() => bannerGoto(bannerIdx + 1), 5500);
 }
 
 window.addEventListener("hashchange", () => { applyHash(); window.scrollTo(0,0); });
@@ -1551,6 +1678,9 @@ window.addEventListener("hashchange", () => { applyHash(); window.scrollTo(0,0);
 /* ═══════════════════ события ═══════════════════ */
 document.addEventListener("click", e => {
   const t = e.target;
+
+  const bd = t.closest("[data-banner]");
+  if (bd){ bannerGoto(+bd.dataset.banner); bannerStart(); return; }
 
   const add = t.closest("[data-add]");
   if (add){ addToCart(add.dataset.add); add.classList.add("in");
@@ -1750,6 +1880,7 @@ $("#cookieAccept").addEventListener("click", () => {
 });
 
 applyHash();
+fetchEurRate();
 </script>
 </body>
 </html>
