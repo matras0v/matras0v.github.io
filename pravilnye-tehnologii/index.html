@@ -37,13 +37,12 @@ html,body{margin:0;padding:0}
 body{
   font-family:var(--sans);
   background-color:var(--paper);
-  background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2Ni4wMCIgaGVpZ2h0PSIzOC4xMSIgdmlld0JveD0iMCAwIDY2LjAwIDM4LjExIj48ZyBjbGlwLXBhdGg9InVybCgjYykiPjxwb2x5Z29uIHBvaW50cz0iLTExLjAwLC0xOS4wNSAtMjIuMDAsMC4wMCAtNDQuMDAsMC4wMCAtNTUuMDAsLTE5LjA1IC00NC4wMCwtMzguMTEgLTIyLjAwLC0zOC4xMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9Ii0xMS4wMCwxOS4wNSAtMjIuMDAsMzguMTEgLTQ0LjAwLDM4LjExIC01NS4wMCwxOS4wNSAtNDQuMDAsMC4wMCAtMjIuMDAsMC4wMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9Ii0xMS4wMCw1Ny4xNiAtMjIuMDAsNzYuMjEgLTQ0LjAwLDc2LjIxIC01NS4wMCw1Ny4xNiAtNDQuMDAsMzguMTEgLTIyLjAwLDM4LjExIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjxwb2x5Z29uIHBvaW50cz0iLTExLjAwLDk1LjI2IC0yMi4wMCwxMTQuMzIgLTQ0LjAwLDExNC4zMiAtNTUuMDAsOTUuMjYgLTQ0LjAwLDc2LjIxIC0yMi4wMCw3Ni4yMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9IjIyLjAwLC0zOC4xMSAxMS4wMCwtMTkuMDUgLTExLjAwLC0xOS4wNSAtMjIuMDAsLTM4LjExIC0xMS4wMCwtNTcuMTYgMTEuMDAsLTU3LjE2IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjxwb2x5Z29uIHBvaW50cz0iMjIuMDAsMC4wMCAxMS4wMCwxOS4wNSAtMTEuMDAsMTkuMDUgLTIyLjAwLDAuMDAgLTExLjAwLC0xOS4wNSAxMS4wMCwtMTkuMDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgxMCwxMCwxMSwwLjA3KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PHBvbHlnb24gcG9pbnRzPSIyMi4wMCwzOC4xMSAxMS4wMCw1Ny4xNiAtMTEuMDAsNTcuMTYgLTIyLjAwLDM4LjExIC0xMS4wMCwxOS4wNSAxMS4wMCwxOS4wNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9IjIyLjAwLDc2LjIxIDExLjAwLDk1LjI2IC0xMS4wMCw5NS4yNiAtMjIuMDAsNzYuMjEgLTExLjAwLDU3LjE2IDExLjAwLDU3LjE2IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjxwb2x5Z29uIHBvaW50cz0iNTUuMDAsLTE5LjA1IDQ0LjAwLDAuMDAgMjIuMDAsMC4wMCAxMS4wMCwtMTkuMDUgMjIuMDAsLTM4LjExIDQ0LjAwLC0zOC4xMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9IjU1LjAwLDE5LjA1IDQ0LjAwLDM4LjExIDIyLjAwLDM4LjExIDExLjAwLDE5LjA1IDIyLjAwLDAuMDAgNDQuMDAsMC4wMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9IjU1LjAwLDU3LjE2IDQ0LjAwLDc2LjIxIDIyLjAwLDc2LjIxIDExLjAwLDU3LjE2IDIyLjAwLDM4LjExIDQ0LjAwLDM4LjExIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjxwb2x5Z29uIHBvaW50cz0iNTUuMDAsOTUuMjYgNDQuMDAsMTE0LjMyIDIyLjAwLDExNC4zMiAxMS4wMCw5NS4yNiAyMi4wMCw3Ni4yMSA0NC4wMCw3Ni4yMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9Ijg4LjAwLC0zOC4xMSA3Ny4wMCwtMTkuMDUgNTUuMDAsLTE5LjA1IDQ0LjAwLC0zOC4xMSA1NS4wMCwtNTcuMTYgNzcuMDAsLTU3LjE2IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjxwb2x5Z29uIHBvaW50cz0iODguMDAsMC4wMCA3Ny4wMCwxOS4wNSA1NS4wMCwxOS4wNSA0NC4wMCwwLjAwIDU1LjAwLC0xOS4wNSA3Ny4wMCwtMTkuMDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgxMCwxMCwxMSwwLjA3KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PHBvbHlnb24gcG9pbnRzPSI4OC4wMCwzOC4xMSA3Ny4wMCw1Ny4xNiA1NS4wMCw1Ny4xNiA0NC4wMCwzOC4xMSA1NS4wMCwxOS4wNSA3Ny4wMCwxOS4wNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9Ijg4LjAwLDc2LjIxIDc3LjAwLDk1LjI2IDU1LjAwLDk1LjI2IDQ0LjAwLDc2LjIxIDU1LjAwLDU3LjE2IDc3LjAwLDU3LjE2IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjwvZz48ZGVmcz48Y2xpcFBhdGggaWQ9ImMiPjxyZWN0IHdpZHRoPSI2Ni4wMCIgaGVpZ2h0PSIzOC4xMSIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==");
-  background-repeat:repeat;
   color:var(--ink);
   line-height:1.5;
   -webkit-font-smoothing:antialiased;
   font-variant-numeric:tabular-nums;
 }
+body.is-home #main{background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2Ni4wMCIgaGVpZ2h0PSIzOC4xMSIgdmlld0JveD0iMCAwIDY2LjAwIDM4LjExIj48ZyBjbGlwLXBhdGg9InVybCgjYykiPjxwb2x5Z29uIHBvaW50cz0iLTExLjAwLC0xOS4wNSAtMjIuMDAsMC4wMCAtNDQuMDAsMC4wMCAtNTUuMDAsLTE5LjA1IC00NC4wMCwtMzguMTEgLTIyLjAwLC0zOC4xMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9Ii0xMS4wMCwxOS4wNSAtMjIuMDAsMzguMTEgLTQ0LjAwLDM4LjExIC01NS4wMCwxOS4wNSAtNDQuMDAsMC4wMCAtMjIuMDAsMC4wMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9Ii0xMS4wMCw1Ny4xNiAtMjIuMDAsNzYuMjEgLTQ0LjAwLDc2LjIxIC01NS4wMCw1Ny4xNiAtNDQuMDAsMzguMTEgLTIyLjAwLDM4LjExIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjxwb2x5Z29uIHBvaW50cz0iLTExLjAwLDk1LjI2IC0yMi4wMCwxMTQuMzIgLTQ0LjAwLDExNC4zMiAtNTUuMDAsOTUuMjYgLTQ0LjAwLDc2LjIxIC0yMi4wMCw3Ni4yMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9IjIyLjAwLC0zOC4xMSAxMS4wMCwtMTkuMDUgLTExLjAwLC0xOS4wNSAtMjIuMDAsLTM4LjExIC0xMS4wMCwtNTcuMTYgMTEuMDAsLTU3LjE2IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjxwb2x5Z29uIHBvaW50cz0iMjIuMDAsMC4wMCAxMS4wMCwxOS4wNSAtMTEuMDAsMTkuMDUgLTIyLjAwLDAuMDAgLTExLjAwLC0xOS4wNSAxMS4wMCwtMTkuMDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgxMCwxMCwxMSwwLjA3KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PHBvbHlnb24gcG9pbnRzPSIyMi4wMCwzOC4xMSAxMS4wMCw1Ny4xNiAtMTEuMDAsNTcuMTYgLTIyLjAwLDM4LjExIC0xMS4wMCwxOS4wNSAxMS4wMCwxOS4wNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9IjIyLjAwLDc2LjIxIDExLjAwLDk1LjI2IC0xMS4wMCw5NS4yNiAtMjIuMDAsNzYuMjEgLTExLjAwLDU3LjE2IDExLjAwLDU3LjE2IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjxwb2x5Z29uIHBvaW50cz0iNTUuMDAsLTE5LjA1IDQ0LjAwLDAuMDAgMjIuMDAsMC4wMCAxMS4wMCwtMTkuMDUgMjIuMDAsLTM4LjExIDQ0LjAwLC0zOC4xMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9IjU1LjAwLDE5LjA1IDQ0LjAwLDM4LjExIDIyLjAwLDM4LjExIDExLjAwLDE5LjA1IDIyLjAwLDAuMDAgNDQuMDAsMC4wMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9IjU1LjAwLDU3LjE2IDQ0LjAwLDc2LjIxIDIyLjAwLDc2LjIxIDExLjAwLDU3LjE2IDIyLjAwLDM4LjExIDQ0LjAwLDM4LjExIiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjxwb2x5Z29uIHBvaW50cz0iNTUuMDAsOTUuMjYgNDQuMDAsMTE0LjMyIDIyLjAwLDExNC4zMiAxMS4wMCw5NS4yNiAyMi4wMCw3Ni4yMSA0NC4wMCw3Ni4yMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9Ijg4LjAwLC0zOC4xMSA3Ny4wMCwtMTkuMDUgNTUuMDAsLTE5LjA1IDQ0LjAwLC0zOC4xMSA1NS4wMCwtNTcuMTYgNzcuMDAsLTU3LjE2IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjxwb2x5Z29uIHBvaW50cz0iODguMDAsMC4wMCA3Ny4wMCwxOS4wNSA1NS4wMCwxOS4wNSA0NC4wMCwwLjAwIDU1LjAwLC0xOS4wNSA3Ny4wMCwtMTkuMDUiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgxMCwxMCwxMSwwLjA3KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PHBvbHlnb24gcG9pbnRzPSI4OC4wMCwzOC4xMSA3Ny4wMCw1Ny4xNiA1NS4wMCw1Ny4xNiA0NC4wMCwzOC4xMSA1NS4wMCwxOS4wNSA3Ny4wMCwxOS4wNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwLDEwLDExLDAuMDcpIiBzdHJva2Utd2lkdGg9IjEiLz48cG9seWdvbiBwb2ludHM9Ijg4LjAwLDc2LjIxIDc3LjAwLDk1LjI2IDU1LjAwLDk1LjI2IDQ0LjAwLDc2LjIxIDU1LjAwLDU3LjE2IDc3LjAwLDU3LjE2IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMTAsMTAsMTEsMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPjwvZz48ZGVmcz48Y2xpcFBhdGggaWQ9ImMiPjxyZWN0IHdpZHRoPSI2Ni4wMCIgaGVpZ2h0PSIzOC4xMSIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==");background-repeat:repeat}
 a{color:inherit;text-decoration:none}
 ul{list-style:none;margin:0;padding:0}
 button,input,select,textarea{font-family:inherit;font-size:inherit}
@@ -264,6 +263,12 @@ h3{font-size:20px;letter-spacing:-.01em}
 .qty{display:flex;align-items:center;border:1.5px solid var(--ink)}
 .qty button{background:none;border:none;width:38px;height:44px;font-size:17px;font-weight:700}
 .qty span{font-family:var(--mono);min-width:40px;text-align:center;font-weight:700}
+.qty-input{
+  font-family:var(--mono);width:44px;height:44px;text-align:center;font-weight:700;
+  border:none;border-left:1.5px solid var(--ink);border-right:1.5px solid var(--ink);
+  background:none;color:var(--ink);-moz-appearance:textfield;
+}
+.qty-input::-webkit-outer-spin-button,.qty-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
 /* ─────────── корзина ─────────── */
 .cart-row{display:grid;grid-template-columns:96px minmax(0,1fr) auto auto auto;gap:18px;align-items:center;background:var(--white);border:1px solid var(--line);border-top:none;padding:16px}
@@ -363,6 +368,15 @@ h3{font-size:20px;letter-spacing:-.01em}
 
 /* ─────────── подвал ─────────── */
 footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
+.cookie-bar{
+  position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--ink);color:var(--white);
+  display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
+  padding:16px 24px;font-size:13px;box-shadow:0 -4px 20px rgba(0,0,0,.2);
+}
+.cookie-bar.hidden{display:none}
+.cookie-bar p{margin:0;max-width:640px;color:var(--mist)}
+.cookie-bar .btn{flex-shrink:0}
+@media(max-width:520px){.cookie-bar{flex-direction:column;align-items:stretch;text-align:center}}
 .foot-top{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr));gap:40px;padding:56px 0 44px}
 .foot-col h5{color:var(--white);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:400;margin:0 0 16px}
 .foot-col li{margin-bottom:10px}
@@ -450,7 +464,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <body>
 
 <!-- ─────────── служебная строка ─────────── -->
-<div class="topbar hex-bg">
+<div class="topbar">
   <div class="wrap">
     <button class="city-btn" id="cityBtn" aria-haspopup="dialog">
       <svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
@@ -465,7 +479,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 </div>
 
 <!-- ─────────── шапка ─────────── -->
-<header class="masthead hex-bg-light">
+<header class="masthead">
   <div class="wrap">
     <a href="#/" class="logo">
       <img class="logo-mark" src="img/logo-honeycomb.png" alt="Правильные технологии">
@@ -499,12 +513,13 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 </header>
 
 <!-- ─────────── навигация ─────────── -->
-<nav class="mainnav hex-bg">
+<nav class="mainnav">
   <div class="wrap" id="nav">
     <a class="cat" href="#/catalog">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       Каталог
     </a>
+    <a href="#/">Главная</a>
     <a href="#/brands">Бренды</a>
     <a href="#/promo">Акции</a>
     <a href="#/wholesale">Опт и партнёрам</a>
@@ -517,7 +532,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <main id="main"></main>
 
 <!-- ─────────── подвал ─────────── -->
-<footer class="hex-bg">
+<footer>
   <div class="wrap foot-top">
     <div class="foot-col foot-about">
       <b>Правильные технологии</b>
@@ -569,6 +584,12 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
   </div>
 </footer>
 
+<!-- ─────────── согласие на cookie ─────────── -->
+<div class="cookie-bar" id="cookieBar">
+  <p>Мы используем файлы cookie, чтобы сайт работал корректно и запоминал ваши настройки. Продолжая пользоваться сайтом, вы соглашаетесь с их использованием.</p>
+  <button class="btn" id="cookieAccept">Принять</button>
+</div>
+
 <!-- ─────────── модалка города ─────────── -->
 <div class="overlay" id="cityModal" role="dialog" aria-modal="true" aria-label="Выбор города">
   <div class="modal">
@@ -604,10 +625,10 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
       </div>
       <div class="field">
         <label for="lpass">Пароль</label>
-        <input id="lpass" type="password" placeholder="Пароль" required>
+        <input id="lpass" type="password" placeholder="Пароль" minlength="6" required>
       </div>
       <button class="btn" type="submit" style="width:100%">Войти</button>
-      <p class="note">Любой логин и пароль от 4 символов. После входа по каталогу появятся оптовые цены.</p>
+      <p class="note">Любой логин и пароль от 6 символов. После входа по каталогу появятся оптовые цены.</p>
     </form>
   </div>
 </div>
@@ -716,7 +737,7 @@ function paintChrome(){
 
   const route = location.hash.split("/")[1] || "";
   document.querySelectorAll("#nav a").forEach(a => {
-    a.classList.toggle("on", a.getAttribute("href") === "#/" + route && route !== "");
+    a.classList.toggle("on", a.getAttribute("href") === "#/" + route);
   });
 }
 
@@ -815,7 +836,6 @@ view.home = () => {
         <div class="hero-facts">
           <div class="fact"><b>${P.length}</b><span>позиций в каталоге</span></div>
           <div class="fact"><b>${BR.length}</b><span>брендов, прямые поставки</span></div>
-          <div class="fact"><b>2007</b><span>привезли Koch Chemie на юг</span></div>
         </div>
       </div>
 
@@ -997,7 +1017,7 @@ view.product = id => {
           <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
             <div class="qty">
               <button data-q="-" aria-label="Меньше">−</button>
-              <span id="qtyVal">1</span>
+              <input type="number" id="qtyVal" class="qty-input" value="1" min="1" inputmode="numeric">
               <button data-q="+" aria-label="Больше">+</button>
             </div>
             <button class="btn" data-buy="${id}">В корзину</button>
@@ -1043,7 +1063,7 @@ view.cart = () => {
             </div>
             <div class="qty">
               <button data-cq="${i}" data-d="-1" aria-label="Меньше">−</button>
-              <span>${q}</span>
+              <input type="number" class="qty-input cart-qty-input" value="${q}" min="1" inputmode="numeric" data-qi="${i}" data-unit="${price(p)}">
               <button data-cq="${i}" data-d="1" aria-label="Больше">+</button>
             </div>
             <span class="price">${money(price(p)*q)}</span>
@@ -1086,6 +1106,10 @@ view.checkout = () => {
         <div class="field">
           <label for="ocity">Город</label>
           <select id="ocity">${CITIES.map(c => `<option ${c.n===store.city?"selected":""}>${c.n}</option>`).join("")}</select>
+        </div>
+        <div class="field" id="ocityOtherWrap" style="${store.city==="Другой город"?"":"display:none"}">
+          <label for="ocityOther">Укажите ваш город</label>
+          <input id="ocityOther" placeholder="Например, Астрахань">
         </div>
         <div class="field">
           <label>Получение</label>
@@ -1282,7 +1306,7 @@ view.brands = () => {
 view.promo = () => `<section class="screen on"><div class="wrap">
   <p class="crumbs"><a href="#/">Главная</a> / Акции</p>
   <div class="head"><div><p class="eyebrow">Действующие предложения</p><h2>Акции</h2></div></div>
-  <div class="promo-band hex-bg" style="margin-bottom:24px">
+  <div class="promo-band" style="margin-bottom:24px">
     <div>
       <h3>−10% на первый заказ нового партнёра</h3>
       <p>Для автомоек, детейлинг-студий и магазинов автотоваров, которые работают с нами впервые. Скидка суммируется с оптовыми условиями.</p>
@@ -1354,6 +1378,10 @@ view.wholesale = () => `<section class="screen on"><div class="wrap">
             <option>Автомойка</option><option>Детейлинг-студия</option><option>Магазин автотоваров</option><option>СТО</option><option>Другое</option>
           </select>
         </div>
+      </div>
+      <div class="field" id="pcityOtherWrap" style="${store.city==="Другой город"?"":"display:none"}">
+        <label for="pcityOther">Укажите ваш город</label>
+        <input id="pcityOther" placeholder="Например, Астрахань">
       </div>
       <div class="field"><label for="pvolume">Ожидаемый объём закупок в месяц</label>
         <select id="pvolume">
@@ -1461,7 +1489,7 @@ view.scale = () => `<section class="screen on"><div class="wrap">
       <p>Расписание семинаров, запись через тот же кабинет, история обучения у партнёра в профиле. Обучение — прямой драйвер продаж химии, поэтому оно должно жить внутри магазина, а не отдельно.</p>
     </div>
   </div>
-  <div class="promo-band hex-bg" style="margin-top:24px">
+  <div class="promo-band" style="margin-top:24px">
     <div>
       <h3>Что нужно уточнить, чтобы двигаться дальше</h3>
       <p>Статус домена правильная-технология.рф · выгрузка каталога и остатков из учётной системы (МойСклад или CRM-склад) · фото товаров · создание Telegram-канала · кто принимает работу.</p>
@@ -1493,6 +1521,7 @@ function applyHash(){
 function render(){
   const path = (location.hash.slice(2) || "").split("?")[0];
   const seg = path.split("/").filter(Boolean);
+  document.body.classList.toggle("is-home", !seg[0]);
   let html = "";
 
   switch (seg[0]) {
@@ -1528,14 +1557,14 @@ document.addEventListener("click", e => {
     add.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>'; return; }
 
   const buy = t.closest("[data-buy]");
-  if (buy){ addToCart(buy.dataset.buy, parseInt($("#qtyVal").textContent,10)); location.hash = "#/cart"; return; }
+  if (buy){ addToCart(buy.dataset.buy, Math.max(1, parseInt($("#qtyVal").value,10) || 1)); location.hash = "#/cart"; return; }
 
   const fav = t.closest("[data-fav]");
   if (fav){ e.preventDefault(); toggleFav(parseInt(fav.dataset.fav,10)); return; }
 
   const q = t.closest("[data-q]");
-  if (q){ const el = $("#qtyVal"); let v = parseInt(el.textContent,10);
-    v = q.dataset.q === "+" ? v+1 : Math.max(1, v-1); el.textContent = v;
+  if (q){ const el = $("#qtyVal"); let v = parseInt(el.value,10) || 1;
+    v = q.dataset.q === "+" ? v+1 : Math.max(1, v-1); el.value = v;
     const priceEl = $("#pdpPrice");
     if (priceEl) priceEl.textContent = money(Number(priceEl.dataset.unit) * v);
     return; }
@@ -1583,6 +1612,32 @@ document.addEventListener("change", e => {
   if (e.target.name === "ship"){
     document.querySelectorAll(".radio").forEach(r => r.classList.toggle("on", r.contains(e.target)));
   }
+  if (e.target.classList.contains("cart-qty-input")){
+    setQty(e.target.dataset.qi, Math.max(1, parseInt(e.target.value, 10) || 1));
+  }
+  if (e.target.id === "ocity"){
+    $("#ocityOtherWrap").style.display = e.target.value === "Другой город" ? "" : "none";
+  }
+  if (e.target.id === "pcity"){
+    $("#pcityOtherWrap").style.display = e.target.value === "Другой город" ? "" : "none";
+  }
+});
+
+document.addEventListener("input", e => {
+  if (e.target.id === "qtyVal"){
+    const v = Math.max(1, parseInt(e.target.value, 10) || 1);
+    const priceEl = $("#pdpPrice");
+    if (priceEl) priceEl.textContent = money(Number(priceEl.dataset.unit) * v);
+  }
+  if (e.target.classList.contains("cart-qty-input")){
+    const i = e.target.dataset.qi;
+    const v = Math.max(1, parseInt(e.target.value, 10) || 1);
+    store.cart[i] = v; save("pt_cart", store.cart);
+    const row = e.target.closest(".cart-row");
+    const priceEl = row && row.querySelector(".price");
+    if (priceEl) priceEl.textContent = money(Number(e.target.dataset.unit) * v);
+    paintChrome();
+  }
 });
 
 document.addEventListener("keydown", e => {
@@ -1617,9 +1672,9 @@ function openCity(){
 $("#loginForm").addEventListener("submit", e => {
   e.preventDefault();
   const login = $("#llogin").value.trim() || "+7 900 000-00-00";
-  if ($("#lpass").value.trim().length < 4){
+  if ($("#lpass").value.trim().length < 6){
     $("#lpass").style.borderColor = "var(--signal)";
-    $("#lpass").value = ""; $("#lpass").placeholder = "Минимум 4 символа";
+    $("#lpass").value = ""; $("#lpass").placeholder = "Минимум 6 символов";
     return;
   }
   store.user = {phone: login, company:"Детейлинг-центр «Юг»"};
@@ -1637,7 +1692,7 @@ document.addEventListener("submit", e => {
       no: "ПТ-" + String(Date.now()).slice(-6),
       name: $("#oname").value.trim(),
       phone: $("#ophone").value.trim(),
-      city: $("#ocity").value,
+      city: $("#ocity").value === "Другой город" && $("#ocityOther").value.trim() ? $("#ocityOther").value.trim() : $("#ocity").value,
       ship: document.querySelector('input[name="ship"]:checked').value,
       comment: $("#ocomm").value.trim(),
       items, total: cartTotal(), opt: isOpt(),
@@ -1658,7 +1713,7 @@ document.addEventListener("submit", e => {
 Форма организации: ${$("#pform").value}
 ИНН: ${$("#pinn").value || "не указан"}
 Почта: ${$("#pemail").value || "не указана"}
-Город: ${$("#pcity").value}
+Город: ${$("#pcity").value === "Другой город" && $("#pcityOther").value.trim() ? $("#pcityOther").value.trim() : $("#pcity").value}
 Профиль: ${$("#pactivity").value}
 Ожидаемый объём закупок: ${$("#pvolume").value}
 Комментарий: ${$("#pcomment").value || "—"}`;
@@ -1682,6 +1737,17 @@ function sendToInbox(subject, text){
       .catch(() => {});
   } catch(e){}
 }
+
+/* cookie-баннер */
+if (!load("pt_cookies_ok", false)){
+  $("#cookieBar").classList.remove("hidden");
+} else {
+  $("#cookieBar").classList.add("hidden");
+}
+$("#cookieAccept").addEventListener("click", () => {
+  save("pt_cookies_ok", true);
+  $("#cookieBar").classList.add("hidden");
+});
 
 applyHash();
 </script>
