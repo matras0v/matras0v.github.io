@@ -516,8 +516,11 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
   .send-row{grid-template-columns:minmax(0,1fr)}
   .promo-band{padding:28px 22px}
   .product-photo{padding:24px}
-  .topbar-right a{display:none}
+  /* на телефоне прячем второстепенные ссылки, но телефон для звонка оставляем */
+  .topbar-right a:not(.topbar-phone){display:none}
   .foot-top{grid-template-columns:minmax(0,1fr)}
+  /* соты на узком экране крупнят — уменьшаем ячейку, чтобы фактура читалась как фактура */
+  body.is-home #main{background-size:42px 24px}
 }
 @media(max-width:420px){
   .tiles{grid-template-columns:minmax(0,1fr)}
@@ -600,7 +603,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
   <div class="wrap foot-top">
     <div class="foot-col foot-about">
       <b>Правильные технологии</b>
-      <p>Официальный дилер Koch Chemie на юге России с 2007 года. Автохимия, полировальные материалы, оборудование и расходники для автомоек и детейлинг-центров.</p>
+      <p>Официальный дилер Koch Chemie на юге России. Автохимия, полировальные материалы, оборудование и расходники для автомоек и детейлинг-центров.</p>
       <div class="chats">
         <a class="chat" style="border-color:rgba(255,255,255,.3);color:#fff" href="https://t.me/" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/></svg> Telegram
@@ -701,12 +704,13 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
         <input id="lpass" type="password" placeholder="Пароль" minlength="6" required>
       </div>
       <button class="btn" type="submit" style="width:100%">Войти</button>
-      <p class="note">Любой логин и пароль от 6 символов. После входа по каталогу появятся оптовые цены.</p>
+      <p class="note" id="loginHint">Телефон или почта и пароль от 6 символов. После входа по каталогу появятся оптовые цены.</p>
     </form>
   </div>
 </div>
 
-<script src="catalog.js"></script>
+<!-- ?v= меняется при каждом обновлении каталога: иначе браузер отдаёт старую версию из кеша -->
+<script src="catalog.js?v=20260826"></script>
 <script>
 "use strict";
 
@@ -936,7 +940,7 @@ view.home = () => {
     <div class="wrap">
       <div class="hero-top">
         <div>
-          <p class="eyebrow">Официальный дилер Koch Chemie · юг России с 2007 года</p>
+          <p class="eyebrow">Официальный дилер Koch Chemie · юг России</p>
           <h1>Химия, которую покупают по шагу процесса</h1>
           <p class="hero-lede">Пасты, круги, шампуни и оборудование для автомоек и детейлинг-центров Ростовской области, Краснодарского края и всего юга. Со склада, с подбором под лак и под пост.</p>
         </div>
@@ -1349,7 +1353,7 @@ view.account = () => {
       <div class="form-card">
         <p class="eyebrow">Быстрый доступ</p>
         <h3>Вход без регистрации</h3>
-        <p style="font-size:14px;color:var(--steel);margin:14px 0 0">Введите любой телефон и код <b class="mono">0000</b>. Важно показать, что меняется <em>после</em> входа: по всему каталогу вместо розничной цены появляется оптовая.</p>
+        <p style="font-size:14px;color:var(--steel);margin:14px 0 0">Вход по телефону или почте и паролю от 6 символов. После входа по всему каталогу вместо розничной цены показывается оптовая.</p>
       </div>
     </div>
   </div></section>`;
@@ -1418,7 +1422,7 @@ view.favorites = () => `<section class="screen on"><div class="wrap">
 /* ── бренды ── */
 view.brands = () => {
   const info = {
-    "Koch Chemie":"Германия. Автохимия, одобренная Mercedes-Benz, BMW и Volkswagen. Мы привезли её на юг России в 2007 году и остаёмся официальным дилером.",
+    "Koch Chemie":"Германия. Автохимия, одобренная Mercedes-Benz, BMW и Volkswagen. Мы официальный дилер бренда на юге России.",
     "Zvizzer":"Германия. Полировальные круги: поролон, шерсть, гибрид и микрофибра. Термостойкие составы под длинную смену.",
     "AuTech":"Оснастка, ёмкости, держатели и круги — то, что расходуется на посту каждый день.",
     "Marolex":"Польша. Помповые опрыскиватели с кислотостойкими уплотнениями.",
@@ -1786,7 +1790,12 @@ document.addEventListener("click", e => {
 
   if (t.closest("#filtersToggle")){ $("#sideWrap").classList.toggle("open"); return; }
   if (t.closest("#cityBtn")){ openCity(); return; }
-  if (t.closest("#openLogin")){ $("#loginModal").classList.add("on"); return; }
+  if (t.closest("#openLogin")){
+    $("#llogin").style.borderColor = ""; $("#lpass").style.borderColor = "";
+    const h = $("#loginHint");
+    h.style.color = ""; h.textContent = "Телефон или почта и пароль от 6 символов. После входа по каталогу появятся оптовые цены.";
+    $("#loginModal").classList.add("on"); return;
+  }
   if (t.closest("#logout")){ store.user = null; save("pt_user", null); render(); return; }
 
   const rep = t.closest("[data-repeat]");
@@ -1869,14 +1878,33 @@ function openCity(){
 }
 
 /* вход */
+/* Логин — телефон (10–11 цифр) или почта. Пароль — от 6 символов. */
+const isPhone = v => /^\+?[\d\s()-]{10,18}$/.test(v) && v.replace(/\D/g,"").length >= 10;
+const isEmail = v => /^[^\s@]+@[^\s@]+\.[a-zA-Zа-яА-Я]{2,}$/.test(v);
+
+function loginError(el, msg){
+  el.style.borderColor = "var(--signal)";
+  const hint = $("#loginHint");
+  hint.textContent = msg;
+  hint.style.color = "var(--signal)";
+}
+
 $("#loginForm").addEventListener("submit", e => {
   e.preventDefault();
-  const login = $("#llogin").value.trim() || "+7 900 000-00-00";
-  if ($("#lpass").value.trim().length < 6){
-    $("#lpass").style.borderColor = "var(--signal)";
-    $("#lpass").value = ""; $("#lpass").placeholder = "Минимум 6 символов";
+  const login = $("#llogin").value.trim();
+  const pass = $("#lpass").value.trim();
+
+  if (!isPhone(login) && !isEmail(login)){
+    loginError($("#llogin"), "Введите телефон (+7 900 000-00-00) или почту (mail@company.ru)");
     return;
   }
+  $("#llogin").style.borderColor = "";
+
+  if (pass.length < 6){
+    loginError($("#lpass"), "Пароль — минимум 6 символов");
+    return;
+  }
+  $("#lpass").style.borderColor = "";
   store.user = {phone: login, company:"Детейлинг-центр «Юг»"};
   save("pt_user", store.user);
   $("#loginModal").classList.remove("on");
