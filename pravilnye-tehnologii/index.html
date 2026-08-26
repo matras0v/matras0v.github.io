@@ -312,6 +312,11 @@ h3{font-size:20px;letter-spacing:-.01em}
 .side-link.on{color:var(--ink);font-weight:700}
 .side-link span{font-family:var(--mono);font-size:11px;color:var(--mist)}
 .check{display:flex;align-items:center;gap:9px;padding:5px 0;font-size:13.5px;color:var(--slate);cursor:pointer}
+/* длинный текст согласия — грид, а не флекс: флекс рвёт фразу на колонки вместо переноса строк */
+.consent-check{display:grid;grid-template-columns:auto 1fr;align-items:start;gap:9px;margin-bottom:14px}
+.consent-check input{margin-top:2px}
+.consent-check span{line-height:1.45}
+.consent-check a{text-decoration:underline;text-underline-offset:2px}
 .check input{width:15px;height:15px;accent-color:var(--ink);margin:0}
 .toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line)}
 .found{font-family:var(--mono);font-size:12px;color:var(--steel)}
@@ -1373,9 +1378,9 @@ view.checkout = () => {
           <label for="ocomm">Комментарий</label>
           <textarea id="ocomm" placeholder="Например: нужна консультация по подбору пасты под мягкий лак"></textarea>
         </div>
-        <label class="check" style="margin-bottom:14px">
+        <label class="check consent-check">
           <input type="checkbox" id="oconsent" required>
-          Согласен(на) на <a href="#/consent" target="_blank">обработку персональных данных</a> и ознакомлен(а) с <a href="#/privacy" target="_blank">политикой конфиденциальности</a>
+          <span>Согласен(на) на <a href="#/consent" target="_blank">обработку персональных данных</a> и ознакомлен(а) с <a href="#/privacy" target="_blank">политикой конфиденциальности</a></span>
         </label>
         <button class="btn" type="submit" style="width:100%">Отправить заявку</button>
         <p class="note">Оплата не онлайн — счёт выставит менеджер.</p>
@@ -1642,9 +1647,9 @@ view.wholesale = () => `<section class="screen on"><div class="wrap">
         </select>
       </div>
       <div class="field"><label for="pcomment">Комментарий</label><textarea id="pcomment" rows="2" placeholder="Что уже используете, что интересует в первую очередь"></textarea></div>
-      <label class="check" style="margin-bottom:14px">
+      <label class="check consent-check">
         <input type="checkbox" id="pconsent" required>
-        Согласен(на) на <a href="#/consent" target="_blank">обработку персональных данных</a> и ознакомлен(а) с <a href="#/privacy" target="_blank">политикой конфиденциальности</a>
+        <span>Согласен(на) на <a href="#/consent" target="_blank">обработку персональных данных</a> и ознакомлен(а) с <a href="#/privacy" target="_blank">политикой конфиденциальности</a></span>
       </label>
       <button class="btn" type="submit" style="width:100%">Отправить заявку</button>
       <p class="note" id="partnerNote">Ответим в рабочее время, Пн–Пт с 09:00 до 18:00.</p>
