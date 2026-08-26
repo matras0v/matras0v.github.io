@@ -6,10 +6,28 @@
 <title>Правильные технологии — автохимия и оборудование для детейлинга</title>
 <meta name="description" content="Официальный дилер Koch Chemie на юге России. Автохимия, полировальные пасты, круги, оборудование и расходники для автомоек и детейлинг-центров.">
 <link rel="icon" type="image/png" href="img/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700;800&display=swap" rel="stylesheet">
 <style>
+/* Шрифт заголовков — свой файл в /fonts, без запроса к Google Fonts (пункт из чек-листа Роскомнадзора: не использовать сервисы Google). */
+@font-face{
+  font-family:"Oswald"; font-style:normal; font-weight:600; font-display:swap;
+  src:url("fonts/oswald-600-cyrillic.woff2") format("woff2");
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face{
+  font-family:"Oswald"; font-style:normal; font-weight:600; font-display:swap;
+  src:url("fonts/oswald-600-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2122,U+2212;
+}
+@font-face{
+  font-family:"Oswald"; font-style:normal; font-weight:700; font-display:swap;
+  src:url("fonts/oswald-700-cyrillic.woff2") format("woff2");
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face{
+  font-family:"Oswald"; font-style:normal; font-weight:700; font-display:swap;
+  src:url("fonts/oswald-700-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2122,U+2212;
+}
 :root{
   --ink:#0A0A0B;
   --graphite:#17181A;
@@ -23,7 +41,7 @@
 
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  --display:"Saira Condensed","Arial Narrow",var(--sans);
+  --display:"Oswald","Arial Narrow",var(--sans);
 
   --wrap:1280px;
   --gut:32px;
@@ -75,7 +93,7 @@ img{max-width:100%;display:block}
   font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--steel);margin:0 0 10px;
 }
-h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:800;letter-spacing:-.01em;line-height:1.04;text-transform:uppercase}
+h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:700;letter-spacing:-.01em;line-height:1.04;text-transform:uppercase}
 h2{font-size:30px}
 h3{font-size:20px;letter-spacing:-.01em}
 
@@ -98,7 +116,7 @@ h3{font-size:20px;letter-spacing:-.01em}
 .logo-mark{
   width:46px;height:46px;border-radius:9px;object-fit:cover;flex-shrink:0;
 }
-.logo b{display:block;font-family:var(--display);font-size:19px;font-weight:800;letter-spacing:0;line-height:1.15;text-transform:uppercase}
+.logo b{display:block;font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:0;line-height:1.15;text-transform:uppercase}
 .logo span{
   display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--steel);margin-top:3px;
@@ -240,7 +258,7 @@ h3{font-size:20px;letter-spacing:-.01em}
 
 /* ─────────── отзывы ─────────── */
 .reviews-summary{display:flex;align-items:baseline;gap:12px;margin-bottom:24px}
-.reviews-summary b{font-family:var(--display);font-size:32px;font-weight:800}
+.reviews-summary b{font-family:var(--display);font-size:32px;font-weight:700}
 .reviews-summary .stars{color:#E3A400;font-size:15px;letter-spacing:1px}
 .reviews-summary span:last-child{font-size:13px;color:var(--steel)}
 .reviews-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -653,6 +671,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
       <ul>
         <li><a href="#/privacy">Политика конфиденциальности</a></li>
         <li><a href="#/terms">Пользовательское соглашение</a></li>
+        <li><a href="#/consent">Согласие на обработку данных</a></li>
       </ul>
     </div>
     <div class="foot-col">
@@ -1334,8 +1353,12 @@ view.checkout = () => {
           <label for="ocomm">Комментарий</label>
           <textarea id="ocomm" placeholder="Например: нужна консультация по подбору пасты под мягкий лак"></textarea>
         </div>
+        <label class="check" style="margin-bottom:14px">
+          <input type="checkbox" id="oconsent" required>
+          Согласен(на) на <a href="#/consent" target="_blank">обработку персональных данных</a> и ознакомлен(а) с <a href="#/privacy" target="_blank">политикой конфиденциальности</a>
+        </label>
         <button class="btn" type="submit" style="width:100%">Отправить заявку</button>
-        <p class="note">Отправляя заявку, вы соглашаетесь на обработку персональных данных. Оплата не онлайн — счёт выставит менеджер.</p>
+        <p class="note">Оплата не онлайн — счёт выставит менеджер.</p>
       </form>
       <aside class="summary">
         <p class="eyebrow">Состав заявки</p>
@@ -1599,6 +1622,10 @@ view.wholesale = () => `<section class="screen on"><div class="wrap">
         </select>
       </div>
       <div class="field"><label for="pcomment">Комментарий</label><textarea id="pcomment" rows="2" placeholder="Что уже используете, что интересует в первую очередь"></textarea></div>
+      <label class="check" style="margin-bottom:14px">
+        <input type="checkbox" id="pconsent" required>
+        Согласен(на) на <a href="#/consent" target="_blank">обработку персональных данных</a> и ознакомлен(а) с <a href="#/privacy" target="_blank">политикой конфиденциальности</a>
+      </label>
       <button class="btn" type="submit" style="width:100%">Отправить заявку</button>
       <p class="note" id="partnerNote">Ответим в рабочее время, Пн–Пт с 09:00 до 18:00.</p>
     </form>
@@ -1664,6 +1691,27 @@ view.terms = () => `<section class="screen on"><div class="wrap">
     <p>Правообладатель сайта не несёт ответственности за содержимое сайтов третьих лиц, на которые пользователь может перейти по ссылкам с сайта.</p>
     <h4>5. Контакты</h4>
     <p>По всем вопросам — <a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a> или <a class="mono" href="tel:+79613011919">+7 961 301-19-19</a>.</p>
+  </div>
+</div></section>`;
+
+/* Отдельный документ-согласие — то, с чем пользователь соглашается галочкой у формы.
+   Не то же самое, что «Политика конфиденциальности» (там — как оператор в целом обрабатывает
+   данные); здесь — прямое согласие конкретного пользователя, в соответствии с 152-ФЗ ст. 9. */
+view.consent = () => `<section class="screen on"><div class="wrap">
+  <p class="crumbs"><a href="#/">Главная</a> / Согласие на обработку персональных данных</p>
+  <div class="head"><div><p class="eyebrow">Документы</p><h2>Согласие на обработку персональных данных</h2></div></div>
+  <div class="legal-doc">
+    <p>Настоящее согласие даётся в соответствии со ст. 9 Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» пользователем сайта правильная-технология.рф в пользу ООО «Правильные Технологии» (ИНН 6165176208, ОГРН 1126165006593, далее — Оператор), отправляющего форму заявки на сайте.</p>
+    <h4>1. Согласие на обработку</h4>
+    <p>Заполняя форму на сайте и отмечая галочку согласия, пользователь подтверждает, что даёт согласие на обработку своих персональных данных: имени, телефона, адреса электронной почты, названия и реквизитов компании (для заявок на оптовое сотрудничество).</p>
+    <h4>2. Цель обработки</h4>
+    <p>Обработка данных ведётся исключительно для связи с пользователем по его заявке: подтверждение наличия товара, согласование условий доставки, выставление счёта, консультация по подбору химии.</p>
+    <h4>3. Способ обработки</h4>
+    <p>Сбор, запись, хранение и использование данных — без автоматизированного принятия решений, без передачи третьим лицам, кроме транспортных компаний в объёме, необходимом для доставки заказа.</p>
+    <h4>4. Срок действия</h4>
+    <p>Согласие действует до момента его отзыва пользователем. Отозвать согласие и потребовать удаления данных можно, написав на <a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a>.</p>
+    <h4>5. Подтверждение</h4>
+    <p>Отмечая галочку рядом с формой на сайте, пользователь подтверждает, что ознакомлен с настоящим согласием и даёт его добровольно, своей волей и в своём интересе.</p>
   </div>
 </div></section>`;
 
@@ -1787,6 +1835,7 @@ function render(){
     case "delivery":  html = view.delivery(); break;
     case "privacy":   html = view.privacy(); break;
     case "terms":     html = view.terms(); break;
+    case "consent":   html = view.consent(); break;
     case "contacts":  html = view.contacts(); break;
     case "scale":     html = view.scale(); break;
     default:          html = view.home();
