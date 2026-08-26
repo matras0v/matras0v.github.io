@@ -315,6 +315,18 @@ h3{font-size:20px;letter-spacing:-.01em}
 .spec td:first-child{color:var(--steel);width:42%;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;padding-right:16px}
 .spec td:last-child{font-family:var(--mono);font-weight:600}
 .product-desc{font-size:14.5px;color:var(--slate);line-height:1.6;margin:0 0 26px;max-width:52ch}
+/* переключатель фасовки на карточке товара — 250 мл / 1 л / 5 л и т.д., каждая своя ссылка на #/product/N */
+.variant-switch{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px}
+.variant-pill{
+  display:flex;flex-direction:column;align-items:flex-start;gap:2px;
+  border:1.5px solid var(--line);padding:8px 14px;min-width:76px;color:var(--ink);
+}
+.variant-pill span{font-size:11.5px;color:var(--steel)}
+.variant-pill b{font-family:var(--mono);font-size:13px;font-weight:700}
+.variant-pill:hover{border-color:var(--steel)}
+.variant-pill.on{border-color:var(--ink);border-width:2px;padding:7.5px 13.5px}
+.variant-pill.oos{opacity:.5}
+.variant-pill.oos span::after{content:" · под заказ"}
 .buy{border:1px solid var(--line);background:var(--white);padding:22px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .buy .price{font-size:29px}
 .qty{display:flex;align-items:center;border:1.5px solid var(--ink)}
@@ -720,6 +732,42 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 // P: [название, бренд(idx), цена, файл, наличие, категория, описание(idx), фасовка]
 const F = {N:0, B:1, PR:2, IMG:3, ST:4, CAT:5, D:6, VOL:7, ART:8};
 
+/* ── группировка одного товара в разных фасовках (250 мл / 1 л / 5 л и т.д.) в один ──
+   Название почти всегда заканчивается на "(250 мл)" / "(1 л)" — по этому и группируем.
+   Так же собран у автопроверки: одинаковая категория и шаг STEP внутри группы, ложных
+   склеек не было при ручной проверке всего каталога. */
+const VOL_PAREN = /\s*\((?:\s*\d+[.,]?\d*\s*(?:мл|л|кг|г|шт)\.?\s*)\)\s*$/i;
+const groupKey = i => {
+  const p = P[i];
+  return VOL_PAREN.test(p[F.N]) ? p[F.N].replace(VOL_PAREN, "").trim().toLowerCase() + "|" + p[F.B] : null;
+};
+const VARIANTS = (() => {
+  const byKey = {};
+  P.forEach((p, i) => {
+    const k = groupKey(i);
+    if (k) (byKey[k] || (byKey[k] = [])).push(i);
+  });
+  const out = {};
+  P.forEach((p, i) => {
+    const k = groupKey(i);
+    out[i] = (k && byKey[k].length > 1) ? byKey[k] : [i];
+  });
+  return out;
+})();
+/* Один представитель на группу для каталога/подборок — предпочитаем то, что в наличии, среди них дешевле. */
+const dedupeVariants = list => {
+  const seen = new Set(), out = [];
+  list.forEach(i => {
+    const sibs = VARIANTS[i];
+    const key = sibs.length > 1 ? sibs.join(",") : "s" + i;
+    if (seen.has(key)) return;
+    seen.add(key);
+    const rep = sibs.slice().sort((a,b) => (P[b][F.ST]-P[a][F.ST]) || (P[a][F.PR]-P[b][F.PR]))[0];
+    out.push(rep);
+  });
+  return out;
+};
+
 const CATS = [
   {id:"polish",    name:"Полировка",         note:"Пасты, круги, подложки"},
   {id:"wash",      name:"Мойка и уход",      note:"Шампуни, пена, воски"},
@@ -891,8 +939,13 @@ const brandVisual = (b, i) => BRAND_LOGO[b] || brandThumb(i);
 /* ═══════════════════ карточка товара в сетке ═══════════════════ */
 function cardHTML(i){
   const p = P[i];
+  const variants = VARIANTS[i];
+  const multi = variants.length > 1;
   const inCart = !!store.cart[i];
   const step = STEP[i];
+  const anyStock = variants.some(j => P[j][F.ST]);
+  const minPrice = Math.min(...variants.map(j => price(P[j])));
+  const minRetail = Math.min(...variants.map(j => fxPrice(P[j])));
   return `<article class="card">
     <button class="fav ${store.fav.includes(i)?"on":""}" data-fav="${i}" aria-label="В избранное">
       <svg viewBox="0 0 24 24"><path d="M12 20.5S3 15 3 8.7A4.7 4.7 0 0 1 12 6a4.7 4.7 0 0 1 9 2.7c0 6.3-9 11.8-9 11.8z"/></svg>
@@ -904,18 +957,20 @@ function cardHTML(i){
     <div class="card-body">
       <span class="card-brand">${esc(BR[p[F.B]])}</span>
       <a class="card-name" href="#/product/${i}">${esc(p[F.N])}</a>
-      ${p[F.ART] ? `<span class="card-art mono">арт. ${esc(p[F.ART])}</span>` : ""}
+      ${!multi && p[F.ART] ? `<span class="card-art mono">арт. ${esc(p[F.ART])}</span>` : ""}
       <div class="card-meta">
-        ${p[F.VOL] ? `<span>${esc(p[F.VOL])}</span>` : ""}
-        <span class="stock ${p[F.ST]?"yes":"no"}">${p[F.ST]?"в наличии":"нет в наличии"}</span>
+        ${multi ? `<span>${variants.length} ${plural(variants.length,"вариант","варианта","вариантов")}</span>` : (p[F.VOL] ? `<span>${esc(p[F.VOL])}</span>` : "")}
+        <span class="stock ${anyStock?"yes":"no"}">${anyStock?"в наличии":"нет в наличии"}</span>
       </div>
       <div class="card-foot">
-        <span class="price">${money(price(p))}${isOpt()?`<span class="price-opt">розница ${money(fxPrice(p))}</span>`:""}</span>
-        <button class="add ${inCart?"in":""}" data-add="${i}" aria-label="Добавить в корзину">
-          ${inCart
-            ? `<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>`
-            : `<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>`}
-        </button>
+        <span class="price">${multi?"от ":""}${money(minPrice)}${isOpt()?`<span class="price-opt">розница ${money(minRetail)}</span>`:""}</span>
+        ${multi
+          ? `<a class="add" href="#/product/${i}" aria-label="Выбрать вариант"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></a>`
+          : `<button class="add ${inCart?"in":""}" data-add="${i}" aria-label="Добавить в корзину">
+              ${inCart
+                ? `<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>`
+                : `<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>`}
+            </button>`}
       </div>
     </div>
   </article>`;
@@ -1017,7 +1072,7 @@ view.home = () => {
         <div><p class="eyebrow">В наличии на складе</p><h2>Забирают чаще всего</h2></div>
         <a class="more" href="#/catalog?stock=1">Всё в наличии →</a>
       </div>
-      ${gridHTML(hits.slice(0,8))}
+      ${gridHTML(dedupeVariants(hits).slice(0,8))}
     </div>
   </section>
 
@@ -1072,6 +1127,7 @@ view.catalog = () => {
   if (filters.sort === "asc")  list.sort((a,b) => price(P[a]) - price(P[b]));
   if (filters.sort === "desc") list.sort((a,b) => price(P[b]) - price(P[a]));
   if (filters.sort === "pop")  list.sort((a,b) => P[b][F.ST] - P[a][F.ST]);
+  list = dedupeVariants(list);
 
   const brandsIn = [...new Set(P.map(p => BR[p[F.B]]))].sort();
   const title = filters.q ? `Поиск: ${esc(filters.q)}`
@@ -1130,9 +1186,10 @@ function plural(n, a, b, c){
 view.product = id => {
   const p = P[id];
   if (!p) return view.home();
-  const same = P.map((x,i) => i)
-                .filter(i => i != id && P[i][F.CAT] === p[F.CAT] && P[i][F.B] === p[F.B])
-                .slice(0,4);
+  const myVariants = VARIANTS[id];
+  const same = dedupeVariants(
+    P.map((x,i) => i).filter(i => !myVariants.includes(i) && P[i][F.CAT] === p[F.CAT] && P[i][F.B] === p[F.B])
+  ).slice(0,4);
   const step = STEP[id];
   const stepInfo = step ? STEPS.find(s => s.code === step) : null;
 
@@ -1145,6 +1202,13 @@ view.product = id => {
         <h1>${esc(p[F.N])}</h1>
         ${p[F.ART] ? `<p class="mono" style="font-size:12.5px;color:var(--steel);margin:2px 0 0">арт. ${esc(p[F.ART])}</p>` : ""}
         <p class="product-desc">${esc(DS[p[F.D]])}</p>
+        ${myVariants.length > 1 ? `<div class="variant-switch">
+          ${myVariants.slice().sort((a,b) => price(P[a])-price(P[b])).map(j => `
+            <a href="#/product/${j}" class="variant-pill ${j==id?"on":""} ${P[j][F.ST]?"":"oos"}">
+              <span>${esc(P[j][F.VOL] || "—")}</span>
+              <b>${money(price(P[j]))}</b>
+            </a>`).join("")}
+        </div>` : ""}
         <table class="spec">
           <tr><td>Бренд</td><td>${esc(BR[p[F.B]])}</td></tr>
           ${p[F.VOL] ? `<tr><td>Фасовка</td><td>${esc(p[F.VOL])}</td></tr>` : ""}
