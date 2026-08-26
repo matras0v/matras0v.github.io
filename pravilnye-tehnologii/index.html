@@ -751,14 +751,34 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 // P: [название, бренд(idx), цена, файл, наличие, категория, описание(idx), фасовка]
 const F = {N:0, B:1, PR:2, IMG:3, ST:4, CAT:5, D:6, VOL:7, ART:8};
 
-/* ── группировка одного товара в разных фасовках (250 мл / 1 л / 5 л и т.д.) в один ──
-   Название почти всегда заканчивается на "(250 мл)" / "(1 л)" — по этому и группируем.
-   Так же собран у автопроверки: одинаковая категория и шаг STEP внутри группы, ложных
-   склеек не было при ручной проверке всего каталога. */
+/* ── группировка одного товара в разных фасовках/размерах в один ──
+   1) Фасовка: название почти всегда заканчивается на "(250 мл)" / "(1 л)".
+   2) Размер круга/подложки: название заканчивается на "Ø 160 x 30 мм" / "160/20/150мм" и т.п. —
+      твёрдость/линейка (твёрдый, полутвёрдый, Allrounder, Trapez…) остаётся в ключе, поэтому
+      разные по твёрдости круги НЕ склеиваются между собой, только одинаковые круги разных диаметров.
+   Проверено скриптом по всему каталогу: во всех получившихся группах — одна категория и один
+   шаг STEP, конфликтов нет. */
 const VOL_PAREN = /\s*\((?:\s*\d+[.,]?\d*\s*(?:мл|л|кг|г|шт)\.?\s*)\)\s*$/i;
+const SIZE_SUFFIX = /\s*(?:V-?Form\s*)?(?:Ø\s*)?\d+(?:[.,]\d+)?\s*(?:[xх/]\s*\d+(?:[.,]\d+)?){0,2}\s*мм\.?(?:\s*рифл[её]ный)?\s*$/i;
 const groupKey = i => {
   const p = P[i];
-  return VOL_PAREN.test(p[F.N]) ? p[F.N].replace(VOL_PAREN, "").trim().toLowerCase() + "|" + p[F.B] : null;
+  const name = p[F.N];
+  if (VOL_PAREN.test(name)) return name.replace(VOL_PAREN, "").trim().toLowerCase() + "|" + p[F.B];
+  if (SIZE_SUFFIX.test(name)) {
+    const base = name.replace(SIZE_SUFFIX, "").trim();
+    if (base === name.trim()) return null;
+    return base.toLowerCase().replace(/полу-?твердый/g, "полутвердый").replace(/\s+/g, " ") + "|" + p[F.B];
+  }
+  return null;
+};
+/* Подпись на кнопке-варианте: для фасовки — поле "объём" ок, а для кругов F.VOL иногда
+   хранит толщину, а не диаметр (у "Ø 160 x 30 мм" отличается именно 160, а не 30) —
+   поэтому для размерных вариантов подпись берём прямо из хвоста названия. */
+const variantLabel = i => {
+  const p = P[i];
+  const m = p[F.N].match(SIZE_SUFFIX);
+  if (m) return m[0].trim().replace(/^Ø\s*/, "Ø ");
+  return p[F.VOL] || "—";
 };
 const VARIANTS = (() => {
   const byKey = {};
@@ -978,7 +998,7 @@ function cardHTML(i){
       <a class="card-name" href="#/product/${i}">${esc(p[F.N])}</a>
       ${!multi && p[F.ART] ? `<span class="card-art mono">арт. ${esc(p[F.ART])}</span>` : ""}
       <div class="card-meta">
-        ${multi ? `<span>${variants.length} ${plural(variants.length,"вариант","варианта","вариантов")}</span>` : (p[F.VOL] ? `<span>${esc(p[F.VOL])}</span>` : "")}
+        ${multi ? `<span>${variants.length} ${plural(variants.length,"вариант","варианта","вариантов")}</span>` : (p[F.VOL] ? `<span>${esc(variantLabel(i))}</span>` : "")}
         <span class="stock ${anyStock?"yes":"no"}">${anyStock?"в наличии":"нет в наличии"}</span>
       </div>
       <div class="card-foot">
@@ -1224,13 +1244,13 @@ view.product = id => {
         ${myVariants.length > 1 ? `<div class="variant-switch">
           ${myVariants.slice().sort((a,b) => price(P[a])-price(P[b])).map(j => `
             <a href="#/product/${j}" class="variant-pill ${j==id?"on":""} ${P[j][F.ST]?"":"oos"}">
-              <span>${esc(P[j][F.VOL] || "—")}</span>
+              <span>${esc(variantLabel(j))}</span>
               <b>${money(price(P[j]))}</b>
             </a>`).join("")}
         </div>` : ""}
         <table class="spec">
           <tr><td>Бренд</td><td>${esc(BR[p[F.B]])}</td></tr>
-          ${p[F.VOL] ? `<tr><td>Фасовка</td><td>${esc(p[F.VOL])}</td></tr>` : ""}
+          ${p[F.VOL] ? `<tr><td>${myVariants.length>1 && SIZE_SUFFIX.test(p[F.N]) ? "Размер" : "Фасовка"}</td><td>${esc(variantLabel(id))}</td></tr>` : ""}
           <tr><td>Раздел</td><td>${CAT_NAME[p[F.CAT]]}</td></tr>
           ${stepInfo ? `<tr><td>Шаг полировки</td><td>${stepInfo.code} — ${stepInfo.name}</td></tr>` : ""}
           <tr><td>Наличие</td><td class="stock ${p[F.ST]?"yes":"no"}" style="font-size:13.5px">${p[F.ST]?"на складе в Ростове":"под заказ, уточняйте срок"}</td></tr>
@@ -1286,7 +1306,7 @@ view.cart = () => {
               <div class="cart-brand">${esc(BR[p[F.B]])}</div>
               <a class="cart-name" href="#/product/${i}">${esc(p[F.N])}</a>
               <div class="card-meta" style="margin-top:6px">
-                ${p[F.VOL] ? `<span>${esc(p[F.VOL])}</span>` : ""}
+                ${p[F.VOL] ? `<span>${esc(variantLabel(i))}</span>` : ""}
                 <span class="stock ${p[F.ST]?"yes":"no"}">${p[F.ST]?"в наличии":"под заказ"}</span>
               </div>
             </div>
