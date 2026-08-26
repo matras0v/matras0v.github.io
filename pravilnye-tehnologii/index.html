@@ -261,15 +261,28 @@ h3{font-size:20px;letter-spacing:-.01em}
 .reviews-summary b{font-family:var(--display);font-size:32px;font-weight:700}
 .reviews-summary .stars{color:#E3A400;font-size:15px;letter-spacing:1px}
 .reviews-summary span:last-child{font-size:13px;color:var(--steel)}
-.reviews-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.review-card{background:var(--white);border:1px solid var(--line);padding:18px}
+/* лента отзывов — горизонтальный скролл со snap, тянется мышью/тачпадом/пальцем + точки-индикатор */
+.reviews-carousel{position:relative}
+.reviews-track{
+  display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.reviews-track::-webkit-scrollbar{display:none}
+.review-card{
+  background:var(--white);border:1px solid var(--line);padding:18px;
+  flex:0 0 280px;scroll-snap-align:start;
+}
 .review-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
 .review-head b{font-size:14px;font-weight:700}
 .review-head .stars{color:#E3A400;font-size:12px;letter-spacing:1px}
 .review-card p{font-size:13px;color:var(--slate);line-height:1.5;margin:0 0 10px}
 .review-date{font-family:var(--mono);font-size:10.5px;color:var(--mist);text-transform:uppercase;letter-spacing:.06em}
-@media(max-width:900px){.reviews-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){.reviews-grid{grid-template-columns:1fr}}
+.reviews-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+.reviews-dot{width:7px;height:7px;border-radius:50%;background:var(--line);border:none;padding:0;cursor:pointer}
+.reviews-dot.on{background:var(--ink);width:20px;border-radius:4px}
+body.is-home #main .reviews-dot{background:rgba(255,255,255,.25)}
+body.is-home #main .reviews-dot.on{background:var(--white)}
+@media(max-width:520px){.review-card{flex-basis:82vw}}
 
 /* ─────────── сетка товаров ─────────── */
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
@@ -326,6 +339,15 @@ h3{font-size:20px;letter-spacing:-.01em}
 .sort button.on{background:var(--ink);color:var(--white)}
 .filters-toggle{display:none}
 .empty{padding:60px 0;text-align:center;color:var(--steel)}
+/* ─────────── пагинация каталога ─────────── */
+.pager{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:36px}
+.pager-btn{
+  min-width:36px;height:36px;padding:0 10px;border:1px solid var(--line);background:var(--white);
+  font-family:var(--mono);font-size:13px;color:var(--slate);
+}
+.pager-btn:hover:not(:disabled){border-color:var(--ink)}
+.pager-btn.on{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.pager-btn:disabled{opacity:.35;cursor:default}
 .empty b{display:block;font-size:17px;color:var(--ink);margin-bottom:6px}
 
 /* ─────────── карточка товара ─────────── */
@@ -692,7 +714,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
   </div>
   <div class="wrap foot-legal">
     <span>ООО «Правильные Технологии» · ИНН 6165176208 · ОГРН 1126165006593</span>
-    <span>Демонстрационный прототип · правильная-технология.рф</span>
+    <span>© ${new Date().getFullYear()} правильная-технология.рф</span>
   </div>
 </footer>
 
@@ -863,6 +885,10 @@ const YANDEX_REVIEWS = [
   {name:"Максим Ш.", rating:5, date:"октябрь 2025", text:"Профессиональный подход, опытные сотрудники подробно объясняют, как применять состав."},
   {name:"Иван Костенко", rating:5, date:"октябрь 2022", text:"Европейское качество химии, адекватные цены, толковые консультации, большой ассортимент."},
   {name:"Сергей Сургучев", rating:5, date:"февраль 2023", text:"Широкий выбор составов для ухода за лакокрасочным покрытием, сотрудники помогают подобрать нужное."},
+  {name:"Иосиф Груз", rating:5, date:"март", text:"Качественная автохимия среди аналогов на рынке, стабильно высокий уровень."},
+  {name:"Mikha S.", rating:5, date:"май 2023", text:"Профессиональная услуга полировки, грамотно проконсультировали по нанесению керамического покрытия."},
+  {name:"Иван Иванов", rating:5, date:"май 2021", text:"Высокая квалификация мастеров, премиальная автокосметика, машина после обработки как новая."},
+  {name:"Александр", rating:5, date:"февраль 2020", text:"Большой выбор, разумные цены, знающий и дружелюбный персонал."},
 ];
 
 const OPT_DISCOUNT = 0.15;   // оптовая скидка партнёра в демо
@@ -1131,13 +1157,18 @@ view.home = () => {
         <span class="stars">★★★★★</span>
         <span>40 отзывов на Яндекс.Картах</span>
       </div>
-      <div class="reviews-grid">
+      <div class="reviews-carousel">
+        <div class="reviews-track" id="reviewsTrack">
         ${YANDEX_REVIEWS.map(r => `
           <div class="review-card">
             <div class="review-head"><b>${esc(r.name)}</b><span class="stars">${"★".repeat(r.rating)}</span></div>
             <p>${esc(r.text)}</p>
             <span class="review-date">${esc(r.date)}</span>
           </div>`).join("")}
+        </div>
+        <div class="reviews-dots">
+          ${YANDEX_REVIEWS.map((r,k) => `<button class="reviews-dot ${k===0?"on":""}" data-review-dot="${k}" aria-label="Отзыв ${k+1}"></button>`).join("")}
+        </div>
       </div>
     </div>
   </section>
@@ -1156,7 +1187,15 @@ view.home = () => {
 };
 
 /* ── каталог ── */
-let filters = {cat:"", brand:"", stock:false, step:"", q:"", sort:"pop"};
+let filters = {cat:"", brand:"", stock:false, step:"", q:"", sort:"pop", page:1};
+const PAGE_SIZE = 60;
+
+/* «Популярные» — пока нет реальной статистики продаж, эвристика-заглушка:
+   в наличии важнее всего, дальше товары из базовой линейки полировки (есть шаг STEP),
+   дальше вес по бренду (Koch Chemie — основной ассортимент дилера). Как только у Андрея
+   появятся реальные данные по заказам — здесь нужно заменить на настоящий рейтинг продаж. */
+const BRAND_POP = {"Koch Chemie":5,"AuTech":4,"Zvizzer":3,"Marolex":2,"Cyclone":2,"ColourLock":2,"Finisher":1,"PACA":1,"Joybond":1};
+const popScore = i => (P[i][F.ST]?1000:0) + (STEP[i]?200:0) + (BRAND_POP[BR[P[i][F.B]]]||0)*10;
 
 view.catalog = () => {
   let list = P.map((p,i) => i);
@@ -1171,7 +1210,12 @@ view.catalog = () => {
   if (filters.sort === "asc")  list.sort((a,b) => price(P[a]) - price(P[b]));
   if (filters.sort === "desc") list.sort((a,b) => price(P[b]) - price(P[a]));
   if (filters.sort === "pop")  list.sort((a,b) => P[b][F.ST] - P[a][F.ST]);
+  if (filters.sort === "hit")  list.sort((a,b) => popScore(b) - popScore(a));
   list = dedupeVariants(list);
+
+  const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+  filters.page = Math.min(Math.max(1, filters.page), totalPages);
+  const pageList = list.slice((filters.page-1)*PAGE_SIZE, filters.page*PAGE_SIZE);
 
   const brandsIn = [...new Set(P.map(p => BR[p[F.B]]))].sort();
   const title = filters.q ? `Поиск: ${esc(filters.q)}`
@@ -1208,12 +1252,18 @@ view.catalog = () => {
           <span class="found">${list.length} ${plural(list.length,"позиция","позиции","позиций")}</span>
           <div class="sort">
             <button class="${filters.sort==="pop"?"on":""}" data-sort="pop">Сначала в наличии</button>
+            <button class="${filters.sort==="hit"?"on":""}" data-sort="hit">Популярные</button>
             <button class="${filters.sort==="asc"?"on":""}" data-sort="asc">Дешевле</button>
             <button class="${filters.sort==="desc"?"on":""}" data-sort="desc">Дороже</button>
           </div>
         </div>
-        ${gridHTML(list.slice(0, 60))}
-        ${list.length > 60 ? `<p class="note" style="text-align:center;margin-top:24px">Показаны первые 60 из ${list.length}. В боевой версии — постраничная навигация.</p>` : ""}
+        ${gridHTML(pageList)}
+        ${totalPages > 1 ? `<div class="pager">
+          <button class="pager-btn" data-page="${filters.page-1}" ${filters.page<=1?"disabled":""} aria-label="Предыдущая страница">‹</button>
+          ${Array.from({length: totalPages}, (_, k) => k+1).map(n => `
+            <button class="pager-btn ${n===filters.page?"on":""}" data-page="${n}">${n}</button>`).join("")}
+          <button class="pager-btn" data-page="${filters.page+1}" ${filters.page>=totalPages?"disabled":""} aria-label="Следующая страница">›</button>
+        </div>` : ""}
       </div>
     </div>
   </div></section>`;
@@ -1451,24 +1501,17 @@ function orderText(o){
 /* ── кабинет ── */
 view.account = () => {
   if (!store.user) return `<section class="screen on"><div class="wrap">
-    <div class="two">
-      <div>
-        <p class="eyebrow">Личный кабинет</p>
-        <h2>Кабинет партнёра</h2>
-        <p style="color:var(--steel);font-size:14.5px;margin:16px 0 0;max-width:48ch">Мойки, студии и магазины работают по своей цене. В кабинете видно оптовый прайс, историю заказов и документы — без звонка менеджеру.</p>
-        <ul class="ticks">
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Оптовая цена вместо розничной по всему каталогу</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>История заказов и повтор в один клик</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Реквизиты подставляются в счёт автоматически</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Избранное — свой рабочий список расходников</li>
-        </ul>
-        <button class="btn" id="openLogin">Войти в кабинет</button>
-      </div>
-      <div class="form-card">
-        <p class="eyebrow">Быстрый доступ</p>
-        <h3>Вход без регистрации</h3>
-        <p style="font-size:14px;color:var(--steel);margin:14px 0 0">Вход по телефону или почте и паролю от 6 символов. После входа по всему каталогу вместо розничной цены показывается оптовая.</p>
-      </div>
+    <div style="max-width:48ch">
+      <p class="eyebrow">Личный кабинет</p>
+      <h2>Кабинет партнёра</h2>
+      <p style="color:var(--steel);font-size:14.5px;margin:16px 0 0">Мойки, студии и магазины работают по своей цене. В кабинете видно оптовый прайс, историю заказов и документы — без звонка менеджеру.</p>
+      <ul class="ticks">
+        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Оптовая цена вместо розничной по всему каталогу</li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>История заказов и повтор в один клик</li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Реквизиты подставляются в счёт автоматически</li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Избранное — свой рабочий список расходников</li>
+      </ul>
+      <button class="btn" id="openLogin">Войти в кабинет</button>
     </div>
   </div></section>`;
 
@@ -1833,6 +1876,7 @@ function applyHash(){
       step:  qs.get("step") || "",
       q:     qs.get("q") || "",
       sort:  "pop",
+      page:  1,
     };
   }
   render();
@@ -1868,6 +1912,7 @@ function render(){
   $("#main").innerHTML = html;
   paintChrome();
   bannerStart();
+  initReviewsCarousel();
 }
 
 /* ── карусель на главной ── */
@@ -1885,6 +1930,33 @@ function bannerStart(){
   if (!$("#bannerTrack")) return;
   bannerIdx = 0;
   bannerTimer = setInterval(() => bannerGoto(bannerIdx + 1), 5500);
+}
+
+/* ── лента отзывов: точки листают скролл, скролл (пальцем/мышью) обновляет точки ── */
+function initReviewsCarousel(){
+  const track = $("#reviewsTrack");
+  if (!track) return;
+  const dots = () => document.querySelectorAll(".reviews-dot");
+  const cards = () => Array.from(track.children);
+  dots().forEach((d, idx) => {
+    d.onclick = () => {
+      const c = cards()[idx];
+      if (c) track.scrollTo({left: c.offsetLeft, behavior: "smooth"});
+    };
+  });
+  let scrollT = null;
+  track.onscroll = () => {
+    clearTimeout(scrollT);
+    scrollT = setTimeout(() => {
+      const pos = track.scrollLeft;
+      let nearest = 0, best = Infinity;
+      cards().forEach((c, i) => {
+        const d = Math.abs(c.offsetLeft - pos);
+        if (d < best) { best = d; nearest = i; }
+      });
+      dots().forEach((d, i) => d.classList.toggle("on", i === nearest));
+    }, 80);
+  };
 }
 
 window.addEventListener("hashchange", () => { applyHash(); window.scrollTo(0,0); });
@@ -1923,10 +1995,13 @@ document.addEventListener("click", e => {
   if (step){ location.hash = "#/catalog?step=" + step.dataset.step; return; }
 
   const f = t.closest("[data-f]");
-  if (f){ e.preventDefault(); filters[f.dataset.f] = f.dataset.v; render(); return; }
+  if (f){ e.preventDefault(); filters[f.dataset.f] = f.dataset.v; filters.page = 1; render(); return; }
 
   const sort = t.closest("[data-sort]");
-  if (sort){ filters.sort = sort.dataset.sort; render(); return; }
+  if (sort){ filters.sort = sort.dataset.sort; filters.page = 1; render(); return; }
+
+  const pg = t.closest("[data-page]");
+  if (pg && !pg.disabled){ filters.page = +pg.dataset.page; render(); $("#main").scrollIntoView({behavior:"instant"}); return; }
 
   if (t.closest("#filtersToggle")){ $("#sideWrap").classList.toggle("open"); return; }
   if (t.closest("#cityBtn")){ openCity(); return; }
@@ -1957,7 +2032,7 @@ document.addEventListener("click", e => {
 });
 
 document.addEventListener("change", e => {
-  if (e.target.id === "stockChk"){ filters.stock = e.target.checked; render(); }
+  if (e.target.id === "stockChk"){ filters.stock = e.target.checked; filters.page = 1; render(); }
   if (e.target.name === "ship"){
     document.querySelectorAll(".radio").forEach(r => r.classList.toggle("on", r.contains(e.target)));
   }
