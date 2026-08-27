@@ -702,6 +702,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
         <li><a href="#/privacy">Политика конфиденциальности</a></li>
         <li><a href="#/terms">Пользовательское соглашение</a></li>
         <li><a href="#/consent">Согласие на обработку данных</a></li>
+        <li><a href="#/cookies">Политика в отношении cookie</a></li>
       </ul>
     </div>
     <div class="foot-col">
@@ -717,13 +718,13 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
   </div>
   <div class="wrap foot-legal">
     <span>ООО «Правильные Технологии» · ИНН 6165176208 · ОГРН 1126165006593</span>
-    <span>© ${new Date().getFullYear()} правильная-технология.рф</span>
+    <span>© <span id="footYear"></span> правильная-технология.рф</span>
   </div>
 </footer>
 
 <!-- ─────────── согласие на cookie ─────────── -->
 <div class="cookie-bar" id="cookieBar">
-  <p>На этом сайте используются файлы cookie. <a href="#/privacy">Политика конфиденциальности</a></p>
+  <p>На этом сайте используются файлы cookie. <a href="#/cookies">Политика в отношении cookie</a></p>
   <button class="cookie-close" id="cookieAccept" aria-label="Закрыть">
     <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
@@ -773,7 +774,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 </div>
 
 <!-- ?v= меняется при каждом обновлении каталога: иначе браузер отдаёт старую версию из кеша -->
-<script src="catalog.js?v=20260826"></script>
+<script src="catalog.js?v=20260827"></script>
 <script>
 "use strict";
 
@@ -789,11 +790,16 @@ const F = {N:0, B:1, PR:2, IMG:3, ST:4, CAT:5, D:6, VOL:7, ART:8};
    Проверено скриптом по всему каталогу: во всех получившихся группах — одна категория и один
    шаг STEP, конфликтов нет. */
 const VOL_PAREN = /\s*\((?:\s*\d+[.,]?\d*\s*(?:мл|л|кг|г|шт)\.?\s*)\)\s*$/i;
+/* Та же фасовка, но без скобок в конце названия — "...1л", "...33 кг" и т.п. (без "шт":
+   счётные комплекты типа "к-кт 5 шт" слишком часто отличаются реальным составом набора,
+   чтобы безопасно склеивать их по одному только числу-хвосту). */
+const VOL_BARE = /[,.\s]*\d+[.,]?\d*\s*(?:мл|л|кг|г)\.?\s*$/i;
 const SIZE_SUFFIX = /\s*(?:V-?Form\s*)?(?:Ø\s*)?\d+(?:[.,]\d+)?\s*(?:[xх/]\s*\d+(?:[.,]\d+)?){0,2}\s*мм\.?(?:\s*рифл[её]ный)?\s*$/i;
 const groupKey = i => {
   const p = P[i];
   const name = p[F.N];
   if (VOL_PAREN.test(name)) return name.replace(VOL_PAREN, "").trim().toLowerCase() + "|" + p[F.B];
+  if (VOL_BARE.test(name)) return name.replace(VOL_BARE, "").trim().toLowerCase() + "|" + p[F.B];
   if (SIZE_SUFFIX.test(name)) {
     const base = name.replace(SIZE_SUFFIX, "").trim();
     if (base === name.trim()) return null;
@@ -902,25 +908,25 @@ const SHOP_EMAIL = "zakaz@qptech.ru";
    доставка не начнётся. До этого подтверждения заявки будут теряться молча. */
 const DEMO_INBOX = SHOP_EMAIL;
 
-/* ── курс евро для Koch Chemie: цены завода привязаны к EUR, у нас — только к рублю на дату сборки каталога ──
-   BASE_EUR_RATE — курс ЦБ на дату, когда были сняты текущие цены (24.08.2026). Дальше цены Koch Chemie
+/* ── курс доллара для Koch Chemie: цены завода привязаны к USD, у нас — только к рублю на дату сборки каталога ──
+   BASE_USD_RATE — курс ЦБ на дату, когда были сняты текущие цены (24.08.2026). Дальше цены Koch Chemie
    масштабируются на (текущий курс / базовый), остальные бренды — без изменений. */
-const BASE_EUR_RATE = 98.0;
-let eurRate = load("pt_eur_rate", null);
-function fxMultiplier(){ return eurRate ? eurRate / BASE_EUR_RATE : 1; }
-async function fetchEurRate(){
+const BASE_USD_RATE = 92.0;
+let usdRate = load("pt_usd_rate", null);
+function fxMultiplier(){ return usdRate ? usdRate / BASE_USD_RATE : 1; }
+async function fetchUsdRate(){
   const today = new Date().toISOString().slice(0,10);
-  const cached = load("pt_eur_rate_date", null);
-  if (cached === today && eurRate) return;
+  const cached = load("pt_usd_rate_date", null);
+  if (cached === today && usdRate) return;
   try {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 3000);
     const res = await fetch("https://www.cbr-xml-daily.ru/daily_json.js", {signal: ctrl.signal});
     clearTimeout(t);
     const data = await res.json();
-    eurRate = data.Valute.EUR.Value;
-    save("pt_eur_rate", eurRate);
-    save("pt_eur_rate_date", today);
+    usdRate = data.Valute.USD.Value;
+    save("pt_usd_rate", usdRate);
+    save("pt_usd_rate_date", today);
     render();
   } catch(e){ /* нет сети — остаёмся на последнем известном или базовом курсе */ }
 }
@@ -1303,7 +1309,7 @@ view.product = id => {
         <p class="product-desc">${esc(DS[p[F.D]])}</p>
         ${myVariants.length > 1 ? `<div class="variant-switch">
           ${myVariants.slice().sort((a,b) => price(P[a])-price(P[b])).map(j => `
-            <a href="#/product/${j}" class="variant-pill ${j==id?"on":""} ${P[j][F.ST]?"":"oos"}">
+            <a href="#/product/${j}" data-variant="${j}" class="variant-pill ${j==id?"on":""} ${P[j][F.ST]?"":"oos"}">
               <span>${esc(variantLabel(j))}</span>
               <b>${money(price(P[j]))}</b>
             </a>`).join("")}
@@ -1321,7 +1327,6 @@ view.product = id => {
             ${isOpt()
               ? `<span class="price-opt">розница ${money(fxPrice(p))} · ваша скидка ${OPT_DISCOUNT*100}%</span>`
               : `<span class="price-opt">оптовая цена — в личном кабинете</span>`}
-            ${BR[p[F.B]] === "Koch Chemie" && eurRate ? `<span class="price-opt" style="display:block;margin-top:2px">цена завода в EUR, пересчитано по курсу ЦБ ${eurRate.toFixed(2)} ₽</span>` : ""}
           </div>
           <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
             <div class="qty">
@@ -1741,7 +1746,7 @@ view.privacy = () => `<section class="screen on"><div class="wrap">
     <h4>2. Как мы используем данные</h4>
     <p>Только для обработки заявки: связаться с покупателем, подтвердить наличие, выставить счёт, оформить доставку. Данные не передаются третьим лицам, кроме транспортных компаний в объёме, необходимом для доставки заказа.</p>
     <h4>3. Cookie</h4>
-    <p>Сайт использует файлы cookie для работы корзины, избранного и запоминания города — исключительно на стороне браузера пользователя. Cookie не используются для отслеживания за пределами сайта.</p>
+    <p>Сайт использует технологии хранения данных браузера для работы корзины, избранного и запоминания города — исключительно на стороне устройства пользователя, без передачи третьим лицам. Подробнее — в <a href="#/cookies">Политике в отношении cookie</a>.</p>
     <h4>4. Права пользователя</h4>
     <p>Пользователь вправе запросить удаление своих данных, написав на <a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a>.</p>
     <h4>5. Контакты</h4>
@@ -1785,6 +1790,35 @@ view.consent = () => `<section class="screen on"><div class="wrap">
     <p>Согласие действует до момента его отзыва пользователем. Отозвать согласие и потребовать удаления данных можно, написав на <a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a>.</p>
     <h4>5. Подтверждение</h4>
     <p>Отмечая галочку рядом с формой на сайте, пользователь подтверждает, что ознакомлен с настоящим согласием и даёт его добровольно, своей волей и в своём интересе.</p>
+  </div>
+</div></section>`;
+
+/* Политика в отношении cookie — отдельный документ, на который ссылается баннер внизу экрана.
+   Честно про наш стек: реальных cookie для аналитики/рекламы/трекинга нет вообще — состояние
+   (корзина, избранное, город, вход, согласие) хранится в localStorage браузера пользователя
+   и никуда не отправляется. Раздел всё равно называем «cookie», т.к. так его ищут пользователи
+   и того требует формулировка баннера — но сам текст объясняет разницу и что стороннего
+   отслеживания на сайте нет. */
+view.cookies = () => `<section class="screen on"><div class="wrap">
+  <p class="crumbs"><a href="#/">Главная</a> / Политика в отношении cookie</p>
+  <div class="head"><div><p class="eyebrow">Документы</p><h2>Политика в отношении cookie</h2></div></div>
+  <div class="legal-doc">
+    <p>Настоящий документ определяет, какие технологии хранения данных использует сайт правильная-технология.рф, принадлежащий ООО «Правильные Технологии» (ИНН 6165176208, ОГРН 1126165006593, далее — Оператор), и для чего.</p>
+    <h4>1. Что именно хранится</h4>
+    <p>Сайт не устанавливает cookie-файлы для аналитики, рекламы или отслеживания между сайтами. Вместо этого используется технология localStorage — хранилище данных браузера, которое остаётся на устройстве пользователя и никогда не передаётся ни на сервер Оператора, ни каким-либо третьим лицам.</p>
+    <h4>2. Для чего используется</h4>
+    <ul>
+      <li>Содержимое корзины и списка избранного — чтобы не терялись при перезагрузке страницы;</li>
+      <li>Выбранный город — чтобы не выбирать его заново при каждом визите;</li>
+      <li>Статус входа в личный кабинет — чтобы показывать оптовые цены зарегистрированным партнёрам;</li>
+      <li>Факт согласия с использованием cookie — чтобы не показывать баннер повторно.</li>
+    </ul>
+    <h4>3. Сторонние сервисы</h4>
+    <p>Сайт не использует Google Analytics, Яндекс.Метрику, рекламные пиксели и любые другие сервисы, которые бы устанавливали cookie-файлы или собирали данные о поведении пользователя для сторонних компаний. Единственное внешнее обращение — курс валют ЦБ РФ (cbr-xml-daily.ru) для расчёта цены; оно не связано с данными пользователя и не передаёт никакой личной информации.</p>
+    <h4>4. Как отключить</h4>
+    <p>Пользователь может в любой момент удалить сохранённые данные через настройки браузера (очистка данных сайта / localStorage) — это не нарушит работу сайта, только сбросит корзину, избранное и выбранный город к значениям по умолчанию.</p>
+    <h4>5. Контакты</h4>
+    <p>По вопросам — <a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a> или <a class="mono" href="tel:+79613011919">+7 961 301-19-19</a>.</p>
   </div>
 </div></section>`;
 
@@ -1959,6 +1993,7 @@ function render(){
     case "privacy":   html = view.privacy(); break;
     case "terms":     html = view.terms(); break;
     case "consent":   html = view.consent(); break;
+    case "cookies":   html = view.cookies(); break;
     case "about":     html = view.about(); break;
     case "returns":   html = view.returns(); break;
     case "offer":     html = view.offer(); break;
@@ -2006,11 +2041,15 @@ function initReviewsCarousel(){
     clearTimeout(scrollT);
     scrollT = setTimeout(() => {
       const pos = track.scrollLeft;
-      let nearest = 0, best = Infinity;
-      cards().forEach((c, i) => {
-        const d = Math.abs(c.offsetLeft - pos);
-        if (d < best) { best = d; nearest = i; }
-      });
+      const atEnd = pos + track.clientWidth >= track.scrollWidth - 1;
+      let nearest = cards().length - 1;
+      if (!atEnd){
+        let best = Infinity;
+        cards().forEach((c, i) => {
+          const d = Math.abs(c.offsetLeft - pos);
+          if (d < best) { best = d; nearest = i; }
+        });
+      }
       dots().forEach((d, i) => d.classList.toggle("on", i === nearest));
     }, 80);
   };
@@ -2028,6 +2067,9 @@ document.addEventListener("click", e => {
   const add = t.closest("[data-add]");
   if (add){ addToCart(add.dataset.add); add.classList.add("in");
     add.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>'; return; }
+
+  const variant = t.closest("[data-variant]");
+  if (variant){ e.preventDefault(); history.replaceState(null, "", "#/product/" + variant.dataset.variant); render(); window.scrollTo(0,0); return; }
 
   const buy = t.closest("[data-buy]");
   if (buy){ addToCart(buy.dataset.buy, Math.max(1, parseInt($("#qtyVal").value,10) || 1)); location.hash = "#/cart"; return; }
@@ -2250,7 +2292,8 @@ $("#cookieAccept").addEventListener("click", () => {
 });
 
 applyHash();
-fetchEurRate();
+fetchUsdRate();
+$("#footYear").textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
