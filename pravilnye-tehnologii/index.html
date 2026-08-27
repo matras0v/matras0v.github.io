@@ -774,7 +774,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 </div>
 
 <!-- ?v= меняется при каждом обновлении каталога: иначе браузер отдаёт старую версию из кеша -->
-<script src="catalog.js?v=20260827"></script>
+<script src="catalog.js?v=20260827b"></script>
 <script>
 "use strict";
 
@@ -850,6 +850,7 @@ const CATS = [
   {id:"wheels",    name:"Диски и стекло",    note:"Очистители, антидождь"},
   {id:"equipment", name:"Оборудование",      note:"Машинки, АВД, пылесосы"},
   {id:"supplies",  name:"Расходники",        note:"Микрофибра, ёмкости, щётки"},
+  {id:"marine",    name:"Водный транспорт",  note:"Koch Marine — катера и яхты"},
 ];
 const CAT_NAME = Object.fromEntries(CATS.map(c => [c.id, c.name]));
 
@@ -860,6 +861,7 @@ const CAT_ICON = {
   wheels:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2"/><path d="M12 3.5v6M12 14.5v6M3.5 12h6M14.5 12h6"/>',
   equipment:'<rect x="3" y="8" width="13" height="8" rx="1.5"/><path d="M16 11h3.5a1.5 1.5 0 0 1 0 3H16"/><path d="M6.5 8V6h4v2"/>',
   supplies:'<path d="M4 6h16M4 12h16M4 18h11"/>',
+  marine:'<path d="M3 17c1.5 1.2 3 1.2 4.5 0s3-1.2 4.5 0 3 1.2 4.5 0 3-1.2 4.5 0"/><path d="M6 17V8l6-4 6 4v9"/><path d="M9 12h6"/>',
 };
 
 // Ступени полировки Koch Chemie: буква артикула = шаг процесса, не маркетинг
