@@ -290,11 +290,15 @@ h1 em{
 }
 .hero-lower{display:grid;gap:var(--s5);align-items:start;}
 @media (min-width:1100px){
+  /* Stays inside the same content column as everything else — the old
+     bleed to full-end was what made the media read as shoved into the
+     corner. Media now overlaps up into the headline's air instead of
+     sitting in a second stacked block.                                   */
   .hero-lower{
-    grid-column:content-start / full-end;
-    grid-template-columns:minmax(0,400px) minmax(0,1fr);
-    gap:var(--s5);align-items:start;
+    grid-template-columns:minmax(0,440px) minmax(0,1fr);
+    gap:var(--s6);align-items:start;
   }
+  .hero-media{margin-top:calc(var(--s5) * -1);}
 }
 .hero-sub{
   max-width:44ch;
@@ -392,22 +396,24 @@ h2{
   margin-bottom:var(--s3);
 }
 .sel-role{color:var(--paper-2);max-width:40ch;}
+/* Clean metadata, not a spec table: one wrapped line of caption type
+   attached to the copy's edge, the way a print carries its data line. */
 .sel-facts{
-  display:grid;gap:0;
-  margin-top:var(--s4);
+  display:flex;flex-wrap:wrap;gap:var(--s1) var(--s4);
+  margin-top:var(--s4);padding-top:var(--s3);
   border-top:1px solid var(--line);
 }
-.sel-facts div{
-  display:flex;gap:var(--s2);
-  padding-block:11px;
-  border-bottom:1px solid var(--line);
-}
+.sel-facts div{display:flex;gap:6px;}
 .sel-facts dt{
-  flex:0 0 92px;color:var(--paper-3);
-  font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;
-  text-transform:uppercase;padding-top:3px;
+  color:var(--paper-3);
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;
+  text-transform:uppercase;
 }
-.sel-facts dd{font-size:15px;color:var(--paper-2);}
+.sel-facts dt::after{content:":";}
+.sel-facts dd{
+  font-family:var(--f-mono);font-size:12px;letter-spacing:.01em;
+  color:var(--paper-2);
+}
 .sel-links{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);}
 .tag{
   display:inline-flex;align-items:center;gap:6px;
@@ -422,12 +428,15 @@ h2{
    sheet is read, not scanned, and LUSTRE closes it full width.            */
 .sheet{display:grid;gap:var(--s5) var(--s4);grid-template-columns:1fr;}
 @media (min-width:860px){
-  .sheet{grid-template-columns:repeat(12,1fr);}
+  .sheet{grid-template-columns:repeat(12,1fr);align-items:start;}
   .cell:nth-child(1){grid-column:span 7;}
-  .cell:nth-child(2){grid-column:span 5;}
+  .cell:nth-child(2){grid-column:span 5;margin-top:var(--s6);}
   .cell:nth-child(3){grid-column:span 5;}
   .cell:nth-child(4){grid-column:span 7;}
   .cell:nth-child(5){grid-column:span 12;}
+  /* the two dominant pieces run taller; the two supporting ones stay wide
+     and short, so the sheet reads as curated rather than four equal tiles */
+  .cell:nth-child(1) .window,.cell:nth-child(4) .window{aspect-ratio:4/3;}
   .cell:nth-child(5) .window{aspect-ratio:21/9;}
 }
 .cell{display:block;}
@@ -458,10 +467,19 @@ h2{
   border-bottom:1px solid var(--line);
 }
 @media (min-width:860px){
-  .step{grid-template-columns:minmax(0,140px) minmax(0,1fr) minmax(0,1.15fr);
+  .step{grid-template-columns:minmax(0,160px) minmax(0,1fr) minmax(0,1.15fr);
         gap:var(--s4);align-items:baseline;padding-block:var(--s5);}
 }
-.step-no{color:var(--paper-3);}
+/* Registration mark, not a table cell — outlined, oversized, decorative:
+   the sequence is legible from the heading and the row order alone. */
+.step p.step-no{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 70,"opsz" 96;
+  font-weight:800;
+  font-size:clamp(40px,5.6vw,76px);
+  line-height:.8;letter-spacing:-.02em;
+  color:transparent;-webkit-text-stroke:1px var(--line-2);
+}
 .step h3{
   font-family:var(--f-display);
   font-variation-settings:"wdth" 84,"opsz" 32;
@@ -470,23 +488,23 @@ h2{
 }
 .step p{color:var(--paper-2);font-size:16px;}
 
+/* A statement, not a feature panel: rules instead of a filled surface. */
 .owns{
   display:grid;gap:var(--s4);
   grid-template-columns:1fr;
   margin-top:var(--s6);
-  padding:var(--s5) var(--s4);
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:3px;
+  padding-block:var(--s5);
+  border-top:1px solid var(--line-2);
+  border-bottom:1px solid var(--line-2);
 }
 @media (min-width:860px){
-  .owns{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:var(--s5);padding:var(--s5);}
+  .owns{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:var(--s5);}
 }
 .owns h3{
   font-family:var(--f-display);
-  font-variation-settings:"wdth" 82,"opsz" 40;
-  font-weight:700;font-size:clamp(24px,2.9vw,36px);letter-spacing:-.028em;
-  line-height:1.02;
+  font-variation-settings:"wdth" 76,"opsz" 60;
+  font-weight:800;font-size:clamp(34px,4.2vw,54px);letter-spacing:-.032em;
+  line-height:.96;
 }
 .owns ul{list-style:none;display:grid;gap:var(--s3);}
 .owns li{display:flex;gap:12px;font-size:16px;color:var(--paper-2);}
@@ -498,9 +516,18 @@ h2{
 .about-grid p{color:var(--paper-2);max-width:50ch;}
 .about-grid p + p{margin-top:var(--s3);}
 .about-grid strong{color:var(--paper);font-weight:500;}
-/* the opening statement carries the section, the rest sits under it */
-.about-lead{font-size:clamp(19px,1.9vw,24px);line-height:1.38;color:var(--paper)!important;}
-.about-lead strong{font-weight:700;}
+/* The opening line carries the section as its own statement, set off the
+   body copy entirely, rather than just being the first paragraph in it. */
+.about-lead{
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 80,"opsz" 40;
+  font-weight:600;
+  font-size:clamp(24px, 3.1vw, 42px);
+  line-height:1.14;letter-spacing:-.022em;
+  max-width:22ch;color:var(--paper);
+  margin-bottom:var(--s6);
+}
+.about-lead strong{font-weight:800;}
 
 /* ------------------------------------------------------------- contact ---
    The room closes darker than it opened.                                  */
@@ -511,10 +538,14 @@ h2{
   text-align:center;
 }
 .contact h2{
-  font-size:clamp(38px, 8vw, 104px);
-  font-variation-settings:"wdth" 76,"opsz" 96;
+  /* Wider axis and looser tracking than h1 — at this size the same
+     settings that read as confident on the hero start colliding letter
+     pairs; optical width fixes it, not a positive tracking bandage. */
+  font-size:clamp(36px, 7.4vw, 96px);
+  font-variation-settings:"wdth" 84,"opsz" 96;
   font-weight:800;
-  line-height:.90;letter-spacing:-.036em;
+  line-height:.96;letter-spacing:-.024em;
+  max-width:15ch;margin-inline:auto;
 }
 .contact p{
   margin:var(--s4) auto 0;max-width:46ch;color:var(--paper-2);
@@ -648,7 +679,7 @@ footer{
     <div class="hero-media hero-seq" style="--d:.48s">
       <div class="frame" data-live="work/snowzan/site/index.html" data-scroll="1500">
         <div class="frame-bar" aria-hidden="true">
-          <i></i><i></i><i></i><span>snowzan-preview.netlify.app</span>
+          <i></i><i></i><i></i><span>snowzan.com</span>
         </div>
         <div class="window">
           <iframe title="Live preview of the Snowzan Mobile Detailing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
@@ -680,16 +711,16 @@ footer{
         <div><dt>Where</dt><dd>Phoenix, Arizona</dd></div>
         <div><dt>Built in</dt><dd>Two days</dd></div>
         <div><dt>Scope</dt><dd>Design, build, copy, price estimator, handover</dd></div>
-        <div><dt>Status</dt><dd>Live on Netlify, moving to snowzan.com</dd></div>
+        <div><dt>Status</dt><dd>Live at snowzan.com</dd></div>
       </dl>
       <div class="sel-links">
         <a class="btn" href="work/snowzan/">Read the case</a>
-        <a class="btn btn-ghost" href="https://snowzan-preview.netlify.app" target="_blank" rel="noopener">Open the site ↗</a>
+        <a class="btn btn-ghost" href="https://snowzan.com" target="_blank" rel="noopener">Open the site ↗</a>
       </div>
     </div>
     <div class="sel-media rv">
       <div class="frame" data-live="work/snowzan/site/index.html" data-scroll="2100">
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>snowzan-preview.netlify.app</span></div>
+        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>snowzan.com</span></div>
         <div class="window">
           <iframe title="Live preview of the Snowzan website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
         </div>
@@ -821,24 +852,24 @@ footer{
 
   <div class="steps">
     <div class="step rv">
-      <p class="mono step-no">Step 01</p>
+      <p class="step-no" aria-hidden="true">01</p>
       <h3>You talk, I listen</h3>
       <p>One call or one long message. What you sell, what you charge, who keeps asking you the same question on the phone. That question usually becomes the homepage.</p>
     </div>
     <div class="step rv">
-      <p class="mono step-no">Step 02</p>
+      <p class="step-no" aria-hidden="true">02</p>
       <h3>You see it in two days</h3>
       <p>A real site at a real address, not a picture of one. You open it on your phone, send it to your partner, and tell me what's wrong with it. I fix it the same day.</p>
     </div>
     <div class="step rv">
-      <p class="mono step-no">Step 03</p>
+      <p class="step-no" aria-hidden="true">03</p>
       <h3>It goes on your domain</h3>
       <p>Under your accounts, with your passwords, which I never need. Then I hand you a plain-English page on how to change your own prices.</p>
     </div>
   </div>
 
   <div class="owns rv">
-    <h3>You own it. All of it.</h3>
+    <h3>You own it.<br>All of it.</h3>
     <ul>
       <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>The files live on your computer. Hand them to any developer and they'll understand them in a minute.</span></li>
       <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Hosting is free at your size, on your own account. No monthly software, no licence, nothing to cancel.</span></li>
@@ -851,9 +882,9 @@ footer{
 <!-- ============================================================= about -- -->
 <section class="band shell" id="about">
   <div class="band-head"><h2 class="lines rv"><span class="ln"><i>About</i></span></h2></div>
+  <p class="about-lead rv">I'm <strong>Vadim Ivanchenko</strong>. I work alone, which is the point: you talk to the person building the thing, and nothing gets lost between a strategist, a designer and a developer who have never met your customers.</p>
   <div class="about-grid">
     <div>
-      <p class="about-lead">I'm <strong>Vadim Ivanchenko</strong>. I work alone, which is the point: you talk to the person building the thing, and nothing gets lost between a strategist, a designer and a developer who have never met your customers.</p>
       <p>Most of my clients run a business where the phone ringing is the whole job. A detailing bay. A polishing shop. A clinic. They don't need a brand system. They need a page that answers the three questions every caller asks, before the call.</p>
     </div>
     <div>
@@ -897,7 +928,7 @@ footer{
   <div class="shell"><div class="foot-in mono">
     <span>© <span id="yr">2026</span> Vadim Ivanchenko</span>
     <span>Working with the US &amp; UAE</span>
-    <span>Built by hand</span>
+    <span>Coded by hand</span>
   </div></div>
 </footer>
 
