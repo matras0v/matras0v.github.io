@@ -441,6 +441,18 @@ h2{
   .band-head{margin-bottom:var(--s5);}
   .step{padding-block:var(--s4);}
   .contact{min-height:92dvh;}
+
+  /* Two stacked bands each carry their own padding-block:var(--s7)
+     (76px), so every band-to-band boundary — Contact Sheet into How It
+     Works, You Own It into About — compounded to ~153px of blank space.
+     One side trimmed to --s5 brings each boundary to ~129px, still a
+     real section break, just not a scroll-and-wonder-if-it-loaded one. */
+  .band{padding-block:var(--s5);}
+
+  /* Sticky header, compact only once it has actually left the hero —
+     reuses the existing scroll-driven .solid toggle, no new JS. */
+  .nav-in{transition:height .25s ease;}
+  .nav.solid .nav-in{height:64px;}
 }
 
 /* A soft, project-coloured atmosphere bridging screen and title where the
@@ -457,6 +469,10 @@ h2{
    Curation, not a tile grid: two dominant prints, two supporting ones, and
    LUSTRE closing the sheet across the full measure.                       */
 .sheet{display:grid;gap:var(--s6) var(--gap);grid-template-columns:1fr;}
+/* Cards are already tight internally (frame → caption → title →
+   description); only the row gap between them needed trimming from
+   the full desktop-composition rhythm. */
+@media (max-width:767px){ .sheet{gap:84px var(--gap);} }
 @media (min-width:860px){
   .sheet{grid-template-columns:repeat(12,minmax(0,1fr));align-items:start;}
   .cell:nth-child(1){grid-column:span 8;}
