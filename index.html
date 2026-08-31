@@ -56,7 +56,7 @@
 
   --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 40px;
   --s5: 64px; --s6: 104px;
-  --s7: clamp(96px, 11vw, 190px);   /* band rhythm scales with the room */
+  --s7: clamp(76px, 8.4vw, 148px);  /* band rhythm scales with the room */
 
   --ease-out:    cubic-bezier(.23, 1, .32, 1);
   --ease-in-out: cubic-bezier(.77, 0, .175, 1);
@@ -261,16 +261,16 @@ button{font:inherit;color:inherit;background:none;border:0;}
 
 h1{
   font-family:var(--f-display);
-  font-variation-settings:"wdth" 76,"opsz" 96;
+  font-variation-settings:"wdth" 82,"opsz" 96;
   font-weight:800;
   font-size:clamp(40px, 9.7vw, 152px);
-  line-height:.88;
-  letter-spacing:-.038em;
+  line-height:.92;
+  letter-spacing:-.026em;
 }
 h1 em{
   font-style:normal;
   font-variation-settings:"wdth" 100,"opsz" 96;
-  font-weight:300;letter-spacing:-.03em;
+  font-weight:300;letter-spacing:-.02em;
 }
 
 /* the supporting line sits in one compact band so the CTA still clears the
@@ -283,7 +283,7 @@ h1 em{
 @media (min-width:1000px){
   .hero-bar{grid-template-columns:minmax(0,1fr) minmax(0,auto);align-items:end;gap:var(--s6);}
 }
-.hero-sub{max-width:46ch;font-size:clamp(17px,1.35vw,21px);color:var(--paper-2);}
+.hero-sub{max-width:46ch;font-size:clamp(18px,1.5vw,22px);color:var(--paper-2);line-height:1.5;}
 .hero-sub strong{color:var(--paper);font-weight:500;}
 .hero-cta{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3);}
 .hero-note{margin-top:var(--s3);color:var(--paper-3);}
@@ -307,11 +307,11 @@ h1 em{
 }
 h2{
   font-family:var(--f-display);
-  font-variation-settings:"wdth" 78,"opsz" 72;
+  font-variation-settings:"wdth" 84,"opsz" 72;
   font-weight:800;
   font-size:clamp(36px, 6.4vw, 96px);
-  line-height:.92;
-  letter-spacing:-.036em;
+  line-height:.94;
+  letter-spacing:-.024em;
   position:relative;
 }
 .band-head p{
@@ -355,25 +355,21 @@ h2{
 }
 .sel-name{
   font-family:var(--f-display);
-  font-variation-settings:"wdth" 76,"opsz" 96;
+  font-variation-settings:"wdth" 82,"opsz" 96;
   font-weight:800;
-  font-size:clamp(38px, 7.6vw, 124px);
-  line-height:.9;letter-spacing:-.038em;
+  font-size:clamp(36px, 6.6vw, 112px);
+  line-height:.93;letter-spacing:-.026em;
   margin-bottom:var(--s4);
 }
 .sel-role{color:var(--paper-2);font-size:clamp(16px,1.15vw,19px);max-width:52ch;}
-.sel-facts{
-  display:flex;flex-wrap:wrap;gap:var(--s1) var(--s4);
-  margin-top:var(--s4);padding-top:var(--s3);
-  border-top:1px solid var(--line);
-}
+.sel-facts{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s4);}
 .sel-facts div{display:flex;gap:6px;}
 .sel-facts dt{
   color:var(--paper-3);
   font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;
 }
 .sel-facts dt::after{content:":";}
-.sel-facts dd{font-family:var(--f-mono);font-size:12px;color:var(--paper-2);}
+.sel-facts dd{font-family:var(--f-mono);font-size:13px;color:var(--paper-2);}
 .sel-links{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);}
 .tag{
   display:inline-flex;align-items:center;
@@ -383,22 +379,40 @@ h2{
 }
 
 .sel-media{grid-column:content;margin-top:var(--s5);}
-.sel-say{grid-column:content;margin-top:var(--s5);}
+/* The rule sits on the rail itself, not on one of its two columns — a
+   single shared baseline the description and the metadata both hang off,
+   attached directly to the screen above rather than floating under it. */
+.sel-say{
+  grid-column:content;margin-top:var(--s4);padding-top:var(--s3);
+  border-top:1px solid var(--line);
+}
 @media (min-width:1000px){
   .sel-say{
     display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
     gap:var(--s6);align-items:start;
   }
-  /* 02 — the screen leaves the room through the right wall */
-  .s-02 .sel-media{grid-column:content-start / full-end;margin-left:34%;margin-top:0;}
-  .s-02 .sel-head{grid-row:1;align-self:center;max-width:32%;}
-  .s-02 .sel-media{grid-row:1;}
-  .s-02 .sel-say{grid-column:content;max-width:62%;}
-  /* 03 — and back out through the left */
-  .s-03 .sel-media{grid-column:full-start / content-end;margin-right:34%;margin-top:0;}
-  .s-03 .sel-head{grid-row:1;align-self:center;justify-self:end;max-width:32%;}
-  .s-03 .sel-media{grid-row:1;}
-  .s-03 .sel-say{grid-column:content;margin-left:auto;max-width:62%;}
+  /* 02 — the screen pushes hard toward the right wall, the title holds the
+     left, and the rail sits flush under the screen's own left edge — so it
+     reads as attached to the media, not floating below it. Stays inside
+     the same content column as everything else: pushed toward the wall,
+     not bled past it. */
+  .s-02 .sel-media{grid-column:content;margin-left:30%;margin-top:0;grid-row:1;}
+  .s-02 .sel-head{grid-row:1;align-self:center;max-width:37%;}
+  .s-02 .sel-say{grid-column:content;margin-left:30%;max-width:66%;margin-top:var(--s3);}
+  /* 03 — and back out through the left, mirrored */
+  .s-03 .sel-media{grid-column:content;margin-right:30%;margin-top:0;grid-row:1;}
+  .s-03 .sel-head{grid-row:1;align-self:center;justify-self:end;max-width:37%;}
+  .s-03 .sel-say{grid-column:content;margin-right:30%;max-width:66%;margin-top:var(--s3);}
+}
+
+/* A soft, project-coloured atmosphere bridging screen and title where the
+   asymmetric layout otherwise leaves a wide gap of plain black between
+   them — screen light in the room, not a decorative gradient blob. */
+.s-02, .s-03{position:relative;}
+.s-02::before, .s-03::before{
+  content:"";position:absolute;inset:-8% 0;z-index:-1;
+  background:radial-gradient(closest-side, var(--lit, transparent), transparent 72%);
+  opacity:.55;filter:blur(70px);pointer-events:none;
 }
 
 /* -------------------------------------------------------- contact sheet --
@@ -422,7 +436,7 @@ h2{
 .cell:active .frame{transform:translateY(-2px);}
 .cell-no{
   display:flex;justify-content:space-between;align-items:baseline;
-  gap:var(--s2);margin-top:var(--s3);color:var(--paper-3);
+  gap:var(--s2);margin-top:var(--s2);color:var(--paper-3);
 }
 .cell-name{
   font-family:var(--f-display);
@@ -447,12 +461,15 @@ h2{
   }
 }
 .step p.step-no{
+  /* a faint fill under a stronger stroke — registers immediately as
+     structure without competing with the step title beside it */
   font-family:var(--f-display);
-  font-variation-settings:"wdth" 68,"opsz" 96;
+  font-variation-settings:"wdth" 72,"opsz" 96;
   font-weight:800;
   font-size:clamp(72px, 15vw, 230px);
-  line-height:.76;letter-spacing:-.045em;
-  color:transparent;-webkit-text-stroke:1px var(--line-2);
+  line-height:.76;letter-spacing:-.03em;
+  color:rgba(239,235,227,.07);
+  -webkit-text-stroke:1.5px rgba(239,235,227,.42);
 }
 .step h3{
   font-family:var(--f-display);
@@ -475,10 +492,12 @@ h2{
   .owns{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:var(--s7);align-items:start;}
 }
 .owns h3{
+  /* worst collision on the page at the old settings: narrow wdth + -.04em
+     tracking on bold glyphs this large fused "wn"/"ll"/"of" into blobs */
   font-family:var(--f-display);
-  font-variation-settings:"wdth" 74,"opsz" 96;
-  font-weight:800;font-size:clamp(42px,6.6vw,104px);letter-spacing:-.04em;
-  line-height:.88;
+  font-variation-settings:"wdth" 84,"opsz" 96;
+  font-weight:800;font-size:clamp(42px,6.6vw,104px);letter-spacing:-.02em;
+  line-height:.94;
 }
 .owns ul{list-style:none;display:grid;gap:var(--s4);}
 .owns li{display:flex;gap:14px;font-size:clamp(15px,1.15vw,18px);color:var(--paper-2);}
@@ -486,12 +505,14 @@ h2{
 
 /* --------------------------------------------------------------- about --- */
 .about-lead{
+  /* wide enough to run as prose — the old 20ch column forced nearly every
+     word onto its own line and read as a stack, not a statement */
   font-family:var(--f-display);
-  font-variation-settings:"wdth" 80,"opsz" 96;
+  font-variation-settings:"wdth" 84,"opsz" 96;
   font-weight:700;
-  font-size:clamp(28px, 5.1vw, 82px);
-  line-height:1.02;letter-spacing:-.034em;
-  max-width:20ch;color:var(--paper);
+  font-size:clamp(26px, 4vw, 64px);
+  line-height:1.12;letter-spacing:-.018em;
+  max-width:32ch;color:var(--paper);
   margin-bottom:var(--s7);
 }
 .about-lead strong{font-weight:800;}
@@ -513,12 +534,11 @@ h2{
   text-align:center;
 }
 .contact h2{
-  /* wider axis than h1 — at this size the hero's settings collide pairs */
   font-size:clamp(40px, 9.2vw, 148px);
-  font-variation-settings:"wdth" 82,"opsz" 96;
+  font-variation-settings:"wdth" 88,"opsz" 96;
   font-weight:800;
-  line-height:.92;letter-spacing:-.03em;
-  max-width:14ch;margin-inline:auto;
+  line-height:.96;letter-spacing:-.018em;
+  max-width:15ch;margin-inline:auto;
 }
 .contact p{
   margin:var(--s5) auto 0;max-width:48ch;color:var(--paper-2);
@@ -550,12 +570,16 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   opacity:1;transform:none;
   transition:opacity .7s var(--ease-out), transform .7s var(--ease-out);
 }
-/* media arrives by uncovering, not by sliding — a print coming up in a tray */
-.js .rv-clip{clip-path:inset(0 0 100% 0);}
-.js .rv-clip.in{clip-path:inset(0 0 0 0);transition:clip-path 1.15s var(--ease-in-out);}
+/* media arrives by uncovering, not by sliding — a print coming up in a
+   tray, settling those last couple of percent as it reaches the top. */
+.js .rv-clip{clip-path:inset(0 0 100% 0);transform:scale(1.025);}
+.js .rv-clip.in{
+  clip-path:inset(0 0 0 0);transform:scale(1);
+  transition:clip-path 1.15s var(--ease-in-out), transform 1.15s var(--ease-out);
+}
 @media (prefers-reduced-motion: reduce){
   .js .rv{opacity:1;transform:none;transition:none;}
-  .js .rv-clip{clip-path:none;}
+  .js .rv-clip{clip-path:none;transform:none;}
 }
 
 /* ------------------------------------------------------------- motion --- */
@@ -689,12 +713,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   </article>
 
   <!-- 02 H&M — the screen leaves through the right wall -->
-  <article class="select s-02">
+  <article class="select s-02" style="--lit:rgba(200,145,63,.5)">
     <div class="sel-head">
       <p class="sel-no">Select 02 / 03 <span class="tag">Concept</span></p>
       <h3 class="sel-name">H&amp;M Car Polishing</h3>
     </div>
-    <div class="sel-media rv-clip" style="--lit:rgba(200,145,63,.5)">
+    <div class="sel-media rv-clip">
       <div class="frame" data-live="work/hm-polishing/site/index.html" data-scroll="1800">
         <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="window">
@@ -720,12 +744,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   </article>
 
   <!-- 03 GrimeVPN — and back out through the left -->
-  <article class="select s-03">
+  <article class="select s-03" style="--lit:rgba(168,85,247,.5)">
     <div class="sel-head">
       <p class="sel-no">Select 03 / 03</p>
       <h3 class="sel-name">GrimeVPN</h3>
     </div>
-    <div class="sel-media rv-clip" style="--lit:rgba(168,85,247,.5)">
+    <div class="sel-media rv-clip">
       <div class="frame" data-live="work/grimevpn/index.html" data-scroll="1800">
         <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>grimevpn</span></div>
         <div class="window">
@@ -943,7 +967,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
       var dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(function(){
-        win.style.transform = 'rotateY(' + (dx * 3).toFixed(2) + 'deg) ' +
+        win.style.transform = 'scale(1.015) rotateY(' + (dx * 3).toFixed(2) + 'deg) ' +
                               'rotateX(' + (-dy * 3).toFixed(2) + 'deg)';
       });
     });
