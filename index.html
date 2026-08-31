@@ -381,7 +381,7 @@ h2{
   font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;
 }
 .sel-facts dt::after{content:":";}
-.sel-facts dd{font-family:var(--f-mono);font-size:14px;color:var(--paper-2);}
+.sel-facts dd{font-family:var(--f-mono);font-size:15px;color:var(--paper-2);}
 .sel-links{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);}
 .tag{
   display:inline-flex;align-items:center;
@@ -419,7 +419,12 @@ h2{
   /* 03 — and back out through the left, mirrored */
   .s-03 .sel-media{grid-column:content;margin-right:30%;margin-top:0;grid-row:1;}
   .s-03 .sel-head{grid-row:1;align-self:center;justify-self:end;max-width:37%;}
-  .s-03 .sel-say{grid-column:content;margin-right:30%;max-width:66%;margin-top:var(--s3);}
+  .s-03 .sel-say{grid-column:content;margin-right:30%;max-width:72%;margin-top:var(--s3);}
+  /* Three CTAs, one narrow rail — a tighter gap and slightly leaner button
+     padding just for this row so "Try the bot" stops falling to its own
+     line and reads as one deliberate row instead of an accident. */
+  .s-03 .sel-links{gap:8px;}
+  .s-03 .sel-links .btn{padding:0 13px;}
 }
 
 /* A soft, project-coloured atmosphere bridging screen and title where the
@@ -929,7 +934,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
         Email
       </a>
     </div>
-    <p class="mono" style="margin-top:var(--s5);color:var(--paper-3);font-size:12px">Replies within a day · English / <span style="font-family:var(--f-body);text-transform:none;font-size:14px;letter-spacing:0">Русский</span></p>
+    <p class="mono" style="margin-top:var(--s5);color:var(--paper-3);font-size:13px">Replies within a day · English / <span style="font-family:var(--f-body);text-transform:none;font-size:15px;letter-spacing:0">Русский</span></p>
   </div>
 </section>
 </main>
