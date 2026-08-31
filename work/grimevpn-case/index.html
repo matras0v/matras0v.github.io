@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101010">
+
+<title>GrimeVPN — case study · Vadim Ivanchenko</title>
+<meta name="description" content="A Telegram bot that sells VPN subscriptions, issues keys and manages devices — product, bot, backend, billing, brand and site, all self-initiated and built by one person.">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://matras0v.github.io/work/grimevpn-case/">
+<meta property="og:image" content="https://matras0v.github.io/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Martian+Mono:wght@400;500;600&family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* Same dark room, same restraint — the case-study system already
+     established for Snowzan and H&M, re-used exactly rather than
+     reinvented for a third project. */
+  --paper:#101010; --paper-2:#171717; --card:#1B1B1B;
+  --ink:#F2ECE1; --ink-2:#B7B0A4; --ink-3:#8A8374;
+  --line:rgba(242,236,225,.10); --line-2:rgba(242,236,225,.22);
+  --f-display:"Bricolage Grotesque","Helvetica Neue",sans-serif;
+  --f-body:"Schibsted Grotesk",-apple-system,BlinkMacSystemFont,sans-serif;
+  --f-mono:"Martian Mono",ui-monospace,"SF Mono",monospace;
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:80px; --s7:108px;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --wrap:1240px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--f-body);font-size:17px;line-height:1.55;
+  min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img,svg,iframe{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px;}
+
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--s3);}
+@media (min-width:900px){.wrap{padding-inline:var(--s4);}}
+.mono{font-family:var(--f-mono);font-size:11px;letter-spacing:.02em;text-transform:uppercase;line-height:1.4;}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--ink);color:var(--paper);padding:12px 18px;}
+.skip:focus{left:0;}
+
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{display:flex;align-items:center;gap:var(--s3);height:60px;}
+.brand{
+  font-family:var(--f-display);font-variation-settings:"wdth" 78,"opsz" 14;
+  font-weight:800;font-size:19px;letter-spacing:-.01em;margin-right:auto;white-space:nowrap;
+}
+@media (max-width:520px){.brand{display:none;}.back{margin-right:auto;}}
+.back{
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;
+  white-space:nowrap;color:var(--ink-2);transition:color .16s ease;
+}
+.back:hover{color:var(--ink);}
+.back svg{transition:transform .22s var(--ease-out);}
+.back:hover svg{transform:translateX(-3px);}
+
+.btn{
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;
+  background:var(--ink);color:var(--paper);border-radius:999px;
+  font-weight:500;font-size:15px;white-space:nowrap;
+  transition:transform .18s var(--ease-out),background-color .18s ease;
+}
+.btn:hover{background:#fff;}
+.btn:active{transform:scale(.97);}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-2);}
+.btn-ghost:hover{background:var(--paper-2);}
+
+.head{padding-block:var(--s5) var(--s5);}
+.kicker{color:var(--ink-3);margin-bottom:var(--s3);}
+h1{
+  font-family:var(--f-display);font-variation-settings:"wdth" 84,"opsz" 72;
+  font-weight:700;font-size:clamp(40px,7.6vw,84px);
+  line-height:.96;letter-spacing:-.03em;text-wrap:balance;
+}
+.lede{margin-top:var(--s3);max-width:54ch;font-size:clamp(17px,1.8vw,21px);color:var(--ink-2);}
+.lede strong{color:var(--ink);font-weight:500;}
+
+.facts{display:grid;gap:0;margin-top:var(--s5);grid-template-columns:1fr;border-top:1px solid var(--line-2);}
+@media (min-width:760px){.facts{grid-template-columns:repeat(4,1fr);}}
+.facts div{padding:var(--s3) 0;border-bottom:1px solid var(--line);}
+@media (min-width:760px){.facts div{border-bottom:0;padding-right:var(--s3);}}
+.facts dt{font-family:var(--f-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;}
+.facts dd{font-size:17px;}
+
+.band{padding-block:var(--s6);border-top:1px solid var(--line);}
+.band-head{margin-bottom:var(--s4);}
+h2{
+  font-family:var(--f-display);font-variation-settings:"wdth" 86,"opsz" 40;
+  font-weight:700;font-size:clamp(27px,3.8vw,42px);line-height:1.02;letter-spacing:-.024em;
+}
+.band-head p{color:var(--ink-2);max-width:56ch;margin-top:var(--s2);}
+
+.dec{display:grid;gap:var(--s3);padding-block:var(--s4);border-top:1px solid var(--line);}
+@media (min-width:900px){.dec{grid-template-columns:.85fr 1.15fr;gap:var(--s5);align-items:start;}}
+.dec:first-of-type{border-top:0;}
+.dec-no{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;color:var(--ink-3);margin-bottom:var(--s1);}
+.dec h3{
+  font-family:var(--f-display);font-variation-settings:"wdth" 88,"opsz" 28;
+  font-weight:700;font-size:clamp(21px,2.6vw,28px);line-height:1.08;letter-spacing:-.02em;
+}
+.dec p{color:var(--ink-2);}
+.dec p + p{margin-top:var(--s2);}
+.dec .quote{margin-top:var(--s3);padding-left:var(--s3);border-left:2px solid var(--line-2);color:var(--ink);font-size:16px;}
+
+/* the real screen throwing a little of its own violet into the room, the
+   same restrained --lit mechanism used on the hub and the other cases */
+.live-frame{
+  background:var(--card);border:1px solid var(--line-2);
+  border-radius:4px;padding:10px;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(0,0,0,.4), 0 60px 120px -64px rgba(168,85,247,.26);
+}
+.live-window{position:relative;overflow:hidden;border-radius:2px;background:#08070E;aspect-ratio:5/4;}
+@media (min-width:760px){.live-window{aspect-ratio:16/10;}}
+.live-window iframe{
+  position:absolute;top:0;left:0;
+  width:var(--srcw,1400px);height:3000px;max-width:none;
+  border:0;transform-origin:0 0;pointer-events:none;will-change:transform;
+}
+
+.next{padding-block:var(--s6);border-top:1px solid var(--line-2);text-align:center;}
+.next h2{font-size:clamp(30px,5.4vw,56px);letter-spacing:-.028em;}
+.next p{margin:var(--s2) auto 0;max-width:46ch;color:var(--ink-2);}
+.next-cta{display:flex;flex-wrap:wrap;gap:var(--s2);justify-content:center;margin-top:var(--s4);}
+
+footer{border-top:1px solid var(--line);padding-block:var(--s3);}
+.foot-in{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s3);align-items:center;color:var(--ink-3);}
+.foot-in span:last-child{margin-left:auto;}
+
+.rv{opacity:0;transform:translateY(14px);}
+.rv.in{opacity:1;transform:none;transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none;}}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="../../">MATRAS0V</a>
+    <a class="back mono" href="../../#work">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      All work
+    </a>
+    <a class="btn" href="../grimevpn/" target="_blank" rel="noopener">Open the site ↗</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="head">
+  <div class="wrap">
+    <p class="kicker mono">Case 03 · Telegram product · Self-initiated</p>
+    <h1>The whole product<br>fits inside a<br>chat window.</h1>
+    <p class="lede">
+      GrimeVPN sells subscriptions, issues keys and manages up to five devices per person —
+      entirely inside Telegram. <strong>I built the bot, the backend behind it, the billing,
+      the brand and the site.</strong> Nobody else touched any of it.
+    </p>
+
+    <dl class="facts">
+      <div><dt>What</dt><dd>Telegram product, self-initiated</dd></div>
+      <div><dt>Scope</dt><dd>Product, bot, backend, billing, brand, site</dd></div>
+      <div><dt>Runs on</dt><dd>@GrimeVPNbot</dd></div>
+      <div><dt>Status</dt><dd>Working — open to its first users</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="band-head">
+      <h2>Three decisions</h2>
+      <p>Everything else on the site and in the bot follows from these.</p>
+    </div>
+
+    <article class="dec rv">
+      <div>
+        <p class="dec-no">Decision 01</p>
+        <h3>No screenshots — the product explains itself</h3>
+      </div>
+      <div>
+        <p>A VPN bot is hard to show in a picture: the actual product is a conversation. So the homepage doesn't describe the bot — it runs the bot's own onboarding, live, in the page.</p>
+        <p class="quote">The site is not a picture of the product. It is the first ninety seconds of using it.</p>
+      </div>
+    </article>
+
+    <article class="dec rv">
+      <div>
+        <p class="dec-no">Decision 02</p>
+        <h3>Real numbers, not marketing language</h3>
+      </div>
+      <div>
+        <p>Five devices. One node, in Finland. Unlimited traffic. A seven-day free trial before anything is charged, then 119 ₽ for a month or 999 ₽ for a year — worked out per month, that's about 83 ₽. The pricing on the site is the pricing in the bot, exactly.</p>
+      </div>
+    </article>
+
+    <article class="dec rv">
+      <div>
+        <p class="dec-no">Decision 03</p>
+        <h3>One person, the whole stack</h3>
+      </div>
+      <div>
+        <p>The product, the bot, the backend issuing and revoking keys, the billing, the brand and the site are the same build. Nothing here is outsourced or bolted on — which is also why it can be fixed in minutes when something breaks.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="band-head">
+      <h2>The site</h2>
+      <p>Running live below — the same onboarding a new subscriber sees, not a recording of it.</p>
+    </div>
+    <div class="live-frame rv" id="liveFrame">
+      <div class="live-window">
+        <iframe id="liveSite" title="The GrimeVPN website, running" data-src="../grimevpn/index.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+      </div>
+    </div>
+    <div class="next-cta" style="justify-content:flex-start;margin-top:var(--s3)">
+      <a class="btn" href="../grimevpn/" target="_blank" rel="noopener">Open the site ↗</a>
+      <a class="btn btn-ghost" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener">Try the bot ↗</a>
+    </div>
+  </div>
+</section>
+
+<section class="next">
+  <div class="wrap">
+    <h2>Same thing,<br>for your product.</h2>
+    <p>If people should be able to try what you're selling in thirty seconds, that's the kind of site and bot I build. Tell me what it does.</p>
+    <div class="next-cta">
+      <a class="btn" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20the%20GrimeVPN%20case%20and%20I%27d%20like%20to%20talk%20about%20something%20similar." target="_blank" rel="noopener">Message on WhatsApp</a>
+      <a class="btn btn-ghost" href="../../#work">See the other work</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot-in mono">
+    <span>© <span id="yr">2026</span> Vadim Ivanchenko</span>
+    <span>Real product, not a concept</span>
+    <span>Coded by hand</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  var rv = new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rv.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
+  document.querySelectorAll('.rv').forEach(function(el){ rv.observe(el); });
+
+  var liveFrame = document.getElementById('liveFrame');
+  var liveSite  = document.getElementById('liveSite');
+  var desktop   = matchMedia('(min-width: 760px)');
+  function fitLive(){
+    var win = liveFrame.querySelector('.live-window');
+    var sw  = desktop.matches ? 1400 : 430;
+    liveSite.style.setProperty('--srcw', sw + 'px');
+    var k = win.clientWidth / sw;
+    liveSite.dataset.scale = k;
+    liveSite.style.transform = 'scale(' + k + ')';
+  }
+  new IntersectionObserver(function(en, o){
+    if(!en[0].isIntersecting) return;
+    liveSite.src = liveSite.dataset.src;
+    o.disconnect();
+  }, {rootMargin:'400px'}).observe(liveFrame);
+
+  fitLive();
+  liveSite.addEventListener('load', fitLive);
+
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches && !matchMedia('(hover: none)').matches){
+    liveFrame.addEventListener('pointerenter', function(){
+      var k = parseFloat(liveSite.dataset.scale || '1');
+      liveSite.style.transition = 'transform 9s linear';
+      liveSite.style.transform  = 'scale(' + k + ') translateY(-2200px)';
+    });
+    liveFrame.addEventListener('pointerleave', function(){
+      var k = parseFloat(liveSite.dataset.scale || '1');
+      liveSite.style.transition = 'transform .7s cubic-bezier(.23,1,.32,1)';
+      liveSite.style.transform  = 'scale(' + k + ')';
+    });
+  }
+
+  addEventListener('resize', function(){
+    clearTimeout(window.__t);
+    window.__t = setTimeout(fitLive, 120);
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>

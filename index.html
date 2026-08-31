@@ -183,6 +183,7 @@ button{font:inherit;color:inherit;background:none;border:0;}
    project inside it, and only ever spends itself downward, the way a screen
    throws light onto the surface under it — never as a halo around it.     */
 .frame{
+  display:block;
   position:relative;
   background:var(--surface);
   border:1px solid var(--line);
@@ -194,6 +195,17 @@ button{font:inherit;color:inherit;background:none;border:0;}
     0 40px 90px -34px rgba(0,0,0,.92),
     0 70px 150px -80px var(--lit, transparent);
   transition:box-shadow .6s var(--ease-out);
+}
+/* Frames that are also the primary way into a project: the object itself
+   should read as active, not decorated to look clickable. */
+a.frame{cursor:pointer;}
+@media (hover:hover){
+  a.frame:hover .window{transform:scale(1.008);}
+  a.frame:hover{border-color:var(--line-2);}
+}
+a.frame:active .window{transform:scale(1.002);}
+@media (prefers-reduced-motion:reduce){
+  a.frame:hover .window{transform:none;}
 }
 .frame::before{      /* the mount board's top edge catches the screen light */
   content:"";position:absolute;left:0;right:0;top:0;height:1px;
@@ -665,12 +677,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   </div>
 
   <div class="hero-media rv-clip" style="--lit:rgba(110,91,255,.55)">
-    <div class="frame" data-live="work/snowzan/site/index.html" data-scroll="1500">
+    <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-scroll="1500">
       <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>snowzan.com</span></div>
       <div class="window">
         <iframe title="Live preview of the Snowzan Mobile Detailing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -693,12 +705,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
       <h3 class="sel-name">Snowzan</h3>
     </div>
     <div class="sel-media rv-clip" style="--lit:rgba(110,91,255,.55)">
-      <div class="frame" data-live="work/snowzan/site/index.html" data-scroll="2100">
+      <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-scroll="2100">
         <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>snowzan.com</span></div>
         <div class="window">
           <iframe title="Live preview of the Snowzan website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
         </div>
-      </div>
+      </a>
     </div>
     <div class="sel-say rv">
       <p class="sel-role">A one-man mobile detailing business in Phoenix, trading a Google Sites page for something that quotes a price before the customer has to ask.</p>
@@ -724,12 +736,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
       <h3 class="sel-name">H&amp;M Car Polishing</h3>
     </div>
     <div class="sel-media rv-clip">
-      <div class="frame" data-live="work/hm-polishing/site/index.html" data-scroll="1800">
+      <a class="frame" href="work/hm-polishing/" aria-label="Read the H&amp;M Car Polishing case study" data-live="work/hm-polishing/site/index.html" data-scroll="1800">
         <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="window">
           <iframe title="Live preview of the H&amp;M Car Polishing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
         </div>
-      </div>
+      </a>
     </div>
     <div class="sel-say rv">
       <p class="sel-role">A concept for a paint-correction bay. The homepage hands you a polisher: drag across a swirled panel and the finish comes up under your finger.</p>
@@ -755,12 +767,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
       <h3 class="sel-name">GrimeVPN</h3>
     </div>
     <div class="sel-media rv-clip">
-      <div class="frame" data-live="work/grimevpn/index.html" data-scroll="1800">
+      <a class="frame" href="work/grimevpn-case/" aria-label="Read the GrimeVPN case study" data-live="work/grimevpn/index.html" data-scroll="1800">
         <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>grimevpn</span></div>
         <div class="window">
           <iframe title="Live preview of the GrimeVPN site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
         </div>
-      </div>
+      </a>
     </div>
     <div class="sel-say rv">
       <p class="sel-role">Not a website with a product behind it — a product I built and run. A Telegram bot that sells subscriptions, issues keys and manages devices, with the backend underneath.</p>
@@ -772,7 +784,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
           <div><dt>Status</dt><dd>Working — open to its first users</dd></div>
         </dl>
         <div class="sel-links">
-          <a class="btn" href="work/grimevpn/">Open the site</a>
+          <a class="btn" href="work/grimevpn-case/">Read the case</a>
+          <a class="btn btn-ghost" href="work/grimevpn/">Open the site</a>
           <a class="btn btn-ghost" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener">Try the bot ↗</a>
         </div>
       </div>
@@ -960,8 +973,11 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   onScroll();
 
   /* -- frames turn toward the cursor -------------------------------------
-     Three degrees at the corner. Any more and a website reads as a toy.  */
-  document.querySelectorAll('.frame').forEach(function(f){
+     Three degrees at the corner. Any more and a website reads as a toy.
+     Excludes the frames that are themselves project links: those get the
+     restrained, non-tilt "this is active" hover in CSS instead — a click
+     affordance should feel steady, not like a decorative toy.            */
+  document.querySelectorAll('.frame:not(a)').forEach(function(f){
     var win = f.querySelector('.window');
     if(!win) return;
     var raf = 0;
@@ -991,6 +1007,15 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
     });
   }, {rootMargin:'0px 0px -8% 0px', threshold:.05});
   document.querySelectorAll('.rv, .rv-clip').forEach(function(el){ rv.observe(el); });
+
+  /* Once a .rv-clip has finished revealing, its clip-path sits exactly on
+     the box edge — which would silently clip a focus ring on any link
+     inside it. The clip has done its job by then, so drop it. */
+  document.querySelectorAll('.rv-clip').forEach(function(el){
+    el.addEventListener('transitionend', function(e){
+      if(e.propertyName === 'clip-path') el.style.clipPath = 'none';
+    });
+  });
 
   /* -- the wax-pencil ring draws itself once ---------------------------- */
   document.querySelectorAll('.ring').forEach(function(svg){
