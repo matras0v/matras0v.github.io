@@ -1145,6 +1145,44 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
     });
   });
 
+  /* -- the same downward travel, offered automatically on touch ----------
+     A phone has no hover to trigger the pan above, so without this a
+     mobile visitor only ever sees the static top of every preview. Reuses
+     startOf()/fit() and the same resting/travel numbers per frame — this
+     is the hover journey, just started by visibility instead of a cursor.
+     Only the frame currently well into view animates; leaving resets it
+     silently so the next entrance starts from the top again. */
+  (function(){
+    function touchPan(){
+      return matchMedia('(hover: none)').matches &&
+             !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    var current = null;
+    var panIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!touchPan()) return; // hover-capable device — leave the pointer-driven pan alone entirely
+        var frame = e.target;
+        var fr = frame.querySelector('iframe');
+        if(!fr) return;
+        if(e.isIntersecting){
+          if(current && current !== frame) fit(current);
+          if(!fr.dataset.scale) return; // not fitted yet — next crossing will catch it
+          var dist = parseInt(frame.dataset.scroll || '1600', 10);
+          if(dist < 200) return; // nothing meaningful to travel
+          var k = parseFloat(fr.dataset.scale);
+          fr.style.transition = 'transform 7s linear';
+          fr.style.transform  = 'scale(' + k + ') translateY(' + (-(startOf(frame) + dist)) + 'px)';
+          current = frame;
+        } else {
+          fr.style.transition = 'none';
+          fit(frame);
+          if(current === frame) current = null;
+        }
+      });
+    }, {threshold:.55});
+    frames.forEach(function(frame){ panIO.observe(frame); });
+  })();
+
   addEventListener('resize', function(){
     clearTimeout(window.__fitT);
     window.__fitT = setTimeout(function(){ frames.forEach(fit); }, 120);
