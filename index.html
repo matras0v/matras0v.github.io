@@ -427,6 +427,22 @@ h2{
   .s-03 .sel-links .btn{padding:0 13px;}
 }
 
+/* Mobile only (<768px) — the desktop rhythm above is untouched. Below
+   1000px the two-column select layout never applies in the first place,
+   so these are pure vertical-stack overrides: the title's own bottom
+   margin plus the media's top margin were compounding into a ~100px gap
+   before the preview appeared, which read as dead air on a phone. Same
+   story between the frame and the description, and it was needlessly
+   generous between metadata and the CTA row. */
+@media (max-width:767px){
+  .sel-media{margin-top:16px;}
+  .sel-say{margin-top:8px;padding-top:14px;}
+  .sel-links{margin-top:24px;}
+  .band-head{margin-bottom:var(--s5);}
+  .step{padding-block:var(--s4);}
+  .contact{min-height:92dvh;}
+}
+
 /* A soft, project-coloured atmosphere bridging screen and title where the
    asymmetric layout otherwise leaves a wide gap of plain black between
    them — screen light in the room, not a decorative gradient blob. */
@@ -847,7 +863,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
     </a>
 
     <a class="cell rv" href="work/lustre/" style="--lit:rgba(150,170,200,.42)">
-      <div class="frame" data-live="work/lustre/index.html" data-start="1700" data-scroll="1400">
+      <div class="frame" data-live="work/lustre/index.html" data-start="1700" data-start-mobile="1975" data-scroll="1400">
         <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>lustre</span></div>
         <div class="window"><iframe title="Live preview of the LUSTRE site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
@@ -1059,8 +1075,14 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   /* Where the still should sit. A site whose first screen is a full-height
      hero puts its content at the bottom of a viewport the iframe renders as
      2600px tall, so the top of the frame is empty. data-start moves the
-     resting position down to where that content actually is. */
-  function startOf(frame){ return parseInt(frame.dataset.start || '0', 10); }
+     resting position down to where that content actually is. A page whose
+     hero content reflows to sit much lower at the 430px mobile srcWidth
+     than at the 1400px desktop one (more line-wrapping, taller stack)
+     needs its own offset for that width — data-start-mobile, when present. */
+  function startOf(frame){
+    if(innerWidth < 760 && frame.dataset.startMobile) return parseInt(frame.dataset.startMobile, 10);
+    return parseInt(frame.dataset.start || '0', 10);
+  }
 
   function fit(frame){
     var win = frame.querySelector('.window');
