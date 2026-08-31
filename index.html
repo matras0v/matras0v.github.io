@@ -396,9 +396,14 @@ h2{
      reads as attached to the media, not floating below it. Stays inside
      the same content column as everything else: pushed toward the wall,
      not bled past it. */
-  .s-02 .sel-media{grid-column:content;margin-left:30%;margin-top:0;grid-row:1;}
-  .s-02 .sel-head{grid-row:1;align-self:center;max-width:37%;}
-  .s-02 .sel-say{grid-column:content;margin-left:30%;max-width:66%;margin-top:var(--s3);}
+  .s-02 .sel-media{grid-column:content;margin-left:36%;margin-top:0;grid-row:1;}
+  /* "H&M Car Polishing" is three words, not one — it gets its own
+     proportioned size (still a real display moment, just not the same
+     scale as a one-word name) and a column with real clearance from the
+     screen, instead of running underneath it. */
+  .s-02 .sel-head{grid-row:1;align-self:center;max-width:29%;}
+  .s-02 .sel-name{font-size:clamp(30px, 4vw, 58px);letter-spacing:-.018em;}
+  .s-02 .sel-say{grid-column:content;margin-left:36%;max-width:60%;margin-top:var(--s3);}
   /* 03 — and back out through the left, mirrored */
   .s-03 .sel-media{grid-column:content;margin-right:30%;margin-top:0;grid-row:1;}
   .s-03 .sel-head{grid-row:1;align-self:center;justify-self:end;max-width:37%;}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#EDECE8">
+<meta name="theme-color" content="#101010">
 
 <title>Snowzan Mobile Detailing — case study · Vadim Ivanchenko</title>
 <meta name="description" content="How a one-man detailing business in Phoenix went from a Google Sites page to a site that quotes a price in twenty seconds. Built in two days.">
@@ -21,13 +21,15 @@
 
 <style>
 :root{
-  --paper:#EDECE8; --paper-2:#E4E3DE; --card:#B9B8B3;
-  --ink:#141416; --ink-2:#57585B; --ink-3:#656668;
-  --line:rgba(20,20,22,.14); --line-2:rgba(20,20,22,.28);
+  /* Same "grey card" surround, same wax-pencil restraint — just the dark
+     room this case study now opens out of, instead of a bright document. */
+  --paper:#101010; --paper-2:#171717; --card:#1B1B1B;
+  --ink:#F2ECE1; --ink-2:#B7B0A4; --ink-3:#8A8374;
+  --line:rgba(242,236,225,.10); --line-2:rgba(242,236,225,.22);
   --f-display:"Bricolage Grotesque","Helvetica Neue",sans-serif;
   --f-body:"Schibsted Grotesk",-apple-system,BlinkMacSystemFont,sans-serif;
   --f-mono:"Martian Mono",ui-monospace,"SF Mono",monospace;
-  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:96px; --s7:136px;
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:80px; --s7:108px;
   --ease-out:cubic-bezier(.23,1,.32,1);
   --ease-in-out:cubic-bezier(.77,0,.175,1);
   --wrap:1240px;
@@ -137,11 +139,14 @@ h2{
   border-radius:4px;padding:10px;
   user-select:none;
   touch-action:pan-y;
+  /* the same restrained screen-light-in-a-dark-room the hub frames use,
+     tuned to Snowzan's own blue/violet — atmosphere, not a glow effect */
+  box-shadow:0 0 0 1px rgba(0,0,0,.4), 0 60px 120px -64px rgba(110,91,255,.28);
 }
 .compare-bar{display:flex;align-items:center;gap:6px;height:20px;padding-inline:2px;margin-bottom:8px;}
-.compare-bar i{width:7px;height:7px;border-radius:50%;background:rgba(20,20,22,.22);}
+.compare-bar i{width:7px;height:7px;border-radius:50%;background:rgba(242,236,225,.2);}
 .compare-bar span{
-  margin-left:auto;color:rgba(20,20,22,.5);
+  margin-left:auto;color:rgba(242,236,225,.5);
   font-family:var(--f-mono);font-size:9px;letter-spacing:.04em;
 }
 .stage{
