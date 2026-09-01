@@ -367,13 +367,13 @@ a.frame:active .window{transform:scale(1.002);}
   font-weight:800;
   line-height:.78;letter-spacing:-.02em;
   color:transparent;
-  -webkit-text-stroke:1px rgba(239,235,227,.075);
+  -webkit-text-stroke:1px rgba(239,235,227,.055);
   white-space:nowrap;pointer-events:none;user-select:none;
 }
 .hero .ghost-word{
   right:clamp(-40px,-2vw,0px);top:8%;
   font-size:clamp(140px,26vw,460px);
-  -webkit-text-stroke-color:rgba(239,235,227,.06);
+  -webkit-text-stroke-color:rgba(239,235,227,.05);
 }
 #about{position:relative;overflow:hidden;}
 #about .ghost-word{
@@ -385,9 +385,8 @@ a.frame:active .window{transform:scale(1.002);}
   font-size:clamp(90px,15vw,300px);text-align:center;
 }
 @media (max-width:760px){
-  #about .ghost-word,#contact .ghost-word{display:none;}
+  .hero .ghost-word,#about .ghost-word,#contact .ghost-word{display:none;}
 }
-@media (max-width:760px){ .hero .ghost-word{display:none;} }
 
 .eyebrow{
   display:flex;align-items:center;gap:10px;
@@ -670,62 +669,6 @@ h2{
   .hero-media{margin-right:9%;max-width:88%;}
 }
 
-/* Other work, glimpsed rather than shown — small paper tags pinned near
-   the main exhibit, each carrying its own project light. Decorative only
-   (aria-hidden, no href): the real entry points are the Selects below.
-   Static position, only the faintest independent drift — this is set
-   dressing, not a second navigation system. */
-.hero-tags{position:absolute;inset:0;z-index:2;pointer-events:none;display:none;}
-@media (min-width:1000px){ .hero-tags{display:block;} }
-.hero-tag{
-  position:absolute;
-  display:flex;align-items:center;gap:8px;
-  padding:8px 14px;border:1px solid var(--line-2);border-radius:2px;
-  background:color-mix(in srgb, var(--void) 72%, transparent);
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-  font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--paper-2);
-  box-shadow:0 20px 40px -20px rgba(0,0,0,.8), 0 0 0 1px rgba(0,0,0,.4);
-  animation:tag-drift 9s var(--ease-in-out) infinite alternate;
-}
-.hero-tag::before{
-  content:"";width:6px;height:6px;border-radius:50%;flex:none;background:var(--tag-lit);
-}
-/* Anchored to the frame's own corners, not the whole hero — they read as
-   pinned to the exhibit itself regardless of how tall the headline runs. */
-.hero-tag.t1{left:-3%;top:-9%;transform:rotate(-4deg);animation-duration:8s;}
-.hero-tag.t2{right:-4%;top:26%;transform:rotate(3deg);animation-duration:10s;animation-delay:-3s;}
-.hero-tag.t3{left:9%;bottom:-8%;transform:rotate(2deg);animation-duration:11s;animation-delay:-6s;}
-@keyframes tag-drift{ from{translate:0 0;} to{translate:0 -8px;} }
-@media (prefers-reduced-motion: reduce){ .hero-tag{animation:none;} }
-
-/* -------------------------------------------------------------- marquee --
-   The threshold between the pitch and the work — a door, not another
-   heading. Two copies of the same track back to back, animated exactly
-   one copy-width so the loop seam is invisible. Reduced motion: it just
-   sits still as a static repeated line, still legible as a divider. */
-.marquee{
-  overflow:hidden;border-block:1px solid var(--line);
-  padding-block:clamp(12px,1.8vw,22px);background:var(--pit);
-}
-.marquee-track{
-  display:flex;width:max-content;
-  animation:marquee-scroll 34s linear infinite;
-}
-.marquee-track span{
-  display:flex;align-items:center;gap:clamp(20px,3vw,48px);
-  padding-right:clamp(20px,3vw,48px);
-  font-family:var(--f-display);font-weight:800;
-  font-variation-settings:"wdth" 90,"opsz" 96;
-  font-size:clamp(26px,4vw,58px);letter-spacing:-.015em;
-  color:var(--paper-3);white-space:nowrap;
-}
-.marquee-track span i{
-  font-style:normal;color:var(--marker);font-size:.6em;
-}
-@keyframes marquee-scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
-@media (prefers-reduced-motion: reduce){ .marquee-track{animation:none;} }
-
 /* -------------------------------------------------------- contact sheet --
    Curation, not a tile grid: two dominant prints, two supporting ones, and
    LUSTRE closing the sheet across the full measure.                       */
@@ -733,7 +676,7 @@ h2{
 /* A wall, not a grid: pick one piece and the rest of the room quiets
    down half a stop so the one in hand gets the visual attention. */
 @media (hover:hover){
-  .sheet:hover .cell{opacity:.62;filter:saturate(.85);transition:opacity .4s ease, filter .4s ease;}
+  .sheet:hover .cell{opacity:.78;transition:opacity .4s ease;}
   .sheet:hover .cell:hover{opacity:1;filter:none;}
 }
 @media (prefers-reduced-motion:reduce){
@@ -1014,16 +957,20 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }
 
-/* Same fixed/pointer-events:none/very-low-opacity recipe as the grain
-   above (proven not to interfere with anything underneath it) — a
-   whisper of depth tying the whole scroll together, not a section
-   effect. Mostly reads as plain black; the eye only registers that the
-   room has a far wall and a near one. Static — nothing here animates. */
+/* One background language for the whole scroll, not a glow per section —
+   same fixed/pointer-events:none recipe as the grain above (proven not
+   to interfere with anything underneath it). Three quiet light sources
+   (paper, the hero's own indigo, the wax-pencil orange) plus a true
+   edge vignette, the classic way a dark frame concentrates attention on
+   what's inside it rather than the corners. Static — nothing animates,
+   nothing competes with the work. */
 .vignette{
   position:fixed;inset:0;z-index:1;pointer-events:none;
   background:
-    radial-gradient(1100px 720px at 18% -8%, rgba(239,235,227,.03), transparent 62%),
-    radial-gradient(900px 620px at 88% 108%, rgba(206,78,42,.025), transparent 60%);
+    radial-gradient(1200px 800px at 18% -8%, rgba(239,235,227,.035), transparent 58%),
+    radial-gradient(1000px 720px at 86% 20%, rgba(110,91,255,.026), transparent 55%),
+    radial-gradient(1300px 820px at 40% 112%, rgba(206,78,42,.022), transparent 56%),
+    radial-gradient(140% 130% at 50% 48%, transparent 58%, rgba(0,0,0,.4) 100%);
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -1095,21 +1042,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
         <iframe title="Live preview of the Snowzan Mobile Detailing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
       </div>
     </a>
-    <div class="hero-tags" aria-hidden="true">
-      <span class="hero-tag t1" style="--tag-lit:rgba(168,85,247,.9)">GrimeVPN</span>
-      <span class="hero-tag t2" style="--tag-lit:rgba(127,209,185,.9)">Lumen</span>
-      <span class="hero-tag t3" style="--tag-lit:rgba(224,138,80,.9)">Ember &amp; Oak</span>
-    </div>
   </div>
 </section>
-
-<!-- ============================================================ marquee -- -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Selected work <i>—</i></span><span>Real projects <i>—</i></span><span>Selected work <i>—</i></span><span>Real projects <i>—</i></span>
-    <span>Selected work <i>—</i></span><span>Real projects <i>—</i></span><span>Selected work <i>—</i></span><span>Real projects <i>—</i></span>
-  </div>
-</div>
 
 <!-- ============================================================ selects -- -->
 <section class="band shell" id="work">
