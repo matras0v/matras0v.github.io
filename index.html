@@ -577,8 +577,10 @@ h2{
   /* 01 — Snowzan pulls in from the full width and tucks up under the
      title instead of sitting matted and centred; the overlap is only
      into the title's own empty descender space, so the frame's click
-     area is untouched. */
-  .s-01 .sel-media{max-width:74%;margin-left:auto;margin-right:0;margin-top:-56px;}
+     area is untouched. A grid item with any auto margin loses its
+     default stretch and shrinks to content size instead — width (not
+     just max-width) is what actually gives it a real, definite size. */
+  .s-01 .sel-media{width:74%;margin-left:auto;margin-right:0;margin-top:-56px;}
   .s-01 .sel-head{max-width:64%;position:relative;z-index:2;}
   .s-01 .sel-say{max-width:88%;}
   /* 02 — the screen pushes hard toward the right wall, the title holds the
@@ -594,18 +596,20 @@ h2{
   .s-02 .sel-head{grid-row:1;align-self:center;max-width:29%;}
   .s-02 .sel-name{font-size:clamp(30px, 4vw, 58px);letter-spacing:-.018em;}
   .s-02 .sel-say{grid-column:content;margin-left:36%;max-width:60%;margin-top:var(--s3);}
-  /* 03 — GrimeVPN opens up into the full-width, product-scale moment
-     instead of mirroring 02's right push: a narrower margin than before
-     means a dramatically bigger screen, with .sel-say's own margin kept
-     equal so its rail still reads as attached to the frame above it. */
-  .s-03 .sel-media{grid-column:content;margin-right:12%;margin-top:0;grid-row:1;}
-  .s-03 .sel-head{grid-row:1;align-self:center;justify-self:end;max-width:40%;}
-  .s-03 .sel-say{grid-column:content;margin-right:12%;max-width:82%;margin-top:var(--s3);}
+  /* 03 — and back out through the left, mirrored: the screen and the
+     title need real clearance between them (title is right-aligned to
+     the true content edge, screen's margin-right sets how far it comes
+     in from that same edge) or a right-aligned title collides with a
+     wide screen — the previous 12% margin left only ~12% of clear
+     column for a title that needs closer to 30% to sit clean. */
+  .s-03 .sel-media{grid-column:content;margin-right:30%;margin-top:0;grid-row:1;}
+  .s-03 .sel-head{grid-row:1;align-self:center;justify-self:end;max-width:37%;}
+  .s-03 .sel-say{grid-column:content;margin-right:30%;max-width:72%;margin-top:var(--s3);}
   /* Three CTAs, one narrow rail — a tighter gap and slightly leaner button
      padding just for this row so "Try the bot" stops falling to its own
      line and reads as one deliberate row instead of an accident. */
   .s-03 .sel-links{gap:8px;}
-  .s-03 .sel-links .btn{padding:0 13px;}
+  .s-03 .sel-links .btn{padding:0 12px;}
 }
 
 /* Mobile only (<768px) — the desktop rhythm above is untouched. Below
