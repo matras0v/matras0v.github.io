@@ -57,6 +57,11 @@
   --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 40px;
   --s5: 64px; --s6: 104px;
   --s7: clamp(76px, 8.4vw, 148px);  /* band rhythm scales with the room */
+  /* Every band-to-band boundary carries this on BOTH sides (each
+     section's own top+bottom padding), so at desktop width it was
+     compounding to ~240px of plain black between sections — a real gap
+     between "cases" and "compositions", not a considered pause. */
+  --s7b: clamp(64px, 6.4vw, 108px);
 
   --ease-out:    cubic-bezier(.23, 1, .32, 1);
   --ease-in-out: cubic-bezier(.77, 0, .175, 1);
@@ -146,12 +151,12 @@ button{font:inherit;color:inherit;background:none;border:0;}
   margin-right:auto;white-space:nowrap;
   display:inline-flex;align-items:center;min-height:44px;
 }
-.nav-links{display:none;gap:var(--s4);}
+.nav-links{display:none;gap:var(--s4);font-size:12px;letter-spacing:.05em;}
 @media (min-width:820px){ .nav-links{display:flex;} }
 .nav-links a{
   position:relative;
   display:inline-flex;align-items:center;min-height:44px;
-  color:var(--paper-3);
+  color:var(--paper-2);
   transition:color .2s ease;
 }
 .nav-links a::after{
@@ -234,6 +239,7 @@ button{font:inherit;color:inherit;background:none;border:0;}
   padding:10px;
   perspective:1400px;
   box-shadow:
+    inset 0 1px 0 rgba(239,235,227,.06),
     0 0 0 1px rgba(0,0,0,.45),
     0 40px 90px -34px rgba(0,0,0,.92),
     0 70px 150px -80px var(--lit, transparent);
@@ -257,6 +263,7 @@ a.frame:active .window{transform:scale(1.002);}
 }
 .frame:hover{
   box-shadow:
+    inset 0 1px 0 rgba(239,235,227,.09),
     0 0 0 1px rgba(0,0,0,.45),
     0 52px 104px -32px rgba(0,0,0,.96),
     0 80px 170px -74px var(--lit, transparent);
@@ -318,7 +325,7 @@ a.frame:active .window{transform:scale(1.002);}
 }
 
 /* --------------------------------------------------------------- hero ---- */
-.hero{position:relative;padding-block:clamp(24px,3vw,52px) var(--s7);row-gap:var(--s4);}
+.hero{position:relative;padding-block:clamp(24px,3vw,52px) var(--s7b);row-gap:var(--s4);}
 
 /* A line field behind the opening headline — felt, not noticed. Absolute
    and z-index:-1 within the hero's own stacking context (same trick as
@@ -449,7 +456,7 @@ h1 em{
 @media (min-width:1000px){ .hero-meta{justify-content:flex-end;text-align:right;} }
 
 /* -------------------------------------------------------------- bands ---- */
-.band{padding-block:var(--s7);border-top:1px solid var(--line);row-gap:0;}
+.band{padding-block:var(--s7b);border-top:1px solid var(--line);row-gap:0;}
 .band-head{
   display:flex;flex-wrap:wrap;align-items:end;gap:var(--s3);
   margin-bottom:var(--s6);
@@ -512,6 +519,7 @@ h2{
 .select.active .sel-no{color:var(--paper-2);}
 .select.active .frame{
   box-shadow:
+    inset 0 1px 0 rgba(239,235,227,.09),
     0 0 0 1px rgba(0,0,0,.45),
     0 52px 104px -32px rgba(0,0,0,.96),
     0 80px 170px -74px var(--lit, transparent);
@@ -524,7 +532,7 @@ h2{
   line-height:.93;letter-spacing:-.026em;
   margin-bottom:var(--s4);
 }
-.sel-role{color:var(--paper-2);font-size:clamp(16px,1.15vw,19px);max-width:52ch;}
+.sel-role{color:var(--paper-2);font-size:clamp(16px,1.35vw,20px);max-width:52ch;line-height:1.5;}
 .sel-facts{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s4);}
 .sel-facts div{display:flex;gap:6px;}
 .sel-facts dt{
@@ -532,7 +540,7 @@ h2{
   font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;
 }
 .sel-facts dt::after{content:":";}
-.sel-facts dd{font-family:var(--f-mono);font-size:15px;color:var(--paper-2);}
+.sel-facts dd{font-family:var(--f-mono);font-size:clamp(15px,.95vw,16px);color:var(--paper-2);}
 .sel-links{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);}
 .tag{
   display:inline-flex;align-items:center;
@@ -676,7 +684,7 @@ h2{
 /* -------------------------------------------------------- contact sheet --
    Curation, not a tile grid: two dominant prints, two supporting ones, and
    LUSTRE closing the sheet across the full measure.                       */
-.sheet{display:grid;gap:var(--s6) var(--gap);grid-template-columns:1fr;}
+.sheet{display:grid;gap:88px var(--gap);grid-template-columns:1fr;}
 /* A wall, not a grid: pick one piece and the rest of the room quiets
    down half a stop so the one in hand gets the visual attention. */
 @media (hover:hover){
@@ -786,8 +794,11 @@ h2{
   font-variation-settings:"wdth" 82,"opsz" 40;
   font-weight:700;font-size:clamp(23px,2.7vw,40px);letter-spacing:-.028em;
   line-height:1.02;
+  color:var(--paper-2);transition:color .6s ease;
 }
+.step.active h3{color:var(--paper);}
 .step > p:last-child{color:var(--paper-2);font-size:clamp(16px,1.15vw,18px);}
+@media (prefers-reduced-motion:reduce){ .step h3{transition:none;} }
 
 /* A statement, not a feature panel. */
 /* The statement gets the full width and the full scale it's asking
@@ -825,12 +836,12 @@ h2{
   font-size:clamp(26px, 4vw, 64px);
   line-height:1.12;letter-spacing:-.018em;
   max-width:32ch;color:var(--paper);
-  margin-bottom:var(--s7);
+  margin-bottom:var(--s6);
 }
 .about-lead strong{font-weight:800;}
 .about-grid{display:grid;gap:var(--s5);grid-template-columns:1fr;}
 @media (min-width:900px){
-  .about-grid{grid-template-columns:1fr 1fr;gap:var(--s7);}
+  .about-grid{grid-template-columns:1fr 1fr;gap:var(--s6);}
 }
 .about-grid p{color:var(--paper-2);max-width:54ch;font-size:clamp(17px,1.2vw,20px);}
 .about-grid p + p{margin-top:var(--s3);}
@@ -871,7 +882,7 @@ h2{
   font-size:clamp(17px,1.3vw,20px);
 }
 .contact .hero-cta{justify-content:center;margin-top:var(--s5);}
-.contact .btn{min-height:60px;padding:0 34px;font-size:16px;}
+.contact .btn{min-height:64px;padding:0 38px;font-size:17px;}
 
 .channels{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s1);margin-top:var(--s3);}
 .chan{
