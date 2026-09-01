@@ -186,6 +186,19 @@ button{font:inherit;color:inherit;background:none;border:0;}
   .btn{transition:background-color .2s ease, color .2s ease, border-color .2s ease;}
   .btn:hover{transform:none;box-shadow:none;}
 }
+/* Reserved for the two conversion moments (hero + final CTA) — a single
+   diagonal pass of light on hover, not a constant loop, so it stays a
+   response to the visitor rather than a background animation. */
+.btn-shimmer{position:relative;overflow:hidden;}
+.btn-shimmer::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg, transparent 40%, rgba(11,11,12,.35) 50%, transparent 60%);
+  transform:translateX(-120%);
+}
+@media (hover:hover){
+  .btn-shimmer:hover::after{transform:translateX(120%);transition:transform .7s ease;}
+}
+@media (prefers-reduced-motion:reduce){ .btn-shimmer::after{display:none;} }
 .btn-ghost{
   position:relative;z-index:0;overflow:hidden;
   background:transparent;color:var(--paper);border-color:var(--line-2);
@@ -341,6 +354,40 @@ a.frame:active .window{transform:scale(1.002);}
 @media (prefers-reduced-motion: reduce){
   .hero-paths path{animation:none;}
 }
+
+/* ---------------------------------------------------------- ghost word ---
+   One giant outline word per major section — the wordmark is on the wall
+   of the room, oversized enough to read as architecture rather than a
+   sentence. Reused (not re-authored) in the hero, About and the final
+   CTA, so it reads as one running device rather than three effects. */
+.ghost-word{
+  position:absolute;z-index:-1;
+  font-family:var(--f-display);
+  font-variation-settings:"wdth" 100,"opsz" 96;
+  font-weight:800;
+  line-height:.78;letter-spacing:-.02em;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(239,235,227,.075);
+  white-space:nowrap;pointer-events:none;user-select:none;
+}
+.hero .ghost-word{
+  right:clamp(-40px,-2vw,0px);top:8%;
+  font-size:clamp(140px,26vw,460px);
+  -webkit-text-stroke-color:rgba(239,235,227,.06);
+}
+#about{position:relative;overflow:hidden;}
+#about .ghost-word{
+  left:clamp(-20px,-1vw,0px);bottom:-8%;
+  font-size:clamp(110px,20vw,340px);
+}
+#contact .ghost-word{
+  left:50%;bottom:2%;transform:translateX(-50%);
+  font-size:clamp(90px,15vw,300px);text-align:center;
+}
+@media (max-width:760px){
+  #about .ghost-word,#contact .ghost-word{display:none;}
+}
+@media (max-width:760px){ .hero .ghost-word{display:none;} }
 
 .eyebrow{
   display:flex;align-items:center;gap:10px;
@@ -503,11 +550,38 @@ h2{
   grid-column:content;margin-top:var(--s4);padding-top:var(--s3);
   border-top:1px solid var(--line);
 }
+/* Each select now has its own real editorial composition instead of
+   three passes of "title, then a centred rectangle": 01 is a narrower,
+   offset frame with the title's own baseline running just above/into
+   it; 02 keeps the established right-wall push; 03 opens up to a
+   near-full-width, product-scale frame instead of mirroring 02. */
+.sel-head{position:relative;}
+/* The numeral IS the composition, not a caption — same visual language
+   as the How It Works step numerals (faint fill, stronger stroke),
+   reused rather than a fourth typographic idea. Purely decorative,
+   z-index behind the title's own box, never intercepts a pointer. */
+.sel-big-no{
+  position:absolute;left:-.06em;top:-.5em;z-index:-1;
+  font-family:var(--f-display);font-weight:800;
+  font-variation-settings:"wdth" 74,"opsz" 96;
+  font-size:clamp(96px,13vw,240px);line-height:1;letter-spacing:-.02em;
+  color:rgba(239,235,227,.05);
+  -webkit-text-stroke:1.5px rgba(239,235,227,.15);
+  pointer-events:none;user-select:none;
+}
+@media (max-width:999px){ .sel-big-no{display:none;} }
 @media (min-width:1000px){
   .sel-say{
     display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
     gap:var(--s6);align-items:start;
   }
+  /* 01 — Snowzan pulls in from the full width and tucks up under the
+     title instead of sitting matted and centred; the overlap is only
+     into the title's own empty descender space, so the frame's click
+     area is untouched. */
+  .s-01 .sel-media{max-width:74%;margin-left:auto;margin-right:0;margin-top:-56px;}
+  .s-01 .sel-head{max-width:64%;position:relative;z-index:2;}
+  .s-01 .sel-say{max-width:88%;}
   /* 02 — the screen pushes hard toward the right wall, the title holds the
      left, and the rail sits flush under the screen's own left edge — so it
      reads as attached to the media, not floating below it. Stays inside
@@ -521,10 +595,13 @@ h2{
   .s-02 .sel-head{grid-row:1;align-self:center;max-width:29%;}
   .s-02 .sel-name{font-size:clamp(30px, 4vw, 58px);letter-spacing:-.018em;}
   .s-02 .sel-say{grid-column:content;margin-left:36%;max-width:60%;margin-top:var(--s3);}
-  /* 03 — and back out through the left, mirrored */
-  .s-03 .sel-media{grid-column:content;margin-right:30%;margin-top:0;grid-row:1;}
-  .s-03 .sel-head{grid-row:1;align-self:center;justify-self:end;max-width:37%;}
-  .s-03 .sel-say{grid-column:content;margin-right:30%;max-width:72%;margin-top:var(--s3);}
+  /* 03 — GrimeVPN opens up into the full-width, product-scale moment
+     instead of mirroring 02's right push: a narrower margin than before
+     means a dramatically bigger screen, with .sel-say's own margin kept
+     equal so its rail still reads as attached to the frame above it. */
+  .s-03 .sel-media{grid-column:content;margin-right:12%;margin-top:0;grid-row:1;}
+  .s-03 .sel-head{grid-row:1;align-self:center;justify-self:end;max-width:40%;}
+  .s-03 .sel-say{grid-column:content;margin-right:12%;max-width:82%;margin-top:var(--s3);}
   /* Three CTAs, one narrow rail — a tighter gap and slightly leaner button
      padding just for this row so "Try the bot" stops falling to its own
      line and reads as one deliberate row instead of an accident. */
@@ -583,13 +660,85 @@ h2{
 .hero-media::before{
   content:"";position:absolute;inset:-10% 0 -16% 0;z-index:-1;
   background:radial-gradient(closest-side, var(--lit, transparent), transparent 72%);
-  opacity:.5;filter:blur(80px);pointer-events:none;
+  opacity:.68;filter:blur(80px);pointer-events:none;
 }
+/* Pushed off centre instead of matted dead-centre in the content column —
+   the one asymmetric move that keeps the hero from reading as "a title
+   and then a centred rectangle," the exact composition the Selects use
+   below it. The room still holds it; it just isn't polite about it. */
+@media (min-width:1000px){
+  .hero-media{margin-right:9%;max-width:88%;}
+}
+
+/* Other work, glimpsed rather than shown — small paper tags pinned near
+   the main exhibit, each carrying its own project light. Decorative only
+   (aria-hidden, no href): the real entry points are the Selects below.
+   Static position, only the faintest independent drift — this is set
+   dressing, not a second navigation system. */
+.hero-tags{position:absolute;inset:0;z-index:2;pointer-events:none;display:none;}
+@media (min-width:1000px){ .hero-tags{display:block;} }
+.hero-tag{
+  position:absolute;
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;border:1px solid var(--line-2);border-radius:2px;
+  background:color-mix(in srgb, var(--void) 72%, transparent);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--paper-2);
+  box-shadow:0 20px 40px -20px rgba(0,0,0,.8), 0 0 0 1px rgba(0,0,0,.4);
+  animation:tag-drift 9s var(--ease-in-out) infinite alternate;
+}
+.hero-tag::before{
+  content:"";width:6px;height:6px;border-radius:50%;flex:none;background:var(--tag-lit);
+}
+/* Anchored to the frame's own corners, not the whole hero — they read as
+   pinned to the exhibit itself regardless of how tall the headline runs. */
+.hero-tag.t1{left:-3%;top:-9%;transform:rotate(-4deg);animation-duration:8s;}
+.hero-tag.t2{right:-4%;top:26%;transform:rotate(3deg);animation-duration:10s;animation-delay:-3s;}
+.hero-tag.t3{left:9%;bottom:-8%;transform:rotate(2deg);animation-duration:11s;animation-delay:-6s;}
+@keyframes tag-drift{ from{translate:0 0;} to{translate:0 -8px;} }
+@media (prefers-reduced-motion: reduce){ .hero-tag{animation:none;} }
+
+/* -------------------------------------------------------------- marquee --
+   The threshold between the pitch and the work — a door, not another
+   heading. Two copies of the same track back to back, animated exactly
+   one copy-width so the loop seam is invisible. Reduced motion: it just
+   sits still as a static repeated line, still legible as a divider. */
+.marquee{
+  overflow:hidden;border-block:1px solid var(--line);
+  padding-block:clamp(12px,1.8vw,22px);background:var(--pit);
+}
+.marquee-track{
+  display:flex;width:max-content;
+  animation:marquee-scroll 34s linear infinite;
+}
+.marquee-track span{
+  display:flex;align-items:center;gap:clamp(20px,3vw,48px);
+  padding-right:clamp(20px,3vw,48px);
+  font-family:var(--f-display);font-weight:800;
+  font-variation-settings:"wdth" 90,"opsz" 96;
+  font-size:clamp(26px,4vw,58px);letter-spacing:-.015em;
+  color:var(--paper-3);white-space:nowrap;
+}
+.marquee-track span i{
+  font-style:normal;color:var(--marker);font-size:.6em;
+}
+@keyframes marquee-scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+@media (prefers-reduced-motion: reduce){ .marquee-track{animation:none;} }
 
 /* -------------------------------------------------------- contact sheet --
    Curation, not a tile grid: two dominant prints, two supporting ones, and
    LUSTRE closing the sheet across the full measure.                       */
 .sheet{display:grid;gap:var(--s6) var(--gap);grid-template-columns:1fr;}
+/* A wall, not a grid: pick one piece and the rest of the room quiets
+   down half a stop so the one in hand gets the visual attention. */
+@media (hover:hover){
+  .sheet:hover .cell{opacity:.62;filter:saturate(.85);transition:opacity .4s ease, filter .4s ease;}
+  .sheet:hover .cell:hover{opacity:1;filter:none;}
+}
+@media (prefers-reduced-motion:reduce){
+  .sheet:hover .cell{transition:none;}
+}
 /* Cards are already tight internally (frame → caption → title →
    description); only the row gap between them needed trimming from
    the full desktop-composition rhythm. */
@@ -638,7 +787,20 @@ h2{
 
 /* ------------------------------------------------------------- process ---
    The numeral is the section's graphic rhythm; the words hang off it.    */
-.steps{display:grid;gap:0;border-top:1px solid var(--line);}
+.steps{position:relative;display:grid;gap:0;border-top:1px solid var(--line);}
+/* A thin line the visitor's own scroll fills in, left edge — the
+   journey made literal instead of three rows that merely sit near each
+   other. --progress is written once per step change (not on every
+   scroll tick) by the same spotlight-spy observer that already toggles
+   .active, so this costs nothing extra to compute. */
+@media (min-width:640px){
+  .steps::after{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:2px;
+    background:linear-gradient(var(--marker) 0 0) 0 0/100% var(--progress,0%) no-repeat, var(--line-2);
+    transition:background-size .6s var(--ease-out);
+  }
+  .step{padding-left:var(--s4);}
+}
 .step{
   display:grid;gap:var(--s2);
   padding-block:var(--s5);
@@ -681,26 +843,28 @@ h2{
 .step > p:last-child{color:var(--paper-2);font-size:clamp(16px,1.15vw,18px);}
 
 /* A statement, not a feature panel. */
+/* The statement gets the full width and the full scale it's asking
+   for — the checklist reads as evidence underneath it, not a co-equal
+   column squeezed beside giant type. */
 .owns{
-  display:grid;gap:var(--s5);
-  grid-template-columns:1fr;
   margin-top:var(--s7);
   padding-block:var(--s6);
   border-top:1px solid var(--line-2);
   border-bottom:1px solid var(--line-2);
-}
-@media (min-width:860px){
-  .owns{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:var(--s7);align-items:start;}
 }
 .owns h3{
   /* worst collision on the page at the old settings: narrow wdth + -.04em
      tracking on bold glyphs this large fused "wn"/"ll"/"of" into blobs */
   font-family:var(--f-display);
   font-variation-settings:"wdth" 84,"opsz" 96;
-  font-weight:800;font-size:clamp(42px,6.6vw,104px);letter-spacing:-.02em;
-  line-height:.94;
+  font-weight:800;font-size:clamp(52px,11.5vw,230px);letter-spacing:-.022em;
+  line-height:.9;margin-bottom:var(--s6);
 }
-.owns ul{list-style:none;display:grid;gap:var(--s4);}
+.owns h3 .ln:nth-child(2){color:var(--marker);}
+.owns ul{list-style:none;display:grid;gap:var(--s4);grid-template-columns:1fr;}
+@media (min-width:640px){
+  .owns ul{grid-template-columns:1fr 1fr;gap:var(--s5) var(--s6);}
+}
 .owns li{display:flex;gap:14px;font-size:clamp(16px,1.2vw,19px);color:var(--paper-2);}
 .owns li svg{flex:none;margin-top:5px;color:var(--marker);}
 
@@ -744,10 +908,10 @@ h2{
   content:"";position:absolute;left:50%;top:34%;z-index:0;
   width:min(1100px,140vw);aspect-ratio:1;
   transform:translate(-50%,-50%);
-  background:radial-gradient(closest-side, rgba(239,235,227,.05), transparent 70%);
+  background:radial-gradient(closest-side, rgba(239,235,227,.09), transparent 70%);
   filter:blur(90px);pointer-events:none;
 }
-.contact > *{position:relative;z-index:1;}
+.contact > *:not(.ghost-word){position:relative;z-index:1;}
 .contact h2{
   font-size:clamp(40px, 9.2vw, 148px);
   font-variation-settings:"wdth" 88,"opsz" 96;
@@ -901,6 +1065,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
     <path class="p4" d="M-100 160 C350 250,800 60,1250 200 S1850 100,2100 250"/>
     <path class="p5" d="M-100 500 C600 450,1000 560,1500 400 S2000 480,2200 420"/>
   </svg>
+  <p class="ghost-word" aria-hidden="true">MATRAS0V</p>
   <div>
     <p class="eyebrow mono hero-seq"><span class="dot" aria-hidden="true"></span> Now booking · US &amp; UAE</p>
     <h1 class="lines"><span class="ln"><i>Your next customer is</i></span><span class="ln"><i>looking at your</i></span><span class="ln"><i>website <em>right now.</em></i></span></h1>
@@ -913,7 +1078,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
         <strong>Two days, not two months.</strong> You own the files, and there is nothing to pay monthly.
       </p>
       <div class="hero-cta">
-        <a class="btn" href="#contact">Start a project</a>
+        <a class="btn btn-shimmer" href="#contact">Start a project</a>
         <a class="btn btn-ghost" href="#work">See the work</a>
       </div>
       <p class="hero-note mono">Or message me right now: <a href="https://wa.me/79184134820" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://t.me/matras0v" target="_blank" rel="noopener">Telegram</a></p>
@@ -930,8 +1095,21 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
         <iframe title="Live preview of the Snowzan Mobile Detailing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
       </div>
     </a>
+    <div class="hero-tags" aria-hidden="true">
+      <span class="hero-tag t1" style="--tag-lit:rgba(168,85,247,.9)">GrimeVPN</span>
+      <span class="hero-tag t2" style="--tag-lit:rgba(127,209,185,.9)">Lumen</span>
+      <span class="hero-tag t3" style="--tag-lit:rgba(224,138,80,.9)">Ember &amp; Oak</span>
+    </div>
   </div>
 </section>
+
+<!-- ============================================================ marquee -- -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Selected work <i>—</i></span><span>Real projects <i>—</i></span><span>Selected work <i>—</i></span><span>Real projects <i>—</i></span>
+    <span>Selected work <i>—</i></span><span>Real projects <i>—</i></span><span>Selected work <i>—</i></span><span>Real projects <i>—</i></span>
+  </div>
+</div>
 
 <!-- ============================================================ selects -- -->
 <section class="band shell" id="work">
@@ -948,6 +1126,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   <!-- 01 Snowzan — the screen hangs at full width -->
   <article class="select s-01">
     <div class="sel-head">
+      <span class="sel-big-no" aria-hidden="true">01</span>
       <p class="sel-no">Select 01 / 03</p>
       <h3 class="sel-name">Snowzan</h3>
     </div>
@@ -979,6 +1158,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   <!-- 02 H&M — the screen leaves through the right wall -->
   <article class="select s-02" style="--lit:rgba(200,145,63,.5)">
     <div class="sel-head">
+      <span class="sel-big-no" aria-hidden="true">02</span>
       <p class="sel-no">Select 02 / 03 <span class="tag">Concept</span></p>
       <h3 class="sel-name">H&amp;M Car Polishing</h3>
     </div>
@@ -1010,6 +1190,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   <!-- 03 GrimeVPN — and back out through the left -->
   <article class="select s-03" style="--lit:rgba(168,85,247,.5)">
     <div class="sel-head">
+      <span class="sel-big-no" aria-hidden="true">03</span>
       <p class="sel-no">Select 03 / 03</p>
       <h3 class="sel-name">GrimeVPN</h3>
     </div>
@@ -1138,6 +1319,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
 
 <!-- ============================================================= about -- -->
 <section class="band shell" id="about">
+  <p class="ghost-word" aria-hidden="true">VADIM</p>
   <div class="band-head"><h2 class="lines rv"><span class="ln"><i>About</i></span></h2></div>
   <p class="about-lead rv">I'm <strong>Vadim Ivanchenko</strong>. I work alone, which is the point: you talk to the person building the thing, and nothing gets lost between a strategist, a designer and a developer who have never met your customers.</p>
   <div class="about-grid">
@@ -1153,11 +1335,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
 
 <!-- =========================================================== contact -- -->
 <section class="contact shell" id="contact">
+  <p class="ghost-word" aria-hidden="true">LET&rsquo;S BUILD</p>
   <div>
     <h2 class="lines rv"><span class="ln"><i>Tell me about</i></span><span class="ln"><i>your business.</i></span></h2>
     <p>What you do, where you are, and what you wish your website did. If it's a fit I'll say so, and if it isn't I'll say that too.</p>
     <div class="hero-cta">
-      <a class="btn" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20your%20site%20and%20I%27d%20like%20a%20website%20for%20my%20business." target="_blank" rel="noopener">
+      <a class="btn btn-shimmer" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20your%20site%20and%20I%27d%20like%20a%20website%20for%20my%20business." target="_blank" rel="noopener">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97 1-3.62-.24-.37a9.8 9.8 0 0 1-1.5-5.23c0-5.4 4.4-9.8 9.82-9.8a9.75 9.75 0 0 1 6.93 2.88 9.72 9.72 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8M20.5 3.5A11.75 11.75 0 0 0 12.05 0C5.54 0 .25 5.29.24 11.79c0 2.08.55 4.1 1.58 5.9L.14 24l6.45-1.69a11.8 11.8 0 0 0 5.46 1.34h.01c6.5 0 11.79-5.29 11.8-11.79 0-3.15-1.23-6.11-3.46-8.34"/></svg>
         Message on WhatsApp
       </a>
@@ -1316,18 +1499,27 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
      every visual consequence lives in CSS on properties nothing else
      writes to (box-shadow, color, opacity), so it can never collide with
      the tilt, spotlight, hover-pan or auto-pan systems. */
-  function spotlightSpy(selector){
+  function spotlightSpy(selector, onActive){
     var els = document.querySelectorAll(selector);
     if(!els.length) return;
     var obs = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         e.target.classList.toggle('active', e.isIntersecting);
+        if(e.isIntersecting && onActive) onActive(e.target);
       });
     }, {rootMargin:'-40% 0px -40% 0px'});
     els.forEach(function(el){ obs.observe(el); });
   }
   spotlightSpy('.select');
-  spotlightSpy('.step');
+  (function(){
+    var steps = document.querySelectorAll('.step');
+    var track = document.querySelector('.steps');
+    spotlightSpy('.step', function(step){
+      if(!track) return;
+      var i = [].indexOf.call(steps, step);
+      track.style.setProperty('--progress', Math.round(((i + 1) / steps.length) * 100) + '%');
+    });
+  })();
 
   /* -- live frames -------------------------------------------------------
      The iframe is rendered at a real device width and scaled to fit its
