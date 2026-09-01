@@ -172,11 +172,20 @@ button{font:inherit;color:inherit;background:none;border:0;}
   border-radius:2px;
   font-weight:500;font-size:15px;
   white-space:nowrap;
-  transition:background-color .2s ease, color .2s ease, border-color .2s ease;
+  transition:background-color .2s ease, color .2s ease, border-color .2s ease,
+             transform .25s var(--ease-out), box-shadow .3s ease;
 }
-.btn:hover{background:#fff;border-color:#fff;}
+@media (hover:hover){
+  .btn:hover{background:#fff;border-color:#fff;transform:translateY(-1px);}
+  .btn:not(.btn-ghost):hover{box-shadow:0 10px 26px -10px rgba(239,235,227,.4);}
+}
+.btn:active{transform:translateY(0);}
 .btn .arrow{display:inline-block;transition:transform .22s var(--ease-out);}
 .btn:hover .arrow{transform:translateX(2px);}
+@media (prefers-reduced-motion:reduce){
+  .btn{transition:background-color .2s ease, color .2s ease, border-color .2s ease;}
+  .btn:hover{transform:none;box-shadow:none;}
+}
 .btn-ghost{
   position:relative;z-index:0;overflow:hidden;
   background:transparent;color:var(--paper);border-color:var(--line-2);
@@ -446,6 +455,20 @@ h2{
   display:flex;align-items:center;gap:var(--s2);
   font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;
   text-transform:uppercase;color:var(--paper-3);margin-bottom:var(--s2);
+  transition:color .6s ease;
+}
+/* A gallery spotlight moving between pieces as the visitor scrolls —
+   .active is toggled by IntersectionObserver on whichever select sits
+   nearest the viewport's centre (same rootMargin idea as the nav
+   section-spy). Nothing here touches layout or the frame's own
+   hover/tilt/live-preview transforms — only box-shadow strength and a
+   muted-to-full label colour, both already-idle properties. */
+.select.active .sel-no{color:var(--paper-2);}
+.select.active .frame{
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.45),
+    0 52px 104px -32px rgba(0,0,0,.96),
+    0 80px 170px -74px var(--lit, transparent);
 }
 .sel-name{
   font-family:var(--f-display);
@@ -545,6 +568,11 @@ h2{
   content:"";position:absolute;inset:-8% 0;z-index:-1;
   background:radial-gradient(closest-side, var(--lit, transparent), transparent 72%);
   opacity:.55;filter:blur(70px);pointer-events:none;
+  transition:opacity .8s ease;
+}
+.s-02.active::before, .s-03.active::before{opacity:.85;}
+@media (prefers-reduced-motion:reduce){
+  .s-02::before,.s-03::before{transition:none;}
 }
 
 /* headline → darkness → the work physically appears: the same ambient
@@ -577,10 +605,25 @@ h2{
   .cell:nth-child(2) .window,.cell:nth-child(3) .window{aspect-ratio:4/3;}
   .cell:nth-child(5) .window{aspect-ratio:21/9;}
 }
-.cell{display:block;}
+.cell{position:relative;display:block;}
+/* Each print in its own faint pool of its own colour, only on the print
+   the visitor is actually looking at — vertical-only bleed, same as the
+   select-band glow, so it can never push the row wider than the sheet. */
+.cell::before{
+  content:"";position:absolute;inset:-10% 0;z-index:-1;
+  background:radial-gradient(closest-side, var(--lit, transparent), transparent 70%);
+  opacity:0;filter:blur(60px);pointer-events:none;
+  transition:opacity .5s ease;
+}
+@media (hover:hover){ .cell:hover::before{opacity:.6;} }
 .cell .frame{transition:transform .5s var(--ease-out), box-shadow .6s var(--ease-out);}
 .cell:hover .frame{transform:translateY(-6px);}
 .cell:active .frame{transform:translateY(-2px);}
+.cell-name{transition:color .3s ease;}
+@media (hover:hover){ .cell:hover .cell-name{color:#fff;} }
+@media (prefers-reduced-motion:reduce){
+  .cell::before{transition:none;}
+}
 .cell-no{
   display:flex;justify-content:space-between;align-items:baseline;
   gap:var(--s2);margin-top:var(--s2);color:var(--paper-3);
@@ -617,6 +660,17 @@ h2{
   line-height:.76;letter-spacing:-.03em;
   color:rgba(239,235,227,.07);
   -webkit-text-stroke:1.5px rgba(239,235,227,.42);
+  transition:color .6s ease, -webkit-text-stroke-color .6s ease;
+}
+/* The step currently under the visitor's eye reads as the one "in the
+   light" — same idea as the select spotlight above, same IO pattern,
+   scoped to a property nothing else touches. */
+.step.active p.step-no{
+  color:rgba(239,235,227,.13);
+  -webkit-text-stroke-color:rgba(239,235,227,.6);
+}
+@media (prefers-reduced-motion:reduce){
+  .step p.step-no{transition:none;}
 }
 .step h3{
   font-family:var(--f-display);
@@ -674,12 +728,26 @@ h2{
 /* ------------------------------------------------------------- contact ---
    The room closes darker than it opened, and takes the whole screen.     */
 .contact{
+  position:relative;overflow:hidden;
   min-height:92vh;align-content:center;
   padding-block:var(--s7);
   background:var(--pit);
   border-top:1px solid var(--line);
   text-align:center;
 }
+/* The room's last, quietest light — centred behind the headline, static
+   (not another drifting field; one moving thing per screen is enough).
+   overflow:hidden on .contact itself is the safety net this time, so a
+   generous radius can never push scrollWidth out regardless of the
+   maths. */
+.contact::before{
+  content:"";position:absolute;left:50%;top:34%;z-index:0;
+  width:min(1100px,140vw);aspect-ratio:1;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(closest-side, rgba(239,235,227,.05), transparent 70%);
+  filter:blur(90px);pointer-events:none;
+}
+.contact > *{position:relative;z-index:1;}
 .contact h2{
   font-size:clamp(40px, 9.2vw, 148px);
   font-variation-settings:"wdth" 88,"opsz" 96;
@@ -742,6 +810,13 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   clip-path:inset(0 0 0 0);transform:scale(1);
   transition:clip-path 1.15s var(--ease-in-out), transform 1.15s var(--ease-out);
 }
+/* The work is the last beat of the entrance, not a race with the copy
+   above it — headline, then the supporting line, then the actual site
+   physically arrives. */
+.js .hero-media.rv-clip.in{transition-delay:.35s;}
+@media (prefers-reduced-motion: reduce){
+  .js .hero-media.rv-clip.in{transition-delay:0s;}
+}
 @media (prefers-reduced-motion: reduce){
   .js .rv{opacity:1;transform:none;filter:none;transition:none;}
   .js .rv-clip{clip-path:none;transform:none;}
@@ -775,16 +850,30 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }
 
+/* Same fixed/pointer-events:none/very-low-opacity recipe as the grain
+   above (proven not to interfere with anything underneath it) — a
+   whisper of depth tying the whole scroll together, not a section
+   effect. Mostly reads as plain black; the eye only registers that the
+   room has a far wall and a near one. Static — nothing here animates. */
+.vignette{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(1100px 720px at 18% -8%, rgba(239,235,227,.03), transparent 62%),
+    radial-gradient(900px 620px at 88% 108%, rgba(206,78,42,.025), transparent 60%);
+}
+
 @media (prefers-reduced-motion: reduce){
   .lines .ln > i{transform:none;filter:none;transition:none;}
   .hero-seq{opacity:1;transform:none;transition:none;}
   .window,.frame,.cell .frame{transition:none;}
+  .sel-no,.cell-name{transition:none;}
   .grain{display:none;}
 }
 </style>
 </head>
 
 <body>
+<div class="vignette" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 
@@ -1220,6 +1309,25 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
     }, {rootMargin:'-45% 0px -50% 0px'});
     targets.forEach(function(t){ spy.observe(t); });
   }
+
+  /* -- gallery spotlight: whichever select/step sits nearest the centre
+     of the viewport gets .active — same centre-band rootMargin as the
+     nav spy above, reused rather than reinvented. Purely a class toggle;
+     every visual consequence lives in CSS on properties nothing else
+     writes to (box-shadow, color, opacity), so it can never collide with
+     the tilt, spotlight, hover-pan or auto-pan systems. */
+  function spotlightSpy(selector){
+    var els = document.querySelectorAll(selector);
+    if(!els.length) return;
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        e.target.classList.toggle('active', e.isIntersecting);
+      });
+    }, {rootMargin:'-40% 0px -40% 0px'});
+    els.forEach(function(el){ obs.observe(el); });
+  }
+  spotlightSpy('.select');
+  spotlightSpy('.step');
 
   /* -- live frames -------------------------------------------------------
      The iframe is rendered at a real device width and scaled to fit its
