@@ -1150,36 +1150,89 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
      mobile visitor only ever sees the static top of every preview. Reuses
      startOf()/fit() and the same resting/travel numbers per frame — this
      is the hover journey, just started by visibility instead of a cursor.
-     Only the frame currently well into view animates; leaving resets it
-     silently so the next entrance starts from the top again. */
+
+     Entry and exit are deliberately different thresholds, not one shared
+     55% line: tying both to the same number meant a normal scroll could
+     cross it once on the way in (starting the pan) and again a moment
+     later on the way out (killing it), so the tour rarely survived past
+     its first second. Now: ~25% visible + a short dwell starts it, and
+     once running nothing stops it early — only actually leaving the
+     screen (0% visible, debounced against Safari's toolbar resizing the
+     viewport mid-scroll) resets it back to the top for next time. */
   (function(){
     function touchPan(){
       return matchMedia('(hover: none)').matches &&
              !matchMedia('(prefers-reduced-motion: reduce)').matches;
     }
-    var current = null;
+
+    var ENTRY = .25, DWELL = 150, EXIT_DEBOUNCE = 300;
+    var states = new Map(); // frame -> {phase:'idle'|'pending'|'running', dwellT, exitT}
+
+    function stateFor(frame){
+      var s = states.get(frame);
+      if(!s){ s = {phase:'idle', dwellT:0, exitT:0}; states.set(frame, s); }
+      return s;
+    }
+
+    function start(frame){
+      var fr = frame.querySelector('iframe');
+      if(!fr || !fr.dataset.scale) return false; // not fitted yet — a later re-entry will catch it
+      var dist = parseInt(frame.dataset.scroll || '1600', 10);
+      if(dist < 200) return false; // nothing meaningful to travel
+      var k = parseFloat(fr.dataset.scale);
+      fr.style.transition = 'transform 7s linear';
+      fr.style.transform  = 'scale(' + k + ') translateY(' + (-(startOf(frame) + dist)) + 'px)';
+      return true;
+    }
+
+    function reset(frame){
+      var fr = frame.querySelector('iframe');
+      if(!fr) return;
+      fr.style.transition = 'none';
+      fit(frame);
+    }
+
     var panIO = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         if(!touchPan()) return; // hover-capable device — leave the pointer-driven pan alone entirely
         var frame = e.target;
-        var fr = frame.querySelector('iframe');
-        if(!fr) return;
-        if(e.isIntersecting){
-          if(current && current !== frame) fit(current);
-          if(!fr.dataset.scale) return; // not fitted yet — next crossing will catch it
-          var dist = parseInt(frame.dataset.scroll || '1600', 10);
-          if(dist < 200) return; // nothing meaningful to travel
-          var k = parseFloat(fr.dataset.scale);
-          fr.style.transition = 'transform 7s linear';
-          fr.style.transform  = 'scale(' + k + ') translateY(' + (-(startOf(frame) + dist)) + 'px)';
-          current = frame;
-        } else {
-          fr.style.transition = 'none';
-          fit(frame);
-          if(current === frame) current = null;
+        var s = stateFor(frame);
+        var ratio = e.intersectionRatio;
+
+        if(!e.isIntersecting || ratio <= 0){
+          clearTimeout(s.dwellT);
+          if(s.phase === 'pending') s.phase = 'idle'; // never actually started — just cancel
+          else if(s.phase === 'running'){
+            clearTimeout(s.exitT);
+            s.exitT = setTimeout(function(){
+              s.phase = 'idle';
+              reset(frame);
+            }, EXIT_DEBOUNCE);
+          }
+          return;
         }
+
+        clearTimeout(s.exitT); // still (or again) on screen — cancel any pending reset
+
+        if(ratio >= ENTRY){
+          if(s.phase === 'idle'){
+            s.phase = 'pending';
+            clearTimeout(s.dwellT);
+            s.dwellT = setTimeout(function(){
+              if(s.phase !== 'pending' || !touchPan()) return;
+              s.phase = start(frame) ? 'running' : 'idle';
+            }, DWELL);
+          }
+          // already pending or running: let it be, no restart
+        } else if(s.phase === 'pending'){
+          // dropped back below entry before the dwell fired — not a real visit
+          clearTimeout(s.dwellT);
+          s.phase = 'idle';
+        }
+        // phase === 'running' and 0 < ratio < ENTRY: exactly the case that must
+        // NOT reset — the tour keeps playing through the rest of the scroll.
       });
-    }, {threshold:.55});
+    }, {threshold:[0, ENTRY], rootMargin:'-64px 0px 0px 0px'}); // clears the sticky header's own height
     frames.forEach(function(frame){ panIO.observe(frame); });
   })();
 
