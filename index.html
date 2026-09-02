@@ -1179,13 +1179,15 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
    Three projects, three different things to do with your hand. All of it
    sits on overlays inside .window — the iframe's own transform belongs to
    the live-preview and pan systems and nothing here writes to it.       */
-@property --pr{syntax:'<length>';inherits:true;initial-value:0px;}
+/* 1px, not 0: a zero-radius radial mask is under-defined and Safari has
+   rendered it as fully transparent, which would drop the veil entirely. */
+@property --pr{syntax:'<length>';inherits:true;initial-value:1px;}
 
 /* 02 — H&M. The bay is under a swirled, unpolished veil until you move
    across it, and the panel comes up clean under your finger: the same
    thing that project's own homepage does, offered here at preview size. */
 .polish{
-  --pr:0px;
+  --pr:1px;
   position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
     radial-gradient(120% 130% at 30% 18%, rgba(26,18,10,.40), rgba(7,6,5,.58)),
@@ -1295,6 +1297,20 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   -webkit-text-stroke-color:rgba(239,235,227,.085);
 }
 
+
+/* At rest the two off-centre screens are already turned, each one facing
+   the wall it is leaving through — so the composition reads as objects
+   standing in a room rather than rectangles pasted on a page. Picking one
+   up turns it back toward you. Two and a half degrees: enough to see, far
+   too little to keystone the site rendering inside it. */
+@media (min-width:1000px){
+  .s-02 .sel-media .frame{transform:perspective(2400px) rotateY(-2.4deg) translateY(var(--flift,0px));}
+  .s-03 .sel-media .frame{transform:perspective(2400px) rotateY(2.4deg)  translateY(var(--flift,0px));}
+}
+@media (min-width:1000px) and (hover:hover) and (pointer:fine){
+  .s-02 .sel-media .frame:hover{transform:perspective(2400px) rotateY(-.5deg) translateY(var(--flift,0px));}
+  .s-03 .sel-media .frame:hover{transform:perspective(2400px) rotateY(.5deg)  translateY(var(--flift,0px));}
+}
 
 /* -- the screens sit in real space ---------------------------------------
    .frame already carries the perspective; this gives its window somewhere
