@@ -25,6 +25,25 @@ under reduced motion, and falls back to `.no-fx` CSS gradients if the context
 will not start. Sections that need the field to show through must use a
 translucent background — `.contact` and `footer` do.
 
+## Spatial objects and per-project signatures
+Four spatial objects for the whole page — a ribbon in the hero, a glass pane in
+the contact sheet, an arc in About, a sheet under the closing scene. Each lives
+in an `.obj-wrap` (`position:absolute; inset:0; z-index:-1; overflow:hidden`)
+inside a `position:relative` section; the wrapper's own overflow is what
+guarantees an object can never widen the document. `.contact > *` must keep its
+`:not(.obj-wrap)` exclusion or the object jumps in front of the text.
+
+Each project has one signature interaction, all of it on overlays *inside*
+`.window` — never on the iframe:
+- **s-01 Snowzan** — the tilt handler adds `scale(1.035)` for this frame only.
+- **s-02 H&M** — `.polish`, a swirled veil whose radial mask opens to `--pr:210px`
+  on hover (`@property --pr`, initial 1px: a zero radius is under-defined and
+  Safari renders it fully transparent). Drops to `opacity:.18` on coarse pointers.
+- **s-03 GrimeVPN** — `.scan`, a line grid plus one travelling band, animation
+  paused unless `.s-03.active`.
+The two off-centre screens carry a resting `rotateY(±2.4deg)` that relaxes to
+±0.5deg on hover.
+
 ## Load-bearing details — do not change casually
 - **Live previews.** `.frame[data-live]` → `.window{aspect-ratio:16/9 ≥760px, 5/4 below}`
   → `iframe{width:var(--srcw); height:2600px}`. `srcWidth()` = 430 below 760px viewport,
