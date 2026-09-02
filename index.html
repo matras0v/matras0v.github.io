@@ -844,7 +844,7 @@ h2{
 }
 @media (min-width:860px){
   .step{
-    grid-template-columns:auto minmax(0,1fr) minmax(0,1.25fr);
+    grid-template-columns:auto minmax(0,.72fr) minmax(0,1.25fr);
     gap:var(--s5);align-items:center;padding-block:clamp(48px,5vw,88px);
   }
 }
@@ -900,12 +900,33 @@ h2{
   line-height:.9;margin-bottom:var(--s5);
 }
 .owns h3 .ln:nth-child(2){color:var(--marker);}
-.owns ul{list-style:none;display:grid;gap:var(--s4);grid-template-columns:1fr;}
-@media (min-width:640px){
-  .owns ul{grid-template-columns:1fr 1fr;gap:var(--s5) var(--s6);}
+.owns ul{list-style:none;display:grid;gap:0;grid-template-columns:1fr;border-top:1px solid var(--line);}
+/* Ruled rows, like the project spec lists and the contact rail: the four
+   claims are the receipt for the statement beside them, so they should
+   read as a document rather than as four sentences floating in a void. */
+.owns li{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:var(--s3) 0;border-bottom:1px solid var(--line);
+  font-size:clamp(16px,1.15vw,18px);line-height:1.5;color:var(--paper-2);
 }
-.owns li{display:flex;gap:14px;font-size:clamp(16px,1.2vw,19px);color:var(--paper-2);}
-.owns li svg{flex:none;margin-top:5px;color:var(--marker);}
+.owns li svg{flex:none;margin-top:4px;color:var(--marker);}
+/* Stacked, the list's own closing rule and the section's bottom rule sat
+   a full --s6 apart and read as an empty row. Beside the statement the
+   list needs its closing rule; underneath it, the section already has one. */
+@media (max-width:999px){ .owns li:last-child{border-bottom:none;} }
+/* Above 1000px the statement stops running the full width and holds the
+   left of a real two-column scene, with the receipt centred against it —
+   the right half of this section used to be plain black. */
+@media (min-width:1000px){
+  .owns{
+    display:grid;grid-template-columns:minmax(0,1.22fr) minmax(0,1fr);
+    gap:var(--s7);align-items:center;
+  }
+  .owns h3{
+    font-size:clamp(52px,7.6vw,150px);
+    margin-bottom:0;
+  }
+}
 
 /* --------------------------------------------------------------- about --- */
 .about-lead{
