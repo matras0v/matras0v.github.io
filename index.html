@@ -73,6 +73,35 @@
   --gap: clamp(16px, 1.6vw, 28px);
 }
 
+/* ============================================================ the field ===
+   One generative surface running the whole length of the page, rendered
+   once in WebGL and left fixed to the viewport. It is a lit metal-and-ink
+   topography, not a gradient: fbm height, a real normal, one moving key
+   light, and thin contour ridges where the surface bends. The hero sees it
+   at full strength; everything below sees the residue, so no section is
+   ever a plain black rectangle and no section competes with the work.
+   uAccent is handed the colour of whichever project is currently on
+   screen, so the room takes its light from the screens hanging in it —
+   the same rule the whole page is built on.
+   Fixed + z-index:-1: above the body's own colour, below every element,
+   never repainted by scrolling, never in the way of a pointer.          */
+#fx{
+  position:fixed;inset:0;z-index:-1;
+  width:100%;height:100%;
+  display:block;pointer-events:none;
+  opacity:0;transition:opacity 1.2s ease;
+}
+#fx.on{opacity:1;}
+/* No WebGL: the room keeps a hand-built version of the same three lights
+   rather than falling back to flat black. */
+.no-fx body{
+  background:
+    radial-gradient(1100px 780px at 16% 2%, rgba(239,235,227,.045), transparent 58%) fixed,
+    radial-gradient(900px 700px at 88% 16%, rgba(110,91,255,.05), transparent 55%) fixed,
+    radial-gradient(1200px 800px at 44% 104%, rgba(206,78,42,.04), transparent 56%) fixed,
+    var(--void);
+}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
@@ -168,62 +197,109 @@ button{font:inherit;color:inherit;background:none;border:0;}
 .nav-links a:hover,.nav-links a.here{color:var(--paper);}
 .nav-links a.here::after{transform:scaleX(1);}
 
-/* Squared, not pill. A print edge, not a chat bubble. */
+/* --------------------------------------------------------------- CTAs -----
+   One interaction language for every action on the page. The surface is a
+   real material: a lit top edge, a shadow that grows as the button lifts,
+   and a single diagonal pass of light that answers the pointer instead of
+   looping on its own. --mx/--my (pointer, written by JS) place a soft
+   highlight inside the face; --mgx/--mgy carry the magnetic offset, which
+   lives in the same transform as the lift and the press so nothing ever
+   fights over the property.                                              */
 .btn{
+  --mgx:0px; --mgy:0px; --lift:0px; --press:1;
+  position:relative;z-index:0;overflow:hidden;isolation:isolate;
   display:inline-flex;align-items:center;justify-content:center;gap:9px;
-  min-height:48px;padding:0 22px;
+  min-height:50px;padding:0 24px;
   background:var(--paper);color:var(--void);
   border:1px solid var(--paper);
-  border-radius:2px;
+  border-radius:11px;
   font-weight:500;font-size:15px;
   white-space:nowrap;
-  transition:background-color .2s ease, color .2s ease, border-color .2s ease,
-             transform .25s var(--ease-out), box-shadow .3s ease;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85), 0 1px 2px rgba(0,0,0,.5);
+  transform:translate(var(--mgx),var(--mgy)) translateY(var(--lift)) scale(var(--press));
+  transition:transform .32s var(--ease-out), box-shadow .35s var(--ease-out),
+             background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+/* The light inside the face — follows the pointer across the button and
+   fades out the moment it leaves. */
+.btn::before{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
+  background:radial-gradient(120px circle at var(--mx,50%) var(--my,50%),
+             rgba(255,255,255,.9), transparent 70%);
+  opacity:0;transition:opacity .3s ease;pointer-events:none;
+}
+/* and the sweep — one pass, on entry, never a loop */
+.btn::after{
+  content:"";position:absolute;inset:-1px;z-index:-1;border-radius:inherit;
+  background:linear-gradient(112deg, transparent 38%, rgba(11,11,12,.28) 50%, transparent 62%);
+  transform:translateX(-130%);pointer-events:none;
 }
 @media (hover:hover){
-  .btn:hover{background:#fff;border-color:#fff;transform:translateY(-1px);}
-  .btn:not(.btn-ghost):hover{box-shadow:0 10px 26px -10px rgba(239,235,227,.4);}
+  .btn:hover{
+    --lift:-2px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.95),
+               0 18px 40px -18px rgba(239,235,227,.5),
+               0 2px 6px rgba(0,0,0,.45);
+  }
+  .btn:hover::before{opacity:.55;}
+  .btn:hover::after{transform:translateX(130%);transition:transform .78s var(--ease-out);}
 }
-.btn:active{transform:translateY(0);}
-.btn .arrow{display:inline-block;transition:transform .22s var(--ease-out);}
-.btn:hover .arrow{transform:translateX(2px);}
-@media (prefers-reduced-motion:reduce){
-  .btn{transition:background-color .2s ease, color .2s ease, border-color .2s ease;}
-  .btn:hover{transform:none;box-shadow:none;}
+.btn:active{--press:.975; --lift:0px;}
+.btn .arrow{
+  display:inline-block;
+  transition:transform .3s var(--ease-out);
 }
-/* Reserved for the two conversion moments (hero + final CTA) — a single
-   diagonal pass of light on hover, not a constant loop, so it stays a
-   response to the visitor rather than a background animation. */
-.btn-shimmer{position:relative;overflow:hidden;}
-.btn-shimmer::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(115deg, transparent 40%, rgba(11,11,12,.35) 50%, transparent 60%);
-  transform:translateX(-120%);
-}
-@media (hover:hover){
-  .btn-shimmer:hover::after{transform:translateX(120%);transition:transform .7s ease;}
-}
-@media (prefers-reduced-motion:reduce){ .btn-shimmer::after{display:none;} }
+.btn:hover .arrow{transform:translate(3px,-3px);}
+.btn svg{transition:transform .3s var(--ease-out);}
+.btn:hover svg{transform:scale(1.06);}
+
+/* Secondary: dark glass rather than an outline. The border is a gradient
+   ring that brightens along the top edge on hover — light landing on a
+   pane, not a colour swap. */
 .btn-ghost{
-  position:relative;z-index:0;overflow:hidden;
-  background:transparent;color:var(--paper);border-color:var(--line-2);
+  background:rgba(239,235,227,.045);
+  color:var(--paper);
+  border-color:transparent;
+  backdrop-filter:blur(10px) saturate(1.2);
+  -webkit-backdrop-filter:blur(10px) saturate(1.2);
+  box-shadow:inset 0 1px 0 rgba(239,235,227,.14), 0 1px 2px rgba(0,0,0,.4);
 }
-.btn-ghost:hover{border-color:var(--paper);}
-/* A fill sweeping in from the left, not a colour swap — the same "made
-   by hand" register as the underline on the nav links. z-index:-1 keeps
-   it below the button's own text, contained by the stacking context the
-   z-index:0 above establishes. */
 .btn-ghost::before{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:rgba(239,235,227,.07);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .28s var(--ease-out);
-  pointer-events:none;
+  background:radial-gradient(150px circle at var(--mx,50%) var(--my,50%),
+             rgba(239,235,227,.16), transparent 70%);
 }
-.btn-ghost:hover::before{transform:scaleX(1);}
+.btn-ghost::after{
+  background:linear-gradient(112deg, transparent 38%, rgba(239,235,227,.16) 50%, transparent 62%);
+}
+.btn-ghost{border-color:rgba(239,235,227,.17);}
+@media (hover:hover){
+  .btn-ghost:hover{
+    background-color:rgba(239,235,227,.085);
+    border-color:rgba(239,235,227,.46);
+    box-shadow:inset 0 1px 0 rgba(239,235,227,.24), 0 16px 34px -20px rgba(0,0,0,.9);
+  }
+  .btn-ghost:hover::before{opacity:.85;}
+}
+/* Reserved for the two conversion moments (hero + final CTA): a taller
+   face and a warm bloom underneath, so the primary action on the page is
+   unmistakably the primary action. */
+.btn-shimmer{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),
+             0 10px 34px -20px rgba(206,78,42,.85),
+             0 1px 2px rgba(0,0,0,.5);
+}
+@media (hover:hover){
+  .btn-shimmer:hover{
+    box-shadow:inset 0 1px 0 rgba(255,255,255,1),
+               0 26px 60px -22px rgba(206,78,42,.7),
+               0 16px 40px -20px rgba(239,235,227,.5);
+  }
+}
 @media (prefers-reduced-motion:reduce){
-  .btn .arrow{transition:none;}
-  .btn-ghost::before{transition:none;}
+  .btn{transition:background-color .2s ease, color .2s ease;}
+  .btn::after{display:none;}
+  .btn .arrow,.btn svg{transition:none;}
+  .btn:hover{--lift:0px;}
 }
 
 /* ------------------------------------------------------ the lit rectangle -
@@ -328,41 +404,6 @@ a.frame:active .window{transform:scale(1.002);}
 /* --------------------------------------------------------------- hero ---- */
 .hero{position:relative;padding-block:clamp(24px,3vw,52px) var(--s7b);row-gap:var(--s4);}
 
-/* A line field behind the opening headline — felt, not noticed. Absolute
-   and z-index:-1 within the hero's own stacking context (same trick as
-   the select-band ambient glow below), so it never competes with text
-   or intercepts a pointer. Alternating drift instead of a looping
-   keyframe means there is no reset frame to catch the eye. */
-.hero-paths{
-  position:absolute;inset:0;z-index:-1;
-  width:100%;height:100%;overflow:hidden;
-  pointer-events:none;
-}
-.hero-paths path{
-  fill:none;stroke:var(--paper);stroke-width:1;
-  vector-effect:non-scaling-stroke;
-  transform-box:fill-box;transform-origin:center;
-  animation:hero-drift 26s var(--ease-in-out) infinite alternate;
-}
-.hero-paths .p1{opacity:.06;animation-duration:24s;}
-.hero-paths .p2{opacity:.04;animation-duration:29s;animation-delay:-6s;}
-.hero-paths .p3{opacity:.055;animation-duration:22s;animation-delay:-11s;}
-.hero-paths .p4{opacity:.03;animation-duration:27s;animation-delay:-3s;}
-.hero-paths .p5{stroke:var(--marker);opacity:.028;animation-duration:31s;animation-delay:-16s;}
-@keyframes hero-drift{
-  from{transform:translate(0,0) rotate(0deg);}
-  to{transform:translate(-1.4%,.8%) rotate(.3deg);}
-}
-@media (max-width:600px){
-  .hero-paths .p4,.hero-paths .p5{display:none;}
-  .hero-paths .p1{opacity:.045;}
-  .hero-paths .p2{opacity:.03;}
-  .hero-paths .p3{opacity:.04;}
-}
-@media (prefers-reduced-motion: reduce){
-  .hero-paths path{animation:none;}
-}
-
 /* ---------------------------------------------------------- ghost word ---
    One giant outline word per major section — the wordmark is on the wall
    of the room, oversized enough to read as architecture rather than a
@@ -393,12 +434,9 @@ a.frame:active .window{transform:scale(1.002);}
   right:-1%;top:22%;
   font-size:clamp(90px,16vw,250px);
 }
-#contact .ghost-word{
-  left:-2%;bottom:3%;
-  font-size:clamp(90px,13.5vw,260px);
-}
+
 @media (max-width:760px){
-  .hero .ghost-word,#about .ghost-word,#contact .ghost-word{display:none;}
+  .hero .ghost-word,#about .ghost-word{display:none;}
 }
 
 .eyebrow{
@@ -896,9 +934,12 @@ h2{
    the page's own grammar rather than a new one. */
 .contact{
   position:relative;overflow:hidden;
-  min-height:74dvh;align-content:center;
+  min-height:78dvh;align-content:center;
   padding-block:var(--s7b);
-  background:var(--pit);
+  /* Translucent, not opaque: the closing scene is the one place the field
+     is allowed to come all the way forward, so the room's own light is
+     what the last screen is lit by. */
+  background:linear-gradient(180deg, rgba(6,6,7,.12), rgba(6,6,7,.42) 55%, rgba(6,6,7,.78));
   border-top:1px solid var(--line);
 }
 /* The room's last, quietest light — behind the statement, static (not
@@ -906,15 +947,22 @@ h2{
    overflow:hidden on .contact itself is the safety net, so a generous
    radius can never push scrollWidth out regardless of the maths. */
 .contact::before{
-  content:"";position:absolute;left:34%;top:50%;z-index:0;
-  width:min(1100px,140vw);aspect-ratio:1.3;
+  content:"";position:absolute;left:32%;top:52%;z-index:0;
+  width:min(1000px,130vw);aspect-ratio:1.3;
   transform:translate(-50%,-50%);
-  background:
-    radial-gradient(closest-side, rgba(239,235,227,.15), transparent 68%),
-    radial-gradient(closest-side, rgba(110,91,255,.07), transparent 72%);
-  filter:blur(76px);pointer-events:none;
+  background:radial-gradient(closest-side, rgba(239,235,227,.085), transparent 70%);
+  filter:blur(80px);pointer-events:none;
 }
-.contact > *:not(.ghost-word){position:relative;z-index:1;}
+/* The seam the last scene opens on: one lit edge across the full width,
+   warm at the centre where the field's key light sits. */
+.contact::after{
+  content:"";position:absolute;left:0;right:0;top:-1px;height:1px;z-index:2;
+  background:linear-gradient(90deg, transparent,
+             rgba(239,235,227,.40) 20%, rgba(206,78,42,.85) 50%,
+             rgba(239,235,227,.40) 80%, transparent);
+  pointer-events:none;
+}
+.contact > *{position:relative;z-index:1;}
 .contact-in{display:grid;gap:var(--s5);}
 @media (min-width:900px){
   .contact-in{
@@ -977,7 +1025,7 @@ h2{
   .chan:hover{padding-left:2px;}
 }
 
-footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(--pit);}
+footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(6,6,7,.72);}
 .foot-in{
   display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);
   align-items:center;color:var(--paper-3);
@@ -1052,11 +1100,207 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
    nothing competes with the work. */
 .vignette{
   position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(142% 132% at 50% 46%, transparent 54%, rgba(0,0,0,.5) 100%);
+}
+
+
+/* ====================================================== depth & motion ====
+   Everything below is the second layer of the room: the parallax the
+   scroll drives, the perspective the screens sit in, the light that
+   follows the pointer, and the cursor that tells you a frame is a door.
+   All of it is transform/opacity only, all of it is gated on a fine
+   pointer, and all of it is switched off under reduced motion.        */
+
+/* -- parallax ------------------------------------------------------------
+   One rAF scroll loop writes --py per element; nothing here reads layout,
+   so the loop is a handful of multiplications a frame. Different classes
+   deliberately travel at different rates: the wordmarks drift slowest,
+   the step numerals sit between them and the copy, and the copy does not
+   move at all — that difference is what makes the page read as depth
+   rather than as "everything slides". */
+.ghost-word{will-change:transform;}
+.par{transform:translate3d(var(--px,0px), var(--py,0px), 0);}
+.hero .ghost-word.par{transform:translate3d(var(--px,0px), var(--py,0px), 0);}
+#about .ghost-word.par{transform:translate3d(var(--px,0px), var(--py,0px), 0);}
+/* Both wordmarks are masked so they dissolve where the words sit over
+   them: architecture on the wall behind the type, never a second layer of
+   type competing with it. About fades toward the reading column on the
+   left; the closing scene fades upward, out of the sentence. */
+#about .ghost-word{
+  -webkit-mask-image:linear-gradient(100deg, transparent 12%, #000 62%);
+  mask-image:linear-gradient(100deg, transparent 12%, #000 62%);
+  -webkit-text-stroke-color:rgba(239,235,227,.085);
+}
+
+
+/* -- the screens sit in real space ---------------------------------------
+   .frame already carries the perspective; this gives its window somewhere
+   to go in Z, and lifts the mount board itself a couple of pixels so the
+   whole object comes toward you instead of the picture growing inside a
+   static border. The iframe's own transform is untouched — that belongs
+   to the live-preview and pan systems and nothing here writes to it. */
+.frame{
+  transform:translateY(var(--flift,0px));
+  transition:box-shadow .6s var(--ease-out), border-color .6s ease,
+             transform .55s var(--ease-out);
+}
+@media (hover:hover) and (pointer:fine){
+  .frame:hover{--flift:-4px;}
+  a.frame:hover .window{transform:translateZ(26px) scale(1.004);}
+}
+/* While the pointer is actually driving the tilt the window needs to
+   answer immediately; the long ease is for arriving and leaving. */
+.window.live{transition:transform .18s linear;}
+
+/* Ambient light under a frame, strengthened while it is the one in hand —
+   the project's own colour, thrown down onto the room. */
+.sel-media,.hero-media,.cell{--bleed:.62;}
+.select.active .sel-media::before{opacity:.95;}
+
+/* -- the cursor ----------------------------------------------------------
+   A dot that leads and a ring that lags behind it, and one word when the
+   thing under the pointer is a door. Fine pointers only; the real cursor
+   is never hidden, so nothing is lost if this fails to start. */
+.cursor{
+  position:fixed;inset:0;z-index:120;overflow:hidden;
+  pointer-events:none;opacity:0;
+  transition:opacity .3s ease;
+}
+.cursor.on{opacity:1;}
+.cursor-dot,.cursor-ring,.cursor-label{
+  position:absolute;left:0;top:0;
+  transform:translate(-50%,-50%);
+  will-change:transform;
+}
+.cursor-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--paper);
+  transform:translate(var(--dx,0px),var(--dy,0px)) translate(-50%,-50%);
+  transition:opacity .25s ease;
+}
+.cursor-ring{
+  width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(239,235,227,.42);
+  transform:translate(var(--rx,0px),var(--ry,0px)) translate(-50%,-50%) scale(var(--rs,1));
+  transition:width .35s var(--ease-out), height .35s var(--ease-out),
+             border-color .35s ease, background-color .35s ease;
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+}
+.cursor-label{
+  transform:translate(var(--rx,0px),var(--ry,0px)) translate(-50%,-50%);
+  font-family:var(--f-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--void);opacity:0;white-space:nowrap;
+  transition:opacity .25s ease;
+}
+.cursor.door .cursor-ring{
+  width:78px;height:78px;
+  background:rgba(239,235,227,.94);
+  border-color:transparent;
+}
+.cursor.door .cursor-dot{opacity:0;}
+.cursor.door .cursor-label{opacity:1;}
+@media (hover:none),(pointer:coarse){ .cursor{display:none;} }
+
+/* -- the process rail ----------------------------------------------------
+   The rail no longer jumps a third at a time: --progress is written from
+   the scroll position, and a light rides its head. The step in the light
+   gains a soft field of its own; the ones before and after fall back
+   half a stop so there is always exactly one step in focus.           */
+@media (min-width:640px){
+  .steps::before{
+    content:"";position:absolute;left:-6px;width:15px;height:15px;
+    top:calc(var(--progress,0%) - 7px);
+    border-radius:50%;
+    background:var(--marker);
+    box-shadow:0 0 0 4px rgba(206,78,42,.16), 0 0 26px 6px rgba(206,78,42,.5);
+    transition:top .7s var(--ease-out), opacity .5s ease;
+    opacity:var(--head,0);
+    pointer-events:none;z-index:2;
+  }
+}
+.step{position:relative;transition:opacity .6s ease;}
+.steps.armed .step{opacity:.42;}
+.steps.armed .step.active{opacity:1;}
+/* the light that travels with the active step */
+.step::before{
+  content:"";position:absolute;inset:-6% 0;z-index:-1;pointer-events:none;
   background:
-    radial-gradient(1200px 800px at 18% -8%, rgba(239,235,227,.035), transparent 58%),
-    radial-gradient(1000px 720px at 86% 20%, rgba(110,91,255,.026), transparent 55%),
-    radial-gradient(1300px 820px at 40% 112%, rgba(206,78,42,.022), transparent 56%),
-    radial-gradient(140% 130% at 50% 48%, transparent 58%, rgba(0,0,0,.4) 100%);
+    radial-gradient(58% 120% at 12% 50%, rgba(206,78,42,.15), transparent 66%),
+    radial-gradient(70% 130% at 40% 50%, rgba(239,235,227,.05), transparent 70%);
+  opacity:0;filter:blur(28px);
+  transition:opacity .8s var(--ease-out);
+}
+.step.active::before{opacity:1;}
+.step.active p.step-no{transform:translate3d(0,var(--py,0px),0) scale(1.03);}
+.step p.step-no{
+  transform:translate3d(0,var(--py,0px),0) scale(1);
+  transition:color .6s ease, -webkit-text-stroke-color .6s ease, transform .9s var(--ease-out);
+}
+
+/* -- the contact sheet answers the hand ---------------------------------- */
+.cell .frame{transition:box-shadow .5s var(--ease-out), border-color .5s ease,
+                        transform .45s var(--ease-out);}
+@media (hover:hover) and (pointer:fine){
+  .cell:hover .frame{--flift:-6px;}
+  .cell:hover .cell-name{color:var(--paper);}
+}
+
+/* -- the closing scene ---------------------------------------------------
+   A single pane of glass in front of the field, holding the whole ending.
+   The field keeps moving behind it; the pane only catches the pointer. */
+.contact-rail{
+  position:relative;
+  padding:var(--s4);
+  border-radius:18px;
+  background:linear-gradient(rgba(239,235,227,.035),rgba(239,235,227,.012));
+  border:1px solid rgba(239,235,227,.10);
+  box-shadow:inset 0 1px 0 rgba(239,235,227,.13), 0 40px 90px -50px rgba(0,0,0,.95);
+  backdrop-filter:blur(18px) saturate(1.25);
+  -webkit-backdrop-filter:blur(18px) saturate(1.25);
+  overflow:hidden;
+}
+.contact-rail::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),
+             rgba(239,235,227,.09), transparent 68%);
+  opacity:0;transition:opacity .45s ease;
+}
+.contact-rail:hover::before{opacity:1;}
+@media (max-width:520px){ .contact-rail{padding:var(--s3);border-radius:14px;} }
+.channels{border-top-color:rgba(239,235,227,.14);}
+.chan{border-bottom-color:rgba(239,235,227,.09);}
+.chan:hover{background:rgba(239,235,227,.06);border-radius:8px;}
+
+/* -- the nav knows how far you have read --------------------------------- */
+.nav-progress{
+  position:absolute;left:0;bottom:-1px;height:1px;
+  width:100%;transform:scaleX(var(--read,0));transform-origin:left;
+  background:linear-gradient(90deg, rgba(206,78,42,.9), rgba(239,235,227,.75));
+  opacity:0;transition:opacity .4s ease;
+  pointer-events:none;
+}
+.nav.solid .nav-progress{opacity:.85;}
+@media (min-width:1000px){
+  .nav-in{transition:height .3s var(--ease-out);}
+  .nav.solid .nav-in{height:64px;}
+}
+
+/* -- entrances -----------------------------------------------------------
+   Copy resolves out of blur, headings wipe line by line, and the screens
+   arrive with depth — three different behaviours, so the page does not
+   read as one fadeInUp applied to everything. */
+.js .rv-clip{clip-path:inset(0 0 100% 0);transform:perspective(1400px) rotateX(6deg) scale(1.03);}
+.js .rv-clip.in{transform:perspective(1400px) rotateX(0deg) scale(1);}
+
+@media (prefers-reduced-motion:reduce){
+  .frame,.window,.step,.step::before,.step p.step-no,
+  .cursor-ring,.cursor-label,.nav-progress,.contact-rail::before{transition:none;}
+  .cursor{display:none;}
+  .steps.armed .step{opacity:1;}
+  .par,.ghost-word{transform:none !important;}
+  .js .rv-clip{transform:none;}
+  .js .rv-clip.in{transform:none;}
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -1070,11 +1314,13 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
 </head>
 
 <body>
+<canvas id="fx" aria-hidden="true"></canvas>
 <div class="vignette" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span class="cursor-dot"></span><span class="cursor-ring"></span><span class="cursor-label"></span></div>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav">
+<header class="nav"><i class="nav-progress" aria-hidden="true"></i>
   <div class="shell"><div class="nav-in">
     <a class="brand" href="#top">MATRAS0V</a>
     <nav class="nav-links mono" aria-label="Sections">
@@ -1091,14 +1337,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
 
 <!-- ============================================================== hero -- -->
 <section class="hero shell">
-  <svg class="hero-paths" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <path class="p1" d="M-100 640 C300 500,700 760,1100 560 S1800 320,2000 460"/>
-    <path class="p2" d="M-100 300 C400 110,900 360,1300 160 S1900 250,2100 110"/>
-    <path class="p3" d="M-100 800 C500 850,1000 660,1500 800 S2000 700,2200 800"/>
-    <path class="p4" d="M-100 160 C350 250,800 60,1250 200 S1850 100,2100 250"/>
-    <path class="p5" d="M-100 500 C600 450,1000 560,1500 400 S2000 480,2200 420"/>
-  </svg>
-  <p class="ghost-word" aria-hidden="true">MATRAS0V</p>
+  <p class="ghost-word par" data-par="-.10" data-pointer=".5" aria-hidden="true">MATRAS0V</p>
   <div>
     <p class="eyebrow mono hero-seq"><span class="dot" aria-hidden="true"></span> Now booking · US &amp; UAE</p>
     <h1 class="lines"><span class="ln"><i>Your next customer is</i></span><span class="ln"><i>looking at your</i></span><span class="ln"><i>website <em>right now.</em></i></span></h1>
@@ -1334,7 +1573,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
 
 <!-- ============================================================= about -- -->
 <section class="band shell" id="about">
-  <p class="ghost-word" aria-hidden="true">VADIM</p>
+  <p class="ghost-word par" data-par="-.11" data-pointer=".3" aria-hidden="true">VADIM</p>
   <div class="band-head"><h2 class="lines rv"><span class="ln"><i>About</i></span></h2></div>
   <p class="about-lead rv">I'm <strong>Vadim Ivanchenko</strong>. I work alone, which is the point: you talk to the person building the thing, and nothing gets lost between a strategist, a designer and a developer who have never met your customers.</p>
   <div class="about-grid">
@@ -1350,7 +1589,6 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
 
 <!-- =========================================================== contact -- -->
 <section class="contact shell" id="contact">
-  <p class="ghost-word" aria-hidden="true">LET&rsquo;S BUILD</p>
   <div class="contact-in">
    <div class="contact-say">
     <h2 class="lines rv"><span class="ln"><i>Tell me about</i></span><span class="ln"><i>your business.</i></span></h2>
@@ -1424,11 +1662,13 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
   onScroll();
 
   /* -- frames turn toward the cursor -------------------------------------
-     Three degrees at the corner. Any more and a website reads as a toy.
-     Excludes the frames that are themselves project links: those get the
-     restrained, non-tilt "this is active" hover in CSS instead — a click
-     affordance should feel steady, not like a decorative toy.            */
-  document.querySelectorAll('.frame:not(a)').forEach(function(f){
+     Two and a half degrees at the corner and a push forward in Z. Any more
+     and a website reads as a toy; this much reads as a physical object
+     answering your hand. It runs on the project links too now — a door you
+     can feel is better than a door that only changes colour — and it
+     writes to .window's transform only, never to the iframe inside it,
+     which the live-preview and pan systems own outright.                */
+  document.querySelectorAll('.frame').forEach(function(f){
     var win = f.querySelector('.window');
     if(!win) return;
     var raf = 0;
@@ -1439,12 +1679,15 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
       var dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(function(){
-        win.style.transform = 'scale(1.015) rotateY(' + (dx * 3).toFixed(2) + 'deg) ' +
-                              'rotateX(' + (-dy * 3).toFixed(2) + 'deg)';
+        win.classList.add('live');
+        win.style.transform =
+          'translateZ(26px) rotateY(' + (dx * 2.5).toFixed(2) + 'deg) ' +
+          'rotateX(' + (-dy * 2.5).toFixed(2) + 'deg)';
       });
     });
     f.addEventListener('pointerleave', function(){
       cancelAnimationFrame(raf);
+      win.classList.remove('live');
       win.style.transform = '';
     });
   });
@@ -1697,6 +1940,384 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
     }, {threshold:[0, ENTRY], rootMargin:'-64px 0px 0px 0px'}); // clears the sticky header's own height
     frames.forEach(function(frame){ panIO.observe(frame); });
   })();
+
+
+  /* ======================================================== the field =====
+     A lit topographic surface, WebGL, one full-screen triangle. fbm height
+     → real normal → one moving key light, plus thin ridges where the
+     surface bends. It is fixed to the viewport, so scrolling never
+     repaints it; what scrolling changes is how loud it is (uHero) and
+     what colour is in it (uAccent, handed over by whichever project is on
+     screen). If the context will not start, .no-fx keeps a hand-built
+     version of the same three lights and nothing else changes.          */
+  var FX = (function(){
+    var cv = document.getElementById('fx');
+    if(!cv) return null;
+    var gl = cv.getContext('webgl', {alpha:false, antialias:false, depth:false,
+                                     powerPreference:'low-power'})
+          || cv.getContext('experimental-webgl');
+    if(!gl){ document.documentElement.classList.add('no-fx'); cv.remove(); return null; }
+
+    var VS = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.0,1.0);}';
+    var FS = [
+    'precision mediump float;',
+    'uniform vec2 uRes; uniform float uTime; uniform vec2 uPtr;',
+    'uniform float uHero; uniform float uEnd; uniform vec3 uAccent;',
+    'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}',
+    'float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.0-2.0*f);',
+    ' return mix(mix(hash(i),hash(i+vec2(1.0,0.0)),u.x),',
+    '            mix(hash(i+vec2(0.0,1.0)),hash(i+vec2(1.0,1.0)),u.x),u.y);}',
+    /* Four octaves rather than five, and the whole field rendered at about
+       a third of device resolution: it is smooth by construction, so the
+       compositor's upscale is invisible and that one decision is most of
+       the performance budget. The double domain warp stays — it is what
+       makes the surface read as something flowing rather than as noise. */
+    'float fbm(vec2 p){float v=0.0,a=0.55;',
+    ' for(int i=0;i<4;i++){v+=a*noise(p);p=mat2(1.62,1.2,-1.2,1.62)*p;a*=0.5;}return v;}',
+    'float height(vec2 p,float t){',
+    ' vec2 q=vec2(fbm(p+vec2(0.0,t*0.05)),fbm(p+vec2(5.2,1.3)-vec2(t*0.04,0.0)));',
+    ' vec2 r=vec2(fbm(p+2.4*q+vec2(1.7,9.2)),fbm(p+2.4*q+vec2(8.3,2.8)));',
+    ' return fbm(p+2.2*r);}',
+    'void main(){',
+    ' vec2 uv=gl_FragCoord.xy/uRes; float asp=uRes.x/uRes.y;',
+    ' vec2 p=vec2((uv.x-0.5)*asp,uv.y-0.5);',
+    ' float t=uTime;',
+    ' vec2 pt=(uPtr-0.5)*vec2(asp,1.0);',
+    ' vec2 sp=p*0.92+pt*0.10;',
+    ' float e=0.0032;',
+    ' float h=height(sp,t);',
+    ' float hx=height(sp+vec2(e,0.0),t);',
+    ' float hy=height(sp+vec2(0.0,e),t);',
+    ' vec3 n=normalize(vec3((h-hx)*0.048/e,(h-hy)*0.048/e,1.0));',
+    ' vec3 L=normalize(vec3(cos(t*0.16)*0.55+pt.x*0.7, sin(t*0.13)*0.42+pt.y*0.55+0.25, 0.8));',
+    ' float diff=max(dot(n,L),0.0);',
+    ' float spec=pow(diff,9.0);',
+    ' float ridge=abs(fract(h*3.0-t*0.02)-0.5);',
+    ' float lines=smoothstep(0.478,0.5,ridge)*smoothstep(0.25,0.65,h);',
+    ' float amp=mix(0.22,1.0,uHero)+uEnd*uEnd*0.9;',
+    /* Two pools of light on a graphite surface, not an all-over sheen: one
+       warm key that drifts and leans toward the pointer, one cool fill of
+       whatever colour the current project throws. Everywhere else the
+       surface stays the void, so type always has a quiet ground.        */
+    /* Both lights are placed in screen space, not in the aspect-corrected
+       space the surface uses — otherwise a portrait phone puts them off
+       the side of its own screen and the atmosphere disappears exactly
+       where it is hardest to earn. The pools also widen as the frame
+       narrows, so a phone keeps the same amount of light in view.     */
+    ' float k=mix(1.5,2.7,clamp(asp/1.6,0.0,1.0));',
+    ' vec2 lu=vec2(0.72+cos(t*0.11)*0.11+pt.x*0.20, 0.78+sin(t*0.09)*0.09+pt.y*0.16);',
+    ' vec2 lp=vec2((lu.x-0.5)*asp,lu.y-0.5);',
+    ' float fall=exp(-dot(p-lp,p-lp)*k);',
+    ' vec2 lv=vec2(0.20-cos(t*0.07)*0.09-pt.x*0.13, 0.36-sin(t*0.055)*0.10-pt.y*0.11);',
+    ' vec2 lq=vec2((lv.x-0.5)*asp,lv.y-0.5);',
+    ' float fal2=exp(-dot(p-lq,p-lq)*(k*0.8));',
+    ' vec3 warm=vec3(0.88,0.38,0.19);',
+    ' vec3 col=vec3(0.030,0.030,0.035)+vec3(0.013,0.013,0.017)*h*(0.4+0.6*amp);',
+    ' col+=warm*spec*fall*(0.42*amp);',
+    ' col+=uAccent*spec*fal2*(0.30*amp);',
+    ' col+=uAccent*diff*fal2*(0.045*amp);',
+    ' col+=vec3(0.92,0.90,0.86)*lines*(0.011*amp);',
+    /* The closing scene, and the only place the pointer carries its own
+       light: in the last screen the hand lights the room it is about to
+       write into. Everywhere else uEnd is zero and this term costs a
+       multiply. */
+    ' float bloom=exp(-dot(p-pt,p-pt)*1.5);',
+    ' col+=mix(warm,uAccent,0.45)*bloom*uEnd*uEnd*0.16;',
+    ' col+=vec3(0.95,0.93,0.90)*pow(bloom,2.5)*uEnd*uEnd*0.05;',
+    ' float v=smoothstep(0.12,1.05,length(vec2(p.x/asp,p.y))*1.5);',
+    ' col*=mix(0.80,1.10,v);',
+    ' col+=(hash(gl_FragCoord.xy+fract(t))-0.5)*0.006;',
+    ' gl_FragColor=vec4(max(col,0.0),1.0);',
+    '}'].join('\n');
+
+    function sh(type, src){
+      var o = gl.createShader(type);
+      gl.shaderSource(o, src); gl.compileShader(o);
+      if(!gl.getShaderParameter(o, gl.COMPILE_STATUS)) return null;
+      return o;
+    }
+    var vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS);
+    if(!vs || !fs){ document.documentElement.classList.add('no-fx'); cv.remove(); return null; }
+    var pr = gl.createProgram();
+    gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr, gl.LINK_STATUS)){
+      document.documentElement.classList.add('no-fx'); cv.remove(); return null;
+    }
+    gl.useProgram(pr);
+
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(pr, 'a');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+    var U = {};
+    ['uRes','uTime','uPtr','uHero','uEnd','uAccent'].forEach(function(k){
+      U[k] = gl.getUniformLocation(pr, k);
+    });
+
+    /* The field is smooth by construction, so it costs nothing to render it
+       at well under device resolution and let the compositor scale it up —
+       that alone is most of the performance budget. */
+    var coarse = matchMedia('(hover: none)').matches;
+    var scale  = coarse ? 0.26 : 0.33;
+    var state  = {ptr:[.5,.55], ptrT:[.5,.55], hero:1, end:0,
+                  acc:[.43,.36,1.0], accT:[.43,.36,1.0], t:0};
+
+    function size(){
+      var dpr = Math.min(devicePixelRatio || 1, 2);
+      var w = Math.max(1, Math.round(innerWidth  * dpr * scale));
+      var h = Math.max(1, Math.round(innerHeight * dpr * scale));
+      if(cv.width === w && cv.height === h) return;
+      cv.width = w; cv.height = h;
+      gl.viewport(0, 0, w, h);
+    }
+
+    function draw(){
+      size();
+      gl.uniform2f(U.uRes, cv.width, cv.height);
+      gl.uniform1f(U.uTime, state.t);
+      gl.uniform2f(U.uPtr, state.ptr[0], state.ptr[1]);
+      gl.uniform1f(U.uHero, state.hero);
+      gl.uniform1f(U.uEnd, state.end);
+      gl.uniform3f(U.uAccent, state.acc[0], state.acc[1], state.acc[2]);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    var last = 0, minFrame = coarse ? 33 : 0;   /* phones hold 30fps, not 60 */
+
+    function frame(ts){
+      requestAnimationFrame(frame);
+      if(document.hidden) return;               /* pause completely in a background tab */
+      if(ts - last < minFrame) return;
+      last = ts;
+      if(!reduce.matches) state.t += 0.0075;
+      /* pointer and accent are eased here, never written straight in — a
+         cursor jump must not snap the light across the room. */
+      state.ptr[0] += (state.ptrT[0] - state.ptr[0]) * 0.045;
+      state.ptr[1] += (state.ptrT[1] - state.ptr[1]) * 0.045;
+      for(var i=0;i<3;i++) state.acc[i] += (state.accT[i] - state.acc[i]) * 0.022;
+      draw();
+    }
+
+    draw();
+    cv.classList.add('on');
+    if(reduce.matches){
+      /* one still frame, then only redraw when something actually changes */
+      addEventListener('resize', draw, {passive:true});
+    } else {
+      requestAnimationFrame(frame);
+    }
+    addEventListener('resize', function(){ size(); draw(); }, {passive:true});
+
+    return {
+      state: state,
+      draw: draw,
+      pointer: function(x, y){ state.ptrT[0] = x; state.ptrT[1] = 1 - y; },
+      accent: function(rgb){ state.accT = rgb; }
+    };
+  })();
+
+  /* Project colours, in the field's own 0-1 space. Snowzan indigo, H&M
+     amber, GrimeVPN violet — the same values the frames throw downward. */
+  var ACCENTS = {
+    idle:  [.43,.36,1.00],
+    amber: [.78,.57,.25],
+    violet:[.66,.33,.97],
+    ember: [.81,.31,.16]
+  };
+  function accentFor(el){
+    if(!el) return ACCENTS.idle;
+    if(el.classList.contains('s-02')) return ACCENTS.amber;
+    if(el.classList.contains('s-03')) return ACCENTS.violet;
+    if(el.classList.contains('step')) return ACCENTS.ember;
+    return ACCENTS.idle;
+  }
+
+  /* ================================================ one scroll loop =======
+     Every scroll-driven value on the page is computed here, once a frame,
+     from numbers cached on resize — nothing in this loop reads layout, so
+     it cannot force a reflow no matter how fast the wheel turns.        */
+  var pars   = [].slice.call(document.querySelectorAll('.par'));
+  var heroEl = document.querySelector('.hero');
+  var stepsEl= document.querySelector('.steps');
+  var stepEls= [].slice.call(document.querySelectorAll('.step'));
+  var navPg  = document.querySelector('.nav-progress');
+  var contactEl = document.getElementById('contact');
+  var M = {};
+
+  function measure(){
+    M.doc     = document.documentElement.scrollHeight - innerHeight;
+    M.hero    = heroEl ? heroEl.offsetHeight : innerHeight;
+    M.contact = contactEl ? contactEl.getBoundingClientRect().top + scrollY : M.doc;
+    M.parTops = pars.map(function(el){
+      var r = el.getBoundingClientRect();
+      return r.top + scrollY + r.height / 2;
+    });
+    if(stepsEl){
+      var sr = stepsEl.getBoundingClientRect();
+      M.stepsTop = sr.top + scrollY;
+      M.stepsH   = sr.height;
+    }
+  }
+
+  function clamp(v, lo, hi){ return v < lo ? lo : (v > hi ? hi : v); }
+  var mid = innerHeight / 2;
+  function update(){
+    var y = scrollY;
+    mid = innerHeight / 2;
+
+    if(navPg) navPg.style.setProperty('--read', M.doc > 0 ? Math.min(1, y / M.doc).toFixed(4) : 0);
+
+    /* parallax — distance from this element's centre to the viewport's,
+       times its own rate. Slowest for the wordmarks, so they read as wall
+       behind everything else. */
+    for(var i = 0; i < pars.length; i++){
+      var d = (M.parTops[i] - (y + mid)) * parseFloat(pars[i].dataset.par || '.06');
+      pars[i].style.setProperty('--py', clamp(d, -70, 70).toFixed(1) + 'px');
+    }
+
+    /* the step numerals ride a second, gentler rate */
+    for(var k = 0; k < stepEls.length; k++){
+      var sn = stepEls[k].querySelector('.step-no');
+      if(!sn) continue;
+      var rr = stepEls[k].getBoundingClientRect();
+      sn.style.setProperty('--py', clamp(((rr.top + rr.height/2) - mid) * -.07, -34, 34).toFixed(1) + 'px');
+    }
+
+    /* the rail fills continuously with the scroll rather than a third at
+       a time, and its head only appears once the section is in the room */
+    if(stepsEl && M.stepsH){
+      var pr2 = (y + innerHeight * .62 - M.stepsTop) / M.stepsH;
+      pr2 = Math.max(0, Math.min(1, pr2));
+      stepsEl.style.setProperty('--progress', (pr2 * 100).toFixed(2) + '%');
+      stepsEl.style.setProperty('--head', pr2 > .002 && pr2 < .999 ? 1 : 0);
+    }
+
+    if(FX){
+      FX.state.hero = Math.max(0, Math.min(1, 1 - y / Math.max(1, M.hero * .85)));
+      FX.state.end  = Math.max(0, Math.min(1, (y + innerHeight - M.contact) / Math.max(1, innerHeight * .8)));
+      if(FX.state.hero > .05) FX.accent(ACCENTS.idle);
+      if(document.hidden) FX.draw();   /* keep the still frame honest when the loop is parked */
+    }
+  }
+
+  var upTick = false;
+  function requestUpdate(){
+    if(upTick) return;
+    upTick = true;
+    requestAnimationFrame(function(){ upTick = false; update(); });
+  }
+  measure(); update();
+  addEventListener('scroll', requestUpdate, {passive:true});
+  addEventListener('resize', function(){ measure(); update(); }, {passive:true});
+  addEventListener('load', function(){ measure(); update(); });
+
+  /* -- the room takes the colour of whatever screen is lit --------------- */
+  if(FX){
+    var accentSpy = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting) FX.accent(accentFor(e.target)); });
+    }, {rootMargin:'-40% 0px -40% 0px'});
+    document.querySelectorAll('.select, .step, #contact').forEach(function(el){ accentSpy.observe(el); });
+  }
+  if(stepsEl){
+    new IntersectionObserver(function(en){
+      stepsEl.classList.toggle('armed', en[0].isIntersecting);
+    }, {rootMargin:'-20% 0px -20% 0px'}).observe(stepsEl);
+  }
+
+  /* ================================================ pointer systems ======= */
+  var ptrRaf = 0, ptrX = innerWidth/2, ptrY = innerHeight/2;
+  addEventListener('pointermove', function(e){
+    ptrX = e.clientX; ptrY = e.clientY;
+    if(ptrRaf) return;
+    ptrRaf = requestAnimationFrame(function(){
+      ptrRaf = 0;
+      if(FX) FX.pointer(ptrX / innerWidth, ptrY / innerHeight);
+      if(FX && document.hidden) FX.draw();
+      /* the wordmarks drift a little against the hand as well as the scroll */
+      var nx = (ptrX / innerWidth - .5), ny = (ptrY / innerHeight - .5);
+      for(var i = 0; i < pars.length; i++){
+        var amt = parseFloat(pars[i].dataset.pointer || '0');
+        if(amt) pars[i].style.setProperty('--px', (nx * amt * 40).toFixed(1) + 'px');
+      }
+      cursorFrame();
+    });
+  }, {passive:true});
+
+  /* -- magnetic CTAs -----------------------------------------------------
+     Inside a small radius the button leans toward the pointer, and the
+     highlight inside its face tracks the same position. The offset goes
+     into --mgx/--mgy, which the button's single transform already owns,
+     so the lift and the press state can never be overwritten by this. */
+  if(fine()){
+    document.querySelectorAll('.btn').forEach(function(b){
+      var braf = 0;
+      b.addEventListener('pointermove', function(e){
+        var r = b.getBoundingClientRect();
+        var x = e.clientX - r.left, y = e.clientY - r.top;
+        cancelAnimationFrame(braf);
+        braf = requestAnimationFrame(function(){
+          b.style.setProperty('--mx', x + 'px');
+          b.style.setProperty('--my', y + 'px');
+          b.style.setProperty('--mgx', ((x - r.width/2)  * .16).toFixed(1) + 'px');
+          b.style.setProperty('--mgy', ((y - r.height/2) * .26).toFixed(1) + 'px');
+        });
+      });
+      b.addEventListener('pointerleave', function(){
+        cancelAnimationFrame(braf);
+        b.style.setProperty('--mgx', '0px');
+        b.style.setProperty('--mgy', '0px');
+      });
+    });
+    var rail = document.querySelector('.contact-rail');
+    if(rail){
+      rail.addEventListener('pointermove', function(e){
+        var r = rail.getBoundingClientRect();
+        rail.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        rail.style.setProperty('--my', (e.clientY - r.top)  + 'px');
+      });
+    }
+  }
+
+  /* -- the cursor --------------------------------------------------------
+     A dot on the pointer and a ring easing in behind it. Over a frame that
+     is also a link the ring opens into a disc and says what the click
+     does. The native cursor is never hidden. */
+  var cur = document.querySelector('.cursor');
+  var curLabel = cur && cur.querySelector('.cursor-label');
+  var cx = ptrX, cy = ptrY, curOn = false, curRaf = 0;
+  function cursorFrame(){
+    if(!cur || !fine()) return;
+    if(!curOn){ cur.classList.add('on'); curOn = true; }
+    cur.style.setProperty('--dx', ptrX + 'px');
+    cur.style.setProperty('--dy', ptrY + 'px');
+    if(!curRaf) curRaf = requestAnimationFrame(curEase);
+  }
+  function curEase(){
+    cx += (ptrX - cx) * .17;
+    cy += (ptrY - cy) * .17;
+    cur.style.setProperty('--rx', cx.toFixed(1) + 'px');
+    cur.style.setProperty('--ry', cy.toFixed(1) + 'px');
+    if(Math.abs(ptrX - cx) > .4 || Math.abs(ptrY - cy) > .4){
+      curRaf = requestAnimationFrame(curEase);
+    } else { curRaf = 0; }
+  }
+  if(cur){
+    document.querySelectorAll('a.frame').forEach(function(f){
+      var label = f.closest('.cell') ? 'Open' : 'View case';
+      f.addEventListener('pointerenter', function(){
+        if(!fine()) return;
+        cur.classList.add('door');
+        if(curLabel) curLabel.textContent = label;
+      });
+      f.addEventListener('pointerleave', function(){ cur.classList.remove('door'); });
+    });
+    addEventListener('pointerleave', function(){ cur.classList.remove('on'); curOn = false; });
+    addEventListener('blur', function(){ cur.classList.remove('on','door'); curOn = false; });
+  }
 
   addEventListener('resize', function(){
     clearTimeout(window.__fitT);
