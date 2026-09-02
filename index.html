@@ -243,7 +243,7 @@ button{font:inherit;color:inherit;background:none;border:0;}
     0 0 0 1px rgba(0,0,0,.45),
     0 40px 90px -34px rgba(0,0,0,.92),
     0 70px 150px -80px var(--lit, transparent);
-  transition:box-shadow .6s var(--ease-out);
+  transition:box-shadow .6s var(--ease-out), border-color .6s ease;
 }
 /* Frames that are also the primary way into a project: the object itself
    should read as active, not decorated to look clickable. */
@@ -262,6 +262,7 @@ a.frame:active .window{transform:scale(1.002);}
   pointer-events:none;
 }
 .frame:hover{
+  border-color:color-mix(in srgb, var(--lit, var(--line-2)) 45%, var(--line-2));
   box-shadow:
     inset 0 1px 0 rgba(239,235,227,.09),
     0 0 0 1px rgba(0,0,0,.45),
@@ -472,7 +473,7 @@ h2{
 }
 .band-head p{
   color:var(--paper-2);max-width:44ch;margin-left:auto;
-  font-size:clamp(16px,1.1vw,18px);padding-bottom:8px;
+  font-size:clamp(16px,1.35vw,19px);line-height:1.5;padding-bottom:8px;
 }
 
 /* the wax-pencil ring — the mark a photographer puts on a select */
@@ -518,6 +519,7 @@ h2{
    muted-to-full label colour, both already-idle properties. */
 .select.active .sel-no{color:var(--paper-2);}
 .select.active .frame{
+  border-color:color-mix(in srgb, var(--lit, var(--line-2)) 45%, var(--line-2));
   box-shadow:
     inset 0 1px 0 rgba(239,235,227,.09),
     0 0 0 1px rgba(0,0,0,.45),
@@ -750,11 +752,12 @@ h2{
    .active, so this costs nothing extra to compute. */
 @media (min-width:640px){
   .steps::after{
-    content:"";position:absolute;left:0;top:0;bottom:0;width:2px;
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
     background:linear-gradient(var(--marker) 0 0) 0 0/100% var(--progress,0%) no-repeat, var(--line-2);
     transition:background-size .6s var(--ease-out);
+    box-shadow:0 0 16px 1px rgba(206,78,42,.35);
   }
-  .step{padding-left:var(--s4);}
+  .step{padding-left:var(--s5);}
 }
 .step{
   display:grid;gap:var(--s2);
@@ -797,7 +800,7 @@ h2{
   color:var(--paper-2);transition:color .6s ease;
 }
 .step.active h3{color:var(--paper);}
-.step > p:last-child{color:var(--paper-2);font-size:clamp(16px,1.15vw,18px);}
+.step > p:last-child{color:var(--paper-2);font-size:clamp(16px,1.35vw,19px);line-height:1.55;}
 @media (prefers-reduced-motion:reduce){ .step h3{transition:none;} }
 
 /* A statement, not a feature panel. */
@@ -833,8 +836,8 @@ h2{
   font-family:var(--f-display);
   font-variation-settings:"wdth" 84,"opsz" 96;
   font-weight:700;
-  font-size:clamp(26px, 4vw, 64px);
-  line-height:1.12;letter-spacing:-.018em;
+  font-size:clamp(28px, 4.6vw, 72px);
+  line-height:1.1;letter-spacing:-.018em;
   max-width:32ch;color:var(--paper);
   margin-bottom:var(--s6);
 }
@@ -851,7 +854,7 @@ h2{
    The room closes darker than it opened, and takes the whole screen.     */
 .contact{
   position:relative;overflow:hidden;
-  min-height:92vh;align-content:center;
+  min-height:82dvh;align-content:center;
   padding-block:var(--s7);
   background:var(--pit);
   border-top:1px solid var(--line);
@@ -863,11 +866,11 @@ h2{
    generous radius can never push scrollWidth out regardless of the
    maths. */
 .contact::before{
-  content:"";position:absolute;left:50%;top:34%;z-index:0;
-  width:min(1100px,140vw);aspect-ratio:1;
+  content:"";position:absolute;left:50%;top:60%;z-index:0;
+  width:min(900px,120vw);aspect-ratio:1;
   transform:translate(-50%,-50%);
-  background:radial-gradient(closest-side, rgba(239,235,227,.09), transparent 70%);
-  filter:blur(90px);pointer-events:none;
+  background:radial-gradient(closest-side, rgba(239,235,227,.13), transparent 70%);
+  filter:blur(80px);pointer-events:none;
 }
 .contact > *:not(.ghost-word){position:relative;z-index:1;}
 .contact h2{
@@ -882,14 +885,14 @@ h2{
   font-size:clamp(17px,1.3vw,20px);
 }
 .contact .hero-cta{justify-content:center;margin-top:var(--s5);}
-.contact .btn{min-height:64px;padding:0 38px;font-size:17px;}
+.btn-lg{min-height:72px;padding:0 44px;font-size:18px;gap:12px;}
 
 .channels{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s1);margin-top:var(--s3);}
 .chan{
   position:relative;
   display:inline-flex;align-items:center;gap:8px;
-  min-height:46px;padding:0 16px;border-radius:2px;
-  color:var(--paper-3);font-size:15px;
+  min-height:48px;padding:0 18px;border-radius:2px;
+  color:var(--paper-2);font-size:16px;
   transition:color .2s ease, background-color .2s ease;
 }
 .chan:hover{color:var(--paper);background:var(--surface);}
@@ -1289,9 +1292,10 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:var(-
     <h2 class="lines rv"><span class="ln"><i>Tell me about</i></span><span class="ln"><i>your business.</i></span></h2>
     <p>What you do, where you are, and what you wish your website did. If it's a fit I'll say so, and if it isn't I'll say that too.</p>
     <div class="hero-cta">
-      <a class="btn btn-shimmer" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20your%20site%20and%20I%27d%20like%20a%20website%20for%20my%20business." target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97 1-3.62-.24-.37a9.8 9.8 0 0 1-1.5-5.23c0-5.4 4.4-9.8 9.82-9.8a9.75 9.75 0 0 1 6.93 2.88 9.72 9.72 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8M20.5 3.5A11.75 11.75 0 0 0 12.05 0C5.54 0 .25 5.29.24 11.79c0 2.08.55 4.1 1.58 5.9L.14 24l6.45-1.69a11.8 11.8 0 0 0 5.46 1.34h.01c6.5 0 11.79-5.29 11.8-11.79 0-3.15-1.23-6.11-3.46-8.34"/></svg>
+      <a class="btn btn-shimmer btn-lg" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20your%20site%20and%20I%27d%20like%20a%20website%20for%20my%20business." target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97 1-3.62-.24-.37a9.8 9.8 0 0 1-1.5-5.23c0-5.4 4.4-9.8 9.82-9.8a9.75 9.75 0 0 1 6.93 2.88 9.72 9.72 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8M20.5 3.5A11.75 11.75 0 0 0 12.05 0C5.54 0 .25 5.29.24 11.79c0 2.08.55 4.1 1.58 5.9L.14 24l6.45-1.69a11.8 11.8 0 0 0 5.46 1.34h.01c6.5 0 11.79-5.29 11.8-11.79 0-3.15-1.23-6.11-3.46-8.34"/></svg>
         Message on WhatsApp
+        <span class="arrow">↗</span>
       </a>
     </div>
     <div class="channels">
