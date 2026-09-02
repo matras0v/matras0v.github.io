@@ -763,6 +763,7 @@ h2{
 /* -------------------------------------------------------- contact sheet --
    Curation, not a tile grid: two dominant prints, two supporting ones, and
    LUSTRE closing the sheet across the full measure.                       */
+.sheet-band{position:relative;}
 .sheet{display:grid;gap:88px var(--gap);grid-template-columns:1fr;}
 /* A wall, not a grid: pick one piece and the rest of the room quiets
    down half a stop so the one in hand gets the visual attention. */
@@ -940,7 +941,7 @@ h2{
   /* Translucent, not opaque: the closing scene is the one place the field
      is allowed to come all the way forward, so the room's own light is
      what the last screen is lit by. */
-  background:linear-gradient(180deg, rgba(6,6,7,.12), rgba(6,6,7,.42) 55%, rgba(6,6,7,.78));
+  background:linear-gradient(180deg, rgba(6,6,7,.05), rgba(6,6,7,.30) 52%, rgba(6,6,7,.66));
   border-top:1px solid var(--line);
 }
 /* The room's last, quietest light — behind the statement, static (not
@@ -963,7 +964,7 @@ h2{
              rgba(239,235,227,.40) 80%, transparent);
   pointer-events:none;
 }
-.contact > *{position:relative;z-index:1;}
+.contact > *:not(.obj-wrap){position:relative;z-index:1;}
 .contact-in{display:grid;gap:var(--s5);}
 @media (min-width:900px){
   .contact-in{
@@ -1105,6 +1106,167 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 }
 
 
+
+/* ==================================================== spatial objects ====
+   Four of them, for the whole page. Each is a real object in the room —
+   it enters partly off-screen, travels at its own rate against the
+   scroll, drifts a little against the hand, and passes behind the type
+   rather than over it. z-index:-1 puts every one of them above the field
+   and below every word on the page; the wrapper's own overflow is what
+   guarantees an object can never widen the document.                    */
+.obj-wrap{
+  position:absolute;inset:0;z-index:-1;
+  overflow:hidden;pointer-events:none;
+}
+.contact > .obj-wrap{z-index:-1;}
+.obj{position:absolute;will-change:transform;}
+.obj path,.obj circle{fill:none;}
+
+/* 1 — the ribbon. A single reflective edge with a wide, dim body behind
+   it, sweeping the hero from below the left margin up past the right. */
+.obj-ribbon{
+  left:-9%;top:3%;width:120%;height:46%;
+  transform:translate3d(var(--px,0px),var(--py,0px),0);
+  opacity:.9;
+}
+.obj-ribbon .rib-body{filter:blur(26px);}
+.obj-ribbon .rib-edge{filter:blur(.4px);}
+
+/* 2 — a pane of glass leaving through the right wall of the sheet */
+.obj-pane{
+  right:-12%;top:-7%;width:82%;height:26%;
+  transform:translate3d(var(--px,0px),var(--py,0px),0) rotate(-9deg) skewY(-6deg);
+  background:linear-gradient(128deg,
+    rgba(239,235,227,.07) 0%, rgba(239,235,227,.012) 40%,
+    rgba(142,123,255,.045) 64%, transparent 90%);
+  border-top:1px solid rgba(239,235,227,.16);
+  border-left:1px solid rgba(239,235,227,.06);
+  border-radius:3px;
+  filter:blur(.4px);
+  /* One crisp edge, everything else dissolved — a pane catching light,
+     not a rectangle sitting on the page. */
+  -webkit-mask-image:radial-gradient(72% 78% at 76% 26%, #000 6%, rgba(0,0,0,.55) 48%, transparent 88%);
+  mask-image:radial-gradient(72% 78% at 76% 26%, #000 6%, rgba(0,0,0,.55) 48%, transparent 88%);
+}
+
+/* 3 — the arc. Two hairlines and one wide dim band on the same circle,
+   half of it outside the room. */
+.obj-arc{
+  right:-19%;top:6%;width:min(760px,62%);aspect-ratio:1;height:auto;
+  transform:translate3d(var(--px,0px),var(--py,0px),0);
+  opacity:.9;
+}
+
+/* 4 — the sheet the closing scene stands on */
+.obj-sheet{
+  left:6%;bottom:-20%;width:88%;height:78%;
+  transform:translate3d(var(--px,0px),var(--py,0px),0) rotate(-4deg) skewY(4deg);
+  background:linear-gradient(0deg,
+    rgba(239,235,227,.09) 0%, rgba(142,123,255,.05) 46%, transparent 88%);
+  border-top:1px solid rgba(239,235,227,.14);
+  border-radius:6px;
+  filter:blur(1px);
+  -webkit-mask-image:radial-gradient(120% 100% at 50% 100%, #000 22%, transparent 86%);
+  mask-image:radial-gradient(120% 100% at 50% 100%, #000 22%, transparent 86%);
+}
+@media (max-width:760px){
+  .obj-pane,.obj-arc{display:none;}
+  .obj-ribbon{opacity:.65;}
+  .obj-sheet{left:-6%;width:112%;}
+}
+
+/* ============================================ per-project signatures =====
+   Three projects, three different things to do with your hand. All of it
+   sits on overlays inside .window — the iframe's own transform belongs to
+   the live-preview and pan systems and nothing here writes to it.       */
+@property --pr{syntax:'<length>';inherits:true;initial-value:0px;}
+
+/* 02 — H&M. The bay is under a swirled, unpolished veil until you move
+   across it, and the panel comes up clean under your finger: the same
+   thing that project's own homepage does, offered here at preview size. */
+.polish{
+  --pr:0px;
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(120% 130% at 30% 18%, rgba(26,18,10,.40), rgba(7,6,5,.58)),
+    repeating-conic-gradient(from 0deg at 32% 34%,
+      rgba(255,232,200,.055) 0deg .7deg, transparent .7deg 5deg);
+  -webkit-mask-image:radial-gradient(var(--pr) circle at var(--wx,50%) var(--wy,50%),
+                     transparent 34%, #000 100%);
+  mask-image:radial-gradient(var(--pr) circle at var(--wx,50%) var(--wy,50%),
+             transparent 34%, #000 100%);
+  transition:--pr .45s var(--ease-out);
+}
+@media (hover:hover) and (pointer:fine){
+  .s-02 .frame:hover .polish{--pr:210px;}
+}
+/* the bay's own amber comes up half a stop while the panel is being worked */
+.s-02:has(.frame:hover)::before{opacity:1;}
+/* No hover to work the panel with: the veil drops to a hint so a phone
+   still sees the project rather than a permanently dulled rectangle. */
+@media (hover:none),(pointer:coarse){ .polish{opacity:.18;} }
+
+/* 03 — GrimeVPN. A product that lives in a terminal: one slow band of
+   light passing down the screen and a fine line grid over it. The band
+   only runs while the piece is the one on screen. */
+.scan{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  overflow:hidden;opacity:.75;
+  background:repeating-linear-gradient(0deg,
+    rgba(168,85,247,.06) 0 1px, transparent 1px 3px);
+  mix-blend-mode:screen;
+  transition:opacity .5s ease;
+}
+.scan b{
+  position:absolute;left:0;right:0;top:0;height:34%;
+  background:linear-gradient(180deg, transparent, rgba(168,85,247,.20), transparent);
+  transform:translateY(-140%);
+  animation:scanY 11s linear infinite;
+  animation-play-state:paused;
+}
+.s-03.active .scan b{animation-play-state:running;}
+@keyframes scanY{ from{transform:translateY(-140%);} to{transform:translateY(340%);} }
+@media (hover:hover) and (pointer:fine){
+  .s-03 .frame:hover .scan{opacity:1;}
+}
+.s-03:has(.frame:hover)::before{opacity:1;}
+@media (prefers-reduced-motion:reduce){
+  .scan b{animation:none;opacity:.5;transform:translateY(90%);}
+  .polish{transition:none;}
+}
+
+/* ============================================ the sheet as exhibition ====
+   Picking one print gives it priority instead of punishing the others:
+   the rest fall half a stop, the one in hand comes forward, its screen
+   grows a little inside its own mount, and its name earns its arrow.  */
+@media (hover:hover) and (pointer:fine){
+  .sheet:hover .cell{opacity:.88;transition:opacity .45s ease;}
+  .sheet:hover .cell:hover{opacity:1;}
+  .cell:hover .frame{--flift:-8px;}
+  .cell:hover .window{transform:scale(1.03);}
+  .cell:hover .cell-role{color:var(--paper-2);}
+  .cell-name::after{
+    content:" →";display:inline-block;
+    opacity:0;transform:translateX(-6px);
+    transition:opacity .35s var(--ease-out), transform .35s var(--ease-out);
+  }
+  .cell:hover .cell-name::after{opacity:.65;transform:translateX(0);}
+}
+.cell .window{transition:transform .55s var(--ease-out);}
+.cell-role{transition:color .4s ease;}
+
+/* ============================================== cursor, by destination ===
+   The ring says what the thing under it does, and gets out of the way
+   entirely over a control that already has its own hover language.    */
+.cursor.door .cursor-ring{width:86px;height:86px;}
+.cursor.small .cursor-ring{width:52px;height:52px;}
+.cursor.press .cursor-ring{
+  width:16px;height:16px;
+  background:rgba(239,235,227,.9);border-color:transparent;
+}
+.cursor.press .cursor-dot{opacity:0;}
+.cursor-label{font-weight:600;}
+
 /* ====================================================== depth & motion ====
    Everything below is the second layer of the room: the parallax the
    scroll drives, the perspective the screens sit in, the light that
@@ -1233,7 +1395,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   transition:opacity .8s var(--ease-out);
 }
 .step.active::before{opacity:1;}
-.step.active p.step-no{transform:translate3d(0,var(--py,0px),0) scale(1.03);}
+.step.active p.step-no{transform:translate3d(0,calc(var(--py,0px) - 3px),0) scale(1.045);}
 .step p.step-no{
   transform:translate3d(0,var(--py,0px),0) scale(1);
   transition:color .6s ease, -webkit-text-stroke-color .6s ease, transform .9s var(--ease-out);
@@ -1338,6 +1500,26 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 
 <!-- ============================================================== hero -- -->
 <section class="hero shell">
+  <div class="obj-wrap" aria-hidden="true">
+    <svg class="obj obj-ribbon par" data-par=".05" data-pointer=".55" viewBox="0 0 1600 600" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="rib" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0"    stop-color="#EFEBE3" stop-opacity="0"/>
+          <stop offset=".26"  stop-color="#EFEBE3" stop-opacity=".30"/>
+          <stop offset=".52"  stop-color="#CE4E2A" stop-opacity=".55"/>
+          <stop offset=".74"  stop-color="#8E7BFF" stop-opacity=".28"/>
+          <stop offset="1"    stop-color="#EFEBE3" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="ribw" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0"   stop-color="#EFEBE3" stop-opacity="0"/>
+          <stop offset=".5"  stop-color="#EFEBE3" stop-opacity=".10"/>
+          <stop offset="1"   stop-color="#EFEBE3" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path class="rib-body" d="M-80 470 C 300 300, 620 520, 940 330 S 1420 90, 1720 190" stroke="url(#ribw)" stroke-width="54"/>
+      <path class="rib-edge" d="M-80 470 C 300 300, 620 520, 940 330 S 1420 90, 1720 190" stroke="url(#rib)" stroke-width="1.5"/>
+    </svg>
+  </div>
   <p class="ghost-word par" data-par="-.10" data-pointer=".5" aria-hidden="true">MATRAS0V</p>
   <div>
     <p class="eyebrow mono hero-seq"><span class="dot" aria-hidden="true"></span> Now booking · US &amp; UAE</p>
@@ -1391,7 +1573,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   <article class="select s-01" style="--lit:rgba(110,91,255,.55)">
     <div class="sel-head">
       <p class="sel-no">Select 01 / 03</p>
-      <h3 class="sel-name">Snowzan</h3>
+      <h3 class="sel-name par" data-par=".030">Snowzan</h3>
       <dl class="sel-facts">
         <div><dt>Where</dt><dd>Phoenix, Arizona</dd></div>
         <div><dt>Built in</dt><dd>Two days</dd></div>
@@ -1420,7 +1602,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   <article class="select s-02" style="--lit:rgba(200,145,63,.5)">
     <div class="sel-head">
       <p class="sel-no">Select 02 / 03 <span class="tag">Concept</span></p>
-      <h3 class="sel-name">H&amp;M Car Polishing</h3>
+      <h3 class="sel-name par" data-par=".030">H&amp;M Car Polishing</h3>
       <dl class="sel-facts">
         <div><dt>Type</dt><dd>Self-initiated concept</dd></div>
         <div><dt>Scope</dt><dd>Design, build, copy, WhatsApp quote flow</dd></div>
@@ -1433,6 +1615,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
         <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="window">
           <iframe title="Live preview of the H&amp;M Car Polishing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+          <i class="polish" aria-hidden="true"></i>
         </div>
       </a>
     </div>
@@ -1449,7 +1632,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   <article class="select s-03" style="--lit:rgba(168,85,247,.5)">
     <div class="sel-head">
       <p class="sel-no">Select 03 / 03</p>
-      <h3 class="sel-name">GrimeVPN</h3>
+      <h3 class="sel-name par" data-par=".030">GrimeVPN</h3>
       <dl class="sel-facts">
         <div><dt>What</dt><dd>Telegram product, self-initiated</dd></div>
         <div><dt>Scope</dt><dd>Product, bot, backend, billing, brand, site</dd></div>
@@ -1462,6 +1645,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
         <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>grimevpn</span></div>
         <div class="window">
           <iframe title="Live preview of the GrimeVPN site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+          <i class="scan" aria-hidden="true"><b></b></i>
         </div>
       </a>
     </div>
@@ -1477,7 +1661,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 </section>
 
 <!-- ====================================================== contact sheet -- -->
-<section class="band shell">
+<section class="band shell sheet-band">
+  <div class="obj-wrap" aria-hidden="true"><i class="obj obj-pane par" data-par=".07" data-pointer=".3"></i></div>
   <div class="band-head">
     <h2 class="lines rv"><span class="ln"><i>Contact sheet</i></span></h2>
     <p>Self-initiated concepts. The brands are invented; the sites are real and fully built, so you can click into any of them.</p>
@@ -1574,6 +1759,21 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 
 <!-- ============================================================= about -- -->
 <section class="band shell" id="about">
+  <div class="obj-wrap" aria-hidden="true">
+    <svg class="obj obj-arc par" data-par=".10" data-pointer=".45" viewBox="0 0 700 700">
+      <defs>
+        <linearGradient id="arcg" x1="0" y1="0" x2=".8" y2="1">
+          <stop offset="0"   stop-color="#EFEBE3" stop-opacity="0"/>
+          <stop offset=".34" stop-color="#EFEBE3" stop-opacity=".34"/>
+          <stop offset=".62" stop-color="#8E7BFF" stop-opacity=".22"/>
+          <stop offset="1"   stop-color="#EFEBE3" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <circle cx="350" cy="350" r="300" fill="none" stroke="url(#arcg)" stroke-width="1.25"/>
+      <circle cx="350" cy="350" r="300" fill="none" stroke="url(#arcg)" stroke-width="26" opacity=".16"/>
+      <circle cx="350" cy="350" r="212" fill="none" stroke="url(#arcg)" stroke-width="1" opacity=".55"/>
+    </svg>
+  </div>
   <p class="ghost-word par" data-par="-.11" data-pointer=".3" aria-hidden="true">VADIM</p>
   <div class="band-head"><h2 class="lines rv"><span class="ln"><i>About</i></span></h2></div>
   <p class="about-lead rv">I'm <strong>Vadim Ivanchenko</strong>. I work alone, which is the point: you talk to the person building the thing, and nothing gets lost between a strategist, a designer and a developer who have never met your customers.</p>
@@ -1590,13 +1790,14 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 
 <!-- =========================================================== contact -- -->
 <section class="contact shell" id="contact">
+  <div class="obj-wrap" aria-hidden="true"><i class="obj obj-sheet par" data-par=".09" data-pointer=".4"></i></div>
   <div class="contact-in">
    <div class="contact-say">
     <h2 class="lines rv"><span class="ln"><i>Tell me about</i></span><span class="ln"><i>your business.</i></span></h2>
     <p>What you do, where you are, and what you wish your website did. If it's a fit I'll say so, and if it isn't I'll say that too.</p>
     <p class="contact-note mono">Replies within a day &middot; English / <span class="ru">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;</span></p>
    </div>
-   <div class="contact-rail">
+   <div class="contact-rail par" data-par=".055">
     <div class="hero-cta">
       <a class="btn btn-shimmer btn-lg" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20your%20site%20and%20I%27d%20like%20a%20website%20for%20my%20business." target="_blank" rel="noopener">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97 1-3.62-.24-.37a9.8 9.8 0 0 1-1.5-5.23c0-5.4 4.4-9.8 9.82-9.8a9.75 9.75 0 0 1 6.93 2.88 9.72 9.72 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8M20.5 3.5A11.75 11.75 0 0 0 12.05 0C5.54 0 .25 5.29.24 11.79c0 2.08.55 4.1 1.58 5.9L.14 24l6.45-1.69a11.8 11.8 0 0 0 5.46 1.34h.01c6.5 0 11.79-5.29 11.8-11.79 0-3.15-1.23-6.11-3.46-8.34"/></svg>
@@ -1673,17 +1874,27 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     var win = f.querySelector('.window');
     if(!win) return;
     var raf = 0;
+    /* Snowzan is the real client and the largest piece: its screen also
+       leans in a little, so it reads as a display window rather than a
+       picture. The other two get depth without the zoom. */
+    var zoom = f.closest('.s-01') ? 1.035 : 1;
     f.addEventListener('pointermove', function(e){
       if(!fine()) return;
       var r = f.getBoundingClientRect();
       var dx = (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2);
       var dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
       cancelAnimationFrame(raf);
+      var wr = win.getBoundingClientRect();
+      var wx = e.clientX - wr.left, wy = e.clientY - wr.top;
       raf = requestAnimationFrame(function(){
         win.classList.add('live');
         win.style.transform =
           'translateZ(26px) rotateY(' + (dx * 2.5).toFixed(2) + 'deg) ' +
-          'rotateX(' + (-dy * 2.5).toFixed(2) + 'deg)';
+          'rotateX(' + (-dy * 2.5).toFixed(2) + 'deg) scale(' + zoom + ')';
+        /* window-relative, so an overlay inside .window (the polish veil,
+           the scan sheet) can put its own light exactly under the hand */
+        win.style.setProperty('--wx', wx + 'px');
+        win.style.setProperty('--wy', wy + 'px');
       });
     });
     f.addEventListener('pointerleave', function(){
@@ -1984,7 +2195,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     ' vec2 p=vec2((uv.x-0.5)*asp,uv.y-0.5);',
     ' float t=uTime;',
     ' vec2 pt=(uPtr-0.5)*vec2(asp,1.0);',
-    ' vec2 sp=p*0.92+pt*0.10;',
+    ' vec2 sp=p*mix(0.92,0.62,uEnd*uEnd)+pt*0.10;',
     ' float e=0.0032;',
     ' float h=height(sp,t);',
     ' float hx=height(sp+vec2(e,0.0),t);',
@@ -1992,19 +2203,16 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     ' vec3 n=normalize(vec3((h-hx)*0.048/e,(h-hy)*0.048/e,1.0));',
     ' vec3 L=normalize(vec3(cos(t*0.16)*0.55+pt.x*0.7, sin(t*0.13)*0.42+pt.y*0.55+0.25, 0.8));',
     ' float diff=max(dot(n,L),0.0);',
-    ' float spec=pow(diff,9.0);',
-    ' float ridge=abs(fract(h*3.0-t*0.02)-0.5);',
-    ' float lines=smoothstep(0.478,0.5,ridge)*smoothstep(0.25,0.65,h);',
-    ' float amp=mix(0.22,1.0,uHero)+uEnd*uEnd*0.9;',
-    /* Two pools of light on a graphite surface, not an all-over sheen: one
-       warm key that drifts and leans toward the pointer, one cool fill of
-       whatever colour the current project throws. Everywhere else the
-       surface stays the void, so type always has a quiet ground.        */
-    /* Both lights are placed in screen space, not in the aspect-corrected
-       space the surface uses — otherwise a portrait phone puts them off
-       the side of its own screen and the atmosphere disappears exactly
-       where it is hardest to earn. The pools also widen as the frame
-       narrows, so a phone keeps the same amount of light in view.     */
+    ' float spec=pow(diff,15.0);',
+    ' float glint=pow(diff,44.0);',
+    ' float rim=pow(1.0-abs(n.z),1.8);',
+    ' float ridge=abs(fract(h*4.0-t*0.015)-0.5);',
+    ' float fold=smoothstep(0.462,0.5,ridge)*smoothstep(0.20,0.70,h);',
+    ' float amp=mix(0.28,1.0,uHero)+uEnd*uEnd*0.9;',
+    /* Two pools of light on a graphite surface. The material is only
+       visible where a light lands on it — every term below is multiplied
+       by a falloff — so the page reads as one lit object in a dark room
+       rather than as an all-over texture behind the type. */
     ' float k=mix(1.5,2.7,clamp(asp/1.6,0.0,1.0));',
     ' vec2 lu=vec2(0.72+cos(t*0.11)*0.11+pt.x*0.20, 0.78+sin(t*0.09)*0.09+pt.y*0.16);',
     ' vec2 lp=vec2((lu.x-0.5)*asp,lu.y-0.5);',
@@ -2012,19 +2220,23 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     ' vec2 lv=vec2(0.20-cos(t*0.07)*0.09-pt.x*0.13, 0.36-sin(t*0.055)*0.10-pt.y*0.11);',
     ' vec2 lq=vec2((lv.x-0.5)*asp,lv.y-0.5);',
     ' float fal2=exp(-dot(p-lq,p-lq)*(k*0.8));',
-    ' vec3 warm=vec3(0.88,0.38,0.19);',
-    ' vec3 col=vec3(0.030,0.030,0.035)+vec3(0.013,0.013,0.017)*h*(0.4+0.6*amp);',
-    ' col+=warm*spec*fall*(0.42*amp);',
-    ' col+=uAccent*spec*fal2*(0.30*amp);',
-    ' col+=uAccent*diff*fal2*(0.045*amp);',
-    ' col+=vec3(0.92,0.90,0.86)*lines*(0.011*amp);',
+    ' float lit=max(fall,fal2*0.82);',
+    ' vec3 warm=vec3(0.90,0.39,0.18);',
+    /* deep, slightly cool black — the shadows are never neutral grey */
+    ' vec3 col=vec3(0.020,0.020,0.025);',
+    ' col+=vec3(0.022,0.021,0.028)*h*lit;',
+    ' col+=vec3(0.09,0.14,0.28)*(1.0-lit)*(0.055*amp);',
+    ' col+=warm*spec*fall*(0.30*amp);',
+    ' col+=mix(warm,vec3(1.0,0.86,0.72),0.35)*glint*fall*(1.05*amp);',
+    ' col+=uAccent*spec*fal2*(0.34*amp);',
+    ' col+=uAccent*rim*fal2*(0.11*amp);',
+    ' col+=vec3(0.92,0.90,0.86)*fold*lit*(0.050*amp);',
     /* The closing scene, and the only place the pointer carries its own
        light: in the last screen the hand lights the room it is about to
-       write into. Everywhere else uEnd is zero and this term costs a
-       multiply. */
+       write into. Everywhere else uEnd is zero and this costs a multiply. */
     ' float bloom=exp(-dot(p-pt,p-pt)*1.5);',
-    ' col+=mix(warm,uAccent,0.45)*bloom*uEnd*uEnd*0.16;',
-    ' col+=vec3(0.95,0.93,0.90)*pow(bloom,2.5)*uEnd*uEnd*0.05;',
+    ' col+=mix(warm,uAccent,0.45)*bloom*uEnd*uEnd*0.32;',
+    ' col+=vec3(0.95,0.93,0.90)*pow(bloom,2.5)*uEnd*uEnd*0.10;',
     ' float v=smoothstep(0.12,1.05,length(vec2(p.x/asp,p.y))*1.5);',
     ' col*=mix(0.80,1.10,v);',
     ' col+=(hash(gl_FragCoord.xy+fract(t))-0.5)*0.006;',
@@ -2094,7 +2306,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
       if(document.hidden) return;               /* pause completely in a background tab */
       if(ts - last < minFrame) return;
       last = ts;
-      if(!reduce.matches) state.t += 0.0075;
+      if(!reduce.matches) state.t += 0.0042;
       /* pointer and accent are eased here, never written straight in — a
          cursor jump must not snap the light across the room. */
       state.ptr[0] += (state.ptrT[0] - state.ptr[0]) * 0.045;
@@ -2124,16 +2336,17 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   /* Project colours, in the field's own 0-1 space. Snowzan indigo, H&M
      amber, GrimeVPN violet — the same values the frames throw downward. */
   var ACCENTS = {
-    idle:  [.43,.36,1.00],
-    amber: [.78,.57,.25],
-    violet:[.66,.33,.97],
-    ember: [.81,.31,.16]
+    idle:  [.43,.36,1.00],   /* Snowzan indigo — also the room's rest state */
+    amber: [.78,.57,.25],    /* H&M, the polishing lamp                     */
+    violet:[.50,.32,1.00],   /* GrimeVPN — the same family, colder          */
+    ember: [.81,.31,.16]     /* the process rail                            */
   };
   function accentFor(el){
     if(!el) return ACCENTS.idle;
     if(el.classList.contains('s-02')) return ACCENTS.amber;
     if(el.classList.contains('s-03')) return ACCENTS.violet;
-    if(el.classList.contains('step')) return ACCENTS.ember;
+    if(el.id === 'how') return ACCENTS.ember;
+    if(el.id === 'contact') return ACCENTS.violet;
     return ACCENTS.idle;
   }
 
@@ -2162,6 +2375,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
       M.stepsTop = sr.top + scrollY;
       M.stepsH   = sr.height;
     }
+    buildZones();
   }
 
   function clamp(v, lo, hi){ return v < lo ? lo : (v > hi ? hi : v); }
@@ -2198,9 +2412,19 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     }
 
     if(FX){
+      if(ZONES.length){
+        var w = 0, acc = [0,0,0], span = innerHeight * 1.15;
+        for(var z = 0; z < ZONES.length; z++){
+          var wt = Math.max(0, 1 - Math.abs(ZONES[z].y - (y + mid)) / span);
+          wt *= wt;
+          if(wt <= 0) continue;
+          w += wt;
+          acc[0] += ZONES[z].c[0] * wt; acc[1] += ZONES[z].c[1] * wt; acc[2] += ZONES[z].c[2] * wt;
+        }
+        FX.accent(w > 0 ? [acc[0]/w, acc[1]/w, acc[2]/w] : ACCENTS.idle);
+      }
       FX.state.hero = Math.max(0, Math.min(1, 1 - y / Math.max(1, M.hero * .85)));
       FX.state.end  = Math.max(0, Math.min(1, (y + innerHeight - M.contact) / Math.max(1, innerHeight * .8)));
-      if(FX.state.hero > .05) FX.accent(ACCENTS.idle);
       if(document.hidden) FX.draw();   /* keep the still frame honest when the loop is parked */
     }
   }
@@ -2216,12 +2440,18 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   addEventListener('resize', function(){ measure(); update(); }, {passive:true});
   addEventListener('load', function(){ measure(); update(); });
 
-  /* -- the room takes the colour of whatever screen is lit --------------- */
-  if(FX){
-    var accentSpy = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if(e.isIntersecting) FX.accent(accentFor(e.target)); });
-    }, {rootMargin:'-40% 0px -40% 0px'});
-    document.querySelectorAll('.select, .step, #contact').forEach(function(el){ accentSpy.observe(el); });
+  /* -- the room takes the colour of whatever screen is lit ---------------
+     Not a switch per section: every zone pulls on the light in proportion
+     to how close it is, so Snowzan's indigo dies away as H&M's amber
+     comes up and GrimeVPN's colder violet arrives after it, with nothing
+     ever changing on a single scroll line. */
+  var ZONES = [];
+  function buildZones(){
+    ZONES = [];
+    document.querySelectorAll('.select, #how, #contact').forEach(function(el){
+      var r = el.getBoundingClientRect();
+      ZONES.push({c:accentFor(el), y:r.top + scrollY + r.height / 2});
+    });
   }
   if(stepsEl){
     new IntersectionObserver(function(en){
@@ -2307,17 +2537,34 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     } else { curRaf = 0; }
   }
   if(cur){
-    document.querySelectorAll('a.frame').forEach(function(f){
-      var label = f.closest('.cell') ? 'Open' : 'View case';
-      f.addEventListener('pointerenter', function(){
+    /* The ring says what the thing under it does. Four states and no more:
+       a case study, a concept, somewhere off this site, and a control that
+       already has its own hover language — over which the cursor shrinks
+       and gets out of the way. */
+    function mode(el, cls, label){
+      el.addEventListener('pointerenter', function(){
         if(!fine()) return;
-        cur.classList.add('door');
-        if(curLabel) curLabel.textContent = label;
+        cur.classList.remove('door','small','press');
+        cur.classList.add(cls);
+        if(curLabel) curLabel.textContent = label || '';
       });
-      f.addEventListener('pointerleave', function(){ cur.classList.remove('door'); });
+      el.addEventListener('pointerleave', function(){
+        cur.classList.remove('door','small','press');
+      });
+    }
+    document.querySelectorAll('a.cell').forEach(function(c){
+      mode(c, 'small', 'View');
     });
+    document.querySelectorAll('a.frame').forEach(function(f){
+      mode(f, 'door', 'View case');
+    });
+    document.querySelectorAll('a[target="_blank"], a[href^="mailto:"]').forEach(function(a){
+      if(a.classList.contains('frame')) return;
+      mode(a, 'small', '\u2197');
+    });
+    document.querySelectorAll('.btn, .chan').forEach(function(b){ mode(b, 'press', ''); });
     addEventListener('pointerleave', function(){ cur.classList.remove('on'); curOn = false; });
-    addEventListener('blur', function(){ cur.classList.remove('on','door'); curOn = false; });
+    addEventListener('blur', function(){ cur.classList.remove('on','door','small','press'); curOn = false; });
   }
 
   addEventListener('resize', function(){
