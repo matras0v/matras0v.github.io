@@ -11,6 +11,20 @@ outreach demo folders that must never be overwritten.
 Sections, in order: hero → Selects (3 projects) → Contact sheet (6 concepts) →
 How it works → You own it → About → final CTA → footer.
 
+## The field (WebGL background)
+`#fx` is a fixed full-viewport canvas at `z-index:-1` running one fragment
+shader: four-octave fbm height with a double domain warp, a real surface
+normal, and two pools of light — a warm key and a cool fill carrying the
+current project's colour (`uAccent`). `uHero` fades it from full strength in
+the hero to a fifth below; `uEnd` raises it past hero strength in the closing
+scene, where the pointer also carries its own bloom. Lights are positioned in
+screen space, not the aspect-corrected surface space, so portrait phones keep
+their atmosphere. Render scale 0.33 desktop / 0.26 mobile (30fps cap on
+coarse pointers); the loop stops on `document.hidden`, draws one still frame
+under reduced motion, and falls back to `.no-fx` CSS gradients if the context
+will not start. Sections that need the field to show through must use a
+translucent background — `.contact` and `footer` do.
+
 ## Load-bearing details — do not change casually
 - **Live previews.** `.frame[data-live]` → `.window{aspect-ratio:16/9 ≥760px, 5/4 below}`
   → `iframe{width:var(--srcw); height:2600px}`. `srcWidth()` = 430 below 760px viewport,
@@ -28,6 +42,11 @@ How it works → You own it → About → final CTA → footer.
   (`@media (min-width:1000px)`), tracks are exact twelfths of
   `min(100% - 2*--pad, --content)`. Below 1000px `.sel-head{display:contents}` lets the
   spec list be ordered after the preview so the title-to-preview gap stays ~16px.
+- The tilt/depth on `.frame` writes only to `.window`'s transform. The iframe's
+  transform belongs to the live-preview and pan systems; never write to it.
+- `.step::before` and every other ambient glow must use a vertical-only inset
+  (`inset:-6% 0`). Any horizontal bleed has nothing clipping it and pushes
+  `scrollWidth` past the viewport — this has now caused the same bug twice.
 - Grid quirk that has bitten twice: a grid item with any `auto` margin loses stretch,
   so `max-width` alone gives it no size — set an explicit `width`.
 
