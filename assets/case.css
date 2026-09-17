@@ -162,6 +162,17 @@ button{font:inherit;color:inherit;background:none;border:0;}
   .brand,.nav-sep{display:none;}
   .back span{display:none;}
   .back{padding-inline:8px;}
+  /* Three actions plus the back arrow no longer fit a 375px nav at full
+     size: the concept marker is already restated in the kicker just below
+     the fold, so it drops from the bar; the quick-contacts link shrinks to
+     a compact pill so the page's actual primary action — open the live
+     site, try the thing — keeps its full label and stays the loudest
+     object in the row. */
+  .nav-in .chip-concept{display:none;}
+  .btn.nav-contact{
+    min-height:40px;padding:0 14px;font-size:13.5px;border-radius:9px;
+    flex:none;
+  }
 }
 
 /* -------------------------------------------------------------- CTAs ------
