@@ -64,7 +64,7 @@ html[data-case="grime"]{
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden;}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
 body{
   background:var(--paper);color:var(--ink);
@@ -478,6 +478,51 @@ h2{
 .next p{margin-top:var(--s3);max-width:44ch;color:var(--ink-2);font-size:clamp(17px,1.5vw,19px);}
 .next-cta{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);}
 @media (min-width:900px){ .next-cta{margin-top:0;} }
+
+/* -------------------------------------------------------- contact block --
+   The same choice the homepage ends on — WhatsApp first, then a channel
+   list, sized for a closing section rather than a full final scene. One
+   destination per row, in the same ruled-row grammar as the project spec
+   sheets and the exhibit frames, so this reads as the portfolio's own
+   contact system rather than a component built fresh for this page.     */
+.next-contact{display:flex;flex-direction:column;gap:0;}
+.next-contact .btn{width:100%;justify-content:center;}
+.rail-cap{
+  margin:var(--s4) 0 var(--s2);
+  color:var(--ink-3);font-family:var(--f-mono);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;
+}
+.channels{display:grid;border-top:1px solid var(--line);}
+.chan{
+  position:relative;
+  display:flex;align-items:center;gap:10px;
+  min-height:52px;padding:0 10px 0 2px;
+  border-bottom:1px solid var(--line);
+  color:var(--ink-2);font-size:15px;
+  transition:color .2s ease, background-color .2s ease, padding-left .2s var(--ease-out);
+}
+.chan-h{
+  margin-left:auto;padding-left:var(--s2);
+  font-family:var(--f-mono);font-size:12px;color:var(--ink-3);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  transition:color .2s ease;
+}
+@media (hover:hover){
+  .chan:hover{color:var(--ink);background:rgba(239,235,227,.05);padding-left:10px;border-radius:8px;}
+  .chan:hover .chan-h{color:var(--ink-2);}
+  .chan:hover svg{transform:translateX(2px);}
+}
+.chan svg{flex:none;transition:transform .22s var(--ease-out);}
+@media (prefers-reduced-motion:reduce){
+  .chan,.chan svg{transition:none;}
+}
+/* Tertiary, deliberately quieter than the contact block above it — this is
+   where you go if none of that was the reason you scrolled this far. */
+.more-link{
+  margin-top:var(--s5);padding-top:var(--s3);
+  border-top:1px solid var(--line);
+}
+@media (min-width:900px){ .next-grid .more-link{margin-top:var(--s4);} }
 
 footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(6,6,7,.6);}
 .foot-in{
