@@ -310,15 +310,15 @@ button{font:inherit;color:inherit;background:none;border:0;}
 .frame{
   display:block;
   position:relative;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:3px;
-  padding:10px;
+  background:linear-gradient(180deg, rgba(239,235,227,.030), rgba(239,235,227,.012));
+  border:1px solid rgba(239,235,227,.085);
+  border-radius:12px;
+  padding:11px;
   perspective:1400px;
   box-shadow:
-    inset 0 1px 0 rgba(239,235,227,.06),
-    0 0 0 1px rgba(0,0,0,.45),
-    0 40px 90px -34px rgba(0,0,0,.92),
+    inset 0 1px 0 rgba(239,235,227,.075),
+    0 0 0 1px rgba(0,0,0,.5),
+    0 40px 90px -36px rgba(0,0,0,.92),
     0 70px 150px -80px var(--lit, transparent);
   transition:box-shadow .6s var(--ease-out), border-color .6s ease;
 }
@@ -334,12 +334,12 @@ a.frame:active .window{transform:scale(1.002);}
   a.frame:hover .window{transform:none;}
 }
 .frame::before{      /* the mount board's top edge catches the screen light */
-  content:"";position:absolute;left:0;right:0;top:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,245,230,.22),transparent);
+  content:"";position:absolute;left:14px;right:14px;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,245,230,.26),transparent);
   pointer-events:none;
 }
 .frame:hover{
-  border-color:color-mix(in srgb, var(--lit, var(--line-2)) 45%, var(--line-2));
+  border-color:color-mix(in srgb, var(--lit, var(--line-2)) 42%, rgba(239,235,227,.085));
   box-shadow:
     inset 0 1px 0 rgba(239,235,227,.09),
     0 0 0 1px rgba(0,0,0,.45),
@@ -371,22 +371,47 @@ a.frame:active .window{transform:scale(1.002);}
   .frame::after{display:none;}
 }
 
+/* Three grey dots is a picture of a browser; this is not a browser. One lit
+   dot in the project's own colour says the only thing worth saying about a
+   frame on this page — that what is inside it is running — and the label
+   beside it reads as the plate under an exhibit rather than a URL bar. */
 .frame-bar{
-  display:flex;align-items:center;gap:6px;
-  height:20px;padding-inline:2px;margin-bottom:8px;
+  display:flex;align-items:center;gap:9px;
+  height:22px;padding-inline:4px;margin-bottom:9px;
 }
-.frame-bar i{width:7px;height:7px;border-radius:50%;background:rgba(239,235,227,.20);}
+.frame-bar i{
+  width:5px;height:5px;border-radius:50%;flex:none;
+  background:color-mix(in srgb, var(--lit, var(--paper-3)) 90%, var(--paper));
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--lit, transparent) 20%, transparent);
+}
 .frame-bar span{
-  margin-left:auto;color:var(--paper-3);
-  font-family:var(--f-mono);font-size:10px;letter-spacing:.05em;
+  flex:0 1 auto;min-width:0;
+  color:var(--paper-3);opacity:.78;
+  font-family:var(--f-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+/* A frame that is a door says so before the pointer arrives. */
+.frame-bar .go{
+  margin-left:auto;display:inline-flex;align-items:center;gap:6px;flex:none;white-space:nowrap;
+  color:var(--paper-3);opacity:.62;
+  font-family:var(--f-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  transition:opacity .35s ease, color .35s ease, transform .35s var(--ease-out);
+}
+@media (hover:hover){
+  a.frame:hover .frame-bar .go,
+  .cell:hover .frame-bar .go{opacity:1;color:var(--paper);transform:translateX(2px);}
+}
+@media (max-width:520px){
+  .frame-bar{gap:8px;}
+  .frame-bar span,.frame-bar .go{letter-spacing:.1em;}
 }
 .window{
   position:relative;
   aspect-ratio:5/4;       /* a phone preview wants to be taller than wide */
   overflow:hidden;
-  background:#000;
-  border-radius:2px;
+  background:#08080A;
+  border-radius:7px;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.55);
   transition:transform .6s var(--ease-out);
 }
 @media (min-width:760px){ .window{aspect-ratio:16/9;} }
@@ -1281,14 +1306,30 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 /* ============================================== cursor, by destination ===
    The ring says what the thing under it does, and gets out of the way
    entirely over a control that already has its own hover language.    */
-.cursor.door .cursor-ring{width:86px;height:86px;}
-.cursor.small .cursor-ring{width:52px;height:52px;}
+.cursor.door .cursor-ring{width:84px;height:26px;border-radius:999px;}
+.cursor.small .cursor-ring{
+  width:54px;height:26px;border-radius:999px;
+  background:rgba(239,235,227,.95);border-color:transparent;
+  box-shadow:0 6px 20px -8px rgba(0,0,0,.7);
+}
+.cursor.small .cursor-dot{opacity:0;}
+.cursor.small .cursor-label{opacity:1;}
+/* an off-site link gets the mark, not a word */
+.cursor.away .cursor-ring{
+  width:30px;height:30px;border-radius:999px;
+  background:rgba(239,235,227,.95);border-color:transparent;
+}
+.cursor.away .cursor-dot{opacity:0;}
+.cursor.away .cursor-label{opacity:1;font-size:12px;letter-spacing:0;}
+/* over a control the cursor gets out of the way — the button has its own
+   hover language and two of them at once is noise */
 .cursor.press .cursor-ring{
-  width:16px;height:16px;
-  background:rgba(239,235,227,.9);border-color:transparent;
+  width:14px;height:14px;border-radius:50%;
+  background:rgba(239,235,227,.55);border-color:transparent;box-shadow:none;
 }
 .cursor.press .cursor-dot{opacity:0;}
-.cursor-label{font-weight:600;}
+.cursor.press .cursor-label{opacity:0;}
+.cursor-label{font-weight:600;font-size:8.5px;letter-spacing:.13em;}
 
 /* ====================================================== depth & motion ====
    Everything below is the second layer of the room: the parallax the
@@ -1373,16 +1414,16 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   will-change:transform;
 }
 .cursor-dot{
-  width:5px;height:5px;border-radius:50%;
+  width:4px;height:4px;border-radius:50%;
   background:var(--paper);
   transform:translate(var(--dx,0px),var(--dy,0px)) translate(-50%,-50%);
   transition:opacity .25s ease;
 }
 .cursor-ring{
-  width:34px;height:34px;border-radius:50%;
-  border:1px solid rgba(239,235,227,.42);
+  width:26px;height:26px;border-radius:999px;
+  border:1px solid rgba(239,235,227,.38);
   transform:translate(var(--rx,0px),var(--ry,0px)) translate(-50%,-50%) scale(var(--rs,1));
-  transition:width .35s var(--ease-out), height .35s var(--ease-out),
+  transition:width .4s var(--ease-out), height .4s var(--ease-out),
              border-color .35s ease, background-color .35s ease;
   backdrop-filter:blur(2px);
   -webkit-backdrop-filter:blur(2px);
@@ -1393,10 +1434,14 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   color:var(--void);opacity:0;white-space:nowrap;
   transition:opacity .25s ease;
 }
+/* A disc big enough to read a label inside also covers the work the label is
+   about. A pill sized to its own word is a third of the area and says the
+   same thing. */
 .cursor.door .cursor-ring{
-  width:78px;height:78px;
-  background:rgba(239,235,227,.94);
+  width:84px;height:26px;border-radius:999px;
+  background:rgba(239,235,227,.95);
   border-color:transparent;
+  box-shadow:0 6px 20px -8px rgba(0,0,0,.7);
 }
 .cursor.door .cursor-dot{opacity:0;}
 .cursor.door .cursor-label{opacity:1;}
@@ -1582,7 +1627,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 
   <div class="hero-media rv-clip" style="--lit:rgba(110,91,255,.55)">
     <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-scroll="1500">
-      <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>snowzan.com</span></div>
+      <div class="frame-bar" aria-hidden="true"><i></i><span>snowzan.com</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
       <div class="window">
         <iframe title="Live preview of the Snowzan Mobile Detailing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
       </div>
@@ -1620,7 +1665,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     </div>
     <div class="sel-media rv-clip">
       <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-scroll="2100">
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>snowzan.com</span></div>
+        <div class="frame-bar" aria-hidden="true"><i></i><span>snowzan.com</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window">
           <iframe title="Live preview of the Snowzan website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
         </div>
@@ -1649,7 +1694,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     </div>
     <div class="sel-media rv-clip">
       <a class="frame" href="work/hm-polishing/" aria-label="Read the H&amp;M Car Polishing case study" data-live="work/hm-polishing/site/index.html" data-scroll="1800">
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="frame-bar" aria-hidden="true"><i></i><span>H&amp;M Car Polishing</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window">
           <iframe title="Live preview of the H&amp;M Car Polishing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
           <i class="polish" aria-hidden="true"></i>
@@ -1679,7 +1724,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     </div>
     <div class="sel-media rv-clip">
       <a class="frame" href="work/grimevpn-case/" aria-label="Read the GrimeVPN case study" data-live="work/grimevpn/index.html" data-scroll="1800">
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>grimevpn</span></div>
+        <div class="frame-bar" aria-hidden="true"><i></i><span>grimevpn</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window">
           <iframe title="Live preview of the GrimeVPN site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
           <i class="scan" aria-hidden="true"><b></b></i>
@@ -1708,7 +1753,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   <div class="sheet">
     <a class="cell rv" href="work/lumen/" style="--lit:rgba(127,209,185,.4)">
       <div class="frame" data-live="work/lumen/index.html" data-scroll="1700">
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>lumen</span></div>
+        <div class="frame-bar" aria-hidden="true"><i></i><span>lumen</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Lumen site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
       <p class="cell-no mono"><span>Frame 04</span><span>Concept</span></p>
@@ -1718,7 +1763,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 
     <a class="cell rv" href="work/aurelis/" style="--lit:rgba(47,93,102,.5)">
       <div class="frame" data-live="work/aurelis/index.html" data-scroll="1700">
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>aurelis</span></div>
+        <div class="frame-bar" aria-hidden="true"><i></i><span>aurelis</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Aurelis site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
       <p class="cell-no mono"><span>Frame 05</span><span>Concept</span></p>
@@ -1728,7 +1773,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 
     <a class="cell rv" href="work/lucienne/" style="--lit:rgba(110,74,47,.5)">
       <div class="frame" data-live="work/lucienne/index.html" data-scroll="1600">
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>lucienne</span></div>
+        <div class="frame-bar" aria-hidden="true"><i></i><span>lucienne</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Lucienne site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
       <p class="cell-no mono"><span>Frame 06</span><span>Concept</span></p>
@@ -1738,7 +1783,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 
     <a class="cell rv" href="work/ember-oak/" style="--lit:rgba(224,138,80,.5)">
       <div class="frame" data-live="work/ember-oak/index.html" data-scroll="1600">
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>ember-oak</span></div>
+        <div class="frame-bar" aria-hidden="true"><i></i><span>ember &amp; oak</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Ember and Oak site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
       <p class="cell-no mono"><span>Frame 07</span><span>Concept</span></p>
@@ -1748,7 +1793,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 
     <a class="cell rv" href="work/lustre/" style="--lit:rgba(150,170,200,.42)">
       <div class="frame" data-live="work/lustre/index.html" data-start="1700" data-start-mobile="1975" data-scroll="1400">
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>lustre</span></div>
+        <div class="frame-bar" aria-hidden="true"><i></i><span>lustre</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the LUSTRE site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
       <p class="cell-no mono"><span>Frame 08</span><span>Concept</span></p>
@@ -2581,12 +2626,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     function mode(el, cls, label){
       el.addEventListener('pointerenter', function(){
         if(!fine()) return;
-        cur.classList.remove('door','small','press');
+        cur.classList.remove('door','small','away','press');
         cur.classList.add(cls);
         if(curLabel) curLabel.textContent = label || '';
       });
       el.addEventListener('pointerleave', function(){
-        cur.classList.remove('door','small','press');
+        cur.classList.remove('door','small','away','press');
       });
     }
     document.querySelectorAll('a.cell').forEach(function(c){
@@ -2597,11 +2642,11 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     });
     document.querySelectorAll('a[target="_blank"], a[href^="mailto:"]').forEach(function(a){
       if(a.classList.contains('frame')) return;
-      mode(a, 'small', '\u2197');
+      mode(a, 'away', '\u2197');
     });
     document.querySelectorAll('.btn, .chan').forEach(function(b){ mode(b, 'press', ''); });
     addEventListener('pointerleave', function(){ cur.classList.remove('on'); curOn = false; });
-    addEventListener('blur', function(){ cur.classList.remove('on','door','small','press'); curOn = false; });
+    addEventListener('blur', function(){ cur.classList.remove('on','door','small','away','press'); curOn = false; });
   }
 
   addEventListener('resize', function(){

@@ -44,6 +44,31 @@ Each project has one signature interaction, all of it on overlays *inside*
 The two off-centre screens carry a resting `rotateY(±2.4deg)` that relaxes to
 ±0.5deg on hover.
 
+## The case studies
+The three case pages (`work/snowzan/`, `work/hm-polishing/`, `work/grimevpn-case/`)
+share `assets/case.css` + `assets/case.js` — deliberately, because they have to
+read as one system with the hub. This is the **only** shared CSS in the repo: the
+concept sites under `work/*/` stay self-contained so they look like different
+studios made them.
+
+Per-case identity is four tokens set on `html[data-case="snowzan|hm|grime"]`
+(`--lit`, `--lit-a/b/c`) and nothing else: Snowzan cool violet, H&M polished
+bronze, GrimeVPN colder indigo. The room itself is `.atmos` — three fixed radial
+lights on a 64s drift, plus the hub's grain and vignette. No canvas: the hub
+earns a shader because the work hangs on it, a case study only needs the page to
+stop being flat black behind the words.
+
+`.eframe` is the case-page twin of the hub's `.frame`: one lit dot in the
+project's colour, a quiet uppercase plate, and a standing arrow when the frame is
+a door. Both were rebuilt away from the three-grey-dots browser mockup.
+
+**H&M demo framing.** The case page measures `#buff` inside the concept site
+(same origin) and crops the mount to it, then re-applies one diagonal
+destination-out stroke on the site's own canvas for the first three seconds —
+the panel is a near-opaque dark layer by design and reads as an empty rectangle
+without it. `fit()` resizing the iframe makes the concept site repaint its swirl,
+which is why the stroke is re-applied on an interval rather than once.
+
 ## Load-bearing details — do not change casually
 - **Live previews.** `.frame[data-live]` → `.window{aspect-ratio:16/9 ≥760px, 5/4 below}`
   → `iframe{width:var(--srcw); height:2600px}`. `srcWidth()` = 430 below 760px viewport,

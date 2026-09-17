@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-case="hm">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#101010">
+<meta name="theme-color" content="#0B0B0C">
 
-<title>H&amp;M Car Polishing — case study · Vadim Ivanchenko</title>
-<meta name="description" content="A concept for a paint-correction bay. The homepage hands you a polisher instead of describing one — drag across the panel and the swirls come off under your finger.">
+<title>H&amp;M Car Polishing — case study &middot; Vadim Ivanchenko</title>
+<meta name="description" content="A paint-correction concept whose homepage hands you the polisher instead of describing the result. Self-initiated, built to show the approach.">
 
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://matras0v.github.io/work/hm-polishing/">
@@ -18,226 +18,138 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Martian+Mono:wght@400;500;600&family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/case.css">
+<script>document.documentElement.classList.add('js');</script>
 
 <style>
-:root{
-  /* Same "grey card" surround, same wax-pencil restraint — just the dark
-     room this case study now opens out of, instead of a bright document. */
-  --paper:#101010; --paper-2:#171717; --card:#1B1B1B;
-  --ink:#F2ECE1; --ink-2:#B7B0A4; --ink-3:#8A8374;
-  --line:rgba(242,236,225,.10); --line-2:rgba(242,236,225,.22);
-  --f-display:"Bricolage Grotesque","Helvetica Neue",sans-serif;
-  --f-body:"Schibsted Grotesk",-apple-system,BlinkMacSystemFont,sans-serif;
-  --f-mono:"Martian Mono",ui-monospace,"SF Mono",monospace;
-  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:80px; --s7:108px;
-  --ease-out:cubic-bezier(.23,1,.32,1);
-  --wrap:1240px;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
-body{
-  background:var(--paper);color:var(--ink);
-  font-family:var(--f-body);font-size:17px;line-height:1.55;
-  min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
-img,svg,iframe{display:block;max-width:100%;}
-a{color:inherit;text-decoration:none;}
-:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px;}
-
-.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:var(--s3);}
-@media (min-width:900px){.wrap{padding-inline:var(--s4);}}
-.mono{font-family:var(--f-mono);font-size:11px;letter-spacing:.02em;text-transform:uppercase;line-height:1.4;}
-.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--ink);color:var(--paper);padding:12px 18px;}
-.skip:focus{left:0;}
-
-.nav{
-  position:sticky;top:0;z-index:100;
-  background:color-mix(in srgb,var(--paper) 88%,transparent);
-  backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);
-  border-bottom:1px solid var(--line);
-}
-.nav-in{display:flex;align-items:center;gap:var(--s3);height:60px;}
-.brand{
-  font-family:var(--f-display);font-variation-settings:"wdth" 78,"opsz" 14;
-  font-weight:800;font-size:19px;letter-spacing:-.01em;white-space:nowrap;
-}
-/* the chip carries the auto margin, so it sits beside the wordmark and
-   still holds the rest of the nav to the right when the brand is hidden */
-.chip-concept{
-  font-family:var(--f-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;
-  border:1px solid var(--line-2);color:var(--ink-3);
-  padding:4px 8px;border-radius:999px;white-space:nowrap;
-  margin-right:auto;
-}
-@media (max-width:520px){.brand{display:none;}}
-.back{
-  display:inline-flex;align-items:center;gap:8px;min-height:44px;
-  white-space:nowrap;color:var(--ink-2);transition:color .16s ease;
-}
-.back:hover{color:var(--ink);}
-.back svg{transition:transform .22s var(--ease-out);}
-.back:hover svg{transform:translateX(-3px);}
-
-.btn{
-  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;
-  background:var(--ink);color:var(--paper);border-radius:999px;
-  font-weight:500;font-size:15px;white-space:nowrap;
-  transition:transform .18s var(--ease-out),background-color .18s ease;
-}
-.btn:hover{background:#2A2A2E;}
-.btn:active{transform:scale(.97);}
-.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-2);}
-.btn-ghost:hover{background:var(--paper-2);}
+/* -------------------------------------------------------- this case only --
+   The whole argument of this project is one interaction, so the page is built
+   around it: the demo is the first thing under the hero, it gets the biggest
+   mount on the page, and the two ways into it sit directly beneath it at full
+   button weight rather than as a footnote on the frame.                    */
 
 .tag-wip{
-  display:inline-flex;align-items:center;gap:8px;
-  border:1px solid var(--line-2);border-radius:999px;padding:6px 12px;
+  display:inline-flex;align-items:center;gap:9px;
+  border:1px solid var(--line-2);border-radius:999px;padding:7px 13px;
   color:var(--ink-2);
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
 }
-.tag-wip i{
-  width:7px;height:7px;border-radius:50%;background:var(--ink-3);
-  flex:none;
-}
+.tag-wip i{width:6px;height:6px;border-radius:50%;background:var(--ink-3);flex:none;}
 
-.head{padding-block:var(--s5);}
-.kicker{color:var(--ink-3);margin-bottom:var(--s3);}
-h1{
-  font-family:var(--f-display);font-variation-settings:"wdth" 84,"opsz" 72;
-  font-weight:700;font-size:clamp(38px,7vw,80px);
-  line-height:.97;letter-spacing:-.034em;text-wrap:balance;
+/* the demo mount — the one frame on the site that keeps its pointer events */
+/* The window is sized to the panel, not to a slice of the page: JS measures
+   the real canvas inside the iframe and frames it with a small margin, so the
+   one thing this case exists to show fills the mount instead of sharing it
+   with two paragraphs and a marquee. aspect-ratio here is only the pre-measure
+   fallback. */
+.demo-window{
+  position:relative;overflow:hidden;border-radius:7px;background:#0B0A08;
+  aspect-ratio:4/3;box-shadow:inset 0 0 0 1px rgba(0,0,0,.55);
+  cursor:grab;
 }
-.lede{margin-top:var(--s3);max-width:54ch;font-size:clamp(17px,1.8vw,21px);color:var(--ink-2);}
-.lede strong{color:var(--ink);font-weight:500;}
-
-.facts{display:grid;gap:0;margin-top:var(--s5);grid-template-columns:1fr;border-top:1px solid var(--line-2);}
-@media (min-width:760px){.facts{grid-template-columns:repeat(4,1fr);}}
-.facts div{padding:var(--s3) 0;border-bottom:1px solid var(--line);}
-@media (min-width:760px){.facts div{border-bottom:0;padding-right:var(--s3);}}
-.facts dt{font-family:var(--f-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px;}
-.facts dd{font-size:17px;}
-
-.band{padding-block:var(--s6);border-top:1px solid var(--line);}
-.band-head{margin-bottom:var(--s4);}
-h2{
-  font-family:var(--f-display);font-variation-settings:"wdth" 86,"opsz" 40;
-  font-weight:700;font-size:clamp(27px,3.8vw,42px);line-height:1.02;letter-spacing:-.026em;
-}
-.band-head p{color:var(--ink-2);max-width:56ch;margin-top:var(--s2);}
-
-/* the demo runs for real inside this frame — pointer events stay on */
-.demo{
-  background:var(--card);border:1px solid var(--line-2);border-radius:4px;
-  padding:10px;overflow:hidden;
-  /* the same restrained screen-light-in-a-dark-room the hub frames use,
-     tuned to H&M's own warm bronze — atmosphere, not a glow effect */
-  box-shadow:0 0 0 1px rgba(0,0,0,.4), 0 60px 120px -64px rgba(200,145,63,.26);
-}
-.demo-bar{display:flex;align-items:center;gap:6px;height:20px;padding-inline:2px;margin-bottom:8px;}
-.demo-bar i{width:7px;height:7px;border-radius:50%;background:rgba(242,236,225,.2);}
-.demo-bar span{margin-left:auto;color:rgba(242,236,225,.5);font-family:var(--f-mono);font-size:9px;letter-spacing:.04em;}
-.demo-window{position:relative;overflow:hidden;border-radius:2px;background:#0B0B0A;aspect-ratio:4/5;}
-@media (min-width:760px){.demo-window{aspect-ratio:4/3;}}
+.demo-window:active{cursor:grabbing;}
+@media (min-width:760px){.demo-window{aspect-ratio:16/9;}}
 .demo-window iframe{
   position:absolute;top:0;left:0;
   width:var(--srcw,1400px);height:var(--srch,1600px);max-width:none;border:0;
   transform-origin:0 0;
 }
-.demo-note{margin-top:var(--s2);color:var(--ink-3);font-size:12px;display:flex;flex-wrap:wrap;gap:var(--s2);}
 
-.dec{display:grid;gap:var(--s3);padding-block:var(--s4);border-top:1px solid var(--line);}
-@media (min-width:900px){.dec{grid-template-columns:.85fr 1.15fr;gap:var(--s5);align-items:start;}}
-.dec:first-of-type{border-top:0;}
-.dec-no{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;color:var(--ink-3);margin-bottom:var(--s1);}
-.dec h3{
-  font-family:var(--f-display);font-variation-settings:"wdth" 88,"opsz" 28;
-  font-weight:700;font-size:clamp(21px,2.6vw,28px);line-height:1.08;letter-spacing:-.022em;
+/* Under the demo: what it is on the left, the two ways in on the right. This
+   is the pair of actions the whole case exists to offer, so they are real
+   buttons at real size — the old "open it full size" was a 12px underline. */
+.demo-actions{
+  display:grid;gap:var(--s3);margin-top:var(--s3);
+  padding-top:var(--s3);border-top:1px solid var(--line);
 }
-.dec p{color:var(--ink-2);}
-.dec p + p{margin-top:var(--s2);}
-.dec .quote{margin-top:var(--s3);padding-left:var(--s3);border-left:2px solid var(--line-2);color:var(--ink);font-size:16px;}
-
-.open{
-  display:grid;gap:var(--s3);grid-template-columns:1fr;
-  padding:var(--s4);background:var(--paper-2);border:1px solid var(--line);border-radius:6px;
+@media (min-width:860px){
+  .demo-actions{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:var(--s5);}
 }
-@media (min-width:800px){.open{grid-template-columns:1fr 1fr;gap:var(--s4);}}
-.open h3{
-  font-family:var(--f-display);font-variation-settings:"wdth" 86,"opsz" 28;
-  font-weight:700;font-size:clamp(21px,2.4vw,27px);letter-spacing:-.02em;line-height:1.1;
-}
-.open ul{list-style:none;display:grid;gap:10px;}
-.open li{display:flex;gap:10px;font-size:16px;color:var(--ink-2);}
-.open li svg{flex:none;margin-top:3px;color:var(--ink);}
+.demo-actions p{color:var(--ink-2);font-size:15.5px;max-width:52ch;}
+.demo-actions .cta-row{gap:12px;}
 
-.next{padding-block:var(--s6);border-top:1px solid var(--line-2);text-align:center;}
-.next h2{font-size:clamp(30px,5.4vw,56px);letter-spacing:-.03em;}
-.next p{margin:var(--s2) auto 0;max-width:46ch;color:var(--ink-2);}
-.next-cta{display:flex;flex-wrap:wrap;gap:var(--s2);justify-content:center;margin-top:var(--s4);}
-
-footer{border-top:1px solid var(--line);padding-block:var(--s3);}
-.foot-in{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s3);align-items:center;color:var(--ink-3);}
-.foot-in span:last-child{margin-left:auto;}
-
-.rv{opacity:0;transform:translateY(14px);}
-.rv.in{opacity:1;transform:none;transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);}
-@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none;}}
+.live-window{aspect-ratio:5/4;}
+@media (min-width:760px){ .live-window{aspect-ratio:16/10;} }
 </style>
 </head>
 
 <body>
+<div class="atmos" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="../../">MATRAS0V</a>
-    <span class="chip-concept">Concept</span>
+    <span class="nav-sep" aria-hidden="true"></span>
     <a class="back mono" href="../../#work">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-      All work
+      <span>All work</span>
     </a>
-    <a class="btn" href="#demo">Try the demo</a>
+    <span class="nav-spacer"></span>
+    <span class="chip-concept">Concept</span>
+    <a class="btn btn-key" href="#demo">Try the polisher</a>
   </div>
 </header>
 
 <main id="main">
 
 <section class="head">
-  <div class="wrap">
-    <p class="kicker mono">Case 02 · Paint correction · Concept</p>
-    <h1>You cannot<br>photograph the<br>difference. So the<br>site lets you<br>feel it.</h1>
-    <p class="lede">
-      Paint correction is a change in a surface that a photograph flattens and a customer cannot
-      judge from a phone. Every polishing shop solves this the same way:
-      <strong>a gallery of shiny cars that could be anyone's.</strong>
-    </p>
+  <div class="wrap head-grid">
+    <div>
+      <p class="kicker mono"><span class="dot" aria-hidden="true"></span> Case 02 &middot; Paint correction &middot; Self-initiated concept</p>
+      <h1>You cannot<br>photograph the<br>difference. So the<br>site lets you<br>feel it.</h1>
+      <p class="lede">
+        Paint correction is a change in a surface that a photograph flattens and a customer cannot
+        judge from a phone. Every polishing shop solves this the same way:
+        <strong>a gallery of shiny cars that could be anyone's.</strong>
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-lg btn-key" href="#demo">Try the polisher</a>
+        <a class="btn btn-lg btn-ghost" href="site/index.html" target="_blank" rel="noopener">Open the site full size <span class="arrow">&#8599;</span></a>
+      </div>
+    </div>
 
-    <dl class="facts">
+    <dl class="facts rv">
       <div><dt>Type</dt><dd>Self-initiated concept</dd></div>
       <div><dt>Subject</dt><dd>A paint-correction bay in Dubai</dd></div>
-      <div><dt>Scope</dt><dd>Design, build, copy, WhatsApp flow</dd></div>
+      <div><dt>Scope</dt><dd>Design, build, copy, WhatsApp quote flow</dd></div>
       <div><dt>Status</dt><dd>Built to show the approach</dd></div>
     </dl>
   </div>
 </section>
 
 <!-- ============================================================== demo -- -->
-<section class="band" id="demo">
+<section class="band band-deep" id="demo">
   <div class="wrap">
-    <div class="band-head">
-      <h2>Drag across the panel.</h2>
-      <p>This is the homepage itself, running here, with the controls live. Drag over the swirled paint and the correction comes up under your finger — which is the closest a screen gets to the thing a polishing shop actually sells.</p>
+    <div class="band-head split">
+      <div>
+        <span class="eyebrow">The signature</span>
+        <h2>Drag across<br>the panel.</h2>
+      </div>
+      <p>This is the homepage itself, running here, with the controls live. Drag over the swirled
+         paint and the correction comes up under your finger — which is the closest a screen gets
+         to the thing a polishing shop actually sells.</p>
     </div>
 
-    <div class="demo rv" id="demoFrame">
-      <div class="demo-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="eframe rv-depth" id="demoFrame">
+      <div class="eframe-bar" aria-hidden="true">
+        <i class="live"></i>
+        <span class="plate">H&amp;M Car Polishing &middot; interactive</span>
+        <span class="go">Drag to polish</span>
+      </div>
       <div class="demo-window">
         <iframe id="demoSite" title="The H&amp;M Car Polishing homepage, live and interactive" src="site/index.html" loading="lazy"></iframe>
       </div>
-      <p class="demo-note mono">
-        <span>Live and interactive · drag inside the frame</span>
-        <span style="margin-left:auto"><a href="site/index.html" target="_blank" rel="noopener" style="box-shadow:inset 0 -1px 0 var(--line-2)">Open it full size ↗</a></span>
-      </p>
+
+      <div class="demo-actions">
+        <p>The panel above is a real canvas, a few kilobytes, running on this page. It works the same on a phone.</p>
+        <div class="cta-row">
+          <a class="btn btn-key" href="site/index.html" target="_blank" rel="noopener">Open it full size <span class="arrow">&#8599;</span></a>
+          <a class="btn btn-ghost" href="site/index.html#quote" target="_blank" rel="noopener">See the quote flow <span class="arrow">&#8599;</span></a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -245,8 +157,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
 <!-- ========================================================= decisions -- -->
 <section class="band">
   <div class="wrap">
-    <div class="band-head">
-      <h2>Three decisions</h2>
+    <div class="band-head split">
+      <div>
+        <span class="eyebrow">How it was built</span>
+        <h2>Three decisions</h2>
+      </div>
+      <p>A concept has to earn its place by arguing something. These are the three arguments.</p>
     </div>
 
     <article class="dec rv">
@@ -254,7 +170,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
       <div>
         <p>Paint correction is invisible in a photograph and obvious in person. So the homepage does not open with a claim about quality — it opens with a panel of swirled paint and lets you take the swirls off yourself.</p>
         <p>It is drawn on a canvas, so it is a few kilobytes and works on any phone. Nobody has to be told it is impressive.</p>
-        <p class="quote">Every shop on the street says "professional results". Only one of them hands you the polisher.</p>
+        <p class="quote">Every shop on the street says &ldquo;professional results&rdquo;. Only one of them hands you the polisher.</p>
       </div>
     </article>
 
@@ -262,7 +178,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
       <div><p class="dec-no">Decision 02</p><h3>WhatsApp, because this is Dubai</h3></div>
       <div>
         <p>A contact form would have been the default and the wrong answer. In the UAE the entire trade runs on WhatsApp, and the natural first message is a photograph of your own paint.</p>
-        <p>So the call to action is "send a photo of your paint", and it opens WhatsApp with the message already started. The shop answers with a price from a picture, the way that trade already works.</p>
+        <p>So the call to action is &ldquo;send a photo of your paint&rdquo;, and it opens WhatsApp with the message already started. The shop answers with a price from a picture, the way that trade already works.</p>
       </div>
     </article>
 
@@ -278,9 +194,9 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
 <!-- =============================================================== wip -- -->
 <section class="band">
   <div class="wrap">
-    <div class="open rv">
+    <div class="panel rv">
       <div>
-        <p class="tag-wip mono" style="margin-bottom:var(--s2)"><i aria-hidden="true"></i> On purpose</p>
+        <p class="tag-wip" style="margin-bottom:var(--s3)"><i aria-hidden="true"></i> On purpose</p>
         <h3>The photo slots are empty, and they are not getting filled with stock</h3>
       </div>
       <div>
@@ -295,12 +211,14 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
 </section>
 
 <section class="next">
-  <div class="wrap">
-    <h2>Something<br>only you can do.</h2>
-    <p>If your business has one thing a photograph cannot carry, that thing belongs on the homepage — working, not described.</p>
+  <div class="wrap next-grid">
+    <div>
+      <h2>Something<br>only you can do.</h2>
+      <p>If your business has one thing a photograph cannot carry, that thing belongs on the homepage — working, not described.</p>
+    </div>
     <div class="next-cta">
-      <a class="btn" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20the%20H%26M%20case%20and%20I%27d%20like%20something%20like%20it." target="_blank" rel="noopener">Message on WhatsApp</a>
-      <a class="btn btn-ghost" href="../../#work">See the other work</a>
+      <a class="btn btn-lg btn-key" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20the%20H%26M%20case%20and%20I%27d%20like%20something%20like%20it." target="_blank" rel="noopener">Message on WhatsApp <span class="arrow">&#8599;</span></a>
+      <a class="btn btn-lg btn-ghost" href="../../#work">See the other work</a>
     </div>
   </div>
 </section>
@@ -308,41 +226,125 @@ footer{border-top:1px solid var(--line);padding-block:var(--s3);}
 
 <footer>
   <div class="wrap foot-in mono">
-    <span>© <span id="yr">2026</span> Vadim Ivanchenko</span>
+    <span>&copy; <span id="yr">2026</span> Vadim Ivanchenko</span>
     <span>Self-initiated concept, not a client project</span>
     <span>Built by hand</span>
   </div>
 </footer>
 
+<script src="../../assets/case.js" defer></script>
 <script>
 (function(){
-  document.getElementById('yr').textContent = new Date().getFullYear();
-
-  var rv = new IntersectionObserver(function(en){
-    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rv.unobserve(e.target); } });
-  }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
-  document.querySelectorAll('.rv').forEach(function(el){ rv.observe(el); });
+  /* The year, the reveals and the control lighting are shared — case.js. */
 
   /* The demo has to stay draggable, so this frame keeps its pointer events.
      It is rendered at a device width and scaled to fit, which also scales the
      pointer coordinates — the canvas inside still tracks the finger. */
   var frame = document.getElementById('demoFrame');
   var site  = document.getElementById('demoSite');
+  var win   = frame.querySelector('.demo-window');
 
+  var PAD = 30;               /* source pixels of mount around the panel */
+  function panel(){
+    /* Same origin, so the real panel gets measured rather than guessed — a
+       guessed offset would be wrong the moment the concept site is edited. */
+    try{
+      var d = site.contentDocument;
+      var b = d && d.getElementById('buff');
+      if(!b) return null;
+      /* this instance is embedded and never scrolled, so its scrollbar is
+         only ever a grey sliver inside the mount — suppressed here rather
+         than in the concept site, which still scrolls normally on its own */
+      d.documentElement.style.overflow = 'hidden';
+      var st = d.documentElement.scrollTop || d.body.scrollTop || 0;
+      var r  = b.getBoundingClientRect();
+      if(!r.width || !r.height) return null;
+      return {x:r.left, y:r.top + st, w:r.width, h:r.height};
+    }catch(e){ return null; }
+  }
+
+  /* One pass of the polisher, drawn for the visitor rather than waited for.
+     At rest the panel is a near-opaque dark layer by design, which inside a
+     cropped frame reads as an empty rectangle — so a single diagonal stroke
+     is taken off it on load. The stroke is the same destination-out wipe the
+     concept site's own pointer handler uses, applied to the same context, so
+     nothing about that site's behaviour is monkey-patched or overridden. */
+  function demoStroke(){
+    try{
+      var d = site.contentDocument;
+      var wrap = d && d.getElementById('buff');
+      var cv = d && d.getElementById('buffCanvas');
+      if(!wrap || !cv) return;
+      var r = wrap.getBoundingClientRect();
+      if(!r.width || !cv.width) return;
+      var ctx = cv.getContext('2d');
+      if(!ctx) return;
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-out';
+      for(var i = 0; i <= 26; i++){
+        var t = i / 26;
+        var x = r.width  * (0.10 + t * 0.78);
+        var y = r.height * (0.70 - t * 0.40 + Math.sin(t * 3.1) * 0.05);
+        var g = ctx.createRadialGradient(x, y, 0, x, y, 46);
+        g.addColorStop(0,  'rgba(0,0,0,0.95)');
+        g.addColorStop(.7, 'rgba(0,0,0,0.6)');
+        g.addColorStop(1,  'rgba(0,0,0,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(x, y, 46, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }catch(e){}
+  }
   function fit(){
-    var win = frame.querySelector('.demo-window');
     var phone = innerWidth < 760;
     var sw  = phone ? 430 : 1400;
     var sh  = phone ? 1700 : 1600;
-    /* park the view on the interactive panel rather than the top of the page,
-       since the panel is the reason this frame is here */
-    var off = phone ? 470 : 430;
     site.style.setProperty('--srcw', sw + 'px');
     site.style.setProperty('--srch', sh + 'px');
+
+    var p = panel();
+    if(p){
+      /* never crop wider than the document being framed, or the iframe's own
+         right edge and scrollbar end up inside the mount */
+      var bw = Math.min(p.w + PAD * 2, sw), bh = p.h + PAD * 2;
+      p.x = Math.max(0, Math.min(p.x - PAD, sw - bw)) + PAD;
+      win.style.aspectRatio = bw + ' / ' + bh;
+      var k = win.clientWidth / bw;
+      site.style.transform =
+        'scale(' + k + ') translate(' + (-(p.x - PAD)) + 'px,' + (-(p.y - PAD)) + 'px)';
+      return;
+    }
+    /* before the concept site has laid out: park roughly on the panel */
+    var off = phone ? 470 : 430;
     site.style.transform = 'scale(' + (win.clientWidth / sw) + ') translateY(-' + off + 'px)';
   }
   fit();
-  site.addEventListener('load', fit);
+  site.addEventListener('load', function(){
+    fit();
+    /* web fonts land after load and move the panel a few pixels */
+    /* fit() changes the iframe element's height, which makes the concept
+       site's own resize handler repaint the swirl a moment later and wipe the
+       stroke. Rather than race that, the stroke is simply re-applied for the
+       first three seconds — retracing the identical path is idempotent, so
+       there is nothing to get wrong. */
+    setTimeout(fit, 180);
+    setTimeout(fit, 700);
+    var tries = 0;
+    var iv = setInterval(function(){
+      demoStroke();
+      if(++tries > 12) clearInterval(iv);
+    }, 260);
+    /* the concept site repaints its swirl whenever its own window resizes
+       (web fonts landing count), so put the stroke back afterwards */
+    try{
+      site.contentWindow.addEventListener('resize', function(){
+        clearTimeout(window.__s);
+        window.__s = setTimeout(demoStroke, 220);
+      }, {passive:true});
+    }catch(e){}
+  });
   addEventListener('resize', function(){
     clearTimeout(window.__t);
     window.__t = setTimeout(fit, 120);
