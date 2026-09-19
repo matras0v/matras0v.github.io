@@ -109,7 +109,7 @@
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden;scroll-padding-top:92px;}
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
 
 body{
@@ -170,6 +170,7 @@ button{font:inherit;color:inherit;background:none;border:0;}
 .nav{
   position:sticky;top:0;z-index:100;
   border-bottom:1px solid transparent;
+  padding-top:env(safe-area-inset-top);
   transition:background-color .3s ease, border-color .3s ease;
 }
 .nav.solid{
@@ -241,6 +242,45 @@ button{font:inherit;color:inherit;background:none;border:0;}
   .cta-full{display:none;}
   .cta-short{display:inline;}
 }
+
+/* -- mobile section menu --------------------------------------------------
+   Below 820px .nav-links has nowhere left to live in the header row. A
+   quiet dropdown anchored under the nav — not a full-screen takeover —
+   since there are only three links to reveal; the language switch and the
+   contact button stay put either way, they don't need the menu at all. */
+.burg{
+  display:none;position:relative;width:40px;height:40px;flex:none;
+  border-radius:8px;margin-left:2px;
+}
+@media (max-width:819px){ .burg{display:inline-flex;align-items:center;justify-content:center;} }
+.burg span{
+  position:absolute;left:50%;width:15px;height:1px;background:var(--paper-2);
+  transition:transform .3s var(--ease-out);
+}
+.burg span:nth-child(1){transform:translate(-50%,-3px);}
+.burg span:nth-child(2){transform:translate(-50%,3px);}
+.nav.menu-open .burg span:nth-child(1){transform:translate(-50%,0) rotate(45deg);}
+.nav.menu-open .burg span:nth-child(2){transform:translate(-50%,0) rotate(-45deg);}
+@media (max-width:819px){
+  .nav-links{
+    position:absolute;left:0;right:0;top:100%;
+    flex-direction:column;gap:0;
+    background:color-mix(in srgb, var(--void) 96%, transparent);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+    padding:4px var(--pad,20px) 14px;
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .25s ease, transform .25s var(--ease-out), visibility 0s linear .25s;
+  }
+  .nav.menu-open .nav-links{
+    display:flex;opacity:1;visibility:visible;transform:none;
+    transition:opacity .25s ease, transform .25s var(--ease-out);
+  }
+  .nav-links a{min-height:50px;border-bottom:1px solid var(--line);}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-links a::after{display:none;}
+}
+@media (prefers-reduced-motion:reduce){ .nav-links{transition:none;} .burg span{transition:none;} }
 
 /* --------------------------------------------------------------- CTAs -----
    One interaction language for every action on the page. The surface is a
@@ -451,7 +491,7 @@ a.frame:active .window{transform:scale(1.002);}
 }
 .window{
   position:relative;
-  aspect-ratio:4/5;       /* a phone preview wants to be taller than wide */
+  aspect-ratio:1/1;       /* tall enough to read as a real page, short enough that one card never eats the whole screen */
   overflow:hidden;
   background:#08080A;
   border-radius:7px;
@@ -846,7 +886,7 @@ h2{
 /* Cards are already tight internally (frame → caption → title →
    description); only the row gap between them needed trimming from
    the full desktop-composition rhythm. */
-@media (max-width:767px){ .sheet{gap:84px var(--gap);} }
+@media (max-width:767px){ .sheet{gap:52px var(--gap);} }
 @media (min-width:860px){
   .sheet{grid-template-columns:repeat(12,minmax(0,1fr));align-items:start;}
   .cell:nth-child(1){grid-column:span 8;}
@@ -1547,6 +1587,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
       <span class="cta-full" data-i18n="nav-cta-full">Start a project &middot; Contacts</span>
       <span class="cta-short" data-i18n="nav-cta-short">Contacts</span>
     </a>
+    <button class="burg" id="burg" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
   </div></div>
 </header>
 
@@ -2027,6 +2068,32 @@ MLang.init(window.I18N_HOME_RU);
   }
   addEventListener('scroll', onScroll, {passive:true});
   onScroll();
+
+  /* -- mobile section menu ------------------------------------------------
+     Below 820px .nav-links has nowhere to live in the header row, so this
+     button reveals it as a dropdown instead — same three links, no second
+     copy of the markup or the i18n keys. */
+  (function(){
+    var burg = document.getElementById('burg');
+    if(!burg) return;
+    function close(){
+      nav.classList.remove('menu-open');
+      burg.setAttribute('aria-expanded', 'false');
+    }
+    burg.addEventListener('click', function(){
+      var open = nav.classList.toggle('menu-open');
+      burg.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.querySelectorAll('.nav-links a').forEach(function(a){
+      a.addEventListener('click', close);
+    });
+    document.addEventListener('click', function(e){
+      if(nav.classList.contains('menu-open') && !nav.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') close();
+    });
+  })();
 
   /* -- frames turn toward the cursor -------------------------------------
      Two and a half degrees at the corner and a push forward in Z. Any more

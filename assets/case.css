@@ -64,7 +64,7 @@ html[data-case="grime"]{
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden;scroll-padding-top:88px;}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
 body{
   background:var(--paper);color:var(--ink);
@@ -124,6 +124,7 @@ button{font:inherit;color:inherit;background:none;border:0;}
   backdrop-filter:saturate(1.4) blur(18px);
   -webkit-backdrop-filter:saturate(1.4) blur(18px);
   border-bottom:1px solid var(--line);
+  padding-top:env(safe-area-inset-top);
 }
 .nav-in{display:flex;align-items:center;gap:var(--s2);height:68px;}
 @media (min-width:760px){.nav-in{gap:var(--s3);height:72px;}}
