@@ -84,6 +84,35 @@ button,input,select{font:inherit;color:inherit;background:none;border:0;}
 .nav-links a{color:var(--bone-2);transition:color .16s ease;}
 .nav-links a:hover{color:var(--bone);}
 
+/* -- language switch -----------------------------------------------------
+   Two letters and a slash, quiet and editorial like the rest of the nav —
+   never a dropdown, never a pill. Active language reads brighter and
+   carries the same underline device the rest of the page could use;
+   inactive stays a clearly clickable secondary. Always visible (not
+   folded into .nav-links), so it survives the mobile breakpoint. */
+.lang-switch{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+}
+.lang-switch .lang-sep{color:var(--bone-3);opacity:.6;}
+.lang-btn{
+  position:relative;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:22px;min-height:44px;padding:0 2px;
+  color:var(--bone-3);
+  transition:color .18s ease;
+}
+.lang-btn::after{
+  content:"";position:absolute;left:1px;right:1px;bottom:13px;height:1px;
+  background:var(--bone);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .28s var(--ease-out);
+}
+.lang-btn:hover{color:var(--bone-2);}
+.lang-btn.is-active{color:var(--bone);}
+.lang-btn.is-active::after{transform:scaleX(1);}
+@media (prefers-reduced-motion:reduce){ .lang-btn::after{transition:none;} }
+
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   min-height:46px;padding:0 20px;cursor:pointer;
@@ -103,6 +132,13 @@ button,input,select{font:inherit;color:inherit;background:none;border:0;}
   .lbl-short{display:inline;}
   .nav-in{gap:var(--s2);}
   .brand{font-size:12px;letter-spacing:.18em;}
+}
+/* The concept chip is decorative rather than a piece of navigation, so it
+   is the first thing to give way once the lang switch also has to fit in
+   this row — keeps the row from forcing the book button off the glass. */
+@media (max-width:480px){
+  .chip-concept{display:none;}
+  .lang-switch{gap:4px;}
 }
 
 /* --------------------------------------------------------------- header -- */
@@ -286,18 +322,23 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 </head>
 
 <body>
-<a class="skip" href="#menu">Skip to the menu</a>
+<a class="skip" href="#menu"><i data-i18n="skip-link">Skip to the menu</i></a>
 
 <header class="nav">
   <div class="nav-in">
     <a class="brand" href="#top">Ember &amp; Oak</a>
-    <span class="chip-concept">Concept</span>
+    <span class="chip-concept"><i data-i18n="chip-concept">Concept</i></span>
     <nav class="nav-links caps" aria-label="Sections">
-      <a href="#menu">Menu</a>
-      <a href="#room">The room</a>
-      <a href="#book">Book</a>
+      <a href="#menu"><i data-i18n="nav-menu">Menu</i></a>
+      <a href="#room"><i data-i18n="nav-room">The room</i></a>
+      <a href="#book"><i data-i18n="nav-book">Book</i></a>
     </nav>
-    <a class="btn" href="#book"><span class="lbl-long">Book a table</span><span class="lbl-short">Book</span></a>
+    <div class="lang-switch" role="group" aria-label="Language / Язык">
+      <button type="button" class="lang-btn is-active" data-lang="en" aria-current="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="ru" aria-current="false">RU</button>
+    </div>
+    <a class="btn" href="#book"><span class="lbl-long"><i data-i18n="lbl-long-book">Book a table</i></span><span class="lbl-short"><i data-i18n="lbl-short-book">Book</i></span></a>
   </div>
 </header>
 
@@ -306,8 +347,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 
 <section class="head">
   <div class="wrap">
-    <h1>Ember &amp; Oak<span>everything over wood, nothing over-explained</span></h1>
-    <p class="caps">Dinner Tuesday to Saturday · 42 Bathurst Street</p>
+    <h1>Ember &amp; Oak<span><i data-i18n="head-sub">everything over wood, nothing over-explained</i></span></h1>
+    <p class="caps"><i data-i18n="head-hours">Dinner Tuesday to Saturday · 42 Bathurst Street</i></p>
     <div class="rule" aria-hidden="true"></div>
   </div>
 </section>
@@ -316,12 +357,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 <section class="wrap">
   <div class="tonight rv" id="tonight">
     <div class="tonight-top">
-      <span class="live caps"><i aria-hidden="true"></i> Tonight</span>
+      <span class="live caps"><i aria-hidden="true"></i> <i data-i18n="tonight-live">Tonight</i></span>
       <span class="caps" id="tDate"></span>
       <span class="caps" style="margin-left:auto" id="tLeft"></span>
     </div>
     <div class="slots" id="slots" role="group" aria-label="Choose a time for tonight"></div>
-    <p class="tonight-note">Two seats at the counter are held back until 18:00 each day, and never taken by phone.</p>
+    <p class="tonight-note"><i data-i18n="tonight-note">Two seats at the counter are held back until 18:00 each day, and never taken by phone.</i></p>
   </div>
 </section>
 
@@ -331,10 +372,10 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 
   <div class="wrap">
     <div class="set rv">
-      <p class="caps">Five courses</p>
-      <h3>The whole fire</h3>
-      <p>What the kitchen is cooking that week, in order, with no choices to make. Written on the morning it is served.</p>
-      <p class="set-price">£78 a person · £48 with the wines</p>
+      <p class="caps"><i data-i18n="set-caps">Five courses</i></p>
+      <h3><i data-i18n="set-h3">The whole fire</i></h3>
+      <p><i data-i18n="set-p">What the kitchen is cooking that week, in order, with no choices to make. Written on the morning it is served.</i></p>
+      <p class="set-price"><i data-i18n="set-price">£78 a person · £48 with the wines</i></p>
     </div>
   </div>
 </section>
@@ -342,48 +383,48 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 <!-- =============================================================== book -- -->
 <section class="book" id="book">
   <div class="wrap book-in">
-    <h2>Book a table</h2>
-    <p class="book-sub">Or pick a time from tonight's list above and it fills this in for you.</p>
+    <h2><i data-i18n="book-h2">Book a table</i></h2>
+    <p class="book-sub"><i data-i18n="book-sub">Or pick a time from tonight's list above and it fills this in for you.</i></p>
 
     <form class="form" id="bookForm" novalidate>
       <div class="picked" id="picked">
-        <b id="pickedTime">No time chosen yet</b>
+        <b id="pickedTime"><i data-i18n="picked-default">No time chosen yet</i></b>
         <span id="pickedDate"></span>
-        <span style="margin-left:auto"><a href="#tonight" style="border-bottom:1px solid var(--line-2)">Choose from tonight</a></span>
+        <span style="margin-left:auto"><a href="#tonight" style="border-bottom:1px solid var(--line-2)"><i data-i18n="picked-choose">Choose from tonight</i></a></span>
       </div>
 
       <div class="row">
         <div class="field">
-          <label for="bname">Name</label>
+          <label for="bname"><i data-i18n="field-name">Name</i></label>
           <input id="bname" type="text" autocomplete="name" required>
-          <span class="err">We need a name for the book.</span>
+          <span class="err"><i data-i18n="err-name">We need a name for the book.</i></span>
         </div>
         <div class="field">
-          <label for="bphone">Phone</label>
+          <label for="bphone"><i data-i18n="field-phone">Phone</i></label>
           <input id="bphone" type="tel" inputmode="tel" autocomplete="tel" required>
-          <span class="err">A number, in case the kitchen runs late.</span>
+          <span class="err"><i data-i18n="err-phone">A number, in case the kitchen runs late.</i></span>
         </div>
       </div>
       <div class="row">
         <div class="field">
-          <label for="bpeople">People</label>
+          <label for="bpeople"><i data-i18n="field-people">People</i></label>
           <select id="bpeople">
             <option>1</option><option selected>2</option><option>3</option>
             <option>4</option><option>5</option><option>6</option>
-            <option>More than 6</option>
+            <option data-i18n="opt-more6">More than 6</option>
           </select>
         </div>
         <div class="field">
-          <label for="bnote">Anything we should know</label>
-          <input id="bnote" type="text" placeholder="Allergies, a birthday, a pushchair">
+          <label for="bnote"><i data-i18n="field-note">Anything we should know</i></label>
+          <input id="bnote" type="text" placeholder="Allergies, a birthday, a pushchair" data-i18n-attr="placeholder:note-placeholder">
         </div>
       </div>
-      <button class="btn" type="submit" id="bookBtn" style="justify-self:start;padding-inline:32px">Request the table</button>
+      <button class="btn" type="submit" id="bookBtn" style="justify-self:start;padding-inline:32px"><i data-i18n="book-submit">Request the table</i></button>
 
       <div class="done" id="done" role="status">
         <div>
-          <b>That would have gone to the pass.</b>
-          <p>Ember &amp; Oak is a concept, so nothing left your browser. On a real restaurant's site this would land in the book and text you back within the hour.</p>
+          <b><i data-i18n="done-title">That would have gone to the pass.</i></b>
+          <p><i data-i18n="done-p">Ember &amp; Oak is a concept, so nothing left your browser. On a real restaurant's site this would land in the book and text you back within the hour.</i></p>
         </div>
       </div>
     </form>
@@ -397,20 +438,20 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
       <figure>
         <picture>
           <source type="image/avif" srcset="img/room-600.avif 600w, img/room-1200.avif 1200w" sizes="(min-width:760px) 55vw, 100vw">
-          <img src="img/room-1200.jpg" width="1200" height="800" loading="lazy" alt="A long table laid with wine glasses and small plates, guests mid-meal.">
+          <img src="img/room-1200.jpg" width="1200" height="800" loading="lazy" alt="A long table laid with wine glasses and small plates, guests mid-meal." data-i18n-attr="alt:alt-room1">
         </picture>
       </figure>
       <div class="room-col">
         <figure>
           <picture>
             <source type="image/avif" srcset="img/pour-600.avif 600w, img/pour-1200.avif 1200w" sizes="(min-width:760px) 40vw, 100vw">
-            <img src="img/pour-600.jpg" width="600" height="600" loading="lazy" alt="A cook spooning sauce over a plated dish under a low light.">
+            <img src="img/pour-600.jpg" width="600" height="600" loading="lazy" alt="A cook spooning sauce over a plated dish under a low light." data-i18n-attr="alt:alt-room2">
           </picture>
         </figure>
         <figure>
           <picture>
             <source type="image/avif" srcset="img/glass-600.avif 600w, img/glass-1200.avif 900w" sizes="(min-width:760px) 40vw, 100vw">
-            <img src="img/glass-600.jpg" width="600" height="800" loading="lazy" alt="A glass of sparkling wine beside a stoneware bowl in raking light.">
+            <img src="img/glass-600.jpg" width="600" height="800" loading="lazy" alt="A glass of sparkling wine beside a stoneware bowl in raking light." data-i18n-attr="alt:alt-room3">
           </picture>
         </figure>
       </div>
@@ -418,16 +459,16 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 
     <div class="room-text">
       <div>
-        <p class="caps" style="color:var(--bone-3);margin-bottom:var(--s2)">The room</p>
-        <p>Thirty-four covers, one fire, and a counter for eight that looks straight into it. The kitchen has no gas — everything that reaches the table has been over oak or embers, including the bread and most of the puddings.</p>
-        <p>We take one sitting a night. The table is yours until you leave it.</p>
+        <p class="caps" style="color:var(--bone-3);margin-bottom:var(--s2)"><i data-i18n="room-caps">The room</i></p>
+        <p><i data-i18n="room-p1">Thirty-four covers, one fire, and a counter for eight that looks straight into it. The kitchen has no gas — everything that reaches the table has been over oak or embers, including the bread and most of the puddings.</i></p>
+        <p><i data-i18n="room-p2">We take one sitting a night. The table is yours until you leave it.</i></p>
       </div>
       <dl class="facts">
-        <div><dt>Dinner</dt><dd>Tuesday – Saturday, from 18:00</dd></div>
-        <div><dt>Counter</dt><dd>Eight seats, walk-ins from 18:00</dd></div>
-        <div><dt>Corkage</dt><dd>£20, one bottle a table</dd></div>
-        <div><dt>Address</dt><dd>42 Bathurst Street</dd></div>
-        <div><dt>Allergens</dt><dd>Tell us when you book, not on the night</dd></div>
+        <div><dt><i data-i18n="fact-dinner">Dinner</i></dt><dd><i data-i18n="fact-dinner-v">Tuesday – Saturday, from 18:00</i></dd></div>
+        <div><dt><i data-i18n="fact-counter">Counter</i></dt><dd><i data-i18n="fact-counter-v">Eight seats, walk-ins from 18:00</i></dd></div>
+        <div><dt><i data-i18n="fact-corkage">Corkage</i></dt><dd><i data-i18n="fact-corkage-v">£20, one bottle a table</i></dd></div>
+        <div><dt><i data-i18n="fact-address">Address</i></dt><dd>42 Bathurst Street</dd></div>
+        <div><dt><i data-i18n="fact-allergens">Allergens</i></dt><dd><i data-i18n="fact-allergens-v">Tell us when you book, not on the night</i></dd></div>
       </dl>
     </div>
   </div>
@@ -446,16 +487,17 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
     <div class="foot caps">
       <span>Ember &amp; Oak</span>
       <span>42 Bathurst Street</span>
-      <span style="margin-left:auto">Dinner Tue–Sat</span>
+      <span style="margin-left:auto"><i data-i18n="foot-hours">Dinner Tue–Sat</i></span>
     </div>
     <p class="disclosure">
-      <span><b>This is a concept.</b> Ember &amp; Oak is an invented restaurant, built as a portfolio piece by <a href="../../">Vadim Ivanchenko</a>. The address and the menu are not real.</span>
-      <span><a href="../../#work">See the real client work →</a></span>
+      <span data-i18n="disc-1"><b>This is a concept.</b> Ember &amp; Oak is an invented restaurant, built as a portfolio piece by <a href="../../">Vadim Ivanchenko</a>. The address and the menu are not real.</span>
+      <span><a href="../../#work"><i data-i18n="disc-2">See the real client work →</i></a></span>
       <span><a href="https://wa.me/79184134820" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://t.me/matras0v" target="_blank" rel="noopener">Telegram</a> · <a href="https://instagram.com/matras0v" target="_blank" rel="noopener">Instagram</a> · <a href="mailto:mskvvmskvv@gmail.com">Email</a></span>
     </p>
   </div>
 </footer>
 
+<script src="../../assets/i18n.js"></script>
 <script>
 (function(){
   var rv = new IntersectionObserver(function(en){
@@ -492,22 +534,23 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
-  document.getElementById('menuBody').innerHTML = MENU.map(function(c){
-    return '<section class="course rv"><h2>'+esc(c.course)+'</h2>' +
-      c.dishes.map(function(d){
+  document.getElementById('menuBody').innerHTML = MENU.map(function(c, ci){
+    return '<section class="course rv"><h2 data-i18n="menu-course-'+ci+'">'+esc(c.course)+'</h2>' +
+      c.dishes.map(function(d, di){
         var has = !!d.img;
+        var nameKey = 'menu-d-'+ci+'-'+di+'-name';
         return '<'+(has?'button type="button"':'div')+' class="dish'+(has?' has':'')+'"'+
                (has?' data-img="'+d.img+'" data-name="'+esc(d.n)+'" aria-expanded="false"':'')+'>' +
           '<span class="dish-line">' +
-            '<span class="dish-name">'+esc(d.n)+'</span>' +
+            '<span class="dish-name" data-i18n="'+nameKey+'">'+esc(d.n)+'</span>' +
             '<span class="dots" aria-hidden="true"></span>' +
             '<span class="dish-price">£'+esc(d.p)+'</span>' +
           '</span>' +
-          (d.d ? '<span class="dish-desc" style="display:block">'+esc(d.d)+'</span>' : '') +
-          (d.tags ? '<span class="dish-tags" style="display:block">'+esc(d.tags)+'</span>' : '') +
+          (d.d ? '<span class="dish-desc" style="display:block" data-i18n="menu-d-'+ci+'-'+di+'-desc">'+esc(d.d)+'</span>' : '') +
+          (d.tags ? '<span class="dish-tags" style="display:block" data-i18n="menu-d-'+ci+'-'+di+'-tags">'+esc(d.tags)+'</span>' : '') +
           (has ? '<span class="dish-photo" style="display:none">' +
             '<picture><source type="image/avif" srcset="img/'+d.img+'-600.avif 600w, img/'+d.img+'-1200.avif 1200w" sizes="100vw">' +
-            '<img src="img/'+d.img+'-600.jpg" loading="lazy" alt="'+esc(d.n)+'"></picture></span>' : '') +
+            '<img src="img/'+d.img+'-600.jpg" loading="lazy" alt="'+esc(d.n)+'" data-i18n-attr="alt:'+nameKey+'"></picture></span>' : '') +
         '</'+(has?'button':'div')+'>';
       }).join('') +
     '</section>';
@@ -603,6 +646,100 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
     var b = document.getElementById('bookBtn');
     b.disabled = true; b.textContent = 'Requested';
   });
+
+  window.I18N_EMBEROAK_RU = {
+    "skip-link": "Перейти к меню",
+    "chip-concept": "Концепт",
+    "nav-menu": "Меню",
+    "nav-room": "Зал",
+    "nav-book": "Бронь",
+    "lbl-long-book": "Забронировать столик",
+    "lbl-short-book": "Бронь",
+
+    "head-sub": "всё готовится на дровах, ничего не объясняется словами",
+    "head-hours": "Ужин со вторника по субботу &middot; 42 Bathurst Street",
+
+    "tonight-live": "Сегодня",
+    "tonight-note": "Два места у стойки придерживаем каждый день до 18:00 — по телефону их не бронируют.",
+
+    "menu-course-0": "Для начала",
+    "menu-course-1": "С огня",
+    "menu-course-2": "Гарниры",
+    "menu-course-3": "На десерт",
+
+    "menu-d-0-0-name": "Хлеб, топлёный жир, палёный лук",
+    "menu-d-0-0-desc": "Испечён тем же утром в печи. Приносим вне зависимости от того, заказывали вы его или нет.",
+    "menu-d-0-1-name": "Устрицы на углях",
+    "menu-d-0-1-desc": "Шесть минут над углями, масло с водорослями, капля лимона.",
+    "menu-d-0-1-tags": "Минимум две штуки",
+    "menu-d-0-2-name": "Копчёная икра трески, лепёшка с углей",
+    "menu-d-0-2-desc": "Засаливаем сами четыре дня, взбиваем с топлёным маслом до пены.",
+    "menu-d-0-3-name": "Свёкла в углях, выдержанный козий сыр",
+    "menu-d-0-3-desc": "Ночь в золе, чистим прямо перед подачей.",
+
+    "menu-d-1-0-name": "Лобстер, фенхель, шафрановое масло",
+    "menu-d-1-0-desc": "Разрезан вдоль, готовится панцирем вниз, поливается собственным редукционом.",
+    "menu-d-1-1-name": "Выдержанное ребро Лонгхорн на двоих",
+    "menu-d-1-1-desc": "Сорок пять дней вызревания на кости, отдыхает у огня столько же, сколько готовилось.",
+    "menu-d-1-1-tags": "Сорок минут",
+    "menu-d-1-2-name": "Целый тюрбо, топлёное масло, каперсы",
+    "menu-d-1-2-desc": "Зависит от улова. Спросите, что привезли сегодня.",
+    "menu-d-1-2-tags": "На двоих",
+    "menu-d-1-3-name": "Капуста хиспи, фундук, выдержанный пармезан",
+    "menu-d-1-3-desc": "Разрезана пополам, обожжена почти до черноты, заправляется прямо горячей.",
+
+    "menu-d-2-0-name": "Картофель на говяжьем жире",
+    "menu-d-2-1-name": "Листья, хересный уксус",
+    "menu-d-2-2-name": "Лук-порей на гриле, желток, зелёный лук",
+
+    "menu-d-3-0-name": "Мороженое на палёном мёде",
+    "menu-d-3-0-desc": "Мёд с нашей крыши, карамелизуем почти до предела.",
+    "menu-d-3-1-name": "Печёная груша, овсяная крошка, сливки",
+    "menu-d-3-2-name": "Кусок чего-то британского",
+    "menu-d-3-2-desc": "Три сыра, овсяные крекеры, айва.",
+
+    "set-caps": "Пять блюд",
+    "set-h3": "Весь огонь",
+    "set-p": "То, что кухня готовит на этой неделе — по порядку, без права выбора. Меню пишем в то же утро, когда подаём.",
+    "set-price": "£78 с человека &middot; £48 с винным сопровождением",
+
+    "book-h2": "Забронировать столик",
+    "book-sub": "Или выберите время из списка на сегодня выше — форма заполнится сама.",
+    "picked-default": "Время пока не выбрано",
+    "picked-choose": "Выбрать из списка на сегодня",
+    "field-name": "Имя",
+    "err-name": "Впишите имя для брони.",
+    "field-phone": "Телефон",
+    "err-phone": "Номер на случай, если кухня задержит подачу.",
+    "field-people": "Гостей",
+    "opt-more6": "Больше 6",
+    "field-note": "Что нам стоит знать",
+    "note-placeholder": "Аллергии, день рождения, коляска",
+    "book-submit": "Отправить заявку",
+    "done-title": "Это ушло бы прямо на раздачу.",
+    "done-p": "Ember &amp; Oak — концепт, поэтому дальше браузера ничего не ушло. На сайте настоящего ресторана заявка попала бы в книгу броней, и вам ответили бы в течение часа.",
+
+    "alt-room1": "Длинный стол с бокалами вина и закусками, гости за ужином.",
+    "alt-room2": "Повар поливает соусом блюдо на тарелке в приглушённом свете.",
+    "alt-room3": "Бокал игристого рядом с керамической миской в косом свете.",
+    "room-caps": "Зал",
+    "room-p1": "Тридцать четыре места, один очаг и стойка на восемь человек, которая смотрит прямо в него. На кухне нет газа — всё, что попадает на стол, прошло через дуб или угли, включая хлеб и большинство десертов.",
+    "room-p2": "Мы принимаем одну посадку за вечер. Столик ваш, пока вы за ним сидите.",
+    "fact-dinner": "Ужин",
+    "fact-dinner-v": "Со вторника по субботу, с 18:00",
+    "fact-counter": "Стойка",
+    "fact-counter-v": "Восемь мест, без брони — с 18:00",
+    "fact-corkage": "Пробковый сбор",
+    "fact-corkage-v": "£20, одна бутылка на столик",
+    "fact-address": "Адрес",
+    "fact-allergens": "Аллергии",
+    "fact-allergens-v": "Сообщайте при бронировании, а не в день визита",
+
+    "foot-hours": "Ужин вт–сб",
+    "disc-1": "<b>Это концепт.</b> Ember &amp; Oak — вымышленный ресторан, сделанный как элемент портфолио <a href=\"../../\">Вадима Иванченко</a>. Адрес и меню не настоящие.",
+    "disc-2": "Смотреть настоящие проекты →"
+  };
+  MLang.init(window.I18N_EMBEROAK_RU);
 })();
 </script>
 </body>

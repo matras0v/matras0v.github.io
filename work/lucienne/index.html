@@ -96,6 +96,18 @@ button,select{font:inherit;color:inherit;background:none;border:0;}
 }
 .cart-btn b[data-n="0"]{background:transparent;color:var(--ink-3);}
 .cart-btn.bump b{transform:scale(1.22);}
+/* The RU labels (Концепт, Корзина) run noticeably longer than their EN
+   originals (Concept, Bag) — comfortable at desktop widths, but the two
+   together no longer fit a 375px nav next to the brand and the language
+   switch. Same fix as the rest of the site's case pages: the chip goes
+   first, then the bag's own word, since the icon-free count badge still
+   says enough on its own. */
+@media (max-width:480px){
+  .chip-concept{display:none;}
+}
+@media (max-width:360px){
+  .cart-btn .cart-word{display:none;}
+}
 
 /* ----------------------------------------------------------------- hero -- */
 .hero{padding-block:var(--s5) var(--s6);}
@@ -344,14 +356,19 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#top">Lucienne</a>
-    <span class="chip-concept">Concept</span>
+    <span class="chip-concept" data-i18n="chip-concept">Concept</span>
     <nav class="nav-links lbl" aria-label="Sections">
-      <a href="#lookbook">Lookbook</a>
-      <a href="#shop">Shop</a>
-      <a href="#made">Made</a>
+      <a href="#lookbook" data-i18n="nav-lookbook">Lookbook</a>
+      <a href="#shop" data-i18n="nav-shop">Shop</a>
+      <a href="#made" data-i18n="nav-made">Made</a>
     </nav>
+    <div class="lang-switch mono" role="group" aria-label="Language / Язык">
+      <button type="button" class="lang-btn is-active" data-lang="en" aria-current="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="ru" aria-current="false">RU</button>
+    </div>
     <button class="cart-btn lbl" id="cartBtn" aria-label="Open the bag">
-      Bag <b id="cartN" data-n="0">0</b>
+      <span class="cart-word" data-i18n="nav-bag">Bag</span> <b id="cartN" data-n="0">0</b>
     </button>
   </div>
 </header>
@@ -362,7 +379,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 <!-- ============================================================== hero -- -->
 <section class="hero">
   <div class="wrap">
-    <h1>Fourteen pieces.<br><em>That is</em> the shop.</h1>
+    <h1 data-i18n="hero-h1">Fourteen pieces.<br><em>That is</em> the shop.</h1>
     <div class="hero-row">
       <figure class="hero-fig rv">
         <picture>
@@ -371,8 +388,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
         </picture>
       </figure>
       <div class="hero-meta">
-        <p class="hero-sub">One collection a season, cut in Portugal, sold only here. Nothing is discounted, because nothing is over-made — when a size is gone, it is gone.</p>
-        <p class="lbl">Autumn / Winter · Delivered from 4 February</p>
+        <p class="hero-sub" data-i18n="hero-sub">One collection a season, cut in Portugal, sold only here. Nothing is discounted, because nothing is over-made — when a size is gone, it is gone.</p>
+        <p class="lbl" data-i18n="hero-season">Autumn / Winter · Delivered from 4 February</p>
       </div>
       <figure class="hero-fig rv">
         <picture>
@@ -388,8 +405,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 <section class="band" id="lookbook">
   <div class="wrap">
     <div class="band-head">
-      <h2>The lookbook<br>is the shop.</h2>
-      <p>There is no second set of pictures on a white background. Tap a mark on the photograph and buy the thing you are looking at.</p>
+      <h2 data-i18n="lookbook-h2">The lookbook<br>is the shop.</h2>
+      <p data-i18n="lookbook-p">There is no second set of pictures on a white background. Tap a mark on the photograph and buy the thing you are looking at.</p>
     </div>
     <div id="looks"></div>
   </div>
@@ -399,8 +416,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 <section class="band" id="shop">
   <div class="wrap">
     <div class="band-head">
-      <h2>Everything,<br>all of it.</h2>
-      <p>Six of the fourteen shown here. Sizes sell out and are not remade.</p>
+      <h2 data-i18n="shop-h2">Everything,<br>all of it.</h2>
+      <p data-i18n="shop-p">Six of the fourteen shown here. Sizes sell out and are not remade.</p>
     </div>
     <div class="grid" id="grid"></div>
   </div>
@@ -410,10 +427,10 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 <section class="band" id="made">
   <div class="wrap made">
     <div>
-      <p class="lbl" style="color:var(--ink-3)">How it is made</p>
-      <h2 style="margin-top:12px">Two factories.<br>Both named.</h2>
-      <p style="margin-top:var(--s3)">Outerwear and tailoring are cut in Porto by a family workshop we have used since the first season. Knitwear comes from a mill outside Barcelos that spins its own yarn. We publish both names on the care label, which is unusual and should not be.</p>
-      <p>Producing fourteen pieces instead of ninety is the whole business model. It is why there is no sale, no outlet, and no second-quality channel — there is no surplus to move.</p>
+      <p class="lbl" style="color:var(--ink-3)" data-i18n="made-eyebrow">How it is made</p>
+      <h2 style="margin-top:12px" data-i18n="made-h2">Two factories.<br>Both named.</h2>
+      <p style="margin-top:var(--s3)" data-i18n="made-p1">Outerwear and tailoring are cut in Porto by a family workshop we have used since the first season. Knitwear comes from a mill outside Barcelos that spins its own yarn. We publish both names on the care label, which is unusual and should not be.</p>
+      <p data-i18n="made-p2">Producing fourteen pieces instead of ninety is the whole business model. It is why there is no sale, no outlet, and no second-quality channel — there is no surplus to move.</p>
     </div>
     <figure class="made-fig rv">
       <picture>
@@ -430,29 +447,29 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
     <div class="foot">
       <div>
         <a class="brand" href="#top" style="font-size:22px">Lucienne</a>
-        <p style="margin-top:8px">Ready-to-wear, made in Portugal, sold direct. Free shipping and returns within the EU and the UK.</p>
+        <p style="margin-top:8px" data-i18n="foot-lede">Ready-to-wear, made in Portugal, sold direct. Free shipping and returns within the EU and the UK.</p>
       </div>
       <div>
-        <h4>Shop</h4>
+        <h4 data-i18n="foot-shop-h4">Shop</h4>
         <ul>
-          <li><a href="#shop">Outerwear</a></li>
-          <li><a href="#shop">Knitwear</a></li>
-          <li><a href="#shop">Tailoring</a></li>
+          <li><a href="#shop" data-i18n="cat-outerwear">Outerwear</a></li>
+          <li><a href="#shop" data-i18n="cat-knitwear">Knitwear</a></li>
+          <li><a href="#shop" data-i18n="cat-tailoring">Tailoring</a></li>
         </ul>
       </div>
       <div>
-        <h4>Help</h4>
+        <h4 data-i18n="foot-help-h4">Help</h4>
         <ul>
-          <li><a href="#made">Sizing</a></li>
-          <li><a href="#made">Shipping &amp; returns</a></li>
-          <li><a href="#made">Care</a></li>
+          <li><a href="#made" data-i18n="foot-sizing">Sizing</a></li>
+          <li><a href="#made" data-i18n="foot-shipping">Shipping &amp; returns</a></li>
+          <li><a href="#made" data-i18n="foot-care">Care</a></li>
         </ul>
       </div>
     </div>
     <p class="disclosure">
-      <span><b>This is a concept.</b> Lucienne is an invented label, built as a portfolio piece by <a href="../../">Vadim Ivanchenko</a>. Nothing here can be bought.</span>
-      <span><a href="../../#work">See the real client work →</a></span>
-      <span><a href="https://wa.me/79184134820" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://t.me/matras0v" target="_blank" rel="noopener">Telegram</a> · <a href="https://instagram.com/matras0v" target="_blank" rel="noopener">Instagram</a> · <a href="mailto:mskvvmskvv@gmail.com">Email</a></span>
+      <span data-i18n="disclosure-p"><b>This is a concept.</b> Lucienne is an invented label, built as a portfolio piece by <a href="../../">Vadim Ivanchenko</a>. Nothing here can be bought.</span>
+      <span><a href="../../#work" data-i18n="see-real-work">See the real client work →</a></span>
+      <span><a href="https://wa.me/79184134820" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://t.me/matras0v" target="_blank" rel="noopener" data-i18n="chan-telegram">Telegram</a> · <a href="https://instagram.com/matras0v" target="_blank" rel="noopener" data-i18n="chan-instagram">Instagram</a> · <a href="mailto:mskvvmskvv@gmail.com" data-i18n="chan-email">Email</a></span>
     </p>
   </div>
 </footer>
@@ -471,11 +488,11 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
       <p class="sheet-price" id="sheetPrice"></p>
       <p class="sheet-desc" id="sheetDesc"></p>
       <ul class="sheet-spec" id="sheetSpec"></ul>
-      <p class="lbl" style="margin-top:var(--s3);color:var(--ink-3)">Size</p>
+      <p class="lbl" style="margin-top:var(--s3);color:var(--ink-3)" data-i18n="sheet-size-label">Size</p>
       <div class="sizes" id="sheetSizes" role="group" aria-label="Choose a size"></div>
       <p class="size-note" id="sizeNote"></p>
       <div class="sheet-cta">
-        <button class="btn" id="addBtn" type="button">Add to bag</button>
+        <button class="btn" id="addBtn" type="button" data-i18n="cta-add-to-bag">Add to bag</button>
       </div>
     </div>
   </div>
@@ -486,24 +503,73 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
   <div class="scrim" data-close></div>
   <div class="drawer-panel">
     <div class="drawer-top">
-      <h3>Bag</h3>
+      <h3 data-i18n="drawer-title">Bag</h3>
       <button class="sheet-close" data-close aria-label="Close the bag" style="position:static;background:none">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
     </div>
     <div class="drawer-list" id="drawerList"></div>
     <div class="drawer-foot">
-      <div class="total"><span>Subtotal</span><span id="total">€0</span></div>
-      <p class="ship">Shipping and duties calculated at checkout. Free above €300.</p>
-      <button class="btn" id="checkout" type="button">Checkout</button>
+      <div class="total"><span data-i18n="drawer-subtotal">Subtotal</span><span id="total">€0</span></div>
+      <p class="ship" data-i18n="drawer-shipnote">Shipping and duties calculated at checkout. Free above €300.</p>
+      <button class="btn" id="checkout" type="button" data-i18n="cta-checkout">Checkout</button>
       <div class="checkout-note" id="checkoutNote">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:2px" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>
-        <span>Lucienne is a concept site, so there is no checkout behind this button. Your bag is still saved in this browser — reload the page and it will be here.</span>
+        <span data-i18n="checkout-note">Lucienne is a concept site, so there is no checkout behind this button. Your bag is still saved in this browser — reload the page and it will be here.</span>
       </div>
     </div>
   </div>
 </div>
 
+<script src="../../assets/i18n.js"></script>
+<script>
+window.I18N_LUCIENNE_RU = {
+  "chip-concept": "Концепт",
+  "nav-lookbook": "Лукбук",
+  "nav-shop": "Магазин",
+  "nav-made": "Производство",
+  "nav-bag": "Корзина",
+
+  "hero-h1": "Четырнадцать вещей.<br><em>Это и есть</em> магазин.",
+  "hero-sub": "Одна коллекция в сезон, скроенная в Португалии, продаётся только здесь. Ничего не уценяется, потому что ничего не производится с запасом — когда размер закончился, он закончился.",
+  "hero-season": "Осень / Зима · Доставка с 4 февраля",
+
+  "lookbook-h2": "Лукбук —<br>и есть магазин.",
+  "lookbook-p": "Здесь нет второго набора фотографий на белом фоне. Нажмите на метку на фотографии и купите то, на что смотрите.",
+
+  "shop-h2": "Всё,<br>без остатка.",
+  "shop-p": "Шесть из четырнадцати моделей показаны здесь. Размеры заканчиваются и не допечатываются.",
+
+  "made-eyebrow": "Как это сделано",
+  "made-h2": "Две фабрики.<br>Обе названы.",
+  "made-p1": "Верхнюю одежду и тейлоринг кроят в Порту на семейном производстве, с которым мы работаем с первого сезона. Трикотаж — с фабрики под Барселушем, которая прядёт собственную пряжу. Мы указываем оба названия на ярлыке по уходу, что необычно — и не должно быть таковым.",
+  "made-p2": "Выпускать четырнадцать вещей вместо девяноста — это и есть вся бизнес-модель. Поэтому нет распродаж, аутлета и второго сорта — нечего сбывать.",
+
+  "foot-lede": "Готовая одежда, произведена в Португалии, продаётся напрямую. Бесплатная доставка и возврат по ЕС и Великобритании.",
+  "foot-shop-h4": "Магазин",
+  "cat-outerwear": "Верхняя одежда",
+  "cat-knitwear": "Трикотаж",
+  "cat-tailoring": "Тейлоринг",
+  "foot-help-h4": "Помощь",
+  "foot-sizing": "Размеры",
+  "foot-shipping": "Доставка и возврат",
+  "foot-care": "Уход",
+  "disclosure-p": "<b>Это концепт.</b> Lucienne — придуманный бренд, сделанный как элемент портфолио <a href=\"../../\">Вадимом Иванченко</a>. Здесь ничего нельзя купить по-настоящему.",
+  "see-real-work": "Смотреть реальные работы клиентов →",
+  "chan-telegram": "Telegram",
+  "chan-instagram": "Instagram",
+  "chan-email": "Email",
+
+  "sheet-size-label": "Размер",
+  "cta-add-to-bag": "В корзину",
+  "drawer-title": "Корзина",
+  "drawer-subtotal": "Промежуточный итог",
+  "drawer-shipnote": "Доставка и пошлины рассчитываются при оформлении заказа. Бесплатно от €300.",
+  "cta-checkout": "Оформить заказ",
+  "checkout-note": "Lucienne — концептуальный сайт, оформления заказа за этой кнопкой нет. Но корзина сохраняется в этом браузере — обновите страницу, и она будет на месте."
+};
+MLang.init(window.I18N_LUCIENNE_RU);
+</script>
 <script>
 (function(){
   var rv = new IntersectionObserver(function(en){
@@ -511,32 +577,75 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
   }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
   function watch(){ document.querySelectorAll('.rv:not(.in)').forEach(function(el){ rv.observe(el); }); }
 
-  /* ------------------------------------------------------------------ data */
+  /* ------------------------------------------------------------------ data
+     Everything rendered below comes from these two objects rather than
+     static markup, so translating them can't work through data-i18n (that
+     only swaps text already sitting in the DOM). Each entry gets its own
+     ru:{...} of the same shape; t() below picks whichever the current
+     language wants, falling back to the English field if a ru one is
+     missing. Re-rendered on every language switch via MLang.onChange(). */
+  function t(obj, field){
+    if(MLang.get() === 'ru' && obj.ru && obj.ru[field] !== undefined) return obj.ru[field];
+    return obj[field];
+  }
+  /* Same idea as t(), for the handful of fixed UI strings this script
+     writes itself (button labels, empty-state copy, aria-labels) rather
+     than reading from P/LOOKS. */
+  var UI_RU = {
+    soldOut: 'нет в наличии',
+    addToBag: 'В корзину',
+    added: 'Добавлено',
+    chooseSize: 'Сначала выберите размер.',
+    bagEmpty: 'В корзине пусто.',
+    bagEmptyHint: 'Всё из лукбука можно добавить прямо с фотографии.',
+    oneFewer: 'На одну меньше',
+    oneMore: 'Ещё одна',
+    sizeLabel: 'Размер'
+  };
+  function UI(en, key){ return (MLang.get() === 'ru' && UI_RU[key]) ? UI_RU[key] : en; }
   var P = {
     trench: {name:'The Trench', cat:'Outerwear', price:690, img:'look1', alt:'A camel trench coat in movement.',
       desc:'A long trench in a dry cotton gabardine that holds its shape without being stiff. Cut generously through the shoulder so it works over knitwear.',
       spec:[['Fabric','100% cotton gabardine'],['Made in','Porto, Portugal'],['Lining','Cupro, half-lined']],
-      sizes:[['XS',1],['S',1],['M',1],['L',0],['XL',1]]},
+      sizes:[['XS',1],['S',1],['M',1],['L',0],['XL',1]],
+      ru:{name:'Тренч', cat:'Верхняя одежда',
+        desc:'Длинный тренч из плотного хлопкового габардина, который держит форму, не будучи жёстким. Свободный крой в плечах — чтобы носить поверх трикотажа.',
+        spec:[['Ткань','100% хлопковый габардин'],['Made in','Порту, Португалия'],['Подкладка','Купро, наполовину подбит']]}},
     shell:  {name:'The Sleeveless Knit', cat:'Knitwear', price:240, img:'look2', alt:'A black sleeveless knit top worn in profile.',
       desc:'A fine-gauge merino shell that sits close without clinging. The armhole is cut high on purpose so it layers under tailoring.',
       spec:[['Fabric','Extra-fine merino'],['Made in','Barcelos, Portugal'],['Gauge','14gg']],
-      sizes:[['XS',1],['S',1],['M',1],['L',1],['XL',0]]},
+      sizes:[['XS',1],['S',1],['M',1],['L',1],['XL',0]],
+      ru:{name:'Топ без рукавов', cat:'Трикотаж',
+        desc:'Тонкий мериносовый топ, который облегает, не сдавливая. Высокая пройма — чтобы носить под тейлорингом.',
+        spec:[['Ткань','Тонкий мерино'],['Made in','Барселуш, Португалия'],['Плотность','14гг']]}},
     jacket: {name:'The Check Jacket', cat:'Tailoring', price:520, img:'look3', alt:'A grey check jacket worn open over a black top.',
       desc:'An unstructured jacket in a wool check, cut without shoulder padding so it folds rather than holds. It is the piece we remake every season.',
       spec:[['Fabric','Wool, 320g'],['Made in','Porto, Portugal'],['Construction','Unstructured, unlined body']],
-      sizes:[['XS',0],['S',1],['M',1],['L',1],['XL',1]]},
+      sizes:[['XS',0],['S',1],['M',1],['L',1],['XL',1]],
+      ru:{name:'Клетчатый жакет', cat:'Тейлоринг',
+        desc:'Неструктурированный жакет из шерсти в клетку, без подплечников — он складывается, а не держит форму. Модель, которую мы перевыпускаем каждый сезон.',
+        spec:[['Ткань','Шерсть, 320г'],['Made in','Порту, Португалия'],['Конструкция','Неструктурированный, без подкладки']]}},
     cable:  {name:'The Cable Knit', cat:'Knitwear', price:310, img:'knit1', alt:'A cream cable knit folded.',
       desc:'A heavy cable in undyed lambswool. The yarn is spun at the mill that knits it, which is why the colour is a colour and not a dye lot.',
       spec:[['Fabric','Undyed lambswool'],['Made in','Barcelos, Portugal'],['Weight','780g']],
-      sizes:[['S',1],['M',1],['L',1],['XL',1]]},
+      sizes:[['S',1],['M',1],['L',1],['XL',1]],
+      ru:{name:'Вязаный кабель', cat:'Трикотаж',
+        desc:'Плотная вязка из неокрашенной шерсти ягнёнка. Пряжу прядёт та же фабрика, что вяжет свитер — поэтому цвет естественный, а не из партии красителя.',
+        spec:[['Ткань','Неокрашенная шерсть ягнёнка'],['Made in','Барселуш, Португалия'],['Вес','780г']]}},
     rib:    {name:'The Ribbed Crew', cat:'Knitwear', price:265, img:'knit2', alt:'Ribbed knitted textiles in neutral tones.',
       desc:'A dense rib that keeps its neckline after a winter of wear. Made in three neutrals and nothing else.',
       spec:[['Fabric','Lambswool, 2-ply'],['Made in','Barcelos, Portugal'],['Weight','620g']],
-      sizes:[['S',1],['M',0],['L',1],['XL',1]]},
+      sizes:[['S',1],['M',0],['L',1],['XL',1]],
+      ru:{name:'Свитер в резинку', cat:'Трикотаж',
+        desc:'Плотная резинка, которая держит форму горловины всю зиму. Всего три нейтральных цвета — и ничего больше.',
+        spec:[['Ткань','Шерсть ягнёнка, в 2 нити'],['Made in','Барселуш, Португалия'],['Вес','620г']]}},
     shirt:  {name:'The Everyday Shirt', cat:'Shirting', price:195, img:'edit', alt:'A folded shirt beside shoes and a hat.',
       desc:'A washed cotton poplin with a soft collar that does not need pressing. The one piece we do restock.',
       spec:[['Fabric','Washed cotton poplin'],['Made in','Porto, Portugal'],['Collar','Soft, unfused']],
-      sizes:[['XS',1],['S',1],['M',1],['L',1],['XL',1]]}
+      sizes:[['XS',1],['S',1],['M',1],['L',1],['XL',1]],
+      ru:{name:'Повседневная рубашка', cat:'Рубашки',
+        desc:'Стираный хлопковый поплин с мягким воротником, который не нужно гладить. Единственная модель, которую мы допечатываем.',
+        spec:[['Ткань','Стираный хлопковый поплин'],['Made in','Порту, Португалия'],['Воротник','Мягкий, без клеевой']]}}
   };
 
   /* three frames, each with real marks on real garments */
@@ -544,15 +653,18 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
     {n:'Look 01', title:'The coat, worn open', img:'look1', ratio:'3/4',
      note:'Photographed in the workshop in Porto on the morning the first ten came off the table.',
      alt:'A camel trench coat photographed in movement against a soft grey wall.',
-     spots:[{x:52,y:38,id:'trench'},{x:44,y:63,id:'cable'}]},
+     spots:[{x:52,y:38,id:'trench'},{x:44,y:63,id:'cable'}],
+     ru:{n:'Образ 01', title:'Пальто, нараспашку', note:'Снято в мастерской в Порту тем утром, когда первые десять экземпляров сошли со стола.'}},
     {n:'Look 02', title:'Under everything', img:'look2', ratio:'4/5',
      note:'The shell is the piece nobody photographs and everybody re-orders.',
      alt:'A black sleeveless knit top worn in profile against a grey wall.',
-     spots:[{x:53,y:52,id:'shell'},{x:36,y:78,id:'shirt'}]},
+     spots:[{x:53,y:52,id:'shell'},{x:36,y:78,id:'shirt'}],
+     ru:{n:'Образ 02', title:'Под всем остальным', note:'Топ — вещь, которую никто не фотографирует и все перезаказывают.'}},
     {n:'Look 03', title:'Tailoring, unstructured', img:'look3', ratio:'4/5',
      note:'No shoulder pad, no chest canvas. It folds into a bag and comes out wearable.',
      alt:'A grey check jacket worn open over a black top and dark trousers.',
-     spots:[{x:44,y:42,id:'jacket'},{x:56,y:36,id:'rib'}]}
+     spots:[{x:44,y:42,id:'jacket'},{x:56,y:36,id:'rib'}],
+     ru:{n:'Образ 03', title:'Тейлоринг без структуры', note:'Без подплечника, без бортовки. Складывается в сумку и достаётся готовым к носке.'}}
   ];
 
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
@@ -566,39 +678,45 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
   }
 
   /* --------------------------------------------------------------- looks -- */
-  document.getElementById('looks').innerHTML = LOOKS.map(function(L,i){
-    return '<article class="look rv">' +
-      '<figure class="look-fig">' + pic(L.img, L.alt, '(min-width:900px) 52vw, 100vw') +
-        L.spots.map(function(s,j){
-          return '<button class="spot" style="left:'+s.x+'%;top:'+s.y+'%" data-p="'+s.id+'" '+
-                 'aria-expanded="false" aria-label="'+esc(P[s.id].name)+', '+money(P[s.id].price)+'"><i>'+(j+1)+'</i></button>';
-        }).join('') +
-      '</figure>' +
-      '<div class="look-side">' +
-        '<p class="lbl">'+esc(L.n)+'</p>' +
-        '<p class="look-name">'+esc(L.title)+'</p>' +
-        '<p class="look-note">'+esc(L.note)+'</p>' +
-        '<ul class="look-list">' +
+  function renderLooks(){
+    document.getElementById('looks').innerHTML = LOOKS.map(function(L,i){
+      return '<article class="look rv">' +
+        '<figure class="look-fig">' + pic(L.img, L.alt, '(min-width:900px) 52vw, 100vw') +
           L.spots.map(function(s,j){
-            var p = P[s.id];
-            return '<li><button type="button" data-p="'+s.id+'">' +
-              '<em>'+(j+1)+'</em><span>'+esc(p.name)+'</span><b>'+money(p.price)+'</b></button></li>';
+            return '<button class="spot" style="left:'+s.x+'%;top:'+s.y+'%" data-p="'+s.id+'" '+
+                   'aria-expanded="false" aria-label="'+esc(t(P[s.id],'name'))+', '+money(P[s.id].price)+'"><i>'+(j+1)+'</i></button>';
           }).join('') +
-        '</ul>' +
-      '</div>' +
-    '</article>';
-  }).join('');
+        '</figure>' +
+        '<div class="look-side">' +
+          '<p class="lbl">'+esc(t(L,'n'))+'</p>' +
+          '<p class="look-name">'+esc(t(L,'title'))+'</p>' +
+          '<p class="look-note">'+esc(t(L,'note'))+'</p>' +
+          '<ul class="look-list">' +
+            L.spots.map(function(s,j){
+              var p = P[s.id];
+              return '<li><button type="button" data-p="'+s.id+'">' +
+                '<em>'+(j+1)+'</em><span>'+esc(t(p,'name'))+'</span><b>'+money(p.price)+'</b></button></li>';
+            }).join('') +
+          '</ul>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+  }
+  renderLooks();
 
   /* ---------------------------------------------------------------- grid -- */
-  document.getElementById('grid').innerHTML = Object.keys(P).map(function(k){
-    var p = P[k];
-    return '<button class="card" type="button" data-p="'+k+'">' +
-      '<span class="card-img">' + pic(p.img, p.alt, '(min-width:760px) 30vw, 46vw') + '</span>' +
-      '<span class="card-name">'+esc(p.name)+'</span>' +
-      '<span class="card-row"><span class="card-col">'+esc(p.cat)+'</span>' +
-      '<span class="card-price">'+money(p.price)+'</span></span>' +
-    '</button>';
-  }).join('');
+  function renderGrid(){
+    document.getElementById('grid').innerHTML = Object.keys(P).map(function(k){
+      var p = P[k];
+      return '<button class="card" type="button" data-p="'+k+'">' +
+        '<span class="card-img">' + pic(p.img, p.alt, '(min-width:760px) 30vw, 46vw') + '</span>' +
+        '<span class="card-name">'+esc(t(p,'name'))+'</span>' +
+        '<span class="card-row"><span class="card-col">'+esc(t(p,'cat'))+'</span>' +
+        '<span class="card-price">'+money(p.price)+'</span></span>' +
+      '</button>';
+    }).join('');
+  }
+  renderGrid();
 
   watch();
 
@@ -610,21 +728,21 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
     var p = P[key]; if(!p) return;
     openKey = key; size = null; lastTrigger = trigger || null;
 
-    document.getElementById('sheetCat').textContent   = p.cat;
-    document.getElementById('sheetName').textContent  = p.name;
+    document.getElementById('sheetCat').textContent   = t(p,'cat');
+    document.getElementById('sheetName').textContent  = t(p,'name');
     document.getElementById('sheetPrice').textContent = money(p.price);
-    document.getElementById('sheetDesc').textContent  = p.desc;
+    document.getElementById('sheetDesc').textContent  = t(p,'desc');
     document.getElementById('sheetImg').src = 'img/' + p.img + '-700.jpg';
     document.getElementById('sheetImg').alt = p.alt;
-    document.getElementById('sheetSpec').innerHTML = p.spec.map(function(r){
+    document.getElementById('sheetSpec').innerHTML = t(p,'spec').map(function(r){
       return '<li><span>'+esc(r[0])+'</span><span>'+esc(r[1])+'</span></li>';
     }).join('');
     document.getElementById('sheetSizes').innerHTML = p.sizes.map(function(s){
       return '<button class="size" type="button" data-size="'+s[0]+'" aria-pressed="false"' +
-             (s[1] ? '' : ' disabled aria-label="'+s[0]+', sold out"') + '>'+s[0]+'</button>';
+             (s[1] ? '' : ' disabled aria-label="'+s[0]+', '+UI('sold out','soldOut')+'"') + '>'+s[0]+'</button>';
     }).join('');
     document.getElementById('sizeNote').textContent = '';
-    document.getElementById('addBtn').textContent = 'Add to bag';
+    document.getElementById('addBtn').textContent = UI('Add to bag','addToBag');
 
     show(sheet);
   }
@@ -646,8 +764,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
   }
 
   document.addEventListener('click', function(e){
-    var t = e.target.closest('[data-p]');
-    if(t){ openProduct(t.dataset.p, t); return; }
+    var trg = e.target.closest('[data-p]');
+    if(trg){ openProduct(trg.dataset.p, trg); return; }
     var c = e.target.closest('[data-close]');
     if(c){ hide(c.closest('.sheet, .drawer')); return; }
     var s = e.target.closest('.size');
@@ -683,20 +801,20 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 
     var list = document.getElementById('drawerList');
     if(!bag.length){
-      list.innerHTML = '<div class="drawer-empty"><p>Your bag is empty.</p>' +
-        '<p style="margin-top:8px;font-size:14px">Everything in the lookbook can be added from the photograph.</p></div>';
+      list.innerHTML = '<div class="drawer-empty"><p>'+UI('Your bag is empty.','bagEmpty')+'</p>' +
+        '<p style="margin-top:8px;font-size:14px">'+UI('Everything in the lookbook can be added from the photograph.','bagEmptyHint')+'</p></div>';
     }else{
       list.innerHTML = bag.map(function(l,i){
         var p = P[l.k];
         return '<div class="line">' +
           '<img src="img/'+p.img+'-700.jpg" alt="">' +
           '<div>' +
-            '<p class="line-name">'+esc(p.name)+'</p>' +
-            '<p class="line-meta">Size '+esc(l.s)+' · '+esc(p.cat)+'</p>' +
+            '<p class="line-name">'+esc(t(p,'name'))+'</p>' +
+            '<p class="line-meta">'+UI('Size','sizeLabel')+' '+esc(l.s)+' · '+esc(t(p,'cat'))+'</p>' +
             '<div class="line-row">' +
-              '<span class="qty"><button type="button" data-d="-1" data-i="'+i+'" aria-label="One fewer">−</button>' +
+              '<span class="qty"><button type="button" data-d="-1" data-i="'+i+'" aria-label="'+UI('One fewer','oneFewer')+'">−</button>' +
               '<span>'+l.q+'</span>' +
-              '<button type="button" data-d="1" data-i="'+i+'" aria-label="One more">+</button></span>' +
+              '<button type="button" data-d="1" data-i="'+i+'" aria-label="'+UI('One more','oneMore')+'">+</button></span>' +
               '<span class="line-price">'+money(p.price * l.q)+'</span>' +
             '</div>' +
           '</div>' +
@@ -716,7 +834,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 
   document.getElementById('addBtn').addEventListener('click', function(){
     if(!size){
-      document.getElementById('sizeNote').textContent = 'Choose a size first.';
+      document.getElementById('sizeNote').textContent = UI('Choose a size first.','chooseSize');
       var first = document.querySelector('#sheetSizes .size:not([disabled])');
       if(first) first.focus();
       return;
@@ -725,7 +843,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
     if(found) found.q += 1; else bag.push({k:openKey, s:size, q:1});
     save(); paint();
 
-    this.textContent = 'Added';
+    this.textContent = UI('Added','added');
     var btn = document.getElementById('cartBtn');
     btn.classList.add('bump');
     setTimeout(function(){ btn.classList.remove('bump'); }, 220);
@@ -741,6 +859,28 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
   });
 
   paint();
+
+  /* Re-render everything this script drew from P/LOOKS whenever the
+     language switch fires — data-i18n only reaches static markup, and all
+     of this (looks, shop grid, cart, an open product sheet) is generated
+     JS-side. A currently-open sheet keeps its chosen size instead of
+     resetting, since switching language mid-choice shouldn't lose it. */
+  MLang.onChange(function(){
+    renderLooks(); renderGrid(); watch(); paint();
+    if(openKey){
+      var p = P[openKey];
+      document.getElementById('sheetCat').textContent  = t(p,'cat');
+      document.getElementById('sheetName').textContent = t(p,'name');
+      document.getElementById('sheetDesc').textContent = t(p,'desc');
+      document.getElementById('sheetSpec').innerHTML = t(p,'spec').map(function(r){
+        return '<li><span>'+esc(r[0])+'</span><span>'+esc(r[1])+'</span></li>';
+      }).join('');
+      document.querySelectorAll('#sheetSizes .size[disabled]').forEach(function(b){
+        b.setAttribute('aria-label', b.dataset.size + ', ' + UI('sold out','soldOut'));
+      });
+      document.getElementById('addBtn').textContent = UI('Add to bag','addToBag');
+    }
+  });
 })();
 </script>
 </body>

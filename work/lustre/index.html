@@ -122,6 +122,33 @@ section{padding-top:clamp(6rem,13vw,11rem);padding-bottom:clamp(6rem,13vw,11rem)
   border-radius:99px;padding:.5rem 1.05rem;font-size:.855rem;font-weight:600;margin-left:.35rem;
   transition:background .4s var(--ease)}
 .ncall:hover{background:rgba(255,255,255,.13)}
+/* -- language switch -----------------------------------------------------
+   Quiet EN/RU toggle rather than another pill in a page already full of
+   them: small text, an underline on the active side. It lives twice in
+   the markup — inline in the desktop pill, and again in the full-screen
+   mobile sheet — so it never depends on viewport width to relocate a
+   single instance. */
+.lang-switch{display:flex;align-items:center;gap:.35rem;
+  font-size:.8rem;font-weight:600;letter-spacing:.04em}
+.lang-switch .lang-sep{color:var(--dim);opacity:.7}
+.lang-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;
+  min-width:1.6rem;min-height:2.75rem;padding:0 .15rem;color:var(--dim);
+  transition:color .3s var(--ease)}
+.lang-btn::after{content:'';position:absolute;left:2px;right:2px;bottom:.72rem;height:1px;
+  background:var(--acc);transform:scaleX(0);transform-origin:left;
+  transition:transform .35s var(--ease)}
+.lang-btn:hover{color:var(--mut)}
+.lang-btn.is-active{color:var(--txt)}
+.lang-btn.is-active::after{transform:scaleX(1)}
+@media(prefers-reduced-motion:reduce){.lang-btn::after{transition:none}}
+/* Sheet copy sits in the mobile-menu's giant type scale; the toggle stays
+   a quiet aside underneath it rather than matching that scale. */
+.sheet .lang-switch{margin-top:1.4rem;font-size:1.1rem;gap:.55rem;
+  opacity:0;transform:translateY(2.5rem);
+  transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:.4s}
+.sheet .lang-btn{min-height:2.75rem;min-width:2.2rem}
+body.open .sheet .lang-switch{opacity:1;transform:none}
+
 .burg{display:none;width:2.75rem;height:2.75rem;border-radius:99px;background:rgba(255,255,255,.07);
   position:relative;flex:none}
 .burg span{position:absolute;left:50%;width:16px;height:1.5px;background:var(--txt);border-radius:2px;
@@ -154,12 +181,19 @@ body.open .sheet a:nth-child(5){transition-delay:.34s}
 
 /* ============ HERO ============ */
 .hero{min-height:100dvh;display:flex;align-items:flex-end;padding-top:9rem;padding-bottom:clamp(3rem,7vw,5rem)}
+/* .container is a flex item here (.hero is the flex container), and a
+   flex item's default min-width:auto refuses to shrink below its content's
+   own min-content width. English hero copy happened to fit; the longer
+   Russian stats row and heading do not, and without this the whole page
+   gains horizontal scroll instead of the text wrapping. */
+.hero .container{min-width:0}
 .hero h1{margin:1.6rem 0 0}
 .hero h1 .l2{display:block;color:var(--dim)}
 .hero-b{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;
-  gap:2.5rem;margin-top:clamp(2.5rem,5vw,3.5rem)}
+  gap:2.5rem;margin-top:clamp(2.5rem,5vw,3.5rem);min-width:0}
 .cta{display:flex;gap:.7rem;flex-wrap:wrap}
-.stats{display:flex;gap:clamp(1.75rem,4vw,3.25rem)}
+.stats{display:flex;gap:clamp(1.75rem,4vw,3.25rem);flex-wrap:wrap;min-width:0}
+.stat{min-width:0}
 .stat b{display:block;font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:800;letter-spacing:-.045em;line-height:1}
 .stat span{display:block;font-size:.75rem;color:var(--dim);margin-top:.5rem;
   text-transform:uppercase;letter-spacing:.15em;font-weight:500}
@@ -345,6 +379,15 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
   .nlinks,.ncall{display:none}
   .burg{display:block}
   .pill{width:100%;justify-content:space-between;border-radius:99px}
+}
+/* The RU chip (Концепт) plus the language switch no longer leave room for
+   the brand and burger in the same pill below ~420px — the chip is the
+   one piece of chrome nothing downstream depends on, so it goes first. */
+@media(max-width:420px){
+  .pill .chip-concept{display:none}
+  .pill .lang-switch{gap:.2rem}
+}
+@media(max-width:768px){
   .brand{margin-right:0}
   .bento,.steps{grid-template-columns:1fr}
   .hero-b{flex-direction:column;align-items:flex-start;gap:2rem}
@@ -368,25 +411,35 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
 <nav class="nav">
   <div class="pill">
     <a href="#top" class="brand">LUSTRE</a>
-    <span class="chip-concept">Concept</span>
+    <span class="chip-concept" data-i18n="chip-concept">Concept</span>
     <div class="nlinks">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#process">Process</a>
-      <a href="#pricing">Pricing</a>
+      <a href="#services" data-i18n="nav-services">Services</a>
+      <a href="#work" data-i18n="nav-work">Work</a>
+      <a href="#process" data-i18n="nav-process">Process</a>
+      <a href="#pricing" data-i18n="nav-pricing">Pricing</a>
     </div>
-    <a href="../../#work" class="ncall">All work</a>
+    <div class="lang-switch" role="group" aria-label="Language / Язык">
+      <button type="button" class="lang-btn is-active" data-lang="en" aria-current="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="ru" aria-current="false">RU</button>
+    </div>
+    <a href="../../#work" class="ncall" data-i18n="nav-allwork">All work</a>
     <button class="burg" id="burg" aria-label="Menu"><span></span><span></span></button>
   </div>
 </nav>
 
 <div class="sheet" id="sheet">
-  <a href="#services">Services</a>
-  <a href="#work">Work</a>
-  <a href="#process">Process</a>
-  <a href="#pricing">Pricing</a>
-  <a href="#contact">Contact</a>
-  <a href="../../#work" class="ph">All work ↗</a>
+  <a href="#services" data-i18n="nav-services">Services</a>
+  <a href="#work" data-i18n="nav-work">Work</a>
+  <a href="#process" data-i18n="nav-process">Process</a>
+  <a href="#pricing" data-i18n="nav-pricing">Pricing</a>
+  <a href="#contact" data-i18n="nav-contact">Contact</a>
+  <a href="../../#work" class="ph" data-i18n="nav-allwork-arrow">All work ↗</a>
+  <div class="lang-switch" role="group" aria-label="Language / Язык">
+    <button type="button" class="lang-btn is-active" data-lang="en" aria-current="true">EN</button>
+    <span class="lang-sep" aria-hidden="true">/</span>
+    <button type="button" class="lang-btn" data-lang="ru" aria-current="false">RU</button>
+  </div>
 </div>
 
 <div class="wrap" id="top">
@@ -394,43 +447,43 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
 <!-- ================= HERO ================= -->
 <section class="hero">
   <div class="container">
-    <span class="eyebrow rv"><i></i> Full-cycle detailing studio</span>
-    <h1 class="rv">Bring back that<span class="l2">factory-fresh shine.</span></h1>
+    <span class="eyebrow rv"><i></i> <span data-i18n="hero-eyebrow">Full-cycle detailing studio</span></span>
+    <h1 class="rv" data-i18n="hero-h1">Bring back that<span class="l2">factory-fresh shine.</span></h1>
 
     <div class="hero-b">
       <div class="rv">
-        <p class="lead">Ceramic coating, paint correction and interior detailing in a closed
+        <p class="lead" data-i18n="hero-lead">Ceramic coating, paint correction and interior detailing in a closed
           bay under studio-grade light. We follow a strict protocol and show the result under the lamp — not in the sun.</p>
         <div class="cta" style="margin-top:2rem">
-          <a class="btn btn-p" href="#contact">Get a quote
+          <a class="btn btn-p" href="#contact"><span data-i18n="cta-quote">Get a quote</span>
             <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
               stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></a>
-          <a class="btn btn-s" href="#work">See the work
+          <a class="btn btn-s" href="#work"><span data-i18n="cta-see-work">See the work</span>
             <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
               stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></a>
         </div>
       </div>
 
       <div class="stats rv">
-        <div class="stat"><b>Closed</b><span>bay, by appointment</span></div>
-        <div class="stat"><b>Studio</b><span>light for inspection</span></div>
-        <div class="stat"><b>Fixed</b><span>quote after inspection</span></div>
+        <div class="stat"><b data-i18n="stat1-b">Closed</b><span data-i18n="stat1-span">bay, by appointment</span></div>
+        <div class="stat"><b data-i18n="stat2-b">Studio</b><span data-i18n="stat2-span">light for inspection</span></div>
+        <div class="stat"><b data-i18n="stat3-b">Fixed</b><span data-i18n="stat3-span">quote after inspection</span></div>
       </div>
     </div>
 
-    <div class="scroll rv"><i></i> Scroll down</div>
+    <div class="scroll rv"><i></i> <span data-i18n="scroll-down">Scroll down</span></div>
   </div>
 </section>
 
 <!-- ================= MARQUEE STRIP ================= -->
 <div class="strip">
   <div class="track">
-    <span>Ceramic Coating<span></span></span><span>Paint Correction</span>
-    <span>Interior Deep Clean</span><span>Rain Repellent</span><span>Paint Protection Film</span>
-    <span>Window Tint</span><span>Leather &amp; Alcantara</span>
-    <span>Ceramic Coating</span><span>Paint Correction</span>
-    <span>Interior Deep Clean</span><span>Rain Repellent</span><span>Paint Protection Film</span>
-    <span>Window Tint</span><span>Leather &amp; Alcantara</span>
+    <span data-i18n="mq-ceramic">Ceramic Coating<span></span></span><span data-i18n="mq-correction">Paint Correction</span>
+    <span data-i18n="mq-interior">Interior Deep Clean</span><span data-i18n="mq-rain">Rain Repellent</span><span data-i18n="mq-ppf">Paint Protection Film</span>
+    <span data-i18n="mq-tint">Window Tint</span><span data-i18n="mq-leather">Leather &amp; Alcantara</span>
+    <span data-i18n="mq-ceramic">Ceramic Coating</span><span data-i18n="mq-correction">Paint Correction</span>
+    <span data-i18n="mq-interior">Interior Deep Clean</span><span data-i18n="mq-rain">Rain Repellent</span><span data-i18n="mq-ppf">Paint Protection Film</span>
+    <span data-i18n="mq-tint">Window Tint</span><span data-i18n="mq-leather">Leather &amp; Alcantara</span>
   </div>
 </div>
 
@@ -438,60 +491,60 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
 <section id="services">
   <div class="container">
     <div class="head">
-      <span class="eyebrow rv"><i></i> Services</span>
-      <h2 class="rv">Everything your car needs<br>— <span class="serif">under one roof</span></h2>
+      <span class="eyebrow rv"><i></i> <span data-i18n="services-eyebrow">Services</span></span>
+      <h2 class="rv" data-i18n="services-h2">Everything your car needs<br>— <span class="serif">under one roof</span></h2>
     </div>
 
     <div class="bento">
       <div class="card shell b1 rv"><div class="core">
         <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-2.9 7.9-7 9-4.1-1.1-7-4.8-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>Ceramic Coating</h3>
-        <p>A multi-layer hydrophobic system. The paint stops holding onto dirt, washes
+        <h3 data-i18n="svc1-h3">Ceramic Coating</h3>
+        <p data-i18n="svc1-p">A multi-layer hydrophobic system. The paint stops holding onto dirt, washes
           take half the time, and the color keeps its depth for years.</p>
-        <div class="price">from <b>$650</b> · 2–3 days</div>
+        <div class="price" data-i18n="svc1-price">from <b>$650</b> · 2–3 days</div>
       </div></div>
 
       <div class="card shell b2 rv"><div class="core">
         <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 010 16"/><circle cx="12" cy="12" r="2.5"/></svg></div>
-        <h3>Paint Correction</h3>
-        <p>Swirl marks, scratches and wash-induced haze removed. Paint depth is measured before every pass.</p>
-        <div class="price">from <b>$380</b></div>
+        <h3 data-i18n="svc2-h3">Paint Correction</h3>
+        <p data-i18n="svc2-p">Swirl marks, scratches and wash-induced haze removed. Paint depth is measured before every pass.</p>
+        <div class="price" data-i18n="svc2-price">from <b>$380</b></div>
       </div></div>
 
       <div class="card shell b3 rv"><div class="core">
         <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3s5.5 6 5.5 9.5a5.5 5.5 0 11-11 0C6.5 9 12 3 12 3z"/><path d="M9.5 13.5a2.5 2.5 0 002.5 2.5"/></svg></div>
-        <h3>Interior Deep Clean</h3>
-        <p>Full teardown, extraction and ozone treatment. The odor is gone — not just masked.</p>
-        <div class="price">from <b>$220</b></div>
+        <h3 data-i18n="svc3-h3">Interior Deep Clean</h3>
+        <p data-i18n="svc3-p">Full teardown, extraction and ozone treatment. The odor is gone — not just masked.</p>
+        <div class="price" data-i18n="svc3-price">from <b>$220</b></div>
       </div></div>
 
       <div class="card shell b4 rv"><div class="core">
         <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5-8 4.5-8-4.5L12 3z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5L12 21l8-4.5"/></svg></div>
-        <h3>Paint Protection Film</h3>
-        <p>Polyurethane on impact zones or the full body. A self-healing layer keeps
+        <h3 data-i18n="svc4-h3">Paint Protection Film</h3>
+        <p data-i18n="svc4-p">Polyurethane on impact zones or the full body. A self-healing layer keeps
           the hood and bumper safe from rock chips.</p>
-        <div class="price">from <b>$1,400</b> · 7-yr warranty</div>
+        <div class="price" data-i18n="svc4-price">from <b>$1,400</b> · 7-yr warranty</div>
       </div></div>
 
       <div class="card shell b5 rv"><div class="core">
         <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg></div>
-        <h3>Window Tint</h3>
-        <p>UV-blocking film that keeps the interior from fading.</p>
-        <div class="price">from <b>$180</b></div>
+        <h3 data-i18n="svc5-h3">Window Tint</h3>
+        <p data-i18n="svc5-p">UV-blocking film that keeps the interior from fading.</p>
+        <div class="price" data-i18n="svc5-price">from <b>$180</b></div>
       </div></div>
 
       <div class="card shell b6 rv"><div class="core">
         <div class="ico"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <h3>Leather &amp; Alcantara</h3>
-        <p>Cleaning, conditioning and dye touch-up on worn spots.</p>
-        <div class="price">from <b>$150</b></div>
+        <h3 data-i18n="svc6-h3">Leather &amp; Alcantara</h3>
+        <p data-i18n="svc6-p">Cleaning, conditioning and dye touch-up on worn spots.</p>
+        <div class="price" data-i18n="svc6-price">from <b>$150</b></div>
       </div></div>
 
       <div class="card shell b7 rv"><div class="core">
         <div class="ico"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 01-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 015.4-5.4l-2.5 2.5-1.4-1.4 2.5-2.5z"/></svg></div>
-        <h3>Pre-Sale Detail</h3>
-        <p>A one-day package that sends your car off for a better price.</p>
-        <div class="price">from <b>$280</b></div>
+        <h3 data-i18n="svc7-h3">Pre-Sale Detail</h3>
+        <p data-i18n="svc7-p">A one-day package that sends your car off for a better price.</p>
+        <div class="price" data-i18n="svc7-price">from <b>$280</b></div>
       </div></div>
     </div>
   </div>
@@ -501,9 +554,9 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
 <section id="work">
   <div class="container">
     <div class="head">
-      <span class="eyebrow rv"><i></i> Result</span>
-      <h2 class="rv">Drag the slider</h2>
-      <p class="lead rv">An illustration of the panel comparison a real gallery would use —
+      <span class="eyebrow rv"><i></i> <span data-i18n="work-eyebrow">Result</span></span>
+      <h2 class="rv" data-i18n="work-h2">Drag the slider</h2>
+      <p class="lead rv" data-i18n="work-lead">An illustration of the panel comparison a real gallery would use —
         before and after two-stage correction with ceramic coating.</p>
     </div>
 
@@ -512,8 +565,8 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
         <div class="ba-l ba-after"></div>
         <div class="ba-l ba-before"></div>
         <div class="ba-h" id="bah"><svg viewBox="0 0 24 16"><path d="M9 3L4 8l5 5M15 3l5 5-5 5"/></svg></div>
-        <div class="ba-tag l">Before</div>
-        <div class="ba-tag r">After</div>
+        <div class="ba-tag l" data-i18n="tag-before">Before</div>
+        <div class="ba-tag r" data-i18n="tag-after">After</div>
       </div>
     </div></div>
   </div>
@@ -523,18 +576,18 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
 <section id="process">
   <div class="container">
     <div class="head">
-      <span class="eyebrow rv"><i></i> How it works</span>
-      <h2 class="rv">Four steps,<br>no <span class="serif">surprises on the invoice</span></h2>
+      <span class="eyebrow rv"><i></i> <span data-i18n="process-eyebrow">How it works</span></span>
+      <h2 class="rv" data-i18n="process-h2">Four steps,<br>no <span class="serif">surprises on the invoice</span></h2>
     </div>
     <div class="steps">
       <div class="step shell rv"><div class="core"><div class="n">01</div>
-        <h3>Inspection</h3><p>We measure the paint, log every defect with photos, and quote you on the spot.</p></div></div>
+        <h3 data-i18n="step1-h3">Inspection</h3><p data-i18n="step1-p">We measure the paint, log every defect with photos, and quote you on the spot.</p></div></div>
       <div class="step shell rv"><div class="core"><div class="n">02</div>
-        <h3>Prep</h3><p>Two-stage wash, clay bar, decontamination and edge masking.</p></div></div>
+        <h3 data-i18n="step2-h3">Prep</h3><p data-i18n="step2-p">Two-stage wash, clay bar, decontamination and edge masking.</p></div></div>
       <div class="step shell rv"><div class="core"><div class="n">03</div>
-        <h3>Work</h3><p>Section-by-section correction with thickness checks. Progress photos sent along the way.</p></div></div>
+        <h3 data-i18n="step3-h3">Work</h3><p data-i18n="step3-p">Section-by-section correction with thickness checks. Progress photos sent along the way.</p></div></div>
       <div class="step shell rv"><div class="core"><div class="n">04</div>
-        <h3>Handover</h3><p>We review the result together under the lamp. Warranty card included.</p></div></div>
+        <h3 data-i18n="step4-h3">Handover</h3><p data-i18n="step4-p">We review the result together under the lamp. Warranty card included.</p></div></div>
     </div>
   </div>
 </section>
@@ -543,53 +596,53 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
 <section id="pricing">
   <div class="container">
     <div class="head">
-      <span class="eyebrow rv"><i></i> Packages</span>
-      <h2 class="rv">Transparent pricing</h2>
-      <p class="lead rv">The final price depends on your vehicle's condition and class. We quote the exact
+      <span class="eyebrow rv"><i></i> <span data-i18n="pricing-eyebrow">Packages</span></span>
+      <h2 class="rv" data-i18n="pricing-h2">Transparent pricing</h2>
+      <p class="lead rv" data-i18n="pricing-lead">The final price depends on your vehicle's condition and class. We quote the exact
         amount after inspection — and it doesn't change once work begins.</p>
     </div>
 
     <div class="plans">
       <div class="plan shell rv"><div class="core">
-        <div class="tag">Essential</div>
-        <div class="amt">$349 <small>/ package</small></div>
+        <div class="tag" data-i18n="plan1-tag">Essential</div>
+        <div class="amt">$349 <small data-i18n="amt-per-package">/ package</small></div>
         <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Two-stage hand wash</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Wheel &amp; wheel-well cleaning</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Express polish</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Full interior vacuum</li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan1-li1">Two-stage hand wash</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan1-li2">Wheel &amp; wheel-well cleaning</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan1-li3">Express polish</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan1-li4">Full interior vacuum</span></li>
         </ul>
-        <a class="btn btn-s" href="#contact">Book now
+        <a class="btn btn-s" href="#contact"><span data-i18n="cta-book">Book now</span>
           <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
             stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></a>
       </div></div>
 
       <div class="plan shell hot rv"><div class="core">
-        <div class="tag">Most popular</div>
-        <div class="amt">$899 <small>/ package</small></div>
+        <div class="tag" data-i18n="plan2-tag">Most popular</div>
+        <div class="amt">$899 <small data-i18n="amt-per-package">/ package</small></div>
         <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Everything in Essential</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Two-stage paint correction</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>3-layer ceramic coating</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Full interior detail</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>3-year warranty</li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan2-li1">Everything in Essential</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan2-li2">Two-stage paint correction</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan2-li3">3-layer ceramic coating</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan2-li4">Full interior detail</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan2-li5">3-year warranty</span></li>
         </ul>
-        <a class="btn btn-p" href="#contact">Book now
+        <a class="btn btn-p" href="#contact"><span data-i18n="cta-book">Book now</span>
           <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
             stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></a>
       </div></div>
 
       <div class="plan shell rv"><div class="core">
-        <div class="tag">Ultimate</div>
-        <div class="amt">$2,100 <small>/ package</small></div>
+        <div class="tag" data-i18n="plan3-tag">Ultimate</div>
+        <div class="amt">$2,100 <small data-i18n="amt-per-package">/ package</small></div>
         <ul>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Everything in Signature</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Full-front paint protection film</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Leather restoration</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Ozone treatment</li>
-          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>7-year warranty</li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan3-li1">Everything in Signature</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan3-li2">Full-front paint protection film</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan3-li3">Leather restoration</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan3-li4">Ozone treatment</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span data-i18n="plan3-li5">7-year warranty</span></li>
         </ul>
-        <a class="btn btn-s" href="#contact">Book now
+        <a class="btn btn-s" href="#contact"><span data-i18n="cta-book">Book now</span>
           <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
             stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></a>
       </div></div>
@@ -601,38 +654,38 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
 <section id="contact">
   <div class="container">
     <div class="head">
-      <span class="eyebrow rv"><i></i> Booking</span>
-      <h2 class="rv">Come in for an inspection —<br><span class="serif">it's free</span></h2>
+      <span class="eyebrow rv"><i></i> <span data-i18n="contact-eyebrow">Booking</span></span>
+      <h2 class="rv" data-i18n="contact-h2">Come in for an inspection —<br><span class="serif">it's free</span></h2>
     </div>
 
     <div class="contact">
       <div class="cbox shell rv"><div class="core">
         <div class="rows">
-          <div class="row"><span>Phone</span><b class="big">+1 (310) 555-0142</b></div>
-          <div class="row"><span>Studio address</span><b>2140 Foothill Blvd, Los Angeles, CA</b></div>
-          <div class="row"><span>Hours</span><b>Daily, 9:00 AM – 9:00 PM</b></div>
-          <div class="row"><span>Email</span><b>hello@lustredetail.com</b></div>
+          <div class="row"><span data-i18n="row-phone">Phone</span><b class="big">+1 (310) 555-0142</b></div>
+          <div class="row"><span data-i18n="row-address">Studio address</span><b>2140 Foothill Blvd, Los Angeles, CA</b></div>
+          <div class="row"><span data-i18n="row-hours">Hours</span><b data-i18n="row-hours-value">Daily, 9:00 AM – 9:00 PM</b></div>
+          <div class="row"><span data-i18n="row-email">Email</span><b>hello@lustredetail.com</b></div>
         </div>
         <div class="cta">
-          <button class="btn btn-p" id="bookBtn" type="button">Message on WhatsApp
+          <button class="btn btn-p" id="bookBtn" type="button"><span data-i18n="cta-message-wa">Message on WhatsApp</span>
             <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
               stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></button>
-          <button class="btn btn-s" id="bookBtn2" type="button">Telegram
+          <button class="btn btn-s" id="bookBtn2" type="button"><span data-i18n="chan-telegram">Telegram</span>
             <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
               stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></button>
         </div>
         <div class="reveal" id="reveal"><div class="shell"><div class="core">
-          <p><b>LUSTRE is a concept — nothing was sent.</b> On a real studio's site this button would
+          <p data-i18n="reveal-note"><b>LUSTRE is a concept — nothing was sent.</b> On a real studio's site this button would
             open WhatsApp with a pre-filled message. If you'd like something like this built for
             an actual business, message the person who built it.</p>
           <div class="rlinks">
-            <a class="btn btn-p" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20the%20LUSTRE%20concept%20and%20I%27d%20like%20something%20like%20it." target="_blank" rel="noopener">Message Vadim on WhatsApp<span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97 1-3.62-.24-.37a9.8 9.8 0 0 1-1.5-5.23c0-5.4 4.4-9.8 9.82-9.8a9.75 9.75 0 0 1 6.93 2.88 9.72 9.72 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8M20.5 3.5A11.75 11.75 0 0 0 12.05 0C5.54 0 .25 5.29.24 11.79c0 2.08.55 4.1 1.58 5.9L.14 24l6.45-1.69a11.8 11.8 0 0 0 5.46 1.34h.01c6.5 0 11.79-5.29 11.8-11.79 0-3.15-1.23-6.11-3.46-8.34"/></svg></span></a>
-            <a class="btn btn-s" href="https://t.me/matras0v" target="_blank" rel="noopener">Telegram</a>
-            <a class="btn btn-s" href="https://instagram.com/matras0v" target="_blank" rel="noopener">Instagram</a>
-            <a class="btn btn-s" href="mailto:mskvvmskvv@gmail.com?subject=Website%20for%20my%20business">Email</a>
+            <a class="btn btn-p" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20the%20LUSTRE%20concept%20and%20I%27d%20like%20something%20like%20it." target="_blank" rel="noopener"><span data-i18n="cta-message-vadim-wa">Message Vadim on WhatsApp</span><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97 1-3.62-.24-.37a9.8 9.8 0 0 1-1.5-5.23c0-5.4 4.4-9.8 9.82-9.8a9.75 9.75 0 0 1 6.93 2.88 9.72 9.72 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8M20.5 3.5A11.75 11.75 0 0 0 12.05 0C5.54 0 .25 5.29.24 11.79c0 2.08.55 4.1 1.58 5.9L.14 24l6.45-1.69a11.8 11.8 0 0 0 5.46 1.34h.01c6.5 0 11.79-5.29 11.8-11.79 0-3.15-1.23-6.11-3.46-8.34"/></svg></span></a>
+            <a class="btn btn-s" href="https://t.me/matras0v" target="_blank" rel="noopener" data-i18n="chan-telegram">Telegram</a>
+            <a class="btn btn-s" href="https://instagram.com/matras0v" target="_blank" rel="noopener" data-i18n="chan-instagram">Instagram</a>
+            <a class="btn btn-s" href="mailto:mskvvmskvv@gmail.com?subject=Website%20for%20my%20business" data-i18n="chan-email">Email</a>
           </div>
           <div class="rlinks" style="margin-top:.4rem">
-            <a class="btn btn-s" href="../../#work">See the other work</a>
+            <a class="btn btn-s" href="../../#work" data-i18n="more-link">See the other work</a>
           </div>
         </div></div></div>
       </div></div>
@@ -643,9 +696,9 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
     </div>
 
     <div class="disclosure rv">
-      <p><b>This is a concept.</b> LUSTRE is an invented brand, built as a portfolio piece by
+      <p data-i18n="disclosure-p"><b>This is a concept.</b> LUSTRE is an invented brand, built as a portfolio piece by
         <a href="../../">Vadim Ivanchenko</a>. The studio, its address and its prices are not real.</p>
-      <p><a href="../../#work">See the real client work →</a></p>
+      <p><a href="../../#work" data-i18n="see-real-work">See the real client work →</a></p>
     </div>
   </div>
 </section>
@@ -655,7 +708,7 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
   <div class="container fgrid">
     <div>
       <div class="fbrand">LUSTRE</div>
-      <div class="fnote">Concept · Auto detailing studio</div>
+      <div class="fnote" data-i18n="foot-note">Concept · Auto detailing studio</div>
       <div class="fnote">© <span id="yr">2026</span> Vadim Ivanchenko</div>
     </div>
   </div>
@@ -663,6 +716,123 @@ footer{border-top:1px solid var(--line2);padding:3.5rem 0 3rem}
 
 </div>
 
+<script src="../../assets/i18n.js"></script>
+<script>
+window.I18N_LUSTRE_RU = {
+  "nav-services": "Услуги",
+  "nav-work": "Работы",
+  "nav-process": "Процесс",
+  "nav-pricing": "Цены",
+  "nav-contact": "Контакты",
+  "nav-allwork": "Все работы",
+  "nav-allwork-arrow": "Все работы ↗",
+  "chip-concept": "Концепт",
+
+  "hero-eyebrow": "Студия детейлинга полного цикла",
+  "hero-h1": "Верните тот же блеск,<span class=\"l2\">что и с завода.</span>",
+  "hero-lead": "Керамическое покрытие, полировка и химчистка салона в закрытом боксе под студийным светом. Мы следуем строгому протоколу и показываем результат под лампой — а не на солнце.",
+  "cta-quote": "Узнать цену",
+  "cta-see-work": "Смотреть работы",
+  "stat1-b": "Закрытый",
+  "stat1-span": "бокс, по записи",
+  "stat2-b": "Студийный",
+  "stat2-span": "свет для осмотра",
+  "stat3-b": "Фиксированная",
+  "stat3-span": "цена после осмотра",
+  "scroll-down": "Прокрутите вниз",
+
+  "mq-ceramic": "Керамическое покрытие",
+  "mq-correction": "Полировка",
+  "mq-interior": "Химчистка салона",
+  "mq-rain": "Антидождь",
+  "mq-ppf": "Плёнка PPF",
+  "mq-tint": "Тонировка",
+  "mq-leather": "Кожа и алькантара",
+
+  "services-eyebrow": "Услуги",
+  "services-h2": "Всё, что нужно машине<br>— <span class=\"serif\">под одной крышей</span>",
+  "svc1-h3": "Керамическое покрытие",
+  "svc1-p": "Многослойная гидрофобная система. Краска перестаёт удерживать грязь, мойка занимает вдвое меньше времени, а цвет сохраняет глубину годами.",
+  "svc1-price": "от <b>$650</b> · 2–3 дня",
+  "svc2-h3": "Полировка",
+  "svc2-p": "Устраняем паутинку, царапины и помутнение от мойки. Толщина покрытия измеряется перед каждым проходом.",
+  "svc2-price": "от <b>$380</b>",
+  "svc3-h3": "Химчистка салона",
+  "svc3-p": "Полная разборка, экстракция и озонирование. Запах уходит — а не просто маскируется.",
+  "svc3-price": "от <b>$220</b>",
+  "svc4-h3": "Плёнка PPF",
+  "svc4-p": "Полиуретан на зонах удара или по всему кузову. Самовосстанавливающийся слой защищает капот и бампер от сколов.",
+  "svc4-price": "от <b>$1,400</b> · гарантия 7 лет",
+  "svc5-h3": "Тонировка",
+  "svc5-p": "Плёнка с защитой от UV, которая не даёт салону выгорать.",
+  "svc5-price": "от <b>$180</b>",
+  "svc6-h3": "Кожа и алькантара",
+  "svc6-p": "Чистка, кондиционирование и подкраска потёртых участков.",
+  "svc6-price": "от <b>$150</b>",
+  "svc7-h3": "Детейлинг перед продажей",
+  "svc7-p": "Однодневный пакет, который поднимает цену продажи автомобиля.",
+  "svc7-price": "от <b>$280</b>",
+
+  "work-eyebrow": "Результат",
+  "work-h2": "Потяните ползунок",
+  "work-lead": "Иллюстрация сравнения панелей, какую использовала бы настоящая галерея — до и после двухэтапной полировки с керамическим покрытием.",
+  "tag-before": "До",
+  "tag-after": "После",
+
+  "process-eyebrow": "Как это работает",
+  "process-h2": "Четыре шага,<br>без <span class=\"serif\">сюрпризов в счёте</span>",
+  "step1-h3": "Осмотр",
+  "step1-p": "Измеряем толщину покрытия, фиксируем каждый дефект на фото и называем цену на месте.",
+  "step2-h3": "Подготовка",
+  "step2-p": "Двухэтапная мойка, очистка глиной, деконтаминация и оклейка кромок.",
+  "step3-h3": "Работа",
+  "step3-p": "Полировка по секциям с контролем толщины покрытия. Фото прогресса присылаем по ходу работы.",
+  "step4-h3": "Передача",
+  "step4-p": "Вместе смотрим результат под лампой. Гарантийный талон прилагается.",
+
+  "pricing-eyebrow": "Пакеты",
+  "pricing-h2": "Прозрачные цены",
+  "pricing-lead": "Итоговая цена зависит от состояния и класса автомобиля. Точную сумму называем после осмотра — и она не меняется после начала работы.",
+  "plan1-tag": "Essential",
+  "amt-per-package": "/ пакет",
+  "plan1-li1": "Двухэтапная ручная мойка",
+  "plan1-li2": "Чистка колёс и колёсных арок",
+  "plan1-li3": "Экспресс-полировка",
+  "plan1-li4": "Полный пылесос салона",
+  "cta-book": "Записаться",
+  "plan2-tag": "Самый популярный",
+  "plan2-li1": "Всё из пакета Essential",
+  "plan2-li2": "Двухэтапная полировка",
+  "plan2-li3": "Керамика в 3 слоя",
+  "plan2-li4": "Полный детейлинг салона",
+  "plan2-li5": "Гарантия 3 года",
+  "plan3-tag": "Ultimate",
+  "plan3-li1": "Всё из пакета Signature",
+  "plan3-li2": "Плёнка PPF по всему переду",
+  "plan3-li3": "Восстановление кожи",
+  "plan3-li4": "Озонирование",
+  "plan3-li5": "Гарантия 7 лет",
+
+  "contact-eyebrow": "Запись",
+  "contact-h2": "Приезжайте на осмотр —<br><span class=\"serif\">это бесплатно</span>",
+  "row-phone": "Телефон",
+  "row-address": "Адрес студии",
+  "row-hours": "Часы работы",
+  "row-hours-value": "Ежедневно, 9:00 – 21:00",
+  "row-email": "Email",
+  "cta-message-wa": "Написать в WhatsApp",
+  "chan-telegram": "Telegram",
+  "reveal-note": "<b>LUSTRE — концепт, сообщение не отправлено.</b> На сайте настоящей студии эта кнопка открыла бы WhatsApp с готовым сообщением. Если хотите такой же сайт для реального бизнеса, напишите тому, кто это сделал.",
+  "cta-message-vadim-wa": "Написать Вадиму в WhatsApp",
+  "chan-instagram": "Instagram",
+  "chan-email": "Email",
+  "more-link": "Смотреть остальные работы",
+  "disclosure-p": "<b>Это концепт.</b> LUSTRE — придуманный бренд, сделанный как элемент портфолио <a href=\"../../\">Вадимом Иванченко</a>. Студия, адрес и цены не настоящие.",
+  "see-real-work": "Смотреть реальные работы клиентов →",
+  "foot-note": "Концепт · Студия автодетейлинга"
+};
+MLang.init(window.I18N_LUSTRE_RU);
+</script>
 <script>
 /* Menu */
 var burg=document.getElementById('burg');

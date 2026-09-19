@@ -109,3 +109,59 @@ Note: in the Claude browser pane `document.visibilityState` is `hidden`, which
 suspends rAF, transitions and IntersectionObserver — so reveal animations and the
 lazy iframe loader never run there. Work around it by removing the `js` class and
 setting the iframe transforms by hand before screenshotting.
+
+## EN/RU bilingual system (added 2026-09-19)
+Every page — hub, all 3 case studies, all 5 concepts — is now bilingual.
+`assets/i18n.js` is the shared engine: English is the DOM's own native content
+(captured once via `WeakMap` the first time an element is touched), Russian is a
+per-page `window.I18N_<PAGE>_RU` object handed to `MLang.init(dict)`. State lives
+in `localStorage['matrasov_lang']`; a fresh visitor always sees English — only an
+explicit `.lang-btn` click ever sets `'ru'`. `MLang.set(lang)`/`MLang.onChange(fn)`
+exist for pages needing more; see below.
+- `data-i18n="key"` swaps `innerHTML`; always on the innermost text-only leaf,
+  never on an element (or ancestor) any JS attaches a listener to or selects by
+  id/class. `data-i18n-attr="attr:key;attr2:key2"` does the same for attributes.
+- **Lucienne is JS-rendered, not static** — its lookbook, shop grid, product
+  sheet and cart are all built from a `P`/`LOOKS` data object via `innerHTML`
+  strings, so `data-i18n` can't reach them (it only swaps text already in the
+  DOM). Fixed by giving `MLang` an `onChange(fn)` hook (additive, safe for every
+  other page): Lucienne's own script re-runs its render functions on language
+  switch, reading each field through a small `t(obj, field)` helper that checks
+  `obj.ru[field]` first. Any future JS-rendered concept should use the same
+  `ru:{...}` sibling-object + `t()` + `MLang.onChange()` pattern rather than
+  inventing a new one.
+- **Concept pages own their own `.lang-switch` CSS** (self-contained, no shared
+  file) — same visual spec everywhere (quiet "EN / RU", active = brighter +
+  underline) but re-skinned to each site's own tokens, matching the "different
+  studio" design principle above.
+- **RU text overflows mobile navs the English original didn't** — found and
+  fixed on Aurelis and Lustre specifically: a flex item's default
+  `min-width:auto` refuses to shrink below its own content, and Russian labels
+  (Концепт, Корзина, etc.) are often longer than the English ones. If a future
+  translation causes horizontal overflow, check for exactly this before adding
+  ad-hoc breakpoints — `min-width:0` on the flex item, or shrinking the specific
+  nav element that grew, not shrinking everything.
+
+## Mobile preview-crop fix (2026-09-19)
+Client-reported bug: on mobile the live-preview cards (hub `.window`, case-page
+`.live-window`) showed almost nothing recognizable — just a slice of a hero
+photo. Two causes, both fixed:
+1. **`.window`/`.live-window` mobile `aspect-ratio` was inverted** — `5/4`
+   (landscape) instead of `4/5` (portrait, as the adjacent code comment already
+   said). Fixed across `index.html` and all 3 case pages; desktop's
+   `@media(min-width:760px)` override was untouched.
+2. **Snowzan's real site has a 100vh hero** — inside the fixed-height preview
+   iframe (2600px on the hub, 2400px on the case page's before/after thumbnail,
+   3400px on its "Running, right here" live embed) that hero alone fills nearly
+   the whole render, so a `data-start` of 0 showed only photo, no headline/CTA.
+   Fixed with per-frame `data-start-mobile` (existing mechanism, already used by
+   Lustre) plus a new `data-scroll-mobile` (mirrors `data-start-mobile`) so the
+   mobile auto-pan doesn't try to travel past the 2600px cutoff into blank
+   iframe once the resting position already shows everything worth showing.
+   Also fixed a real bug on Snowzan's case page: the mobile
+   `.eframe-win{overflow:visible}` override meant for the before/after
+   comparison mount was unintentionally also matching `.live-window` (shared
+   class) — scoped it to `.eframe-win:not(.live-window)`.
+Snowzan's "one-man" framing was also outdated (client formed Snowzan LLC) —
+copy on the hub card, the case page hero/meta, and both RU translations now say
+"growing mobile detailing brand" instead.

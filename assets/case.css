@@ -158,21 +158,55 @@ button{font:inherit;color:inherit;background:none;border:0;}
 .back:hover::after{transform:scaleX(1);transform-origin:left;}
 .back svg{transition:transform .26s var(--ease-out);}
 .back:hover svg{transform:translateX(-3px);}
+/* -- language switch ------------------------------------------------------
+   The same quiet EN/RU device as the hub, in the case pages' own mono. */
+.lang-switch{
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;
+  flex:none;
+}
+.lang-switch .lang-sep{color:var(--ink-3);opacity:.6;}
+.lang-btn{
+  position:relative;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:24px;min-height:44px;padding:0 1px;
+  color:var(--ink-3);
+  transition:color .2s ease;
+}
+.lang-btn::after{
+  content:"";position:absolute;left:1px;right:1px;bottom:13px;height:1px;
+  background:var(--ink);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease-out);
+}
+.lang-btn:hover{color:var(--ink-2);}
+.lang-btn.is-active{color:var(--ink);}
+.lang-btn.is-active::after{transform:scaleX(1);}
+@media (prefers-reduced-motion:reduce){ .lang-btn::after{transition:none;} }
+
+.cta-short{display:none;}
+
 @media (max-width:640px){
   .brand,.nav-sep{display:none;}
   .back span{display:none;}
-  .back{padding-inline:8px;}
-  /* Three actions plus the back arrow no longer fit a 375px nav at full
-     size: the concept marker is already restated in the kicker just below
-     the fold, so it drops from the bar; the quick-contacts link shrinks to
-     a compact pill so the page's actual primary action — open the live
-     site, try the thing — keeps its full label and stays the loudest
-     object in the row. */
+  .back{padding-inline:6px;}
+  /* Four things — back arrow, language, quick contacts, the page's own
+     primary action — no longer fit a 375px nav at full size, so every
+     secondary element compacts and only the primary action keeps a
+     generous label: it is the one thing this page most wants opened. */
   .nav-in .chip-concept{display:none;}
+  .nav-in{gap:10px;}
+  .lang-switch{gap:5px;margin-right:1px;}
+  .lang-btn{min-width:20px;font-size:11px;}
   .btn.nav-contact{
-    min-height:40px;padding:0 14px;font-size:13.5px;border-radius:9px;
+    min-height:40px;padding:0 12px;font-size:13px;border-radius:9px;
     flex:none;
   }
+}
+@media (max-width:400px){
+  .nav .btn:not(.nav-contact) .cta-full{display:none;}
+  .nav .btn:not(.nav-contact) .cta-short{display:inline;}
+  .nav .btn:not(.nav-contact){padding:0 16px;min-height:40px;font-size:13.5px;}
 }
 
 /* -------------------------------------------------------------- CTAs ------

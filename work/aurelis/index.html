@@ -101,14 +101,19 @@ button,input,select,textarea{font:inherit;color:inherit;}
 @media (max-width:600px){
   .lbl-long{display:none;}
   .lbl-short{display:inline;}
-  .nav-in{gap:var(--s2);}
-  .logo{font-size:17px;letter-spacing:.16em;}
+  .nav-in{gap:6px;}
+  .logo{font-size:16px;letter-spacing:.08em;}
+  .chip-concept{padding:3px 6px;}
+  .nav .btn{padding-inline:8px;font-size:12px;}
+  .nav .lang-switch{gap:3px;margin-left:0;}
 }
 @media (max-width:400px){
-  .nav-in{padding-inline:16px;}
-  .nav .btn{padding-inline:14px;}
+  .nav-in{padding-inline:14px;}
 }
-/* the concept chip is an honesty marker — it stays at every width */
+/* the concept chip is an honesty marker — it stays at every width, so the
+   language switch (added after this nav was tuned) has to take the
+   squeeze: tighter gaps and a smaller logo/button all round rather than
+   dropping the chip. */
 
 /* ----------------------------------------------------------------- hero -- */
 .hero{padding-block:var(--s5) var(--s6);}
@@ -348,6 +353,34 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
 .rv{opacity:0;transform:translateY(14px);}
 .rv.in{opacity:1;transform:none;transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none;}}
+
+/* -- language switch ------------------------------------------------- */
+.lang-switch{
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.04em;
+  margin-left:var(--s1);
+}
+.lang-switch .lang-sep{color:var(--ink-3);opacity:.6;}
+.lang-btn{
+  position:relative;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:24px;min-height:44px;padding:0 2px;
+  color:var(--ink-3);text-transform:uppercase;
+  transition:color .2s ease;
+}
+.lang-btn::after{
+  content:"";position:absolute;left:1px;right:1px;bottom:13px;height:1px;
+  background:var(--ink);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease-out);
+}
+.lang-btn:hover{color:var(--ink-2);}
+.lang-btn.is-active{color:var(--ink);}
+.lang-btn.is-active::after{transform:scaleX(1);}
+@media (prefers-reduced-motion:reduce){ .lang-btn::after{transition:none;} }
+@media (max-width:600px){
+  .lang-switch{gap:4px;margin-left:2px;}
+}
 </style>
 </head>
 
@@ -357,13 +390,18 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
 <header class="nav">
   <div class="wrap nav-in">
     <a class="logo" href="#top">Aurelis</a>
-    <span class="chip-concept">Concept</span>
+    <span class="chip-concept" data-i18n="chip-concept">Concept</span>
     <nav class="nav-links mono" aria-label="Sections">
-      <a href="#residences">Residences</a>
-      <a href="#building">The building</a>
-      <a href="#location">Location</a>
+      <a href="#residences" data-i18n="nav-residences">Residences</a>
+      <a href="#building" data-i18n="nav-building">The building</a>
+      <a href="#location" data-i18n="nav-location">Location</a>
     </nav>
-    <a class="btn" href="#enquire"><span class="lbl-long">Register interest</span><span class="lbl-short">Register</span></a>
+    <div class="lang-switch mono" role="group" aria-label="Language / Язык">
+      <button type="button" class="lang-btn is-active" data-lang="en" aria-current="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="ru" aria-current="false">RU</button>
+    </div>
+    <a class="btn" href="#enquire"><span class="lbl-long" data-i18n="nav-register-long">Register interest</span><span class="lbl-short" data-i18n="nav-register-short">Register</span></a>
   </div>
 </header>
 
@@ -374,22 +412,22 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow mono">Dubai Marina · Completing Q4 2028</p>
-      <h1>Thirty-six floors.<span>Two hundred and fourteen ways to live on the water.</span></h1>
-      <p class="lede">
+      <p class="eyebrow mono" data-i18n="hero-eyebrow">Dubai Marina · Completing Q4 2028</p>
+      <h1><b style="font-weight:inherit" data-i18n="hero-h1-1">Thirty-six floors.</b><span data-i18n="hero-h1-2">Two hundred and fourteen ways to live on the water.</span></h1>
+      <p class="lede" data-i18n="hero-lede">
         Pick a floor and the building tells you what is on it: the plan, the area, the view
         out of that specific window, and the price. Before a broker, before a brochure,
         before anyone asks for your number.
       </p>
       <div class="hero-cta">
-        <a class="btn" href="#residences">Choose a floor</a>
-        <a class="btn btn-ghost" href="#building">About the building</a>
+        <a class="btn" href="#residences"><span data-i18n="hero-cta-choose">Choose a floor</span></a>
+        <a class="btn btn-ghost" href="#building"><span data-i18n="hero-cta-about">About the building</span></a>
       </div>
       <dl class="spec">
-        <div><dt class="mono">Floors</dt><dd>36</dd></div>
-        <div><dt class="mono">Residences</dt><dd>214</dd></div>
-        <div><dt class="mono">From</dt><dd>AED 3.4M</dd></div>
-        <div><dt class="mono">Handover</dt><dd>Q4 2028</dd></div>
+        <div><dt class="mono" data-i18n="spec-floors-label">Floors</dt><dd>36</dd></div>
+        <div><dt class="mono" data-i18n="spec-res-label">Residences</dt><dd>214</dd></div>
+        <div><dt class="mono" data-i18n="spec-from-label">From</dt><dd>AED 3.4M</dd></div>
+        <div><dt class="mono" data-i18n="spec-handover-label">Handover</dt><dd data-i18n="q4-2028">Q4 2028</dd></div>
       </dl>
     </div>
     <figure class="hero-photo rv">
@@ -405,24 +443,24 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
 <section class="band" id="residences">
   <div class="wrap">
     <div class="band-head">
-      <h2>Pick your floor.</h2>
-      <p>The elevation on the left is the building. Every plate is a real floor — choose one and everything to the right changes with it, including what you would actually be looking at.</p>
+      <h2 data-i18n="res-h2">Pick your floor.</h2>
+      <p data-i18n="res-p">The elevation on the left is the building. Every plate is a real floor — choose one and everything to the right changes with it, including what you would actually be looking at.</p>
     </div>
 
     <div class="picker rv">
       <div class="picker-side">
       <div class="elev">
-        <p class="elev-title mono">Elevation</p>
-        <div class="floors" id="floors" role="listbox" aria-label="Choose a floor" tabindex="0"></div>
-        <p class="elev-base mono">Podium · levels 1–3</p>
+        <p class="elev-title mono" data-i18n="elev-title">Elevation</p>
+        <div class="floors" id="floors" role="listbox" aria-label="Choose a floor" data-i18n-attr="aria-label:elev-aria" tabindex="0"></div>
+        <p class="elev-base mono" data-i18n="elev-base">Podium · levels 1–3</p>
       </div>
 
       <div class="picker-controls">
-        <div class="tiers" id="tiers" role="group" aria-label="Choose a residence type"></div>
+        <div class="tiers" id="tiers" role="group" aria-label="Choose a residence type" data-i18n-attr="aria-label:tiers-aria"></div>
         <div class="stepper">
-          <button type="button" id="fDown" aria-label="One floor down">−</button>
+          <button type="button" id="fDown" aria-label="One floor down" data-i18n-attr="aria-label:floor-down-aria">−</button>
           <span id="fNow" aria-live="polite">Floor 12</span>
-          <button type="button" id="fUp" aria-label="One floor up">+</button>
+          <button type="button" id="fUp" aria-label="One floor up" data-i18n-attr="aria-label:floor-up-aria">+</button>
         </div>
       </div>
       </div>
@@ -433,7 +471,7 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
             <p class="res-name" id="rName">Type A</p>
             <p class="res-sub mono" id="rSub">Floor 12 · 41 m above the marina</p>
           </div>
-          <p class="res-price"><small>From</small><span id="rPrice">AED 3,400,000</span></p>
+          <p class="res-price"><small data-i18n="res-price-from">From</small><span id="rPrice">AED 3,400,000</span></p>
         </div>
 
         <div class="res-body">
@@ -444,15 +482,15 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
 
           <div class="res-facts">
             <dl>
-              <div><dt>Bedrooms</dt><dd id="rBeds">2</dd></div>
-              <div><dt>Bathrooms</dt><dd id="rBaths">2</dd></div>
-              <div><dt>Internal</dt><dd id="rInt">128 m²</dd></div>
-              <div><dt>Terrace</dt><dd id="rTer">14 m²</dd></div>
-              <div><dt>Aspect</dt><dd id="rAsp">South-west</dd></div>
-              <div><dt>Ceiling</dt><dd id="rCeil">3.0 m</dd></div>
+              <div><dt data-i18n="fact-beds">Bedrooms</dt><dd id="rBeds">2</dd></div>
+              <div><dt data-i18n="fact-baths">Bathrooms</dt><dd id="rBaths">2</dd></div>
+              <div><dt data-i18n="fact-internal">Internal</dt><dd id="rInt">128 m²</dd></div>
+              <div><dt data-i18n="fact-terrace">Terrace</dt><dd id="rTer">14 m²</dd></div>
+              <div><dt data-i18n="fact-aspect">Aspect</dt><dd id="rAsp">South-west</dd></div>
+              <div><dt data-i18n="fact-ceiling">Ceiling</dt><dd id="rCeil">3.0 m</dd></div>
             </dl>
             <div class="res-view">
-              <b>From this floor</b>
+              <b data-i18n="res-view-label">From this floor</b>
               <span id="rView">The promenade directly below, the marina channel, and the far bank close enough to read.</span>
             </div>
           </div>
@@ -470,8 +508,8 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
 <section class="band">
   <div class="wrap">
     <div class="band-head">
-      <h2>Inside.</h2>
-      <p>Interiors are delivered finished: stone floors, full-height glazing, and joinery fitted rather than delivered flat-packed.</p>
+      <h2 data-i18n="views-h2">Inside.</h2>
+      <p data-i18n="views-p">Interiors are delivered finished: stone floors, full-height glazing, and joinery fitted rather than delivered flat-packed.</p>
     </div>
     <div class="gal rv">
       <figure>
@@ -479,7 +517,7 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
           <source type="image/avif" srcset="img/view-800.avif 800w, img/view-1600.avif 1600w" sizes="(min-width:760px) 56vw, 100vw">
           <img src="img/view-1600.jpg" width="1600" height="1065" loading="lazy" alt="A living room with full-height glazing looking out over water and a bridge.">
         </picture>
-        <figcaption class="mono">Type B · living room</figcaption>
+        <figcaption class="mono" data-i18n="cap-living">Type B · living room</figcaption>
       </figure>
       <div class="gal-col">
         <figure class="tall">
@@ -487,14 +525,14 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
             <source type="image/avif" srcset="img/interior-800.avif 800w, img/interior-1600.avif 1065w" sizes="(min-width:760px) 38vw, 100vw">
             <img src="img/interior-800.jpg" width="800" height="1201" loading="lazy" alt="An entrance hall with a timber screen and a tall oval mirror.">
           </picture>
-          <figcaption class="mono">Entrance hall</figcaption>
+          <figcaption class="mono" data-i18n="cap-entrance">Entrance hall</figcaption>
         </figure>
         <figure>
           <picture>
             <source type="image/avif" srcset="img/room-800.avif 800w, img/room-1600.avif 1600w" sizes="(min-width:760px) 38vw, 100vw">
             <img src="img/room-800.jpg" width="800" height="533" loading="lazy" alt="An empty room with a full-height gridded window and light across the floor.">
           </picture>
-          <figcaption class="mono">Before handover</figcaption>
+          <figcaption class="mono" data-i18n="cap-before">Before handover</figcaption>
         </figure>
       </div>
     </div>
@@ -505,18 +543,18 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
 <section class="band" id="building">
   <div class="wrap two">
     <div>
-      <h2>A quiet building on a loud stretch of water.</h2>
-      <p>Aurelis is one slab, oriented so that every residence faces the channel and no residence looks into another. The podium holds the arrival court, the pool deck and the residents' floor; everything above it is private.</p>
-      <p>The facade is precast stone with recessed glazing, which is unfashionable here and deliberate: it keeps the afternoon sun off the glass, so the rooms behind it stay usable at four in the afternoon in July.</p>
+      <h2 data-i18n="building-h2">A quiet building on a loud stretch of water.</h2>
+      <p data-i18n="building-p1">Aurelis is one slab, oriented so that every residence faces the channel and no residence looks into another. The podium holds the arrival court, the pool deck and the residents' floor; everything above it is private.</p>
+      <p data-i18n="building-p2">The facade is precast stone with recessed glazing, which is unfashionable here and deliberate: it keeps the afternoon sun off the glass, so the rooms behind it stay usable at four in the afternoon in July.</p>
     </div>
     <dl class="deets">
-      <div><dt>Architect</dt><dd>Kass &amp; Meridian</dd></div>
-      <div><dt>Structure</dt><dd>36 floors, single slab</dd></div>
-      <div><dt>Facade</dt><dd>Precast stone, recessed glazing</dd></div>
-      <div><dt>Residents' floor</dt><dd>Level 4 — pool, gym, 25 m lap</dd></div>
-      <div><dt>Parking</dt><dd>2 bays per residence</dd></div>
-      <div><dt>Service charge</dt><dd>AED 18 / sq ft / year</dd></div>
-      <div><dt>Payment plan</dt><dd>60 / 40, handover Q4 2028</dd></div>
+      <div><dt data-i18n="deet-architect">Architect</dt><dd>Kass &amp; Meridian</dd></div>
+      <div><dt data-i18n="deet-structure">Structure</dt><dd data-i18n="deet-structure-val">36 floors, single slab</dd></div>
+      <div><dt data-i18n="deet-facade">Facade</dt><dd data-i18n="deet-facade-val">Precast stone, recessed glazing</dd></div>
+      <div><dt data-i18n="deet-residents-floor">Residents' floor</dt><dd data-i18n="deet-residents-floor-val">Level 4 — pool, gym, 25 m lap</dd></div>
+      <div><dt data-i18n="deet-parking">Parking</dt><dd data-i18n="deet-parking-val">2 bays per residence</dd></div>
+      <div><dt data-i18n="deet-service">Service charge</dt><dd>AED 18 / sq ft / year</dd></div>
+      <div><dt data-i18n="deet-payment">Payment plan</dt><dd data-i18n="deet-payment-val">60 / 40, handover Q4 2028</dd></div>
     </dl>
   </div>
 </section>
@@ -525,15 +563,15 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
 <section class="band" id="location">
   <div class="wrap two">
     <div>
-      <h2>Twelve minutes from the desk you work at.</h2>
-      <p>The marina is not the point of the address — the point is that everything you do in a week is inside half an hour, and the water is what you come home to.</p>
+      <h2 data-i18n="location-h2">Twelve minutes from the desk you work at.</h2>
+      <p data-i18n="location-p">The marina is not the point of the address — the point is that everything you do in a week is inside half an hour, and the water is what you come home to.</p>
       <dl class="dists">
-        <div><dt>DIFC</dt><dd>12 min</dd></div>
-        <div><dt>Dubai International (DXB)</dt><dd>28 min</dd></div>
-        <div><dt>Al Maktoum (DWC)</dt><dd>26 min</dd></div>
-        <div><dt>Dubai Marina Mall</dt><dd>6 min on foot</dd></div>
-        <div><dt>The beach</dt><dd>11 min on foot</dd></div>
-        <div><dt>Metro, DMCC</dt><dd>8 min on foot</dd></div>
+        <div><dt>DIFC</dt><dd data-i18n="dist-difc">12 min</dd></div>
+        <div><dt>Dubai International (DXB)</dt><dd data-i18n="dist-dxb">28 min</dd></div>
+        <div><dt>Al Maktoum (DWC)</dt><dd data-i18n="dist-dwc">26 min</dd></div>
+        <div><dt>Dubai Marina Mall</dt><dd data-i18n="dist-mall">6 min on foot</dd></div>
+        <div><dt data-i18n="dist-beach-label">The beach</dt><dd data-i18n="dist-beach">11 min on foot</dd></div>
+        <div><dt data-i18n="dist-metro-label">Metro, DMCC</dt><dd data-i18n="dist-metro">8 min on foot</dd></div>
       </dl>
     </div>
     <figure class="rv" style="margin:0;overflow:hidden;background:var(--sheet)">
@@ -549,37 +587,37 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
 <section class="enq" id="enquire">
   <div class="wrap enq-in">
     <div>
-      <p class="eyebrow mono" style="color:rgba(244,242,236,.55)">Register interest</p>
-      <h2>We will send the floor, not a brochure.</h2>
-      <p>Tell us which residence you are looking at and we will send the plan, the payment schedule and the availability on that floor. One email. No call unless you ask for one.</p>
+      <p class="eyebrow mono" style="color:rgba(244,242,236,.55)" data-i18n="enq-eyebrow">Register interest</p>
+      <h2 data-i18n="enq-h2">We will send the floor, not a brochure.</h2>
+      <p data-i18n="enq-p">Tell us which residence you are looking at and we will send the plan, the payment schedule and the availability on that floor. One email. No call unless you ask for one.</p>
     </div>
 
     <form class="form" id="enqForm" novalidate>
       <div class="field">
-        <label for="ename">Name</label>
+        <label for="ename" data-i18n="field-name-label">Name</label>
         <input id="ename" name="name" type="text" autocomplete="name" required>
-        <span class="err">Please add a name.</span>
+        <span class="err" data-i18n="err-name">Please add a name.</span>
       </div>
       <div class="field">
-        <label for="eemail">Email</label>
+        <label for="eemail" data-i18n="field-email-label">Email</label>
         <input id="eemail" name="email" type="email" inputmode="email" autocomplete="email" required>
-        <span class="err">That email address does not look right.</span>
+        <span class="err" data-i18n="err-email">That email address does not look right.</span>
       </div>
       <div class="field">
-        <label for="etype">Residence</label>
+        <label for="etype" data-i18n="field-type-label">Residence</label>
         <select id="etype" name="type">
-          <option value="Type A">Type A — two bedrooms</option>
-          <option value="Type B">Type B — three bedrooms</option>
-          <option value="Penthouse">Penthouse — four bedrooms</option>
-          <option value="Undecided">Not decided yet</option>
+          <option value="Type A" data-i18n="opt-type-a">Type A — two bedrooms</option>
+          <option value="Type B" data-i18n="opt-type-b">Type B — three bedrooms</option>
+          <option value="Penthouse" data-i18n="opt-penthouse">Penthouse — four bedrooms</option>
+          <option value="Undecided" data-i18n="opt-undecided">Not decided yet</option>
         </select>
       </div>
-      <button class="btn" type="submit" id="eSubmit">Send me the floor</button>
+      <button class="btn" type="submit" id="eSubmit"><span data-i18n="enq-submit">Send me the floor</span></button>
       <div class="sent" id="eSent" role="status">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
         <div>
-          <b>That would have been sent.</b>
-          <p>Aurelis is a concept, so nothing left your browser. On a real development's site this would reach the sales office with your chosen floor attached.</p>
+          <b data-i18n="sent-title">That would have been sent.</b>
+          <p data-i18n="sent-body">Aurelis is a concept, so nothing left your browser. On a real development's site this would reach the sales office with your chosen floor attached.</p>
         </div>
       </div>
     </form>
@@ -592,28 +630,28 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
     <div class="foot">
       <div>
         <a class="logo" href="#top" style="margin-bottom:10px">Aurelis</a>
-        <p>Waterfront residences, Dubai Marina. Handover Q4 2028.</p>
+        <p data-i18n="foot-tagline">Waterfront residences, Dubai Marina. Handover Q4 2028.</p>
       </div>
       <div>
-        <h4>Residences</h4>
+        <h4 data-i18n="foot-h4-residences">Residences</h4>
         <ul>
-          <li><a href="#residences">Type A — two bedrooms</a></li>
-          <li><a href="#residences">Type B — three bedrooms</a></li>
-          <li><a href="#residences">Penthouse</a></li>
+          <li><a href="#residences" data-i18n="opt-type-a">Type A — two bedrooms</a></li>
+          <li><a href="#residences" data-i18n="opt-type-b">Type B — three bedrooms</a></li>
+          <li><a href="#residences" data-i18n="foot-penthouse">Penthouse</a></li>
         </ul>
       </div>
       <div>
-        <h4>Development</h4>
+        <h4 data-i18n="foot-h4-development">Development</h4>
         <ul>
-          <li><a href="#building">The building</a></li>
-          <li><a href="#location">Location</a></li>
-          <li><a href="#enquire">Register interest</a></li>
+          <li><a href="#building" data-i18n="nav-building">The building</a></li>
+          <li><a href="#location" data-i18n="nav-location">Location</a></li>
+          <li><a href="#enquire" data-i18n="nav-register-long">Register interest</a></li>
         </ul>
       </div>
     </div>
     <p class="disclosure">
-      <span><b>This is a concept.</b> Aurelis is an invented development, built as a portfolio piece by <a href="../../">Vadim Ivanchenko</a>. The building, its plans and its prices are not real.</span>
-      <span><a href="../../#work">See the real client work →</a></span>
+      <span><b data-i18n="disclosure-bold">This is a concept.</b> <span data-i18n="disclosure-text">Aurelis is an invented development, built as a portfolio piece by <a href="../../">Vadim Ivanchenko</a>. The building, its plans and its prices are not real.</span></span>
+      <span><a href="../../#work" data-i18n="disclosure-cta">See the real client work →</a></span>
       <span><a href="https://wa.me/79184134820" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://t.me/matras0v" target="_blank" rel="noopener">Telegram</a> · <a href="https://instagram.com/matras0v" target="_blank" rel="noopener">Instagram</a> · <a href="mailto:mskvvmskvv@gmail.com">Email</a></span>
     </p>
   </div>
@@ -843,6 +881,104 @@ footer{padding-block:var(--s4);border-top:1px solid var(--line);}
     b.disabled = true; b.textContent = 'Sent';
   });
 })();
+</script>
+<script src="../../assets/i18n.js"></script>
+<script>
+window.I18N_AURELIS_RU = {
+  'chip-concept': 'Концепт',
+  'nav-residences': 'Резиденции',
+  'nav-building': 'Здание',
+  'nav-location': 'Расположение',
+  'nav-register-long': 'Оставить заявку',
+  'nav-register-short': 'Заявка',
+
+  'hero-eyebrow': 'Dubai Marina · Сдача в IV кв. 2028',
+  'hero-h1-1': 'Тридцать шесть этажей.',
+  'hero-h1-2': 'Двести четырнадцать способов жить у воды.',
+  'hero-lede': 'Выберите этаж — и здание само расскажет, что на нём: планировку, площадь, вид из конкретного окна и цену. До брокера, до буклета, до того, как у вас вообще спросят номер телефона.',
+  'hero-cta-choose': 'Выбрать этаж',
+  'hero-cta-about': 'О здании',
+  'spec-floors-label': 'Этажей',
+  'spec-res-label': 'Резиденций',
+  'spec-from-label': 'От',
+  'spec-handover-label': 'Сдача',
+  'q4-2028': 'IV кв. 2028',
+
+  'res-h2': 'Выберите свой этаж.',
+  'res-p': 'Слева — фасад здания. Каждая полоса — реальный этаж: выберите один, и всё справа меняется вместе с ним, включая то, что вы увидите из окна.',
+  'elev-title': 'Фасад',
+  'elev-aria': 'Выбрать этаж',
+  'elev-base': 'Подиум · уровни 1–3',
+  'tiers-aria': 'Выбрать тип резиденции',
+  'floor-down-aria': 'Этажом ниже',
+  'floor-up-aria': 'Этажом выше',
+  'res-price-from': 'От',
+  'fact-beds': 'Спальни',
+  'fact-baths': 'Санузлы',
+  'fact-internal': 'Площадь',
+  'fact-terrace': 'Терраса',
+  'fact-aspect': 'Ориентация',
+  'fact-ceiling': 'Потолки',
+  'res-view-label': 'С этого этажа',
+
+  'views-h2': 'Интерьер.',
+  'views-p': 'Интерьеры сдаются готовыми: каменные полы, остекление в полный рост и встроенная мебель — а не плоская упаковка на сборку.',
+  'cap-living': 'Тип B · гостиная',
+  'cap-entrance': 'Холл',
+  'cap-before': 'До сдачи',
+
+  'building-h2': 'Тихое здание на шумной воде.',
+  'building-p1': 'Aurelis — единая плита, развёрнутая так, что каждая резиденция смотрит на канал, и ни одна не смотрит в другую. Подиум занимают входная зона, бассейн на крыше подиума и этаж резидентов; всё выше — приватная территория.',
+  'building-p2': 'Фасад — сборный камень с утопленным остеклением: решение немодное для этих мест и намеренное — оно не пускает на стекло дневное солнце, чтобы комнаты за ним оставались пригодными для жизни в четыре часа дня в июле.',
+  'deet-architect': 'Архитектор',
+  'deet-structure': 'Конструкция',
+  'deet-structure-val': '36 этажей, единая плита',
+  'deet-facade': 'Фасад',
+  'deet-facade-val': 'Сборный камень, утопленное остекление',
+  'deet-residents-floor': 'Этаж резидентов',
+  'deet-residents-floor-val': 'Уровень 4 — бассейн, зал, дорожка 25 м',
+  'deet-parking': 'Паркинг',
+  'deet-parking-val': '2 места на резиденцию',
+  'deet-service': 'Эксплуатационный сбор',
+  'deet-payment': 'План оплаты',
+  'deet-payment-val': '60 / 40, сдача в IV кв. 2028',
+
+  'location-h2': 'Двенадцать минут от вашего офиса.',
+  'location-p': 'Дело не в самой марине — дело в том, что все дела недели умещаются в получасе езды, а домой вы возвращаетесь к воде.',
+  'dist-difc': '12 мин',
+  'dist-dxb': '28 мин',
+  'dist-dwc': '26 мин',
+  'dist-mall': '6 мин пешком',
+  'dist-beach-label': 'Пляж',
+  'dist-beach': '11 мин пешком',
+  'dist-metro-label': 'Метро, DMCC',
+  'dist-metro': '8 мин пешком',
+
+  'enq-eyebrow': 'Оставить заявку',
+  'enq-h2': 'Мы пришлём этаж, а не буклет.',
+  'enq-p': 'Скажите, какая резиденция вас интересует, и мы пришлём планировку, график платежей и наличие на этом этаже. Одно письмо. Звонок — только если сами попросите.',
+  'field-name-label': 'Имя',
+  'field-email-label': 'Email',
+  'err-name': 'Пожалуйста, укажите имя.',
+  'err-email': 'Похоже, в адресе email опечатка.',
+  'field-type-label': 'Резиденция',
+  'opt-type-a': 'Тип A — две спальни',
+  'opt-type-b': 'Тип B — три спальни',
+  'opt-penthouse': 'Пентхаус — четыре спальни',
+  'opt-undecided': 'Пока не решил(а)',
+  'enq-submit': 'Прислать этаж',
+  'sent-title': 'Заявка была бы отправлена.',
+  'sent-body': 'Aurelis — концепт, поэтому ничего не покинуло ваш браузер. На сайте настоящего проекта это попало бы в отдел продаж вместе с выбранным этажом.',
+
+  'foot-tagline': 'Резиденции у воды, Dubai Marina. Сдача в IV квартале 2028.',
+  'foot-h4-residences': 'Резиденции',
+  'foot-penthouse': 'Пентхаус',
+  'foot-h4-development': 'Проект',
+  'disclosure-bold': 'Это концепт.',
+  'disclosure-text': 'Aurelis — вымышленный проект, созданный как портфолио-работа <a href="../../">Вадимом Иванченко</a>. Здание, планировки и цены не настоящие.',
+  'disclosure-cta': 'Смотреть реальные проекты →'
+};
+MLang.init(window.I18N_AURELIS_RU);
 </script>
 </body>
 </html>

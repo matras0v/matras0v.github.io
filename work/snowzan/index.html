@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0B0B0C">
 
 <title>Snowzan Mobile Detailing — case study · Vadim Ivanchenko</title>
-<meta name="description" content="How a one-man detailing business in Phoenix went from a Google Sites page to a site that quotes a price in twenty seconds. Built in two days.">
+<meta name="description" content="How a Phoenix mobile detailing brand went from a Google Sites page to a site that quotes a price in twenty seconds. Built in two days.">
 
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://matras0v.github.io/work/snowzan/">
@@ -140,7 +140,11 @@
   /* stacked, the two states are two plates inside one mount rather than one
      window — so the mount's own padding becomes the margin around them and
      the captions stop running into the frame edge */
-  .eframe-win{background:transparent;box-shadow:none;border-radius:0;overflow:visible;}
+  /* :not(.live-window) — this used to also match the "Running, right here"
+     live embed further down the page, which shares the eframe-win class but
+     must stay a clipped window at every width, not become an unbounded
+     mount the way the before/after comparison plates do. */
+  .eframe-win:not(.live-window){background:transparent;box-shadow:none;border-radius:0;overflow:visible;}
 }
 
 /* his driveways, four of them, as a strip rather than four loose squares */
@@ -152,7 +156,7 @@
   box-shadow:inset 0 0 0 1px rgba(0,0,0,.4), 0 18px 40px -26px rgba(0,0,0,.9);
 }
 
-.live-window{aspect-ratio:5/4;}
+.live-window{aspect-ratio:4/5;}
 @media (min-width:760px){ .live-window{aspect-ratio:16/10;} }
 .live-window iframe{
   position:absolute;top:0;left:0;
@@ -205,8 +209,13 @@
       <span>All work</span>
     </a>
     <span class="nav-spacer"></span>
-    <a class="btn btn-ghost nav-contact" href="#contact">Contacts</a>
-    <a class="btn btn-key" href="https://snowzan.com/" target="_blank" rel="noopener">Open the live site <span class="arrow">&#8599;</span></a>
+    <div class="lang-switch mono" role="group" aria-label="Language / Язык">
+      <button type="button" class="lang-btn is-active" data-lang="en" aria-current="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="ru" aria-current="false">RU</button>
+    </div>
+    <a class="btn btn-ghost nav-contact" href="#contact" data-i18n="nav-contacts">Contacts</a>
+    <a class="btn btn-key" href="https://snowzan.com/" target="_blank" rel="noopener"><span class="cta-full" data-i18n="nav-cta-open-full">Open the live site</span><span class="cta-short" data-i18n="nav-cta-open-short">Open site</span> <span class="arrow">&#8599;</span></a>
   </div>
 </header>
 
@@ -216,24 +225,24 @@
 <section class="head">
   <div class="wrap head-grid">
     <div>
-      <p class="kicker mono"><span class="dot" aria-hidden="true"></span> Case 01 &middot; Live client &middot; Phoenix, Arizona</p>
-      <h1>Fifteen five-star<br>reviews, and a<br>website nobody<br>could get a<br>price out of.</h1>
-      <p class="lede">
-        Snowzan is one person, a van and a pressure washer, working driveways across Phoenix.
+      <p class="kicker mono"><span class="dot" aria-hidden="true"></span> <span data-i18n="head-kicker">Case 01 &middot; Live client &middot; Phoenix, Arizona</span></p>
+      <h1 data-i18n="head-h1">Fifteen five-star<br>reviews, and a<br>website nobody<br>could get a<br>price out of.</h1>
+      <p class="lede" data-i18n="head-lede">
+        Snowzan is a mobile detailing brand working driveways across Phoenix.
         The work was already excellent. The website was a Google Sites page that ended every
         visit with the same instruction: <strong>call for a quote.</strong>
       </p>
       <div class="cta-row">
-        <a class="btn btn-lg btn-key" href="https://snowzan.com/" target="_blank" rel="noopener">Open the live site <span class="arrow">&#8599;</span></a>
-        <a class="btn btn-lg btn-ghost" href="#before-after">See the before and after</a>
+        <a class="btn btn-lg btn-key" href="https://snowzan.com/" target="_blank" rel="noopener"><span data-i18n="cta-open-live">Open the live site</span> <span class="arrow">&#8599;</span></a>
+        <a class="btn btn-lg btn-ghost" href="#before-after" data-i18n="cta-before-after">See the before and after</a>
       </div>
     </div>
 
     <dl class="facts rv">
-      <div><dt>Client</dt><dd>Snowzan Mobile Detailing</dd></div>
-      <div><dt>Built in</dt><dd>Two days</dd></div>
-      <div><dt>Scope</dt><dd>Design, build, copy, price estimator, handover</dd></div>
-      <div><dt>Status</dt><dd>Live at snowzan.com</dd></div>
+      <div><dt data-i18n="f-client">Client</dt><dd data-i18n="sz-client">Snowzan Mobile Detailing</dd></div>
+      <div><dt data-i18n="f-builtin">Built in</dt><dd data-i18n="sz-builtin">Two days</dd></div>
+      <div><dt data-i18n="f-scope">Scope</dt><dd data-i18n="sz-scope">Design, build, copy, price estimator, handover</dd></div>
+      <div><dt data-i18n="f-status">Status</dt><dd data-i18n="sz-status">Live at snowzan.com</dd></div>
     </dl>
   </div>
 </section>
@@ -243,28 +252,28 @@
   <div class="wrap">
     <div class="band-head split">
       <div>
-        <span class="eyebrow">The proof</span>
-        <h2>Before and after</h2>
+        <span class="eyebrow" data-i18n="ba-eyebrow">The proof</span>
+        <h2 data-i18n="ba-h2">Before and after</h2>
       </div>
-      <p>The left side is the site the business actually had: a Google Sites page whose only
+      <p data-i18n="ba-p">The left side is the site the business actually had: a Google Sites page whose only
          answer to &ldquo;how much?&rdquo; was a phone call. The right side is not a screenshot —
          it is the live site, running inside this page. Drag the handle across.</p>
     </div>
 
     <div class="rv-depth">
       <p class="legend">
-        <b class="was"><i aria-hidden="true"></i> Before &middot; Google Sites</b>
-        <b class="now"><i aria-hidden="true"></i> After &middot; live site</b>
+        <b class="was"><i aria-hidden="true"></i> <span data-i18n="legend-before">Before &middot; Google Sites</span></b>
+        <b class="now"><i aria-hidden="true"></i> <span data-i18n="legend-after">After &middot; live site</span></b>
         <span class="hint">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg>
-          Drag, or use the arrow keys
+          <span data-i18n="legend-hint">Drag, or use the arrow keys</span>
         </span>
       </p>
 
       <div class="eframe" id="cmp">
         <div class="eframe-bar" aria-hidden="true">
           <i class="live"></i>
-          <span class="plate">snowzan.com &middot; running live</span>
+          <span class="plate" data-i18n="plate-running">snowzan.com &middot; running live</span>
         </div>
         <div class="eframe-win">
           <div class="stage" id="stage">
@@ -275,10 +284,10 @@
                 <img id="oldImg" src="img/gs-home-1600.jpg" width="1600" height="854" alt="The previous Snowzan website: a Google Sites page with a large photo and a Get a Free Quote button.">
               </picture>
             </div>
-            <span class="stage-tag l">Before</span>
-            <span class="stage-tag r">After</span>
+            <span class="stage-tag l" data-i18n="tag-before">Before</span>
+            <span class="stage-tag r" data-i18n="tag-after">After</span>
             <div class="handle" id="handle" role="slider" tabindex="0"
-                 aria-label="Compare the old and new site" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                 aria-label="Compare the old and new site" data-i18n-attr="aria-label:handle-aria" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
               <i aria-hidden="true">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg>
               </i>
@@ -293,13 +302,13 @@
                   <img src="img/gs-home-800.jpg" width="800" height="427" loading="lazy" alt="The previous Snowzan website: a Google Sites page with a large photo and a Get a Free Quote button.">
                 </picture>
               </div>
-              <figcaption><i aria-hidden="true"></i><span>Before</span><span>Google Sites</span></figcaption>
+              <figcaption><i aria-hidden="true"></i><span data-i18n="tag-before">Before</span><span data-i18n="figcap-before-sub">Google Sites</span></figcaption>
             </figure>
             <figure>
               <div class="shot tall">
                 <iframe id="afterM" title="The Snowzan website as built, phone layout" data-src="site/index.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
               </div>
-              <figcaption><i aria-hidden="true"></i><span>After</span><span>Live &middot; phone layout</span></figcaption>
+              <figcaption><i aria-hidden="true"></i><span data-i18n="tag-after">After</span><span data-i18n="figcap-after-sub">Live &middot; phone layout</span></figcaption>
             </figure>
           </div>
         </div>
@@ -313,42 +322,42 @@
   <div class="wrap">
     <div class="band-head split">
       <div>
-        <span class="eyebrow">How it was built</span>
-        <h2>Four decisions</h2>
+        <span class="eyebrow" data-i18n="dec-eyebrow">How it was built</span>
+        <h2 data-i18n="dec-h2">Four decisions</h2>
       </div>
-      <p>Everything else on the site follows from these.</p>
+      <p data-i18n="dec-p">Everything else on the site follows from these.</p>
     </div>
 
     <article class="dec rv">
       <div>
-        <p class="dec-no">Decision 01</p>
-        <h3>Answer the price question before it is asked</h3>
+        <p class="dec-no" data-i18n="dec01-no">Decision 01</p>
+        <h3 data-i18n="dec01-h3">Answer the price question before it is asked</h3>
       </div>
       <div>
-        <p>Every enquiry started the same way: how much for my truck? The old page had no answer on it, so each one cost a phone call, and the ones who didn't feel like calling simply left.</p>
-        <p>So the site quotes. You pick your vehicle, the package, and a couple of add-ons, and a real price range appears — the same range the owner would have said on the phone. Then one button texts him with the details already written out.</p>
-        <p class="quote">The price is not hidden to protect a margin. It is hidden because nobody has ever built the shop a place to put it.</p>
-      </div>
-    </article>
-
-    <article class="dec rv">
-      <div>
-        <p class="dec-no">Decision 02</p>
-        <h3>Text, not a contact form</h3>
-      </div>
-      <div>
-        <p>Contact forms go to an inbox nobody with a pressure washer in their hands is checking. His customers already text him, so the site does the same thing they do.</p>
-        <p>Every call to action opens the phone's own messages app with the message pre-written: the vehicle, the package, the estimate. He answers between jobs, from the same thread he answers everyone else in.</p>
+        <p data-i18n="dec01-p1">Every enquiry started the same way: how much for my truck? The old page had no answer on it, so each one cost a phone call, and the ones who didn't feel like calling simply left.</p>
+        <p data-i18n="dec01-p2">So the site quotes. You pick your vehicle, the package, and a couple of add-ons, and a real price range appears — the same range the owner would have said on the phone. Then one button texts him with the details already written out.</p>
+        <p class="quote" data-i18n="dec01-quote">The price is not hidden to protect a margin. It is hidden because nobody has ever built the shop a place to put it.</p>
       </div>
     </article>
 
     <article class="dec rv">
       <div>
-        <p class="dec-no">Decision 03</p>
-        <h3>His driveways, not stock photography</h3>
+        <p class="dec-no" data-i18n="dec02-no">Decision 02</p>
+        <h3 data-i18n="dec02-h3">Text, not a contact form</h3>
       </div>
       <div>
-        <p>Every photo on the site is a car he actually detailed, in a Phoenix driveway, shot on his phone. A stock studio shot would have looked more expensive and sold less: the customer is trying to work out whether this is real, local and near them.</p>
+        <p data-i18n="dec02-p1">Contact forms go to an inbox nobody with a pressure washer in their hands is checking. His customers already text him, so the site does the same thing they do.</p>
+        <p data-i18n="dec02-p2">Every call to action opens the phone's own messages app with the message pre-written: the vehicle, the package, the estimate. He answers between jobs, from the same thread he answers everyone else in.</p>
+      </div>
+    </article>
+
+    <article class="dec rv">
+      <div>
+        <p class="dec-no" data-i18n="dec03-no">Decision 03</p>
+        <h3 data-i18n="dec03-h3">His driveways, not stock photography</h3>
+      </div>
+      <div>
+        <p data-i18n="dec03-p1">Every photo on the site is a car he actually detailed, in a Phoenix driveway, shot on his phone. A stock studio shot would have looked more expensive and sold less: the customer is trying to work out whether this is real, local and near them.</p>
         <div class="shots">
           <img src="site/images/work-tacoma.jpg" width="800" height="1066" loading="lazy" alt="A detailed grey Toyota Tacoma in a residential driveway at dusk.">
           <img src="site/images/work-wheel.jpg" width="800" height="1066" loading="lazy" alt="A cleaned alloy wheel and tyre, close up.">
@@ -360,12 +369,12 @@
 
     <article class="dec rv">
       <div>
-        <p class="dec-no">Decision 04</p>
-        <h3>Build it so I can be fired</h3>
+        <p class="dec-no" data-i18n="dec04-no">Decision 04</p>
+        <h3 data-i18n="dec04-h3">Build it so I can be fired</h3>
       </div>
       <div>
-        <p>The site is one HTML file and a folder of photos. No page builder, no plugins, no login, no monthly software. He can open it in TextEdit and change a price himself.</p>
-        <p>It shipped with two plain-English documents: one on changing his own text, prices and photos, and one that walks him through pointing his domain at it, step by step, on his own accounts, with his own passwords. I never needed either.</p>
+        <p data-i18n="dec04-p1">The site is one HTML file and a folder of photos. No page builder, no plugins, no login, no monthly software. He can open it in TextEdit and change a price himself.</p>
+        <p data-i18n="dec04-p2">It shipped with two plain-English documents: one on changing his own text, prices and photos, and one that walks him through pointing his domain at it, step by step, on his own accounts, with his own passwords. I never needed either.</p>
       </div>
     </article>
   </div>
@@ -376,10 +385,10 @@
   <div class="wrap">
     <div class="band-head split">
       <div>
-        <span class="eyebrow">The finished site</span>
-        <h2>Running, right here</h2>
+        <span class="eyebrow" data-i18n="live-eyebrow">The finished site</span>
+        <h2 data-i18n="live-h2">Running, right here</h2>
       </div>
-      <p>The whole thing is below, live rather than photographed. Open it properly to try the
+      <p data-i18n="live-p">The whole thing is below, live rather than photographed. Open it properly to try the
          estimator — that is the part the business is actually paid by.</p>
     </div>
 
@@ -388,7 +397,7 @@
       <div class="eframe-bar">
         <i class="live" aria-hidden="true"></i>
         <span class="plate">snowzan.com</span>
-        <span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+        <span class="go" data-i18n="live-go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
       </div>
       <div class="eframe-win live-window">
         <iframe id="liveSite" title="The Snowzan website, running" data-src="site/index.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
@@ -396,8 +405,8 @@
     </a>
 
     <div class="cta-row" style="margin-top:var(--s4)">
-      <a class="btn btn-lg btn-key" href="https://snowzan.com/" target="_blank" rel="noopener">Open the live site <span class="arrow">&#8599;</span></a>
-      <a class="btn btn-lg btn-ghost" href="https://snowzan.com/#quote" target="_blank" rel="noopener">Try the price estimator <span class="arrow">&#8599;</span></a>
+      <a class="btn btn-lg btn-key" href="https://snowzan.com/" target="_blank" rel="noopener"><span data-i18n="cta-open-live">Open the live site</span> <span class="arrow">&#8599;</span></a>
+      <a class="btn btn-lg btn-ghost" href="https://snowzan.com/#quote" target="_blank" rel="noopener"><span data-i18n="cta-try-estimator">Try the price estimator</span> <span class="arrow">&#8599;</span></a>
     </div>
   </div>
 </section>
@@ -407,15 +416,15 @@
   <div class="wrap">
     <div class="panel rv">
       <div>
-        <span class="eyebrow">Handover</span>
-        <h3>What the client walked away with</h3>
+        <span class="eyebrow" data-i18n="handed-eyebrow">Handover</span>
+        <h3 data-i18n="handed-h3">What the client walked away with</h3>
       </div>
       <div>
         <ul>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>The folder. One HTML file, one images folder, and that is the whole website.</span></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Hosting on his own free account. Nothing to cancel, nothing that expires.</span></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>His domain, still registered where it always was, still under his name.</span></li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Two instruction sheets, written for someone who has never opened a code editor.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="handed-li1">The folder. One HTML file, one images folder, and that is the whole website.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="handed-li2">Hosting on his own free account. Nothing to cancel, nothing that expires.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="handed-li3">His domain, still registered where it always was, still under his name.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="handed-li4">Two instruction sheets, written for someone who has never opened a code editor.</span></li>
         </ul>
       </div>
     </div>
@@ -427,8 +436,8 @@
     <div class="testimonial rv">
       <p class="mark" aria-hidden="true">&ldquo;</p>
       <div>
-        <blockquote>Working with Vadim was a great experience. He completely redesigned my website and made it look much more professional than what I had before. He was very responsive throughout the process, listened to all of the changes I wanted, and was patient even when the payment process became complicated. I&rsquo;m extremely happy with how the Snowzan Mobile Detailing website turned out, and I&rsquo;ve already seen an increase in bookings just a few days after the new site went live. I would definitely recommend Vadim to anyone looking for a professional website.</blockquote>
-        <cite><span class="dot" style="width:5px;height:5px;border-radius:50%;background:var(--marker);display:inline-block"></span> Owner, Snowzan Mobile Detailing</cite>
+        <blockquote data-i18n="testimonial-quote">Working with Vadim was a great experience. He completely redesigned my website and made it look much more professional than what I had before. He was very responsive throughout the process, listened to all of the changes I wanted, and was patient even when the payment process became complicated. I&rsquo;m extremely happy with how the Snowzan Mobile Detailing website turned out, and I&rsquo;ve already seen an increase in bookings just a few days after the new site went live. I would definitely recommend Vadim to anyone looking for a professional website.</blockquote>
+        <cite><span class="dot" style="width:5px;height:5px;border-radius:50%;background:var(--marker);display:inline-block"></span> <span data-i18n="testimonial-cite">Owner, Snowzan Mobile Detailing</span></cite>
       </div>
     </div>
   </div>
@@ -437,27 +446,27 @@
 <section class="next" id="contact">
   <div class="wrap next-grid">
     <div>
-      <h2>Same thing,<br>for your business.</h2>
-      <p>If the phone ringing is your whole job, this is the kind of site that does it. Tell me what you do and where you are.</p>
+      <h2 data-i18n="next-h2">Same thing,<br>for your business.</h2>
+      <p data-i18n="next-p">If the phone ringing is your whole job, this is the kind of site that does it. Tell me what you do and where you are.</p>
     </div>
     <div class="next-contact rv">
-      <a class="btn btn-lg btn-key" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20the%20Snowzan%20case%20and%20I%27d%20like%20something%20similar." target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97 1-3.62-.24-.37a9.8 9.8 0 0 1-1.5-5.23c0-5.4 4.4-9.8 9.82-9.8a9.75 9.75 0 0 1 6.93 2.88 9.72 9.72 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8M20.5 3.5A11.75 11.75 0 0 0 12.05 0C5.54 0 .25 5.29.24 11.79c0 2.08.55 4.1 1.58 5.9L.14 24l6.45-1.69a11.8 11.8 0 0 0 5.46 1.34h.01c6.5 0 11.79-5.29 11.8-11.79 0-3.15-1.23-6.11-3.46-8.34"/></svg> Message on WhatsApp <span class="arrow">&#8599;</span></a>
-      <p class="rail-cap mono">Or pick a channel</p>
+      <a class="btn btn-lg btn-key" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20the%20Snowzan%20case%20and%20I%27d%20like%20something%20similar." target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97 1-3.62-.24-.37a9.8 9.8 0 0 1-1.5-5.23c0-5.4 4.4-9.8 9.82-9.8a9.75 9.75 0 0 1 6.93 2.88 9.72 9.72 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8M20.5 3.5A11.75 11.75 0 0 0 12.05 0C5.54 0 .25 5.29.24 11.79c0 2.08.55 4.1 1.58 5.9L.14 24l6.45-1.69a11.8 11.8 0 0 0 5.46 1.34h.01c6.5 0 11.79-5.29 11.8-11.79 0-3.15-1.23-6.11-3.46-8.34"/></svg> <span data-i18n="cta-message-wa">Message on WhatsApp</span> <span class="arrow">&#8599;</span></a>
+      <p class="rail-cap mono" data-i18n="rail-cap">Or pick a channel</p>
       <div class="channels">
         <a class="chan" href="https://t.me/matras0v" target="_blank" rel="noopener">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.94 24a12 12 0 1 0 0-24 12 12 0 0 0 0 24M5.49 11.73l11.57-4.46c.54-.2 1.01.13.84.94l-1.97 9.28c-.15.66-.54.82-1.09.51l-3-2.21-1.45 1.39c-.16.16-.3.3-.61.3l.21-3.06 5.58-5.04c.24-.21-.05-.33-.37-.12l-6.9 4.34-2.97-.93c-.65-.2-.66-.64.13-.94"/></svg>
-          Telegram <span class="chan-h">@matras0v</span>
+          <span data-i18n="chan-telegram">Telegram</span> <span class="chan-h">@matras0v</span>
         </a>
         <a class="chan" href="https://instagram.com/matras0v" target="_blank" rel="noopener">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>
-          Instagram <span class="chan-h">@matras0v</span>
+          <span data-i18n="chan-instagram">Instagram</span> <span class="chan-h">@matras0v</span>
         </a>
         <a class="chan" href="mailto:mskvvmskvv@gmail.com?subject=Website%20for%20my%20business">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.4"/><path d="m3 6.8 9 6 9-6"/></svg>
-          Email <span class="chan-h">mskvvmskvv@gmail.com</span>
+          <span data-i18n="chan-email">Email</span> <span class="chan-h">mskvvmskvv@gmail.com</span>
         </a>
       </div>
-      <p class="more-link"><a class="tlink" href="../../#work">See the other work</a></p>
+      <p class="more-link"><a class="tlink" href="../../#work" data-i18n="more-link">See the other work</a></p>
     </div>
   </div>
 </section>
@@ -466,13 +475,94 @@
 <footer>
   <div class="wrap foot-in mono">
     <span>&copy; <span id="yr">2026</span> Vadim Ivanchenko</span>
-    <span>Photography by the client</span>
-    <span>Built by hand</span>
+    <span data-i18n="foot-photo">Photography by the client</span>
+    <span data-i18n="foot-coded">Built by hand</span>
   </div>
 </footer>
 
+<script src="../../assets/i18n.js"></script>
 <script src="../../assets/case.js" defer></script>
 <script>
+window.I18N_SNOWZAN_RU = {
+  "nav-contacts": "Контакты",
+  "nav-cta-open-full": "Открыть живой сайт",
+  "nav-cta-open-short": "Открыть сайт",
+
+  "head-kicker": "Кейс 01 &middot; Реальный клиент &middot; Финикс, Аризона",
+  "head-h1": "Пятнадцать отзывов<br>на пять звёзд — и сайт,<br>с которого никто<br>не мог получить<br>цену.",
+  "head-lede": "Snowzan — растущий бренд мобильного детейлинга, работающий по подъездным дорожкам Финикса. Работа уже была отличной. Сайтом была страница на Google Sites, которая на любой вопрос отвечала одинаково: <strong>звоните за ценой.</strong>",
+  "cta-open-live": "Открыть живой сайт",
+  "cta-before-after": "Смотреть до и после",
+  "f-client": "Клиент",
+  "sz-builtin": "Два дня",
+  "f-builtin": "Срок",
+  "f-scope": "Объём",
+  "sz-scope": "Дизайн, разработка, тексты, калькулятор цены, передача",
+  "f-status": "Статус",
+  "sz-status": "Работает на snowzan.com",
+
+  "ba-eyebrow": "Доказательство",
+  "ba-h2": "До и после",
+  "ba-p": "Слева — сайт, который бизнес имел на самом деле: страница на Google Sites, чей единственный ответ на &laquo;сколько это стоит?&raquo; был телефонный звонок. Справа — не скриншот, а живой сайт, работающий прямо внутри этой страницы. Потяните за ручку.",
+  "legend-before": "До &middot; Google Sites",
+  "legend-after": "После &middot; живой сайт",
+  "legend-hint": "Перетащите или используйте стрелки",
+  "plate-running": "snowzan.com &middot; работает вживую",
+  "tag-before": "До",
+  "tag-after": "После",
+  "figcap-before-sub": "Google Sites",
+  "figcap-after-sub": "Живой сайт &middot; мобильная версия",
+  "handle-aria": "Сравнить старый и новый сайт",
+
+  "dec-eyebrow": "Как это построено",
+  "dec-h2": "Четыре решения",
+  "dec-p": "Всё остальное на сайте следует из них.",
+  "dec01-no": "Решение 01",
+  "dec01-h3": "Отвечать на вопрос о цене раньше, чем его зададут",
+  "dec01-p1": "Каждое обращение начиналось одинаково: сколько стоит помыть мой грузовик? На старой странице ответа не было, так что каждый такой вопрос стоил телефонного звонка — а тот, кому звонить не хотелось, просто уходил.",
+  "dec01-p2": "Поэтому сайт сам называет цену. Вы выбираете автомобиль, пакет услуг и пару дополнений — и появляется реальный диапазон цены, тот же, что владелец назвал бы по телефону. Одна кнопка отправляет ему сообщение с уже готовыми деталями.",
+  "dec01-quote": "Цена скрыта не ради защиты маржи. Она скрыта потому, что мастерской никогда не давали места, куда её поставить.",
+  "dec02-no": "Решение 02",
+  "dec02-h3": "Сообщение, а не форма обратной связи",
+  "dec02-p1": "Формы обратной связи уходят в почту, которую никто с мойкой высокого давления в руках не проверяет. Его клиенты и так пишут ему в сообщениях — сайт делает то же самое.",
+  "dec02-p2": "Каждый призыв к действию открывает приложение сообщений на телефоне с уже готовым текстом: автомобиль, пакет, оценка. Он отвечает между заказами, из той же переписки, где отвечает всем остальным.",
+  "dec03-no": "Решение 03",
+  "dec03-h3": "Его подъездные дорожки, а не фотобанк",
+  "dec03-p1": "Каждое фото на сайте — машина, которую он реально отполировал, во дворе в Финиксе, снято на телефон. Студийное фото из фотобанка выглядело бы дороже и продавало бы хуже: клиент пытается понять, реально ли это, местное ли и рядом ли с ним.",
+  "dec04-no": "Решение 04",
+  "dec04-h3": "Построить так, чтобы меня можно было уволить",
+  "dec04-p1": "Сайт — это один HTML-файл и папка с фото. Никакого конструктора, плагинов, входа в систему, ежемесячного софта. Он может открыть его в текстовом редакторе и сам поменять цену.",
+  "dec04-p2": "Он получил две простые инструкции на понятном языке: одну — как менять текст, цены и фото, вторую — как привязать домен, шаг за шагом, на его же аккаунтах, с его же паролями. Мне не понадобилась ни та, ни другая.",
+
+  "live-eyebrow": "Готовый сайт",
+  "live-h2": "Работает прямо здесь",
+  "live-p": "Всё это ниже — вживую, а не на фото. Откройте по-настоящему, чтобы попробовать калькулятор — именно за него бизнесу и платят.",
+  "live-go": "Открыть",
+  "cta-try-estimator": "Попробовать калькулятор цены",
+
+  "handed-eyebrow": "Передача",
+  "handed-h3": "Что клиент получил на руки",
+  "handed-li1": "Папку. Один HTML-файл, одна папка с фото — и это весь сайт.",
+  "handed-li2": "Хостинг на его собственном бесплатном аккаунте. Нечего отменять, ничего не истекает.",
+  "handed-li3": "Его домен, всё там же, где и был, всё ещё на его имя.",
+  "handed-li4": "Две инструкции, написанные для человека, который никогда не открывал редактор кода.",
+
+  "testimonial-quote": "Работать с Вадимом было отличным опытом. Он полностью переделал мой сайт и сделал его гораздо более профессиональным, чем то, что было раньше. Он был очень отзывчив на всём протяжении работы, учёл все пожелания и проявил терпение, даже когда с оплатой возникли сложности. Я очень доволен тем, каким получился сайт Snowzan Mobile Detailing, и уже заметил рост числа заявок спустя всего несколько дней после запуска. Всем, кто ищет профессиональный сайт, я порекомендую Вадима без колебаний.",
+  "testimonial-cite": "Владелец, Snowzan Mobile Detailing",
+
+  "next-h2": "То же самое —<br>для вашего бизнеса.",
+  "next-p": "Если весь ваш бизнес держится на звонках, вам нужен именно такой сайт. Расскажите, чем вы занимаетесь и где вы находитесь.",
+  "cta-message-wa": "Написать в WhatsApp",
+  "rail-cap": "Или выберите способ связи",
+  "chan-telegram": "Telegram",
+  "chan-instagram": "Instagram",
+  "chan-email": "Email",
+  "more-link": "Смотреть остальные работы",
+
+  "foot-photo": "Фото предоставлены клиентом",
+  "foot-coded": "Написан вручную"
+};
+MLang.init(window.I18N_SNOWZAN_RU);
 (function(){
   /* The year, the reveals and the control lighting are shared — case.js. */
 
@@ -501,11 +591,16 @@
       fitMobile();
     }
   }
+  /* The real site's hero is viewport-height, so its heading and CTA sit
+     ~2000px down inside the fixed-height iframe render — a plain top-of-
+     frame crop would show nothing but the hero photo. AFTER_START moves
+     the "after" thumbnail down to where the actual page content is. */
+  var AFTER_START = 1900;
   function fitMobile(){
     var shot = afterM.parentElement;
     var sw = 430;
     afterM.style.setProperty('--srcw', sw + 'px');
-    afterM.style.transform = 'scale(' + (shot.clientWidth / sw) + ')';
+    afterM.style.transform = 'scale(' + (shot.clientWidth / sw) + ') translateY(' + (-AFTER_START) + 'px)';
   }
 
   function sizeStage(){
@@ -558,13 +653,22 @@
   /* ------------------------------------------------------------- live -- */
   var liveFrame = document.getElementById('liveFrame');
   var liveSite  = document.getElementById('liveSite');
+  /* Same viewport-height-hero issue as the mobile comparison above: on
+     desktop the resting frame already shows the top of the page fine, but
+     below 760px it needs to start where the real content is. This iframe
+     is rendered 3400px tall rather than the 2400px of the comparison
+     thumbnail, so the hero (100vh) is taller here too and needs its own
+     offset — not AFTER_START. */
+  var LIVE_START = 2800;
   function fitLive(){
     var win = liveFrame.querySelector('.live-window');
     var sw  = desktop.matches ? 1400 : 430;
+    var startY = desktop.matches ? 0 : LIVE_START;
     liveSite.style.setProperty('--srcw', sw + 'px');
     var k = win.clientWidth / sw;
     liveSite.dataset.scale = k;
-    liveSite.style.transform = 'scale(' + k + ')';
+    liveSite.dataset.startY = startY;
+    liveSite.style.transform = 'scale(' + k + ') translateY(' + (-startY) + 'px)';
   }
   /* the second copy of the site costs a few megabytes: only fetch it if the
      visitor actually scrolls this far */
@@ -585,8 +689,9 @@
     });
     liveFrame.addEventListener('pointerleave', function(){
       var k = parseFloat(liveSite.dataset.scale || '1');
+      var startY = parseFloat(liveSite.dataset.startY || '0');
       liveSite.style.transition = 'transform .7s cubic-bezier(.23,1,.32,1)';
-      liveSite.style.transform  = 'scale(' + k + ')';
+      liveSite.style.transform  = 'scale(' + k + ') translateY(' + (-startY) + 'px)';
     });
   }
 
