@@ -70,12 +70,22 @@ without it. `fit()` resizing the iframe makes the concept site repaint its swirl
 which is why the stroke is re-applied on an interval rather than once.
 
 ## Load-bearing details — do not change casually
-- **Live previews.** `.frame[data-live]` → `.window{aspect-ratio:16/9 ≥760px, 5/4 below}`
-  → `iframe{width:var(--srcw); height:2600px}`. `srcWidth()` = 430 below 760px viewport,
-  else 1400. The iframe element is a fixed 2600px box, so anything the embedded site
-  renders below 2600px is simply not painted.
-- **Visible band** = `1400 × (H/W of the window's aspect-ratio)` → 787.5px at 16/9.
+- **Live previews.** `.frame[data-live]` → `.window{aspect-ratio:16/9 ≥760px, 1/1 below}`
+  → `iframe{width:var(--srcw); height:2600px}`. The iframe element is a fixed 2600px
+  box, so anything the embedded site renders below 2600px is simply not painted.
+- **`srcWidth(frame)` is per-frame, not global** (2026-09-20). 430 below a 760px
+  viewport; above it, `clamp(900, round(window.clientWidth / 0.68), 1400)` — the
+  embedded site never renders below ~two-thirds scale (at a flat 1400 a narrow
+  contact-sheet cell showed it at 34%, which reads as a thumbnail, not a site) and
+  never below 900, where several of the embedded sites drop into their own mobile
+  layout. Changing this changes where content sits vertically inside every frame,
+  so re-check `data-start` after touching it. A debounced `resize` listener refits
+  every loaded frame, since the source width is now a function of layout.
+- **Visible band** = `srcWidth × (H/W of the window's aspect-ratio)`.
   A pan is only safe while `data-start + data-scroll + band ≤ 2600`.
+- **Snowzan's two frames carry `data-start="920"`** — its hero is a full-height
+  screen, so inside a 2600px iframe the headline sits at 920px and a band starting
+  at 0 showed only the dark above it. `data-scroll` is 820 to stay inside 2600.
 - Several embedded sites (Snowzan, Lustre) have viewport-height heroes, so inside a
   2600px iframe their first screen is 2600px tall. Raising the iframe height stretches
   those heroes and pushes their real content permanently out of reach — do not.
@@ -94,9 +104,33 @@ which is why the stroke is re-applied on an interval rather than once.
 - Grid quirk that has bitten twice: a grid item with any `auto` margin loses stretch,
   so `max-width` alone gives it no size — set an explicit `width`.
 
+## Art-direction pass (2026-09-20, commit 0a3c645)
+- **Case pages share the hub's measure.** `--wrap` 1280 → 1760 with
+  `--gutter:clamp(20px,3.4vw,68px)`, so `.wrap` resolves to exactly what the hub's
+  content column does. `h1` 88→112, `h2` 48→66, `.dec h3` 30→40; `.dec` gets a
+  1fr/1.06fr split above 1200px so the prose column stays ~65 characters instead of
+  growing to 90. `.facts` becomes a lit panel above 1000px.
+- **Russian has its own headline scale** — `html[lang="ru"] h1{clamp(32px,4.9vw,78px)}`
+  plus a wider `.head-grid` first column. "сфотографировать" is one unbreakable
+  16-letter word; at the English display size it ran 230px past its column. Any
+  future type-scale change must be re-checked in RU, not only EN.
+- **`.btn svg{flex:none}`** in index.html, case.css and all five concept pages. A
+  bare inline SVG in a flex button is a shrinkable flex item, and on a narrow screen
+  the browser resolved the overflow by collapsing the WhatsApp mark to zero width.
+  It had been invisible on mobile. Do not remove.
+- Contact sheet is 7/5 · 5/7 · 12 (was 8/4 · 4/8 · 12) — four twelfths left the
+  narrow cells ~480px, too small for the site inside to read as a built page.
+- Lustre now has the real contact module (`#hire`, `.vh-*` classes in its own
+  steel-blue language) that the other four concepts already had.
+- The hub header keeps the name at every width; the short CTA label and a tighter
+  language switch buy the room back below 560px.
+
 ## Known, accepted
-- The Snowzan hero fills its whole 2600px iframe, so Select 01's 2100px hover pan
+- The Snowzan hero fills its whole 2600px iframe, so Select 01's hover pan
   travels inside that one screen. Left as-is; fixing it means touching pan data.
+- The local dev server serves a stale `assets/case.css` after edits. Visual checks
+  of case pages must inject the file from disk (`fetch('/assets/case.css?nc='+Date.now())`)
+  or they silently test the previous version. GitHub Pages is not affected.
 - H&M Car Polishing is a concept awaiting the client's own photography — deliberately
   not filled with stock. All four invented brands are labelled "Concept" on the page.
 
