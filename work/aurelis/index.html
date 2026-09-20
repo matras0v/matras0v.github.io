@@ -134,8 +134,13 @@ button,input,select,textarea{font:inherit;color:inherit;}
   .nav .lang-switch{gap:3px;margin-left:0;}
 }
 @media (max-width:400px){
-  .nav-in{padding-inline:14px;gap:4px;}
-  .logo{letter-spacing:.03em;}
+  .nav-in{padding-inline:12px;gap:3px;}
+  /* Six things share this row at 375 — mark, honesty chip, menu button,
+     language pair, CTA, burger — and it was running 13px over. The chip
+     stays; everything around it gives up a few pixels instead. */
+  .logo{letter-spacing:.02em;font-size:15px;}
+  .chip-concept{padding:2px 5px;font-size:8px;letter-spacing:.1em;}
+  .nav .btn{padding-inline:7px;}
 }
 /* the concept chip is an honesty marker — it stays at every width, so the
    language switch (added after this nav was tuned) has to take the

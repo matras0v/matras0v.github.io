@@ -237,10 +237,18 @@ button{font:inherit;color:inherit;background:none;border:0;}
 /* the nav CTA carries a shorter label once the brand mark and the
    lang switch have already spent most of a narrow header's width */
 .cta-short{display:none;}
-@media (max-width:460px){
-  .brand{display:none;}
+/* The name is the one thing in the header that cannot go: a portfolio
+   whose header reads "EN / RU — Contacts" on a phone has no author. The
+   short CTA label and a tighter language switch buy back the room. */
+@media (max-width:560px){
   .cta-full{display:none;}
   .cta-short{display:inline;}
+  .lang-switch{margin-right:10px;gap:4px;}
+  .nav-in{gap:6px;}
+}
+@media (max-width:400px){
+  .brand{font-size:16px;}
+  .lang-switch{margin-right:6px;font-size:11px;}
 }
 
 /* -- mobile section menu --------------------------------------------------
@@ -335,7 +343,12 @@ button{font:inherit;color:inherit;background:none;border:0;}
   transition:transform .3s var(--ease-out);
 }
 .btn:hover .arrow{transform:translate(3px,-3px);}
-.btn svg{transition:transform .3s var(--ease-out);}
+/* flex:none is load-bearing, not tidying. A brand mark inside a button is
+   a flex item like any other, so on a narrow screen — where `Message on
+   WhatsApp ↗` is already wider than the button — the browser was solving
+   the overflow by shrinking the WhatsApp mark to zero width. The icon
+   disappeared on exactly the screens it matters most on. */
+.btn svg{flex:none;transition:transform .3s var(--ease-out);}
 .btn:hover svg{transform:scale(1.06);}
 
 /* Secondary: dark glass rather than an outline. The border is a gradient
@@ -461,7 +474,7 @@ a.frame:active .window{transform:scale(1.002);}
    beside it reads as the plate under an exhibit rather than a URL bar. */
 .frame-bar{
   display:flex;align-items:center;gap:9px;
-  height:22px;padding-inline:4px;margin-bottom:9px;
+  height:26px;padding-inline:4px;margin-bottom:9px;
 }
 .frame-bar i{
   width:5px;height:5px;border-radius:50%;flex:none;
@@ -470,20 +483,30 @@ a.frame:active .window{transform:scale(1.002);}
 }
 .frame-bar span{
   flex:0 1 auto;min-width:0;
-  color:var(--paper-3);opacity:.78;
-  font-family:var(--f-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--paper-2);
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
 /* A frame that is a door says so before the pointer arrives. */
+/* This is the only affordance on the frame telling you it opens, so it
+   has to survive being read at arm's length — a 9px label at 62% opacity
+   did not. A plate, not a whisper. */
 .frame-bar .go{
   margin-left:auto;display:inline-flex;align-items:center;gap:6px;flex:none;white-space:nowrap;
-  color:var(--paper-3);opacity:.62;
-  font-family:var(--f-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
-  transition:opacity .35s ease, color .35s ease, transform .35s var(--ease-out);
+  padding:3px 9px;border-radius:99px;
+  border:1px solid color-mix(in srgb, var(--lit, var(--line-2)) 30%, var(--line-2));
+  background:color-mix(in srgb, var(--lit, transparent) 11%, transparent);
+  color:var(--paper-2);
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  transition:background-color .35s ease, border-color .35s ease, color .35s ease, transform .35s var(--ease-out);
 }
 @media (hover:hover){
   a.frame:hover .frame-bar .go,
-  .cell:hover .frame-bar .go{opacity:1;color:var(--paper);transform:translateX(2px);}
+  .cell:hover .frame-bar .go{
+    color:var(--paper);transform:translateX(2px);
+    border-color:color-mix(in srgb, var(--lit, var(--line-2)) 62%, var(--line-2));
+    background:color-mix(in srgb, var(--lit, transparent) 24%, transparent);
+  }
 }
 @media (max-width:520px){
   .frame-bar{gap:8px;}
@@ -657,7 +680,7 @@ h2{
     [full-end];
 }
 .select + .select{margin-top:var(--s7);}
-@media (min-width:1000px){ .select + .select{margin-top:calc(var(--s7) * 1.4);} }
+@media (min-width:1000px){ .select + .select{margin-top:calc(var(--s7) * 1.1);} }
 .sel-head{grid-column:content;}
 .sel-no{
   display:flex;align-items:center;gap:var(--s2);
@@ -756,9 +779,16 @@ h2{
   .s-01 .sel-head, .s-01 .sel-say{margin-top:var(--s3);}
   .s-01 .sel-facts{border-top:none;margin-top:var(--s4);}
 
-  /* 02 — the screen leaves through the right wall while the index holds
-     the left margin, centred against it. */
-  .s-02 .sel-head{grid-column:c 1 / span 4;grid-row:1;align-self:center;padding-right:var(--s3);}
+  /* 02 — split. The index column holds the left margin and runs the full
+     height of the screen beside it: title at the screen's top edge, spec
+     list sunk to its bottom edge. Centring the block instead left it
+     floating in the middle of a tall frame with dead air above and below,
+     which is what made the title read as unrelated to the preview. */
+  .s-02 .sel-head{
+    grid-column:c 1 / span 5;grid-row:1;align-self:stretch;
+    display:flex;flex-direction:column;padding-right:var(--s4);
+  }
+  .s-02 .sel-facts{margin-top:auto;}
   .s-02 .sel-media{grid-column:c 6 / span 7;grid-row:1;}
   /* 02 closes on a full-measure rail — sentence at the left margin the
      title holds, actions out at the right wall the screen leaves through.
@@ -889,10 +919,15 @@ h2{
 @media (max-width:767px){ .sheet{gap:52px var(--gap);} }
 @media (min-width:860px){
   .sheet{grid-template-columns:repeat(12,minmax(0,1fr));align-items:start;}
-  .cell:nth-child(1){grid-column:span 8;}
-  .cell:nth-child(2){grid-column:span 4;margin-top:var(--s7);}
-  .cell:nth-child(3){grid-column:span 4;}
-  .cell:nth-child(4){grid-column:span 8;}
+  /* 7/5 rather than 8/4: the narrow pair still reads as the quieter half
+     of the wall, but four twelfths left them ~480px wide, and a site
+     rendered into 480px is the site at a third size — a thumbnail, not a
+     preview. Five twelfths is the smallest cell where the work inside
+     still reads as a built page. */
+  .cell:nth-child(1){grid-column:span 7;}
+  .cell:nth-child(2){grid-column:span 5;margin-top:var(--s7);}
+  .cell:nth-child(3){grid-column:span 5;}
+  .cell:nth-child(4){grid-column:span 7;}
   .cell:nth-child(5){grid-column:span 12;}
   .cell:nth-child(1) .window,.cell:nth-child(4) .window{aspect-ratio:16/10;}
   .cell:nth-child(2) .window,.cell:nth-child(3) .window{aspect-ratio:4/3;}
@@ -1109,6 +1144,10 @@ h2{
   line-height:.95;letter-spacing:-.018em;
   max-width:11ch;
 }
+/* 11ch is measured off "Tell me about / your business." — "о вашем
+   бизнесе." on one line needs more room than that, and a headline that
+   overruns its own box is the first thing a reader notices. */
+html[lang="ru"] .contact h2{max-width:14ch;}
 /* The old jump was a 148px headline straight down to 19px body with 64px
    of air between — three separate objects floating in a dark field. A
    real mid-tier size and tighter gaps make headline → line → rail read
@@ -1125,6 +1164,7 @@ h2{
 .contact .hero-cta{margin-top:0;}
 .contact .hero-cta .btn{width:100%;justify-content:center;}
 .btn-lg{min-height:76px;padding:0 44px;font-size:18px;gap:12px;}
+@media (max-width:420px){ .btn-lg{padding:0 18px;font-size:17px;gap:10px;} }
 .contact p.rail-cap{
   margin-top:var(--s4);margin-bottom:10px;max-width:none;
   color:var(--paper-3);font-size:11px;letter-spacing:.08em;
@@ -1640,7 +1680,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   </div>
 
   <div class="hero-media rv-clip" style="--lit:rgba(110,91,255,.55)">
-    <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-scroll="1500" data-start-mobile="1990" data-scroll-mobile="0">
+    <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-start="920" data-scroll="820" data-start-mobile="1990" data-scroll-mobile="0">
       <div class="frame-bar" aria-hidden="true"><i></i><span>snowzan.com</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
       <div class="window">
         <iframe title="Live preview of the Snowzan Mobile Detailing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
@@ -1678,7 +1718,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
       </dl>
     </div>
     <div class="sel-media rv-clip">
-      <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-scroll="2100" data-start-mobile="1990" data-scroll-mobile="0">
+      <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-start="920" data-scroll="820" data-start-mobile="1990" data-scroll-mobile="0">
         <div class="frame-bar" aria-hidden="true"><i></i><span>snowzan.com</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window">
           <iframe title="Live preview of the Snowzan website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
@@ -2235,7 +2275,20 @@ MLang.init(window.I18N_HOME_RU);
      motion, so: linear.                                                   */
   var frames = document.querySelectorAll('.frame[data-live]');
 
-  function srcWidth(){ return innerWidth < 760 ? 430 : 1400; }
+  /* A site rendered at 1400px inside a 480px cell is that site at 34%: its
+     headings land near 12px and the frame reads as a thumbnail of a
+     website rather than the website. So the source width follows the
+     window — never wide enough to shrink the embedded site below roughly
+     two-thirds, never narrow enough to drop it into its own mobile layout
+     (900 is the floor; every embedded site still composes as desktop
+     there). Phones keep the flat 430 so they get the real phone layout. */
+  function srcWidth(frame){
+    if(innerWidth < 760) return 430;
+    var win = frame && frame.querySelector('.window');
+    var w = win ? win.clientWidth : 0;
+    if(!w) return 1400;
+    return Math.max(900, Math.min(1400, Math.round(w / 0.68)));
+  }
 
   /* Where the still should sit. A site whose first screen is a full-height
      hero puts its content at the bottom of a viewport the iframe renders as
@@ -2263,7 +2316,7 @@ MLang.init(window.I18N_HOME_RU);
     var win = frame.querySelector('.window');
     var fr  = frame.querySelector('iframe');
     if(!win || !fr) return;
-    var sw = srcWidth();
+    var sw = srcWidth(frame);
     fr.style.setProperty('--srcw', sw + 'px');
     var k = win.clientWidth / sw;
     fr.dataset.scale = k;
@@ -2283,6 +2336,25 @@ MLang.init(window.I18N_HOME_RU);
       load.unobserve(frame);
     });
   }, {rootMargin:'300px'});
+
+  /* The source width is now a function of the window's own width, so a
+     resize that changes the grid (or a phone rotating) has to re-derive
+     it — otherwise the frame keeps rendering at the width it was first
+     laid out at. Debounced, and it only touches frames already loaded. */
+  (function(){
+    var t = 0, lastW = innerWidth;
+    addEventListener('resize', function(){
+      if(innerWidth === lastW) return;   // iOS toolbar height changes only
+      lastW = innerWidth;
+      clearTimeout(t);
+      t = setTimeout(function(){
+        frames.forEach(function(frame){
+          var fr = frame.querySelector('iframe');
+          if(fr && fr.src){ fr.style.transition = 'none'; fit(frame); }
+        });
+      }, 180);
+    }, {passive:true});
+  })();
 
   frames.forEach(function(frame){
     load.observe(frame);
