@@ -102,9 +102,11 @@ which is why the stroke is re-applied on an interval rather than once.
   fix — `--srch` 900/760 in place of a 3400px box. Its hover pan was removed with it
   (it travelled to -2600px, which is now past the end of the iframe); the two large
   buttons under the frame were always the real way through to the site.
-- Several embedded sites (Snowzan, Lustre) have viewport-height heroes, so inside a
-  2600px iframe their first screen is 2600px tall. Raising the iframe height stretches
-  those heroes and pushes their real content permanently out of reach — do not.
+- Snowzan and Lustre are the two embedded sites with viewport-height heroes. Both
+  are on `data-vh` now, which is the answer to that: RAISING the iframe height
+  stretches such a hero further and is still wrong, LOWERING it to a real viewport
+  is the fix. The rule is that the box should be a plausible browser window, not
+  that it should be tall.
 - **Desktop hover-pan** and **mobile auto-pan** (`ENTRY .25`, `DWELL 150ms`,
   `EXIT_DEBOUNCE 300ms`, `panIO`) are frozen by the client's instruction. Verify any
   diff with `git diff | grep -c 'EXIT_DEBOUNCE\|panIO\|touchPan'` → must be 0.
