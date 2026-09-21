@@ -522,12 +522,15 @@ a.frame:active .window{transform:scale(1.002);}
   transition:transform .6s var(--ease-out);
 }
 @media (min-width:760px){ .window{aspect-ratio:16/9;} }
-/* A data-vh frame is showing one real first screen rather than a slice of a
-   long page, so its band is cut to reach the bottom of that screen's
-   primary action. At 1/1 the phone crop stopped halfway through Snowzan's
-   "Get your price in 20 seconds" button, which is the one thing on that
-   screen a visitor needs to see whole. */
-@media (max-width:759px){ .frame[data-vh] .window{aspect-ratio:1/1.18;} }
+/* A data-vh frame shows one real first screen rather than a slice of a long
+   page, so its band is cut to reach the bottom of that screen — and where
+   that is differs per project, because the sites differ. Snowzan's phone
+   hero closes on two buttons at 470; Ember & Oak has to reach its booking
+   widget or the card is just a header; Lucienne is a headline over a
+   photograph and needs less. Each frame carries its own --win-m, measured
+   against the site rather than picked, and 1/1.18 is Snowzan's — the
+   reference, and the default. */
+@media (max-width:759px){ .frame[data-vh] .window{aspect-ratio:var(--win-m, 1/1.18);} }
 /* Rendered at a real device width and scaled to the window, so a phone
    shows the phone layout at near full size rather than a shrunken desktop.
    --srch is the iframe's *viewport height*, and for a site whose first
@@ -1414,14 +1417,26 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
              transparent 34%, #000 100%);
   transition:--pr .45s var(--ease-out);
 }
+/* The veil rests partly open. Fully shut, the card at rest was a uniform
+   dark rectangle that said nothing about the project and only rewarded a
+   visitor who happened to hover — and the one thing worth seeing here is
+   the contrast between worked and unworked paint. A resting pool shows
+   both at once; hovering widens it well past where it used to stop. */
 @media (hover:hover) and (pointer:fine){
-  .s-02 .frame:hover .polish{--pr:210px;}
+  .s-02 .polish{--pr:170px;}
+  .s-02 .frame:hover .polish{--pr:430px;}
 }
 /* the bay's own amber comes up half a stop while the panel is being worked */
 .s-02:has(.frame:hover)::before{opacity:1;}
 /* No hover to work the panel with: the veil drops to a hint so a phone
    still sees the project rather than a permanently dulled rectangle. */
-@media (hover:none),(pointer:coarse){ .polish{opacity:.18;} }
+/* On a phone there is no hover to open the mask, so this veil never lifts
+   and it is the whole atmosphere the card has. At .18 it was invisible and
+   H&M's panel read as an empty dark rectangle; at .6 the swirl is legible
+   and the card looks like a paint surface under light, which is what the
+   project is about. The mask stays shut — the concept is that you open it
+   on the real site. */
+@media (hover:none),(pointer:coarse){ .polish{opacity:.6;} }
 
 /* 03 — GrimeVPN. A product that lives in a terminal: one slow band of
    light passing down the screen and a fine line grid over it. The band
@@ -1834,7 +1849,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
       </dl>
     </div>
     <div class="sel-media rv-clip">
-      <a class="frame" href="work/hm-polishing/" aria-label="Read the H&amp;M Car Polishing case study" data-live="work/hm-polishing/site/index.html" data-scroll="1800">
+      <a class="frame" href="work/hm-polishing/" aria-label="Read the H&amp;M Car Polishing case study" data-live="work/hm-polishing/site/index.html" data-vh="900/780" style="--win-m:1/1.26">
         <div class="frame-bar" aria-hidden="true"><i></i><span>H&amp;M Car Polishing</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window">
           <iframe title="Live preview of the H&amp;M Car Polishing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
@@ -1864,7 +1879,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
       </dl>
     </div>
     <div class="sel-media rv-clip">
-      <a class="frame" href="work/grimevpn-case/" aria-label="Read the GrimeVPN case study" data-live="work/grimevpn/index.html" data-scroll="1800">
+      <a class="frame" href="work/grimevpn-case/" aria-label="Read the GrimeVPN case study" data-live="work/grimevpn/index.html" data-vh="900/780" style="--win-m:1/1.6">
         <div class="frame-bar" aria-hidden="true"><i></i><span>grimevpn</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window">
           <iframe title="Live preview of the GrimeVPN site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
@@ -1893,7 +1908,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 
   <div class="sheet">
     <a class="cell rv" href="work/lumen/" style="--lit:rgba(127,209,185,.4)">
-      <div class="frame" data-live="work/lumen/index.html" data-scroll="1700">
+      <div class="frame" data-live="work/lumen/index.html" data-vh="900/780" style="--win-m:1/1.3">
         <div class="frame-bar" aria-hidden="true"><i></i><span>lumen</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Lumen site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
@@ -1903,7 +1918,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     </a>
 
     <a class="cell rv" href="work/aurelis/" style="--lit:rgba(47,93,102,.5)">
-      <div class="frame" data-live="work/aurelis/index.html" data-scroll="1700">
+      <div class="frame" data-live="work/aurelis/index.html" data-vh="900/800" style="--win-m:1/1.5">
         <div class="frame-bar" aria-hidden="true"><i></i><span>aurelis</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Aurelis site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
@@ -1913,7 +1928,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     </a>
 
     <a class="cell rv" href="work/lucienne/" style="--lit:rgba(110,74,47,.5)">
-      <div class="frame" data-live="work/lucienne/index.html" data-scroll="1600">
+      <div class="frame" data-live="work/lucienne/index.html" data-vh="900/820" style="--win-m:1/1.55">
         <div class="frame-bar" aria-hidden="true"><i></i><span>lucienne</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Lucienne site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
@@ -1923,7 +1938,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     </a>
 
     <a class="cell rv" href="work/ember-oak/" style="--lit:rgba(224,138,80,.5)">
-      <div class="frame" data-live="work/ember-oak/index.html" data-scroll="1600">
+      <div class="frame" data-live="work/ember-oak/index.html" data-vh="900/820" style="--win-m:1/1.72">
         <div class="frame-bar" aria-hidden="true"><i></i><span>ember &amp; oak</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Ember and Oak site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
@@ -1933,7 +1948,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     </a>
 
     <a class="cell rv" href="work/lustre/" style="--lit:rgba(150,170,200,.42)">
-      <div class="frame" data-live="work/lustre/index.html" data-vh="900/780">
+      <div class="frame" data-live="work/lustre/index.html" data-vh="900/780" style="--win-m:1/1.44">
         <div class="frame-bar" aria-hidden="true"><i></i><span>lustre</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the LUSTRE site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
