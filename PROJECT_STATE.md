@@ -83,9 +83,25 @@ which is why the stroke is re-applied on an interval rather than once.
   every loaded frame, since the source width is now a function of layout.
 - **Visible band** = `srcWidth × (H/W of the window's aspect-ratio)`.
   A pan is only safe while `data-start + data-scroll + band ≤ 2600`.
-- **Snowzan's two frames carry `data-start="920"`** — its hero is a full-height
-  screen, so inside a 2600px iframe the headline sits at 920px and a band starting
-  at 0 showed only the dark above it. `data-scroll` is 820 to stay inside 2600.
+- **`data-vh` is the fix for a viewport-height hero** (2026-09-21). The iframe's
+  HEIGHT decides what `100vh` is worth inside it. At 2600 a site built around a
+  full-height first screen renders that screen 2600px tall, and any band cut out of
+  it is one stretched slice — and the slice that scales with the box is the
+  photograph, which is why Snowzan's card kept coming out as a picture of a car no
+  matter how the crop was moved. `data-vh="900/760"` (desktop/phone) hands the frame
+  a real viewport so the hero composes as it does in a browser. Such a frame is a
+  composed still: `startOf()` returns 0 and `scrollDistOf()` returns 0, so it does
+  not pan, and `.frame[data-vh] .window` is cut to `1/1.18` on phones to reach the
+  bottom of the first screen's primary button. Frames currently on it: the hero
+  frame, Select 01, and the Contact Sheet's LUSTRE cell.
+  **Do not put GrimeVPN, H&M, Lumen, Aurelis, Lucienne or Ember & Oak on it** —
+  they lay out in normal document flow (GrimeVPN's headline sits at 181px at every
+  viewport height), so the tall box is what gives their hover pan somewhere to
+  travel and nothing is wrong with them.
+- The Snowzan case study's `#liveSite` embed had the identical bug and the identical
+  fix — `--srch` 900/760 in place of a 3400px box. Its hover pan was removed with it
+  (it travelled to -2600px, which is now past the end of the iframe); the two large
+  buttons under the frame were always the real way through to the site.
 - Several embedded sites (Snowzan, Lustre) have viewport-height heroes, so inside a
   2600px iframe their first screen is 2600px tall. Raising the iframe height stretches
   those heroes and pushes their real content permanently out of reach — do not.
@@ -124,6 +140,18 @@ which is why the stroke is re-applied on an interval rather than once.
   steel-blue language) that the other four concepts already had.
 - The hub header keeps the name at every width; the short CTA label and a tighter
   language switch buy the room back below 560px.
+
+## Curation pass (2026-09-21, commit 9f39ff9)
+- Contact sheet caption scale follows frame size (wide 7-col prints larger than the
+  quiet 5-col pair) and LUSTRE closes the sheet as an anchor: full measure, largest
+  name, its sentence set beside the name via `grid-template-areas`, `1.8/1` window.
+  That ratio is measured, not chosen — it is the band that reaches the bottom of
+  LUSTRE's first screen with both CTAs still inside.
+- The process rail gained stations: `.step::after` anchored to the hairline each
+  step begins on (NOT an offset from the step's top — that padding is responsive and
+  drifts), lit by `.passed`/`.active` which the scroll handler toggles alongside
+  `--progress`. `.steps.done + .owns::before` carries a short length of rail across
+  the boundary into the ownership statement once the third station is passed.
 
 ## Known, accepted
 - The Snowzan hero fills its whole 2600px iframe, so Select 01's hover pan
