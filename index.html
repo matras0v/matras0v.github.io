@@ -522,11 +522,24 @@ a.frame:active .window{transform:scale(1.002);}
   transition:transform .6s var(--ease-out);
 }
 @media (min-width:760px){ .window{aspect-ratio:16/9;} }
+/* A data-vh frame is showing one real first screen rather than a slice of a
+   long page, so its band is cut to reach the bottom of that screen's
+   primary action. At 1/1 the phone crop stopped halfway through Snowzan's
+   "Get your price in 20 seconds" button, which is the one thing on that
+   screen a visitor needs to see whole. */
+@media (max-width:759px){ .frame[data-vh] .window{aspect-ratio:1/1.18;} }
 /* Rendered at a real device width and scaled to the window, so a phone
-   shows the phone layout at near full size rather than a shrunken desktop. */
+   shows the phone layout at near full size rather than a shrunken desktop.
+   --srch is the iframe's *viewport height*, and for a site whose first
+   screen is 100vh it is the whole ball game: at 2600 that site's hero is
+   2600px tall, so a band cut out of it shows one stretched fragment —
+   usually the photograph, which is the part that scales. Those frames ask
+   for a real viewport instead (data-vh) and compose exactly as they do in
+   a browser. Sites that lay out in normal document flow keep the tall box,
+   because that is what gives the hover pan somewhere to travel. */
 .window iframe{
   position:absolute;top:0;left:0;
-  width:var(--srcw, 1400px);height:2600px;
+  width:var(--srcw, 1400px);height:var(--srch, 2600px);
   max-width:none;
   border:0;
   transform-origin:0 0;
@@ -931,7 +944,39 @@ h2{
   .cell:nth-child(5){grid-column:span 12;}
   .cell:nth-child(1) .window,.cell:nth-child(4) .window{aspect-ratio:16/10;}
   .cell:nth-child(2) .window,.cell:nth-child(3) .window{aspect-ratio:4/3;}
-  .cell:nth-child(5) .window{aspect-ratio:21/9;}
+  /* 1.8/1 is not a taste call: the frame now renders a real 900px viewport,
+     and this is the band that reaches the bottom of LUSTRE's first screen
+     with its two CTAs still inside it. Wider and the buttons get cut. */
+  .cell:nth-child(5) .window{aspect-ratio:1.8/1;}
+
+  /* A wall is curated by what gets the room, and the caption has to agree
+     with the frame — five identical titles under five different-sized
+     prints is a grid wearing a wall's clothes. The two wide prints speak
+     at one size, the quiet pair a step down, and LUSTRE closes the sheet
+     across the full measure at the largest, with its sentence set beside
+     the name rather than under it. */
+  .cell-name{font-size:clamp(26px,2.4vw,38px);}
+  .cell:nth-child(1) .cell-name,
+  .cell:nth-child(4) .cell-name{font-size:clamp(30px,3.2vw,50px);}
+  .cell:nth-child(5) .cell-name{font-size:clamp(34px,4.6vw,76px);}
+  .cell:nth-child(5){
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    grid-template-areas:"media media" "no no" "name role";
+    column-gap:var(--gap);align-items:baseline;
+  }
+  .cell:nth-child(5) .frame{grid-area:media;}
+  .cell:nth-child(5) .cell-no{grid-area:no;}
+  .cell:nth-child(5) .cell-name{grid-area:name;}
+  .cell:nth-child(5) .cell-role{
+    grid-area:role;margin-top:0;align-self:end;
+    font-size:clamp(17px,1.35vw,20px);max-width:44ch;justify-self:end;
+  }
+}
+@media (min-width:1200px){
+  /* the closing print gets a little more air above it than the row gap,
+     so the sheet reads as four prints and then a statement */
+  .cell:nth-child(5){margin-top:var(--s5);}
 }
 .cell{position:relative;display:block;}
 /* Each print in its own faint pool of its own colour, only on the print
@@ -1514,6 +1559,48 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 .step{position:relative;transition:opacity .6s ease;}
 .steps.armed .step{opacity:.42;}
 .steps.armed .step.active{opacity:1;}
+
+/* Stations. A rail that only fills is a progress bar; three points it
+   arrives at make it a sequence — the visitor can see 01 → 02 → 03 as
+   places rather than a percentage. Hollow until the light reaches them. */
+@media (min-width:640px){
+  /* Anchored to the hairline each step begins on, not to a guessed offset
+     from its top — the step's own padding is responsive, so anything
+     measured off it drifts out of line with the rule beside it. */
+  .step::after{
+    content:"";position:absolute;left:-3.5px;top:-5px;
+    width:10px;height:10px;border-radius:50%;z-index:1;
+    background:var(--void);
+    border:1.5px solid var(--line-2);
+    transition:border-color .5s ease, background-color .5s ease, box-shadow .5s ease;
+    pointer-events:none;
+  }
+  .step.active::after,
+  .step.passed::after{
+    border-color:var(--marker);
+    background:var(--marker);
+    box-shadow:0 0 14px 2px rgba(206,78,42,.45);
+  }
+}
+
+/* The process finishes and the ownership statement is what it finishes
+   into, so the rail does not simply stop — a short length of it carries
+   over the boundary and lights only once the third station is passed. */
+.owns{position:relative;}
+@media (min-width:640px){
+  .owns::before{
+    content:"";position:absolute;left:0;top:calc(var(--s7) * -1);
+    width:3px;height:var(--s7);
+    background:linear-gradient(var(--marker), transparent);
+    opacity:0;transform-origin:top;
+    transition:opacity .9s var(--ease-out);
+    pointer-events:none;
+  }
+  .steps.done + .owns::before{opacity:.75;}
+}
+@media (prefers-reduced-motion:reduce){
+  .step::after,.owns::before{transition:none;}
+}
 /* the light that travels with the active step */
 .step::before{
   content:"";position:absolute;inset:-6% 0;z-index:-1;pointer-events:none;
@@ -1680,7 +1767,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   </div>
 
   <div class="hero-media rv-clip" style="--lit:rgba(110,91,255,.55)">
-    <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-start="920" data-scroll="820" data-start-mobile="1990" data-scroll-mobile="0">
+    <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-vh="900/760">
       <div class="frame-bar" aria-hidden="true"><i></i><span>snowzan.com</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
       <div class="window">
         <iframe title="Live preview of the Snowzan Mobile Detailing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
@@ -1718,7 +1805,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
       </dl>
     </div>
     <div class="sel-media rv-clip">
-      <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-start="920" data-scroll="820" data-start-mobile="1990" data-scroll-mobile="0">
+      <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-vh="900/760">
         <div class="frame-bar" aria-hidden="true"><i></i><span>snowzan.com</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window">
           <iframe title="Live preview of the Snowzan website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
@@ -1846,7 +1933,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     </a>
 
     <a class="cell rv" href="work/lustre/" style="--lit:rgba(150,170,200,.42)">
-      <div class="frame" data-live="work/lustre/index.html" data-start="1700" data-start-mobile="1975" data-scroll="1400">
+      <div class="frame" data-live="work/lustre/index.html" data-vh="900/780">
         <div class="frame-bar" aria-hidden="true"><i></i><span>lustre</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the LUSTRE site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
@@ -2290,14 +2377,33 @@ MLang.init(window.I18N_HOME_RU);
     return Math.max(900, Math.min(1400, Math.round(w / 0.68)));
   }
 
-  /* Where the still should sit. A site whose first screen is a full-height
-     hero puts its content at the bottom of a viewport the iframe renders as
-     2600px tall, so the top of the frame is empty. data-start moves the
-     resting position down to where that content actually is. A page whose
-     hero content reflows to sit much lower at the 430px mobile srcWidth
-     than at the 1400px desktop one (more line-wrapping, taller stack)
-     needs its own offset for that width — data-start-mobile, when present. */
+  /* The iframe's viewport HEIGHT, which decides what a 100vh hero is worth.
+     A site built around a full-height first screen (Snowzan, Lustre) renders
+     that screen 2600px tall inside the default box, and a 16:9 band cut out
+     of it is not that hero — it is one stretched slice, almost always the
+     photograph, because the photograph is the part that scales with the
+     box. data-vh hands those frames a real viewport (900 desktop / 780
+     phone by default) so the hero composes the way it does in a browser:
+     mark, headline, CTA and image in one balanced frame. The cost is that
+     nothing below the first screen is painted, so a data-vh frame is a
+     composed still and does not pan. Everything else keeps 2600. */
+  function srcHeight(frame){
+    var vh = frame && frame.dataset.vh;
+    if(!vh) return 2600;
+    var pair = vh.split('/');                    // "900/780" → desktop/phone
+    var n = parseInt(innerWidth < 760 ? (pair[1] || pair[0]) : pair[0], 10);
+    return isNaN(n) ? 2600 : n;
+  }
+
+  /* Where the still should sit. In a 2600px box a site whose first screen is
+     a full-height hero puts its content far down the frame, so the top is
+     empty; data-start moves the resting position onto it. A page whose hero
+     content reflows to sit much lower at the 430px mobile srcWidth than at
+     the 1400px desktop one (more line-wrapping, taller stack) needs its own
+     offset for that width — data-start-mobile, when present. A data-vh frame
+     is already showing its first screen, so it starts at 0. */
   function startOf(frame){
+    if(frame.dataset.vh) return 0;
     if(innerWidth < 760 && frame.dataset.startMobile) return parseInt(frame.dataset.startMobile, 10);
     return parseInt(frame.dataset.start || '0', 10);
   }
@@ -2308,6 +2414,7 @@ MLang.init(window.I18N_HOME_RU);
      2600px cutoff) sets data-scroll-mobile="0" so the touch auto-pan below
      doesn't try to travel past the edge into blank iframe. */
   function scrollDistOf(frame){
+    if(frame.dataset.vh) return 0;   // a composed still has nowhere to travel
     if(innerWidth < 760 && frame.dataset.scrollMobile) return parseInt(frame.dataset.scrollMobile, 10);
     return parseInt(frame.dataset.scroll || '1600', 10);
   }
@@ -2318,6 +2425,7 @@ MLang.init(window.I18N_HOME_RU);
     if(!win || !fr) return;
     var sw = srcWidth(frame);
     fr.style.setProperty('--srcw', sw + 'px');
+    fr.style.setProperty('--srch', srcHeight(frame) + 'px');
     var k = win.clientWidth / sw;
     fr.dataset.scale = k;
     fr.style.transform = 'scale(' + k + ') translateY(' + (-startOf(frame)) + 'px)';
@@ -2360,10 +2468,10 @@ MLang.init(window.I18N_HOME_RU);
     load.observe(frame);
 
     var fr   = frame.querySelector('iframe');
-    var dist = parseInt(frame.dataset.scroll || '1600', 10);
+    var dist = frame.dataset.vh ? 0 : parseInt(frame.dataset.scroll || '1600', 10);
 
     frame.addEventListener('pointerenter', function(){
-      if(!fine()) return;
+      if(!fine() || !dist) return;
       var k = parseFloat(fr.dataset.scale || '1');
       fr.style.transition = 'transform 7s linear';
       fr.style.transform  = 'scale(' + k + ') translateY(' + (-(startOf(frame) + dist)) + 'px)';
@@ -2723,6 +2831,13 @@ MLang.init(window.I18N_HOME_RU);
       pr2 = Math.max(0, Math.min(1, pr2));
       stepsEl.style.setProperty('--progress', (pr2 * 100).toFixed(2) + '%');
       stepsEl.style.setProperty('--head', pr2 > .002 && pr2 < .999 ? 1 : 0);
+      /* .passed keeps a station lit once the light has gone by, so the
+         sequence reads as travelled rather than as one moving dot; .done
+         hands the rail over to the ownership statement below. */
+      stepsEl.classList.toggle('done', pr2 > .985);
+      for(var sIdx = 0; sIdx < stepEls.length; sIdx++){
+        stepEls[sIdx].classList.toggle('passed', pr2 >= (sIdx + 1) / stepEls.length - .06);
+      }
     }
 
     if(FX){

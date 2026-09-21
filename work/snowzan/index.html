@@ -156,11 +156,14 @@
   box-shadow:inset 0 0 0 1px rgba(0,0,0,.4), 0 18px 40px -26px rgba(0,0,0,.9);
 }
 
-.live-window{aspect-ratio:1/1;}
+/* Cut to reach the bottom of the site's first screen — at 1/1 the phone
+   band stopped halfway through "Get your price in 20 seconds", which is
+   the whole point of the page being shown. */
+.live-window{aspect-ratio:1/1.18;}
 @media (min-width:760px){ .live-window{aspect-ratio:16/10;} }
 .live-window iframe{
   position:absolute;top:0;left:0;
-  width:var(--srcw,1400px);height:3400px;max-width:none;
+  width:var(--srcw,1400px);height:var(--srch,900px);max-width:none;
   border:0;transform-origin:0 0;pointer-events:none;will-change:transform;
 }
 
@@ -653,18 +656,22 @@ MLang.init(window.I18N_SNOWZAN_RU);
   /* ------------------------------------------------------------- live -- */
   var liveFrame = document.getElementById('liveFrame');
   var liveSite  = document.getElementById('liveSite');
-  /* Same viewport-height-hero issue as the mobile comparison above: on
-     desktop the resting frame already shows the top of the page fine, but
-     below 760px it needs to start where the real content is. This iframe
-     is rendered 3400px tall rather than the 2400px of the comparison
-     thumbnail, so the hero (100vh) is taller here too and needs its own
-     offset — not AFTER_START. */
-  var LIVE_START = 2800;
+  /* The embed renders a real viewport rather than a 3400px box. That box
+     made this site's 100vh hero 3400px tall, so the band cut out of it was
+     one stretched slice — and the slice that scales is the photograph, so
+     the centrepiece of the case study was showing a car bonnet instead of
+     the design. At a true 900px viewport the hero composes exactly as it
+     does in a browser: mark, headline, both calls to action and the trust
+     row, in one frame. Nothing below the first screen is painted at this
+     height, so the still no longer pans — the two buttons under the frame
+     are how a visitor goes further, and they always were. */
   function fitLive(){
     var win = liveFrame.querySelector('.live-window');
     var sw  = desktop.matches ? 1400 : 430;
-    var startY = desktop.matches ? 0 : LIVE_START;
+    var sh  = desktop.matches ? 900 : 760;
+    var startY = 0;
     liveSite.style.setProperty('--srcw', sw + 'px');
+    liveSite.style.setProperty('--srch', sh + 'px');
     var k = win.clientWidth / sw;
     liveSite.dataset.scale = k;
     liveSite.dataset.startY = startY;
@@ -680,20 +687,6 @@ MLang.init(window.I18N_SNOWZAN_RU);
 
   fitLive();
   liveSite.addEventListener('load', fitLive);
-
-  if(!matchMedia('(prefers-reduced-motion: reduce)').matches && !matchMedia('(hover: none)').matches){
-    liveFrame.addEventListener('pointerenter', function(){
-      var k = parseFloat(liveSite.dataset.scale || '1');
-      liveSite.style.transition = 'transform 9s linear';
-      liveSite.style.transform  = 'scale(' + k + ') translateY(-2600px)';
-    });
-    liveFrame.addEventListener('pointerleave', function(){
-      var k = parseFloat(liveSite.dataset.scale || '1');
-      var startY = parseFloat(liveSite.dataset.startY || '0');
-      liveSite.style.transition = 'transform .7s cubic-bezier(.23,1,.32,1)';
-      liveSite.style.transform  = 'scale(' + k + ') translateY(' + (-startY) + 'px)';
-    });
-  }
 
   addEventListener('resize', function(){
     clearTimeout(window.__t);
