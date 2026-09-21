@@ -94,10 +94,27 @@ which is why the stroke is re-applied on an interval rather than once.
   not pan, and `.frame[data-vh] .window` is cut to `1/1.18` on phones to reach the
   bottom of the first screen's primary button. Frames currently on it: the hero
   frame, Select 01, and the Contact Sheet's LUSTRE cell.
-  **Do not put GrimeVPN, H&M, Lumen, Aurelis, Lucienne or Ember & Oak on it** —
-  they lay out in normal document flow (GrimeVPN's headline sits at 181px at every
-  viewport height), so the tall box is what gives their hover pan somewhere to
-  travel and nothing is wrong with them.
+  Every frame is on it now (2026-09-21), each with its own viewport and its own
+  phone band via `--win-m`, measured against the site rather than picked:
+
+  | frame | data-vh | --win-m | the band reaches |
+  |---|---|---|---|
+  | Snowzan (hero, s-01) | 900/760 | 1/1.18 | both hero buttons — THE REFERENCE, do not re-tune |
+  | H&M s-02 | 900/780 | 1/1.26 | the type block; its panel is dark by design |
+  | GrimeVPN s-03 | 900/780 | 1/1.6 | headline, both CTAs, chat mock, tiers row |
+  | Lumen cell 1 | 900/780 | 1/1.3 | header, headline, both CTAs |
+  | Aurelis cell 2 | 900/800 | 1/1.5 | headline, copy, "Choose a floor" |
+  | Lucienne cell 3 | 900/820 | 1/1.55 | headline over the photograph |
+  | Ember & Oak cell 4 | 900/820 | 1/1.72 | identity through the whole booking widget |
+  | LUSTRE cell 5 | 900/780 | 1/1.44 | headline and the CTA row under it |
+
+  Re-tuning one means re-measuring that site, not copying a neighbour's number.
+  A band must always stay inside its own `data-vh`; the QA harness asserts this.
+- **H&M's card is a veil, not a crop.** `.polish` is a swirled overlay whose mask
+  opens with `--pr`. Fully shut the card was a uniform dark rectangle that said
+  nothing, and a phone never got to open it, so it rests at `--pr:170px` (a pool of
+  corrected paint beside unworked paint — the project's whole idea) and opens to
+  430px on hover. On coarse pointers the veil sits at opacity .6, not .18.
 - The Snowzan case study's `#liveSite` embed had the identical bug and the identical
   fix — `--srch` 900/760 in place of a 3400px box. Its hover pan was removed with it
   (it travelled to -2600px, which is now past the end of the iframe); the two large
