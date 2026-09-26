@@ -209,6 +209,10 @@ button{font:inherit;color:inherit;background:none;border:0;}
 @media (prefers-reduced-motion:reduce){ .lang-btn::after{transition:none;} }
 
 .cta-short{display:none;}
+/* A nav button never shrinks below its own label. It is a flex item, so by
+   default it will, and the label is then clipped inside it — which is how
+   "Открыть живой сайт" was rendering as a cut-off word at 768. */
+.nav .btn{flex:none;}
 
 @media (max-width:640px){
   /* The name stays. Hiding it left a phone inside a case study with no way
@@ -229,10 +233,35 @@ button{font:inherit;color:inherit;background:none;border:0;}
     min-height:40px;padding:0 12px;font-size:13px;border-radius:9px;
     flex:none;
   }
-}
-@media (max-width:400px){
+  /* Two rules that belong together. flex:none, because a button that
+     shrinks below its own label clips it — "Open the live site" was
+     rendering as "pen site" inside a 116px pill. And the short label from
+     640 rather than 400, because 116px was the width the full label was
+     being squeezed into at 430 in the first place. */
   .nav .btn:not(.nav-contact) .cta-full{display:none;}
   .nav .btn:not(.nav-contact) .cta-short{display:inline;}
+}
+/* Below 430 four things still share the row — the name, the language pair,
+   contacts and the page's own action — and in Russian every label is longer
+   than its English counterpart ("Открыть сайт" against "Open site"). Nothing
+   is dropped and nothing is clipped; everything gives up a few pixels, which
+   is the only move that survives both languages. */
+@media (max-width:430px){
+  .nav-in{gap:7px;}
+  .brand{font-size:19px;}
+  .lang-switch{gap:3px;font-size:11px;}
+  .lang-btn{min-width:18px;font-size:10.5px;}
+  .btn.nav-contact{padding:0 9px;font-size:12px;}
+  .nav .btn:not(.nav-contact){padding:0 10px;font-size:12.5px;min-height:40px;}
+  .nav .btn .arrow{display:none;}
+}
+@media (max-width:400px){
+  /* the last of the room comes off the wordmark and the gaps, never off a
+     label — a clipped word looks broken, a slightly smaller one does not */
+  .brand{font-size:18px;}
+  /* the gutter too: Russian needs the last five pixels from somewhere, and
+     the header can sit closer to the edge than body copy can */
+  .nav-in{gap:6px;padding-inline:14px;}
   .nav .btn:not(.nav-contact){padding:0 16px;min-height:40px;font-size:13.5px;}
 }
 

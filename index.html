@@ -357,6 +357,10 @@ button{font:inherit;color:inherit;background:none;border:0;}
   transition:transform .3s var(--ease-out);
 }
 .btn:hover .arrow{transform:translate(3px,-3px);}
+/* Same reason as the mark below: a nav button is a flex item and will
+   shrink under its own label rather than push the row wider, clipping the
+   word inside it — "Начать проект" lost its last letters at 375. */
+.nav .btn{flex:none;}
 /* flex:none is load-bearing, not tidying. A brand mark inside a button is
    a flex item like any other, so on a narrow screen — where `Message on
    WhatsApp ↗` is already wider than the button — the browser was solving
