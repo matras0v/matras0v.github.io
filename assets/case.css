@@ -62,6 +62,15 @@ html[data-case="hm"]{
   --lit-b: rgba(255,226,186,.038);
   --lit-c: rgba(140,84,30,.075);
 }
+/* ShineMate — the site's own orange, at a fraction of its strength. The
+   work is a bright ivory commerce site, so the room it hangs in needs a
+   warm neutral rather than a colour that fights the white. */
+html[data-case="shinemate"]{
+  --lit:   rgba(254,139,12,.42);
+  --lit-a: rgba(254,139,12,.085);
+  --lit-b: rgba(255,238,214,.040);
+  --lit-c: rgba(188,96,10,.062);
+}
 /* GrimeVPN — indigo, colder and more electric than Snowzan's. */
 html[data-case="grime"]{
   --lit:   rgba(150,96,255,.5);
@@ -136,9 +145,17 @@ button{font:inherit;color:inherit;background:none;border:0;}
 @media (min-width:760px){.nav-in{gap:var(--s3);height:72px;}}
 .brand{
   font-family:var(--f-display);font-variation-settings:"wdth" 78,"opsz" 14;
-  font-weight:800;font-size:19px;letter-spacing:-.01em;white-space:nowrap;
-  display:inline-flex;align-items:center;min-height:44px;
+  font-weight:800;font-size:25px;letter-spacing:-.012em;white-space:nowrap;
+  display:inline-flex;align-items:center;
+  min-height:46px;padding-inline:8px;margin-inline-start:-8px;
+  border-radius:8px;cursor:pointer;color:var(--ink);
+  transition:opacity .25s ease, letter-spacing .35s var(--ease-out);
 }
+/* the name is the way back to the portfolio from inside a case */
+@media (hover:hover){ .brand:hover{opacity:.72;letter-spacing:.002em;} }
+.brand:active{opacity:.9;}
+@media (max-width:520px){ .brand{font-size:21px;padding-inline:6px;margin-inline-start:-6px;} }
+@media (prefers-reduced-motion:reduce){ .brand{transition:opacity .2s ease;} }
 .nav-sep{
   width:1px;height:18px;background:var(--line-2);flex:none;
   margin-inline:2px;
@@ -194,9 +211,12 @@ button{font:inherit;color:inherit;background:none;border:0;}
 .cta-short{display:none;}
 
 @media (max-width:640px){
-  .brand,.nav-sep{display:none;}
-  .back span{display:none;}
-  .back{padding-inline:6px;}
+  /* The name stays. Hiding it left a phone inside a case study with no way
+     home except a back arrow pointing at #work, and the wordmark is the
+     home control — so the arrow is the one that goes instead. "All work"
+     is still a tap away in the contact block at the foot of the page. */
+  .nav-sep,.back{display:none;}
+  .brand{font-size:20px;margin-right:auto;}
   /* Four things — back arrow, language, quick contacts, the page's own
      primary action — no longer fit a 375px nav at full size, so every
      secondary element compacts and only the primary action keeps a

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" data-case="shinemate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0B0C">
+
+<title>ShineMate Russia &mdash; case study &middot; Vadim Ivanchenko</title>
+<meta name="description" content="A product-led website for ShineMate's official distributor in Russia: a large polishing-equipment catalog organised into a clear buying path. Live production site.">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://matras0v.github.io/work/shinemate/">
+<meta property="og:image" content="https://matras0v.github.io/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Martian+Mono:wght@400;500;600&family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/case.css">
+<script>document.documentElement.classList.add('js');</script>
+
+<style>
+/* --------------------------------------------------------- this case only --
+   The argument of this project is a catalogue that has to stay legible as it
+   grows, so the page is built around two things the other cases do not need:
+   a diagram of the compatibility chain, and a preview that is honest about
+   being a preview.                                                          */
+
+.tag-live{
+  display:inline-flex;align-items:center;gap:9px;
+  border:1px solid color-mix(in srgb, var(--lit) 55%, var(--line-2));
+  background:color-mix(in srgb, var(--lit) 12%, transparent);
+  border-radius:999px;padding:7px 13px;color:var(--ink);
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+}
+.tag-live i{
+  width:6px;height:6px;border-radius:50%;flex:none;
+  background:color-mix(in srgb, var(--lit) 90%, var(--ink));
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--lit) 22%, transparent);
+}
+
+/* The chain. Four links, one arrow between each — the thing a customer is
+   actually solving for when they buy a machine and then everything that has
+   to fit it. Set as a row on desktop, a column on a phone, because an arrow
+   that wraps mid-chain stops meaning "then". */
+.chain{
+  display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;
+  margin-top:var(--s4);
+}
+.chain-i{
+  flex:1 1 150px;min-width:0;
+  border:1px solid var(--line);border-radius:12px;
+  background:linear-gradient(180deg, rgba(239,235,227,.035), rgba(239,235,227,.010));
+  padding:16px 18px;
+}
+.chain-i b{
+  display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;
+}
+.chain-i span{font-size:16px;line-height:1.35;color:var(--ink);}
+.chain-a{
+  flex:0 0 auto;align-self:center;color:var(--lit);
+  font-size:18px;line-height:1;opacity:.9;
+}
+@media (max-width:700px){
+  .chain{flex-direction:column;gap:8px;}
+  .chain-i{flex:none;}
+  .chain-a{align-self:start;margin-left:20px;transform:rotate(90deg);}
+}
+
+/* The preview mount. The production site sends x-frame-options: SAMEORIGIN,
+   which is correct of it — so this page shows a faithful still of the first
+   screen and says so, rather than asking the client to weaken a header for
+   the sake of a portfolio. Every control here opens the real site. */
+.live-window{aspect-ratio:1/1.22;}
+@media (min-width:760px){ .live-window{aspect-ratio:16/10;} }
+.live-window iframe{
+  position:absolute;top:0;left:0;
+  width:var(--srcw,1400px);height:var(--srch,820px);max-width:none;
+  border:0;transform-origin:0 0;pointer-events:none;
+}
+.note{
+  margin-top:var(--s3);color:var(--ink-3);
+  font-size:13px;line-height:1.5;max-width:62ch;
+}
+</style>
+</head>
+<body>
+<div class="atmos" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="../../" aria-label="MATRAS0V — Home">MATRAS0V</a>
+    <span class="nav-sep" aria-hidden="true"></span>
+    <a class="back mono" href="../../#work">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      <span data-i18n="nav-allwork">All work</span>
+    </a>
+    <span class="nav-spacer"></span>
+    <div class="lang-switch mono" role="group" aria-label="Language / &#1071;&#1079;&#1099;&#1082;">
+      <button type="button" class="lang-btn is-active" data-lang="en" aria-current="true">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang="ru" aria-current="false">RU</button>
+    </div>
+    <a class="btn btn-ghost nav-contact" href="#contact" data-i18n="nav-contacts">Contacts</a>
+    <a class="btn btn-key" href="https://shinemate-russia.ru/" target="_blank" rel="noopener"><span class="cta-full" data-i18n="nav-cta-open-full">Open the live site</span><span class="cta-short" data-i18n="nav-cta-open-short">Open site</span> <span class="arrow">&#8599;</span></a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================================================================ hero -- -->
+<section class="head">
+  <div class="wrap head-grid">
+    <div>
+      <p class="kicker mono rv"><span class="dot" aria-hidden="true"></span><span data-i18n="head-kicker">Case 02 &middot; Real client &middot; Russia</span></p>
+      <h1 class="rv" data-i18n="head-h1">A catalog this large<br>should still feel<br>simple to buy from.</h1>
+      <p class="lede rv" data-i18n="head-lede">ShineMate sells machines, backing plates, pads, compounds and accessories that work as a system. The site had to make those relationships understandable without turning the catalog into a spreadsheet.</p>
+      <div class="cta-row rv">
+        <a class="btn btn-lg btn-key" href="https://shinemate-russia.ru/" target="_blank" rel="noopener"><span data-i18n="cta-open-live">Open the live site</span> <span class="arrow">&#8599;</span></a>
+        <a class="btn btn-lg btn-ghost" href="#finished" data-i18n="cta-view-catalog">View the catalog</a>
+      </div>
+    </div>
+    <dl class="facts rv">
+      <div><dt data-i18n="fact-client">Client</dt><dd data-i18n="fact-client-v">ShineMate Russia</dd></div>
+      <div><dt data-i18n="fact-market">Market</dt><dd data-i18n="fact-market-v">Russia</dd></div>
+      <div><dt data-i18n="fact-scope">Scope</dt><dd data-i18n="fact-scope-v">Design, development, product UX, catalog</dd></div>
+      <div><dt data-i18n="fact-status">Status</dt><dd data-i18n="fact-status-v">Live production site</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================================================= context -- -->
+<section class="band">
+  <div class="wrap">
+    <div class="band-head split rv">
+      <div>
+        <span class="eyebrow" data-i18n="ctx-eyebrow">The brief</span>
+        <h2 data-i18n="ctx-h2">An official distributor,<br>not a marketplace</h2>
+      </div>
+      <p data-i18n="ctx-p">ShineMate is a polishing-equipment manufacturer; this is the site of its official distributor in Russia. That single fact decides most of the design: a buyer arriving here is choosing equipment for professional work, and the page has to read like a specialist who stocks the range rather than a storefront that resells it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== decisions -- -->
+<section class="band band-deep">
+  <div class="wrap">
+    <div class="band-head rv">
+      <span class="eyebrow" data-i18n="dec-eyebrow">What the work was</span>
+      <h2 data-i18n="dec-h2">Five decisions</h2>
+    </div>
+
+    <article class="dec rv">
+      <div>
+        <p class="dec-no mono" data-i18n="dec01-no">Decision 01</p>
+        <h3 data-i18n="dec01-h3">A product-first homepage</h3>
+      </div>
+      <div>
+        <p data-i18n="dec01-p1">The first screen shows the equipment. Not a company statement, not a slider of stock photography &mdash; the machines themselves, at the size they deserve, with the one sentence that says what they are for.</p>
+        <p data-i18n="dec01-p2">Someone who already knows what a rotary polisher is should be able to tell within a second that they are in the right place.</p>
+      </div>
+    </article>
+
+    <article class="dec rv">
+      <div>
+        <p class="dec-no mono" data-i18n="dec02-no">Decision 02</p>
+        <h3 data-i18n="dec02-h3">Catalog by product family</h3>
+      </div>
+      <div>
+        <p data-i18n="dec02-p1">Machines, pads, compounds and accessories are separated clearly enough that a professional who knows what they need can go straight to it, without reading past three categories that do not apply to them.</p>
+      </div>
+    </article>
+
+    <article class="dec rv">
+      <div>
+        <p class="dec-no mono" data-i18n="dec03-no">Decision 03</p>
+        <h3 data-i18n="dec03-h3">Compatibility is the real product</h3>
+      </div>
+      <div>
+        <p data-i18n="dec03-p1">The useful part of a catalog like this is not the individual items &mdash; it is knowing what works with what. A machine takes a particular backing plate; that plate takes particular pads; those pads pair with particular compounds.</p>
+        <p data-i18n="dec03-p2">Getting one link in that chain wrong means the parts do not fit, so the site treats the chain as the thing being sold rather than as a specification buried in a table.</p>
+        <div class="chain" aria-label="Machine to backing plate to pad to compound">
+          <div class="chain-i"><b data-i18n="chain-1-k">Machine</b><span data-i18n="chain-1-v">Rotary or dual-action</span></div>
+          <span class="chain-a" aria-hidden="true">&rarr;</span>
+          <div class="chain-i"><b data-i18n="chain-2-k">Backing plate</b><span data-i18n="chain-2-v">Sized to the machine</span></div>
+          <span class="chain-a" aria-hidden="true">&rarr;</span>
+          <div class="chain-i"><b data-i18n="chain-3-k">Pad</b><span data-i18n="chain-3-v">Cut, polish or finish</span></div>
+          <span class="chain-a" aria-hidden="true">&rarr;</span>
+          <div class="chain-i"><b data-i18n="chain-4-k">Compound</b><span data-i18n="chain-4-v">Matched to the pad</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="dec rv">
+      <div>
+        <p class="dec-no mono" data-i18n="dec04-no">Decision 04</p>
+        <h3 data-i18n="dec04-h3">Product pages that explain the purchase</h3>
+      </div>
+      <div>
+        <p data-i18n="dec04-p1">Each product answers the same four questions in the same order: what it is, what it is for, the specifications that matter, and what it works with. A buyer comparing two machines is comparing the same fields in the same places.</p>
+      </div>
+    </article>
+
+    <article class="dec rv">
+      <div>
+        <p class="dec-no mono" data-i18n="dec05-no">Decision 05</p>
+        <h3 data-i18n="dec05-h3">Russian, because the market is Russian</h3>
+      </div>
+      <div>
+        <p data-i18n="dec05-p1">The site is written for buyers in Russia and stays in Russian throughout, including for wholesale enquiries. This portfolio switches language; the client's site does not, because it is not a portfolio piece &mdash; it is a working sales channel for one market.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ======================================================= finished site -- -->
+<section class="band" id="finished">
+  <div class="wrap">
+    <div class="band-head split rv">
+      <div>
+        <span class="eyebrow" data-i18n="live-eyebrow">The finished site</span>
+        <h2 data-i18n="live-h2">A working catalog,<br>not a presentation mockup.</h2>
+      </div>
+      <p data-i18n="live-p">Below is the first screen as it is built. The production site asks not to be embedded in other pages &mdash; which is the right setting for a commercial site to have &mdash; so this is a faithful still rather than a frame around someone else's server. Open it properly to walk the catalog.</p>
+    </div>
+
+    <a class="eframe rv-depth" id="liveFrame" href="https://shinemate-russia.ru/" target="_blank" rel="noopener" aria-label="Open the ShineMate Russia website in a new tab">
+      <div class="eframe-bar">
+        <i class="live" aria-hidden="true"></i>
+        <span class="plate">shinemate-russia.ru</span>
+        <span class="go" data-i18n="live-go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+      </div>
+      <div class="eframe-win live-window">
+        <iframe id="liveSite" title="The first screen of the ShineMate Russia website" data-src="preview/index.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+      </div>
+    </a>
+    <p class="note" data-i18n="live-note">The preview above is a still of the real first screen, held in this portfolio. The site itself is live and in Russian &mdash; it sells to a Russian market.</p>
+
+    <div class="cta-row" style="margin-top:var(--s4)">
+      <a class="btn btn-lg btn-key" href="https://shinemate-russia.ru/" target="_blank" rel="noopener"><span data-i18n="cta-open-domain">Open shinemate-russia.ru</span> <span class="arrow">&#8599;</span></a>
+      <a class="btn btn-lg btn-ghost" href="https://shinemate-russia.ru/catalog" target="_blank" rel="noopener"><span data-i18n="cta-explore-catalog">Explore the catalog</span> <span class="arrow">&#8599;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= contact -- -->
+<section class="next" id="contact">
+  <div class="wrap next-grid">
+    <div>
+      <h2 data-i18n="next-h2">Something similar,<br>for your business.</h2>
+      <p data-i18n="next-p">A catalog, a product range, a service &mdash; tell me what you sell and where, and I'll reply the same day with what it could look like.</p>
+    </div>
+    <div class="next-contact rv">
+      <a class="btn btn-lg btn-key" href="https://wa.me/79184134820?text=Hi%20Vadim%20%E2%80%94%20I%20saw%20the%20ShineMate%20case%20and%20I%27d%20like%20something%20similar." target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 0 1-4.99-1.37l-.36-.21-3.71.97 1-3.62-.24-.37a9.8 9.8 0 0 1-1.5-5.23c0-5.4 4.4-9.8 9.82-9.8a9.75 9.75 0 0 1 6.93 2.88 9.72 9.72 0 0 1 2.87 6.93c0 5.4-4.4 9.8-9.8 9.8M20.5 3.5A11.75 11.75 0 0 0 12.05 0C5.54 0 .25 5.29.24 11.79c0 2.08.55 4.1 1.58 5.9L.14 24l6.45-1.69a11.8 11.8 0 0 0 5.46 1.34h.01c6.5 0 11.79-5.29 11.8-11.79 0-3.15-1.23-6.11-3.46-8.34"/></svg> <span data-i18n="cta-message-wa">Message on WhatsApp</span> <span class="arrow">&#8599;</span></a>
+      <p class="rail-cap mono" data-i18n="rail-cap">Or pick a channel</p>
+      <div class="channels">
+        <a class="chan" href="https://t.me/matras0v" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.94 24a12 12 0 1 0 0-24 12 12 0 0 0 0 24M5.49 11.73l11.57-4.46c.54-.2 1.01.13.84.94l-1.97 9.28c-.15.66-.54.82-1.09.51l-3-2.21-1.45 1.39c-.16.16-.3.3-.61.3l.21-3.06 5.58-5.04c.24-.21-.05-.33-.37-.12l-6.9 4.34-2.97-.93c-.65-.2-.66-.64.13-.94"/></svg>
+          <span data-i18n="chan-telegram">Telegram</span> <span class="chan-h">@matras0v</span>
+        </a>
+        <a class="chan" href="https://instagram.com/matras0v" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>
+          <span data-i18n="chan-instagram">Instagram</span> <span class="chan-h">@matras0v</span>
+        </a>
+        <a class="chan" href="mailto:mskvvmskvv@gmail.com?subject=Website%20for%20my%20business">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.4"/><path d="m3 6.8 9 6 9-6"/></svg>
+          <span data-i18n="chan-email">Email</span> <span class="chan-h">mskvvmskvv@gmail.com</span>
+        </a>
+      </div>
+      <p class="more-link"><a class="tlink" href="../../#work" data-i18n="more-link">See the other work</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>&copy; <span id="yr">2026</span> Vadim Ivanchenko</span>
+    <span data-i18n="foot-note">ShineMate Russia &middot; live production site</span>
+  </div>
+</footer>
+
+<script src="../../assets/i18n.js"></script>
+<script src="../../assets/case.js" defer></script>
+<script>
+(function(){
+  /* The preview is a still: size it to the frame the same way the other case
+     pages size theirs, and never pan it. */
+  var liveFrame = document.getElementById('liveFrame');
+  var liveSite  = document.getElementById('liveSite');
+  var desktop   = matchMedia('(min-width: 760px)');
+  function fitLive(){
+    var win = liveFrame.querySelector('.live-window');
+    var sw  = desktop.matches ? 1400 : 430;
+    var sh  = desktop.matches ? 820 : 740;
+    liveSite.style.setProperty('--srcw', sw + 'px');
+    liveSite.style.setProperty('--srch', sh + 'px');
+    liveSite.style.transform = 'scale(' + (win.clientWidth / sw) + ')';
+  }
+  new IntersectionObserver(function(en, o){
+    if(!en[0].isIntersecting) return;
+    liveSite.src = liveSite.dataset.src;
+    o.disconnect();
+  }, {rootMargin:'400px'}).observe(liveFrame);
+  fitLive();
+  liveSite.addEventListener('load', fitLive);
+  var t;
+  addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(fitLive, 140); }, {passive:true});
+})();
+</script>
+<script>
+window.I18N_SHINEMATE_RU = {
+  "nav-allwork": "Все работы",
+  "nav-contacts": "Контакты",
+  "nav-cta-open-full": "Открыть живой сайт",
+  "nav-cta-open-short": "Открыть сайт",
+
+  "head-kicker": "Кейс 02 &middot; Реальный клиент &middot; Россия",
+  "head-h1": "Большой каталог<br>не должен ощущаться<br>сложным.",
+  "head-lede": "ShineMate продаёт машинки, подложки, круги, пасты и аксессуары, которые работают как одна система. Задача сайта — показать эти связи понятно, не превращая каталог в таблицу характеристик.",
+  "cta-open-live": "Открыть живой сайт",
+  "cta-view-catalog": "Смотреть каталог",
+
+  "fact-client": "Клиент",
+  "fact-client-v": "ShineMate Россия",
+  "fact-market": "Рынок",
+  "fact-market-v": "Россия",
+  "fact-scope": "Объём",
+  "fact-scope-v": "Дизайн, разработка, продуктовый UX, каталог",
+  "fact-status": "Статус",
+  "fact-status-v": "Работающий production-сайт",
+
+  "ctx-eyebrow": "Задача",
+  "ctx-h2": "Официальный дистрибьютор,<br>а не маркетплейс",
+  "ctx-p": "ShineMate — производитель оборудования для полировки; это сайт его официального дистрибьютора в России. Этот факт определяет большую часть решений: человек здесь выбирает оборудование для работы, и страница должна читаться как специалист со складом, а не как витрина-перепродавец.",
+
+  "dec-eyebrow": "В чём заключалась работа",
+  "dec-h2": "Пять решений",
+  "dec01-no": "Решение 01",
+  "dec01-h3": "Главная начинается с товара",
+  "dec01-p1": "На первом экране — само оборудование. Не рассказ о компании и не слайдер со стоковыми фото, а машинки в том размере, который они заслуживают, и одна фраза о том, для чего они.",
+  "dec01-p2": "Тот, кто уже знает, что такое роторная машинка, должен за секунду понять, что попал куда надо.",
+  "dec02-no": "Решение 02",
+  "dec02-h3": "Каталог по семействам",
+  "dec02-p1": "Машинки, круги, пасты и аксессуары разделены достаточно ясно, чтобы мастер, который знает, что ему нужно, шёл сразу туда, а не читал три ненужных ему раздела.",
+  "dec03-no": "Решение 03",
+  "dec03-h3": "Совместимость и есть главный продукт",
+  "dec03-p1": "Самое полезное в таком каталоге — не отдельные позиции, а понимание, что с чем работает. Машинке нужна своя подложка; подложке — свои круги; кругам — свои пасты.",
+  "dec03-p2": "Ошибка в одном звене — и детали просто не подходят друг к другу, поэтому сайт относится к этой цепочке как к тому, что он продаёт, а не как к строчке в таблице.",
+  "chain-1-k": "Машинка",
+  "chain-1-v": "Роторная или эксцентриковая",
+  "chain-2-k": "Подложка",
+  "chain-2-v": "Под размер машинки",
+  "chain-3-k": "Круг",
+  "chain-3-v": "Резать, полировать или финиш",
+  "chain-4-k": "Паста",
+  "chain-4-v": "Подобрана под круг",
+  "dec04-no": "Решение 04",
+  "dec04-h3": "Карточка объясняет покупку",
+  "dec04-p1": "Каждый товар отвечает на одни и те же четыре вопроса в одном и том же порядке: что это, для чего, какие характеристики важны и с чем он работает. Две машинки сравниваются по одним и тем же полям на одних и тех же местах.",
+  "dec05-no": "Решение 05",
+  "dec05-h3": "На русском, потому что рынок русский",
+  "dec05-p1": "Сайт написан для покупателей в России и остаётся русскоязычным целиком, включая оптовые запросы. Это портфолио переключает язык; сайт клиента — нет, потому что это не витрина работ, а рабочий канал продаж для одного рынка.",
+
+  "live-eyebrow": "Готовый сайт",
+  "live-h2": "Рабочий каталог,<br>а не макет для портфолио.",
+  "live-p": "Ниже — первый экран так, как он сделан. Продакшен-сайт просит не встраивать себя в чужие страницы — для коммерческого сайта это правильная настройка, поэтому здесь точный слепок, а не рамка вокруг чужого сервера. Откройте сайт, чтобы пройтись по каталогу.",
+  "live-go": "Открыть",
+  "live-note": "Выше — слепок реального первого экрана, хранящийся в этом портфолио. Сам сайт работает и написан по-русски — он продаёт на российском рынке.",
+  "cta-open-domain": "Открыть shinemate-russia.ru",
+  "cta-explore-catalog": "Смотреть каталог",
+
+  "next-h2": "Хотите так же<br>для своего бизнеса?",
+  "next-p": "Каталог, линейка товаров или услуга — расскажите, что вы продаёте и где, и в тот же день пришлю, как это могло бы выглядеть.",
+  "cta-message-wa": "Написать в WhatsApp",
+  "rail-cap": "Или выберите канал",
+  "chan-telegram": "Telegram",
+  "chan-instagram": "Instagram",
+  "chan-email": "Почта",
+  "more-link": "Смотреть остальные работы",
+  "foot-note": "ShineMate Россия &middot; работающий production-сайт"
+};
+MLang.init(window.I18N_SHINEMATE_RU);
+</script>
+</body>
+</html>

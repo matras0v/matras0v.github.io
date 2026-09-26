@@ -180,13 +180,27 @@ button{font:inherit;color:inherit;background:none;border:0;}
   border-bottom-color:var(--line);
 }
 .nav-in{display:flex;align-items:center;gap:var(--s3);height:76px;}
+/* The name is the way back to the start, so it has to look like the largest
+   thing in the header rather than a caption sharing weight with the section
+   links. The negative inline margin keeps the extra padding — which is there
+   to make the hit area comfortable — from pushing the wordmark off its
+   alignment with everything below it. */
 .brand{
   font-family:var(--f-display);
-  font-variation-settings:"wdth" 76,"opsz" 14;
-  font-weight:800;font-size:21px;letter-spacing:.01em;
+  font-variation-settings:"wdth" 76,"opsz" 24;
+  font-weight:800;font-size:28px;letter-spacing:.005em;
   margin-right:auto;white-space:nowrap;
-  display:inline-flex;align-items:center;min-height:44px;
+  display:inline-flex;align-items:center;
+  min-height:46px;padding-inline:8px;margin-inline-start:-8px;
+  border-radius:8px;cursor:pointer;
+  color:var(--paper);
+  transition:opacity .25s ease, letter-spacing .35s var(--ease-out);
 }
+@media (hover:hover){
+  .brand:hover{opacity:.72;letter-spacing:.022em;}
+}
+.brand:active{opacity:.9;}
+@media (prefers-reduced-motion:reduce){ .brand{transition:opacity .2s ease;} }
 .nav-links{display:none;gap:var(--s4);font-size:12px;letter-spacing:.05em;}
 @media (min-width:820px){ .nav-links{display:flex;} }
 .nav-links a{
@@ -247,7 +261,7 @@ button{font:inherit;color:inherit;background:none;border:0;}
   .nav-in{gap:6px;}
 }
 @media (max-width:400px){
-  .brand{font-size:16px;}
+  .brand{font-size:21px;padding-inline:6px;margin-inline-start:-6px;}
   .lang-switch{margin-right:6px;font-size:11px;}
 }
 
@@ -745,6 +759,19 @@ h2{
 }
 .sel-facts dd{font-family:var(--f-mono);font-size:14px;line-height:1.5;color:var(--paper-2);}
 .sel-links{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);}
+/* A concept and a paid production site should not wear the same label, and
+   this is the only place the page says which is which, so it carries the
+   live dot the frames use rather than being another grey outline. */
+.tag-live{
+  border-color:color-mix(in srgb, var(--lit, var(--line-2)) 55%, var(--line-2));
+  background:color-mix(in srgb, var(--lit, transparent) 14%, transparent);
+  color:var(--paper);
+}
+.tag-live::before{
+  content:"";width:5px;height:5px;border-radius:50%;margin-right:7px;flex:none;
+  background:color-mix(in srgb, var(--lit, var(--paper-3)) 90%, var(--paper));
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--lit, transparent) 22%, transparent);
+}
 .tag{
   display:inline-flex;align-items:center;
   font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;
@@ -794,6 +821,18 @@ h2{
      gutter between them would read as a broken line, not a baseline. */
   .s-01 .sel-head, .s-01 .sel-say{margin-top:var(--s3);}
   .s-01 .sel-facts{border-top:none;margin-top:var(--s4);}
+
+  /* ShineMate — the other flagship. Same full-measure plate as 01, because
+     a paid production site cannot sit in a smaller frame than the concepts
+     underneath it; the caption is mirrored (sentence and actions left, the
+     spec list right) so the two do not read as the same slide twice. */
+  .s-sm .sel-media{
+    grid-column:c 1 / span 12;grid-row:1;
+    padding-bottom:var(--s4);border-bottom:1px solid var(--line);
+  }
+  .s-sm .sel-say{grid-column:c 1 / span 5;grid-row:2;margin-top:var(--s3);}
+  .s-sm .sel-head{grid-column:c 8 / span 5;grid-row:2;margin-top:var(--s3);}
+  .s-sm .sel-facts{border-top:none;margin-top:var(--s4);}
 
   /* 02 — split. The index column holds the left margin and runs the full
      height of the screen beside it: title at the screen's top edge, spec
@@ -876,16 +915,16 @@ h2{
 /* A soft, project-coloured atmosphere bridging screen and title where the
    asymmetric layout otherwise leaves a wide gap of plain black between
    them — screen light in the room, not a decorative gradient blob. */
-.s-01, .s-02, .s-03{position:relative;}
-.s-01::before, .s-02::before, .s-03::before{
+.s-01, .s-sm, .s-02, .s-03{position:relative;}
+.s-01::before, .s-sm::before, .s-02::before, .s-03::before{
   content:"";position:absolute;inset:-8% 0;z-index:-1;
   background:radial-gradient(closest-side, var(--lit, transparent), transparent 72%);
   opacity:.55;filter:blur(70px);pointer-events:none;
   transition:opacity .8s ease;
 }
-.s-01.active::before, .s-02.active::before, .s-03.active::before{opacity:.85;}
+.s-01.active::before, .s-sm.active::before, .s-02.active::before, .s-03.active::before{opacity:.85;}
 @media (prefers-reduced-motion:reduce){
-  .s-01::before,.s-02::before,.s-03::before{transition:none;}
+  .s-01::before,.s-sm::before,.s-02::before,.s-03::before{transition:none;}
 }
 
 /* The exhibit label under the hero plate: the frame chrome already shows
@@ -1714,7 +1753,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 
 <header class="nav"><i class="nav-progress" aria-hidden="true"></i>
   <div class="shell"><div class="nav-in">
-    <a class="brand" href="#top">MATRAS0V</a>
+    <a class="brand" href="#top" aria-label="MATRAS0V — Home">MATRAS0V</a>
     <nav class="nav-links mono" aria-label="Sections">
       <a href="#work" data-i18n="nav-work">Work</a>
       <a href="#how" data-i18n="nav-how">How it works</a>
@@ -1810,7 +1849,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   <!-- 01 Snowzan — the screen hangs at full width -->
   <article class="select s-01" style="--lit:rgba(110,91,255,.55)">
     <div class="sel-head">
-      <p class="sel-no" data-i18n="sel01-no">Select 01 / 03</p>
+      <p class="sel-no" data-i18n="sel01-no">Select 01 / 04</p>
       <h3 class="sel-name par" data-par=".030">Snowzan</h3>
       <dl class="sel-facts">
         <div><dt data-i18n="fact-where">Where</dt><dd data-i18n="sel01-where">Phoenix, Arizona</dd></div>
@@ -1837,9 +1876,43 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   </article>
 
   <!-- 02 H&M — the screen leaves through the right wall -->
+
+  <!-- ShineMate: the second real client. Full measure like Snowzan, because
+       a paid production site should not sit in a smaller frame than the
+       concepts below it — but the caption is mirrored so two flagship
+       blocks running back to back do not read as the same slide twice. -->
+  <article class="select s-sm" style="--lit:rgba(254,139,12,.42)">
+    <div class="sel-head">
+      <p class="sel-no" data-i18n="selsm-no">Select 02 / 04 <span class="tag tag-live" data-i18n="tag-client">Real client</span></p>
+      <h3 class="sel-name par" data-par=".030" data-i18n="selsm-name">ShineMate Russia</h3>
+      <dl class="sel-facts">
+        <div><dt data-i18n="fact-client">Client</dt><dd data-i18n="selsm-client">ShineMate Russia</dd></div>
+        <div><dt data-i18n="fact-market">Market</dt><dd data-i18n="selsm-market">Russia</dd></div>
+        <div><dt data-i18n="fact-type">Type</dt><dd data-i18n="selsm-type">Official distributor / automotive equipment</dd></div>
+        <div><dt data-i18n="fact-scope">Scope</dt><dd data-i18n="selsm-scope">Design, development, product UX, catalog, compatibility flows</dd></div>
+        <div><dt data-i18n="fact-status">Status</dt><dd data-i18n="selsm-status">Live at shinemate-russia.ru</dd></div>
+      </dl>
+    </div>
+    <div class="sel-media rv-clip">
+      <a class="frame" href="work/shinemate/" aria-label="Read the ShineMate Russia case study" data-live="work/shinemate/preview/index.html" data-vh="820/740" style="--win-m:1/1.34">
+        <div class="frame-bar" aria-hidden="true"><i></i><span>shinemate-russia.ru</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
+        <div class="window">
+          <iframe title="Preview of the ShineMate Russia website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+        </div>
+      </a>
+    </div>
+    <div class="sel-say rv">
+      <p class="sel-role" data-i18n="selsm-role">A product-led website for ShineMate's official distributor in Russia — built to turn a large polishing-equipment catalog into a clear buying path.</p>
+      <div class="sel-links">
+        <a class="btn" href="work/shinemate/"><span data-i18n="cta-read-case">Read the case</span></a>
+        <a class="btn btn-ghost" href="https://shinemate-russia.ru/" target="_blank" rel="noopener"><span data-i18n="cta-open-live">Open the live site</span> <span class="arrow">↗</span></a>
+      </div>
+    </div>
+  </article>
+
   <article class="select s-02" style="--lit:rgba(200,145,63,.5)">
     <div class="sel-head">
-      <p class="sel-no" data-i18n="sel02-no">Select 02 / 03 <span class="tag" data-i18n="tag-concept">Concept</span></p>
+      <p class="sel-no" data-i18n="sel02-no">Select 03 / 04 <span class="tag" data-i18n="tag-concept">Concept</span></p>
       <h3 class="sel-name par" data-par=".030">H&amp;M Car Polishing</h3>
       <dl class="sel-facts">
         <div><dt data-i18n="fact-type">Type</dt><dd data-i18n="sel02-type">Self-initiated concept</dd></div>
@@ -1869,7 +1942,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   <!-- 03 GrimeVPN — and back out through the left -->
   <article class="select s-03" style="--lit:rgba(168,85,247,.5)">
     <div class="sel-head">
-      <p class="sel-no" data-i18n="sel03-no">Select 03 / 03</p>
+      <p class="sel-no" data-i18n="sel03-no">Select 04 / 04</p>
       <h3 class="sel-name par" data-par=".030">GrimeVPN</h3>
       <dl class="sel-facts">
         <div><dt data-i18n="fact-what">What</dt><dd data-i18n="sel03-what">Telegram product, self-initiated</dd></div>
@@ -2095,9 +2168,9 @@ window.I18N_HOME_RU = {
   "plate-built": "Построен за два дня &middot; работает на snowzan.com",
 
   "work-h2": "Избранное",
-  "work-p": "Один реальный клиент и работы, которые показывают, что я умею. Каждый кадр ниже — сам сайт, живьём, а не его скриншот.",
+  "work-p": "Два реальных клиента и работы, которые показывают, что я умею. Каждый кадр ниже — сам сайт, а не его скриншот.",
 
-  "sel01-no": "Работа 01 / 03",
+  "sel01-no": "Работа 01 / 04",
   "fact-where": "Город",
   "fact-builtin": "Срок",
   "fact-scope": "Объём",
@@ -2110,7 +2183,20 @@ window.I18N_HOME_RU = {
   "cta-read-case": "Читать кейс",
   "cta-open-site": "Открыть сайт",
 
-  "sel02-no": "Работа 02 / 03",
+  "selsm-no": "Работа 02 / 04",
+  "selsm-name": "ShineMate Россия",
+  "tag-client": "Реальный клиент",
+  "fact-client": "Клиент",
+  "fact-market": "Рынок",
+  "selsm-client": "ShineMate Россия",
+  "selsm-market": "Россия",
+  "selsm-type": "Официальный дистрибьютор / оборудование для детейлинга",
+  "selsm-scope": "Дизайн, разработка, каталог, продуктовый UX, совместимость товаров",
+  "selsm-status": "Работает на shinemate-russia.ru",
+  "selsm-role": "Сайт официального дистрибьютора ShineMate в России — большой каталог оборудования для полировки, собранный в понятный путь от выбора машинки до совместимых кругов, подложек и паст.",
+  "cta-open-live": "Открыть живой сайт",
+
+  "sel02-no": "Работа 03 / 04",
   "tag-concept": "Концепт",
   "fact-type": "Тип",
   "fact-signature": "Фишка",
@@ -2121,7 +2207,7 @@ window.I18N_HOME_RU = {
   "sel02-role": "Концепт студии полировки. На главной вам сразу дают полировальную машинку: проведите по мутной панели — и покрытие оживает под пальцем.",
   "cta-try-polisher": "Попробовать полировку",
 
-  "sel03-no": "Работа 03 / 03",
+  "sel03-no": "Работа 04 / 04",
   "fact-what": "Что это",
   "fact-runson": "Работает через",
   "sel03-what": "Продукт в Telegram, собственная инициатива",
@@ -2215,6 +2301,22 @@ MLang.init(window.I18N_HOME_RU);
      Below 820px .nav-links has nowhere to live in the header row, so this
      button reveals it as a dropdown instead — same three links, no second
      copy of the markup or the i18n keys. */
+  /* The wordmark is the way home. On this page that means the absolute top —
+     an #top anchor lands 92px down because of scroll-padding-top, which is
+     right for section links and wrong for "back to the start". The href stays
+     so it works without JS and reads as a link. */
+  (function(){
+    var brand = document.querySelector('.brand');
+    if(!brand) return;
+    brand.addEventListener('click', function(e){
+      if(e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+      e.preventDefault();
+      var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+      if(location.hash) history.replaceState(null, '', location.pathname + location.search);
+    });
+  })();
+
   (function(){
     var burg = document.getElementById('burg');
     if(!burg) return;
@@ -2775,11 +2877,13 @@ MLang.init(window.I18N_HOME_RU);
   var ACCENTS = {
     idle:  [.43,.36,1.00],   /* Snowzan indigo — also the room's rest state */
     amber: [.78,.57,.25],    /* H&M, the polishing lamp                     */
+    warm:  [.99,.55,.05],    /* ShineMate — its own orange, off the real site*/
     violet:[.50,.32,1.00],   /* GrimeVPN — the same family, colder          */
     ember: [.81,.31,.16]     /* the process rail                            */
   };
   function accentFor(el){
     if(!el) return ACCENTS.idle;
+    if(el.classList.contains('s-sm')) return ACCENTS.warm;
     if(el.classList.contains('s-02')) return ACCENTS.amber;
     if(el.classList.contains('s-03')) return ACCENTS.violet;
     if(el.id === 'how') return ACCENTS.ember;
