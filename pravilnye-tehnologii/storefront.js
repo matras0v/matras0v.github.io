@@ -9,9 +9,8 @@ const SF = (() => {
   const select = (cat, n = 4) => dedupeVariants(all().filter(i => P[i][F.CAT] === cat).sort((a,b) => P[b][F.ST] - P[a][F.ST])).slice(0, n);
   const image = (i, eager = false) => `<img src="img/${esc(P[i][F.IMG])}" alt="${esc(P[i][F.N])}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" width="600" height="600">`;
   const extras = [
-    ['DM Автокосметика', 'Составы для мойки и ухода'],
     ['Glitz', 'Автохимия и уход за автомобилем'],
-    ['DriveMonster', 'Товары для детейлинга'],
+    ['Dry Monster', 'Товары для детейлинга'],
     ['ShineMate', 'Полировальные машины и оснастка'],
     ['Little Joe', 'Ароматы для салона'],
     ['Ultra', 'Ассортимент по запросу'],
@@ -27,7 +26,7 @@ const SF = (() => {
       const ids=dedupeVariants(b.ids).slice(0,3);
       return `<div class="sf-brand-family">${BRAND_LOGO[b.name]?`<img class="sf-brand-logo" src="img/${BRAND_LOGO[b.name]}" alt="${esc(b.name)}" loading="lazy">`:''}<div class="sf-brand-products">${ids.map(i=>image(i)).join('')}</div></div>`;
     }
-    return ['Little Joe','Space Cosmetics','DM Автокосметика'].includes(b.name) ? `<img src="img/editorial/${b.name === 'Little Joe' ? 'little-joe.png' : b.name === 'DM Автокосметика' ? 'dm.png' : 'space.png'}" alt="${esc(b.name)}" loading="lazy" width="600" height="600">` : `<span class="sf-brand-type">${esc(b.name)}</span>`;
+    return ['Little Joe','Space Cosmetics'].includes(b.name) ? `<img src="img/editorial/${b.name === 'Little Joe' ? 'little-joe.png' : 'space.png'}" alt="${esc(b.name)}" loading="lazy" width="600" height="600">` : `<span class="sf-brand-type">${esc(b.name)}</span>`;
   };
   const specialties = {'Koch Chemie':'Химия для кузова и салона','Zvizzer':'Пасты и полировальные круги','AuTech':'Оборудование и расходники','Cyclone':'Инструмент для химчистки','Marolex':'Помповые опрыскиватели','ColourLock':'Уход за кожей','Finisher':'Мойка и финишная обработка','PACA':'Смазки и очистители','Joybond':'Глина для подготовки кузова','Gyeon':'Покрытия и уход','Hendlex':'Защитные покрытия','ShineMate':'Машинки и оснастка'};
   const brandCard = b => `<a class="sf-brand-card" href="${href(b.name)}"><div class="sf-brand-art">${brandArt(b)}</div><div class="sf-brand-caption"><h3>${esc(b.name)}</h3><p class="brand-specialty">${esc(specialties[b.name] || b.note || "")}</p><span>${b.ids.length ? b.ids.length + ' позиций' : 'Запросить ассортимент'} <b aria-hidden="true">↗</b></span></div></a>`;
