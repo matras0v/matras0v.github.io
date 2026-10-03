@@ -586,7 +586,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
   .scale-row{grid-template-columns:minmax(0,1fr)}
 }
 </style>
-<link rel="stylesheet" href="storefront.css?v=20261002-final3">
+<link rel="stylesheet" href="storefront.css?v=20261003-retail2">
 </head>
 <body>
 
@@ -1041,7 +1041,7 @@ function cardHTML(i){
   const minRetail = Math.min(...variants.map(j => fxPrice(P[j])));
   const onRequest = priceOnRequest(p);
   return `<article class="card">
-    <button class="fav ${store.fav.includes(i)?"on":""}" data-fav="${i}" aria-label="В избранное">
+    <button class="fav ${store.fav.includes(i)?"on":""}" data-fav="${i}" aria-label="${store.fav.includes(i)?'Убрать из избранного':'В избранное'}" aria-pressed="${store.fav.includes(i)}">
       <svg viewBox="0 0 24 24"><path d="M12 20.5S3 15 3 8.7A4.7 4.7 0 0 1 12 6a4.7 4.7 0 0 1 9 2.7c0 6.3-9 11.8-9 11.8z"/></svg>
     </button>
     ${step ? `<span class="flag">${step} · шаг</span>` : ""}
@@ -1054,7 +1054,7 @@ function cardHTML(i){
       ${!multi && p[F.ART] ? `<span class="card-art mono">арт. ${esc(p[F.ART])}</span>` : ""}
       <div class="card-meta">
         ${multi ? `<span>${variants.length} ${plural(variants.length,"вариант","варианта","вариантов")}</span>` : (p[F.VOL] ? `<span>${esc(variantLabel(i))}</span>` : "")}
-        <span class="stock ${anyStock?"yes":"no"}">${anyStock?"в наличии":"нет в наличии"}</span>
+        <span class="stock ${anyStock?"yes":"no"}">${anyStock?"в наличии":"под заказ"}</span>
       </div>
       <div class="card-foot">
         <span class="price">${onRequest ? "Цена по запросу" : `${multi?"от ":""}${money(minPrice)}${isOpt()?`<span class="price-opt">розница ${money(minRetail)}</span>`:""}`}</span>
@@ -1230,15 +1230,25 @@ view.catalog = () => {
   if (filters.stock) list = list.filter(i => P[i][F.ST]);
   if (filters.step)  list = list.filter(i => STEP[i] === filters.step);
   if (filters.q){
-    const q = filters.q.toLowerCase();
-    list = list.filter(i => (P[i][F.N] + " " + BR[P[i][F.B]] + " " + (P[i][F.ART] || "")).toLowerCase().includes(q));
+    if (typeof RetailSearch !== 'undefined') {
+      const ranked = RetailSearch.find(filters.q);
+      const allowed = new Set(list);
+      list = ranked.filter(i => allowed.has(i));
+    } else {
+      const q = filters.q.toLowerCase();
+      list = list.filter(i => (P[i][F.N] + " " + BR[P[i][F.B]] + " " + (P[i][F.ART] || "")).toLowerCase().includes(q));
+    }
   }
   const sortPrice = i => priceOnRequest(P[i]) ? Infinity : price(P[i]);
   if (filters.sort === "asc")  list.sort((a,b) => sortPrice(a) - sortPrice(b));
   if (filters.sort === "desc") list.sort((a,b) => (sortPrice(b)===Infinity?-1:sortPrice(b)) - (sortPrice(a)===Infinity?-1:sortPrice(a)));
-  if (filters.sort === "pop")  list.sort((a,b) => P[b][F.ST] - P[a][F.ST]);
+  if (filters.sort === "pop" && !filters.q) list.sort((a,b) => P[b][F.ST] - P[a][F.ST]);
   if (filters.sort === "hit")  list.sort((a,b) => popScore(b) - popScore(a));
-  list = dedupeVariants(list);
+  if (filters.q) {
+    // Preserve the actual matched SKU instead of replacing it with a cheaper sibling.
+    const seen = new Set();
+    list = list.filter(i => {const group = Math.min(...(VARIANTS[i] || [i])); if(seen.has(group))return false;seen.add(group);return true;});
+  } else list = dedupeVariants(list);
 
   const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
   filters.page = Math.min(Math.max(1, filters.page), totalPages);
@@ -1403,7 +1413,7 @@ view.cart = () => {
             </div>
             <div class="qty">
               <button data-cq="${i}" data-d="-1" aria-label="Меньше">−</button>
-              <input type="number" class="qty-input cart-qty-input" value="${q}" min="1" inputmode="numeric" data-qi="${i}" data-unit="${price(p)}">
+              <input type="number" class="qty-input cart-qty-input" value="${q}" min="1" inputmode="numeric" aria-label="Количество товара" data-qi="${i}" data-unit="${price(p)}">
               <button data-cq="${i}" data-d="1" aria-label="Больше">+</button>
             </div>
             <span class="price">${money(price(p)*q)}</span>
@@ -1415,9 +1425,9 @@ view.cart = () => {
       </div>
       <aside class="summary">
         <div class="sum-row"><span>Позиций</span><b>${items.length}</b></div>
-        <div class="sum-row"><span>Товаров</span><b>${cartCount()}</b></div>
-        ${isOpt() ? `<div class="sum-row"><span>Оптовая скидка</span><b>−${money(saved)}</b></div>` : ""}
-        <div class="sum-total"><span>Итого</span><b>${money(cartTotal())}</b></div>
+        <div class="sum-row"><span>Товаров</span><b id="cartSummaryCount">${cartCount()}</b></div>
+        ${isOpt() ? `<div class="sum-row"><span>Оптовая скидка</span><b id="cartSummarySaving">−${money(saved)}</b></div>` : ""}
+        <div class="sum-total"><span>Итого</span><b id="cartSummaryTotal">${money(cartTotal())}</b></div>
         <a class="btn" href="#/checkout" style="width:100%;margin-top:20px">Оформить заявку</a>
         ${!isOpt() ? `<p class="note">Войдите в кабинет — увидите оптовую цену партнёра, она ниже на ${OPT_DISCOUNT*100}%.</p>` : ""}
         <p class="note">Онлайн-оплаты нет. Менеджер подтвердит наличие, согласует замены и выставит счёт.</p>
@@ -2186,6 +2196,11 @@ document.addEventListener("input", e => {
     const row = e.target.closest(".cart-row");
     const priceEl = row && row.querySelector(".price");
     if (priceEl) priceEl.textContent = money(Number(e.target.dataset.unit) * v);
+    const totalEl = $("#cartSummaryTotal"), countEl = $("#cartSummaryCount");
+    if (totalEl) totalEl.textContent = money(cartTotal());
+    if (countEl) countEl.textContent = cartCount();
+    const savingEl = $("#cartSummarySaving");
+    if (savingEl) savingEl.textContent = '−' + money(cartRetail() - cartTotal());
     paintChrome();
   }
 });
@@ -2323,6 +2338,7 @@ fetchUsdRate();
 $("#footYear").textContent = new Date().getFullYear();
 </script>
 <script src="shinemate-data.js?v=20261002"></script>
-<script src="storefront.js?v=20261002-final"></script>
+<script src="retail-search.js?v=20261003-retail2"></script>
+<script src="storefront.js?v=20261003-retail2"></script>
 </body>
 </html>
