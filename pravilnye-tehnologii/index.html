@@ -586,24 +586,10 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
   .scale-row{grid-template-columns:minmax(0,1fr)}
 }
 </style>
-<link rel="stylesheet" href="storefront.css?v=20261003-retail2">
+<link rel="stylesheet" href="storefront.css?v=20261003-delivery1">
+<link rel="stylesheet" href="delivery-polish.css?v=20261003-delivery1">
 </head>
 <body>
-
-<!-- ─────────── служебная строка ─────────── -->
-<div class="topbar">
-  <div class="wrap">
-    <button class="city-btn" id="cityBtn" aria-haspopup="dialog">
-      <svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
-      <span id="cityName">Ростов-на-Дону</span>
-    </button>
-    <div class="topbar-right">
-      <a href="#/delivery">Доставка и оплата</a>
-      <a href="#/wholesale">Оптовым клиентам</a>
-      <a class="topbar-phone" id="topPhone" href="tel:+79613011919">+7 961 301-19-19</a>
-    </div>
-  </div>
-</div>
 
 <!-- ─────────── шапка ─────────── -->
 <header class="masthead">
@@ -653,7 +639,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
     <a href="#/delivery">Доставка и оплата</a>
     <a href="#/contacts">Контакты</a>
   </div>
-  <div class="mainnav-fade" aria-hidden="true"></div>
+  <div class="header-region"><button class="city-btn" id="cityBtn" aria-haspopup="dialog"><span id="cityName">Ростов-на-Дону</span><span aria-hidden="true">⌄</span></button><a id="topPhone" href="tel:+79613011919">+7 961 301-19-19</a></div>
 </nav>
 
 <main id="main"></main>
@@ -698,7 +684,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
         <li><a href="#/delivery">Доставка и оплата</a></li>
         <li><a href="#/returns">Условия возврата</a></li>
         <li><a href="#/cart">Корзина</a></li>
-        <li><a href="#/account">Личный кабинет</a></li>
+        <li><a href="#/account">Оптовый доступ</a></li>
       </ul>
     </div>
     <div class="foot-col">
@@ -752,32 +738,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
   </div>
 </div>
 
-<!-- ─────────── модалка входа ─────────── -->
-<div class="overlay" id="loginModal" role="dialog" aria-modal="true" aria-label="Вход в кабинет">
-  <div class="modal" style="max-width:440px">
-    <div class="modal-head">
-      <div>
-        <p class="eyebrow">Личный кабинет</p>
-        <h3>Вход для партнёров</h3>
-      </div>
-      <button class="close" data-close aria-label="Закрыть">
-        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-    </div>
-    <form id="loginForm">
-      <div class="field">
-        <label for="llogin">Телефон или почта</label>
-        <input id="llogin" type="text" placeholder="+7 900 000-00-00 или mail@company.ru" required>
-      </div>
-      <div class="field">
-        <label for="lpass">Пароль</label>
-        <input id="lpass" type="password" placeholder="Пароль" minlength="6" required>
-      </div>
-      <button class="btn" type="submit" style="width:100%">Войти</button>
-      <p class="note" id="loginHint">Телефон или почта и пароль от 6 символов. После входа по каталогу появятся оптовые цены.</p>
-    </form>
-  </div>
-</div>
+<!-- No password form: wholesale access is handled by a manager. -->
 
 <!-- ?v= меняется при каждом обновлении каталога: иначе браузер отдаёт старую версию из кеша -->
 <script src="catalog.js?v=20260827d"></script>
@@ -908,13 +869,10 @@ const YANDEX_REVIEWS = [
   {name:"Александр", rating:5, date:"февраль 2020", text:"Большой выбор, разумные цены, знающий и дружелюбный персонал."},
 ];
 
-const OPT_DISCOUNT = 0.15;   // оптовая скидка партнёра в демо
+const OPT_DISCOUNT = 0; // Individual terms are confirmed by the manager.
 const WA_NUMBER = "79613011919";
 const SHOP_EMAIL = "zakaz@qptech.ru";
-/* Заявки с сайта (заказ и опт) уходят сюда через FormSubmit. Важно: FormSubmit требует,
-   чтобы владелец этого ящика один раз подтвердил адрес по ссылке в первом письме — иначе
-   доставка не начнётся. До этого подтверждения заявки будут теряться молча. */
-const DEMO_INBOX = SHOP_EMAIL;
+// Secure request transport is configured in request-client.js; no browser credentials.
 
 /* ── курс доллара для Koch Chemie: цены завода привязаны к USD, у нас — только к рублю на дату сборки каталога ──
    BASE_USD_RATE — курс ЦБ на дату, когда были сняты текущие цены (24.08.2026). Дальше цены Koch Chemie
@@ -944,8 +902,8 @@ const store = {
   city: load("pt_city", "Ростов-на-Дону"),
   cart: load("pt_cart", {}),
   fav:  load("pt_fav", []),
-  user: load("pt_user", null),
-  lastOrder: load("pt_order", null),
+  user: null,
+  lastOrder: null,
 };
 function load(k, dflt){
   try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : dflt; }
@@ -955,12 +913,14 @@ function save(k, v){
   try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){}
 }
 
+// Privacy migration: no persisted identity/order PII from the old demo.
+try { localStorage.removeItem("pt_user"); localStorage.removeItem("pt_order"); } catch {}
 /* ═══════════════════ утилиты ═══════════════════ */
 const $  = (s, r) => (r || document).querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const money = n => Number(n).toLocaleString("ru-RU", {minimumFractionDigits: Number.isInteger(Number(n)) ? 0 : 2, maximumFractionDigits: 2}) + " ₽";
 const optPrice = n => Math.round(n * (1 - OPT_DISCOUNT) / 10) * 10;
-const isOpt = () => !!store.user;
+const isOpt = () => false; // Partner pricing requires real verified terms, not a local login.
 const fxPrice = p => BR[p[F.B]] === "Koch Chemie" ? Math.round(p[F.PR] * fxMultiplier() / 10) * 10 : p[F.PR];
 const price = p => isOpt() ? optPrice(fxPrice(p)) : fxPrice(p);
 /* Новые бренды (Gyeon, Hendlex) добавлены по официальным сайтам производителей — там нет
@@ -987,7 +947,7 @@ function paintChrome(){
   const fb = $("#favBadge");
   fb.hidden = store.fav.length === 0; fb.textContent = store.fav.length;
 
-  $("#accLabel").textContent = store.user ? "Профиль" : "Кабинет";
+  $("#accLabel").textContent = "Оптовикам";
 
   const route = location.hash.split("/")[1] || "";
   document.querySelectorAll("#nav a").forEach(a => {
@@ -1361,7 +1321,7 @@ view.product = id => {
             <span class="price" id="pdpPrice" data-unit="${price(p)}">${money(price(p))}</span>
             ${isOpt()
               ? `<span class="price-opt">розница ${money(fxPrice(p))} · ваша скидка ${OPT_DISCOUNT*100}%</span>`
-              : `<span class="price-opt">оптовая цена — в личном кабинете</span>`}
+              : `<a class="price-opt" href="#/wholesale">Запросить оптовые условия</a>`}
           </div>
           <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
             <div class="qty">
@@ -1429,7 +1389,7 @@ view.cart = () => {
         ${isOpt() ? `<div class="sum-row"><span>Оптовая скидка</span><b id="cartSummarySaving">−${money(saved)}</b></div>` : ""}
         <div class="sum-total"><span>Итого</span><b id="cartSummaryTotal">${money(cartTotal())}</b></div>
         <a class="btn" href="#/checkout" style="width:100%;margin-top:20px">Оформить заявку</a>
-        ${!isOpt() ? `<p class="note">Войдите в кабинет — увидите оптовую цену партнёра, она ниже на ${OPT_DISCOUNT*100}%.</p>` : ""}
+        ${!isOpt() ? `<p class="note">Оптовые условия согласовываются с менеджером. <a href="#/wholesale">Запросить предложение</a>.</p>` : ""}
         <p class="note">Онлайн-оплаты нет. Менеджер подтвердит наличие, согласует замены и выставит счёт.</p>
       </aside>
     </div>
@@ -1454,6 +1414,8 @@ view.checkout = () => {
           <input id="ophone" type="tel" required placeholder="+7 900 000-00-00" value="${u ? esc(u.phone) : ""}">
         </div>
         <div class="field">
+          <label for="oemail">Почта (необязательно)</label><input id="oemail" type="email" autocomplete="email" placeholder="mail@example.ru">
+        </div><div class="field">
           <label for="ocity">Город</label>
           <select id="ocity">${CITIES.map(c => `<option ${c.n===store.city?"selected":""}>${c.n}</option>`).join("")}</select>
         </div>
@@ -1483,48 +1445,16 @@ view.checkout = () => {
       </form>
       <aside class="summary">
         <p class="eyebrow">Состав заявки</p>
-        ${Object.entries(store.cart).map(([i,q]) => `<div class="sum-row"><span>${esc(P[i][F.N].slice(0,42))}${P[i][F.N].length>42?"…":""} × ${q}</span><b>${money(price(P[i])*q)}</b></div>`).join("")}
+        ${Object.entries(store.cart).map(([i,q]) => `<div class="sum-row"><span>${esc(P[i][F.N])}<small class="order-sku">Арт. ${esc(P[i][F.ART] || "уточняется")} · ${esc(variantLabel(+i))} · ${q} шт.</small></span><b>${money(price(P[i])*q)}</b></div>`).join("")}
         <div class="sum-total"><span>Итого</span><b>${money(cartTotal())}</b></div>
-        <p class="note">${isOpt() ? "Цены оптовые, скидка партнёра применена." : "Цены розничные. В кабинете партнёра — оптовые."}</p>
+        <p class="note">${isOpt() ? "Цены оптовые, скидка партнёра применена." : "Итог и условия поставки подтвердит менеджер."}</p>
       </aside>
     </div>
   </div></section>`;
 };
 
 /* ── подтверждение ── */
-view.done = () => {
-  const o = store.lastOrder;
-  if (!o) { location.hash = "#/"; return ""; }
-  const text = orderText(o);
-  const enc = encodeURIComponent(text);
-  return `<section class="screen on"><div class="wrap">
-    <div class="done">
-      <div class="done-mark"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
-      <h2>Заявка принята</h2>
-      <p class="order-no">Заказ № ${o.no}</p>
-      <p style="color:var(--steel);margin:18px 0 0">Менеджер свяжется в рабочее время — Пн–Пт с 09:00 до 18:00 — подтвердит наличие и выставит счёт.</p>
-
-      <div class="send-row">
-        <a class="send" href="https://wa.me/${WA_NUMBER}?text=${enc}" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21z"/><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0-1h-1a.5 .5 0 0 0 0 1"/></svg>
-          Продублировать<br>в WhatsApp
-        </a>
-        <a class="send" href="https://t.me/share/url?url=${encodeURIComponent("Заказ № "+o.no)}&text=${enc}" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/></svg>
-          Продублировать<br>в Telegram
-        </a>
-        <a class="send" href="mailto:${SHOP_EMAIL}?subject=${encodeURIComponent("Заказ № "+o.no+" с сайта")}&body=${enc}">
-          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3 7 9 6 9-6"/></svg>
-          Отправить<br>на почту
-        </a>
-      </div>
-      <p class="note" style="text-align:center">В боевой версии заявка уходит менеджеру автоматически — на почту и в Telegram. Кнопки выше нужны, чтобы клиент мог продублировать заказ в удобный ему канал.</p>
-
-      <div class="done-order">${esc(text)}</div>
-      <p style="margin-top:26px"><a class="btn ghost" href="#/catalog">Вернуться в каталог</a></p>
-    </div>
-  </div></section>`;
-};
+view.done = () => `<section class="screen on"><div class="wrap"><h1>Ваш запрос</h1><p>Статус отправки отображается рядом с формой. Без подтверждения сервера заявка не считается отправленной.</p><a class="btn" href="#/cart">К корзине</a></div></section>`;
 function orderText(o){
   const lines = o.items.map(x => `• ${x.n} — ${x.q} шт × ${money(x.p)} = ${money(x.p*x.q)}`);
   return [
@@ -1545,72 +1475,11 @@ function orderText(o){
 }
 
 /* ── кабинет ── */
-view.account = () => {
-  if (!store.user) return `<section class="screen on"><div class="wrap">
-    <div style="max-width:48ch">
-      <p class="eyebrow">Личный кабинет</p>
-      <h2>Кабинет партнёра</h2>
-      <p style="color:var(--steel);font-size:14.5px;margin:16px 0 0">Мойки, студии и магазины работают по своей цене. В кабинете видно оптовый прайс, историю заказов и документы — без звонка менеджеру.</p>
-      <ul class="ticks">
-        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Оптовая цена вместо розничной по всему каталогу</li>
-        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>История заказов и повтор в один клик</li>
-        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Реквизиты подставляются в счёт автоматически</li>
-        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Избранное — свой рабочий список расходников</li>
-      </ul>
-      <button class="btn" id="openLogin">Войти в кабинет</button>
-    </div>
-  </div></section>`;
-
-  const u = store.user;
-  const favList = store.fav.slice(0,4);
-  return `<section class="screen on"><div class="wrap">
-    <p class="crumbs"><a href="#/">Главная</a> / Кабинет</p>
-    <div class="head">
-      <div><p class="eyebrow">${esc(u.phone)}</p><h2>${esc(u.company)}</h2></div>
-      <button class="btn ghost" id="logout" style="padding:10px 18px">Выйти</button>
-    </div>
-    <div class="acc-grid">
-      <div class="acc-card"><b>−${OPT_DISCOUNT*100}%</b><span>Оптовая скидка партнёра, действует по всему каталогу</span></div>
-      <div class="acc-card"><b>2</b><span>Заказа за последние 90 дней</span></div>
-      <div class="acc-card"><b>${store.fav.length}</b><span>Позиций в избранном</span></div>
-    </div>
-
-    <div class="head" style="margin-top:12px"><div><p class="eyebrow">История</p><h3>Мои заказы</h3></div></div>
-    <div class="order-line">
-      <div><b>№ 24-0871</b> <span style="margin-left:12px">12 августа · 6 позиций</span></div>
-      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
-        <span class="tag done-tag">Выполнен</span><b>34 820 ₽</b>
-        <button class="btn ghost" style="padding:8px 14px;font-size:12.5px" data-repeat="1">Повторить</button>
-      </div>
-    </div>
-    <div class="order-line">
-      <div><b>№ 24-0790</b> <span style="margin-left:12px">28 июля · 3 позиции</span></div>
-      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
-        <span class="tag done-tag">Выполнен</span><b>11 240 ₽</b>
-        <button class="btn ghost" style="padding:8px 14px;font-size:12.5px" data-repeat="2">Повторить</button>
-      </div>
-    </div>
-
-    <div class="two" style="margin-top:56px">
-      <div>
-        <p class="eyebrow">Документы</p><h3>Реквизиты для счёта</h3>
-        <table class="spec">
-          <tr><td>Организация</td><td>${esc(u.company)}</td></tr>
-          <tr><td>Телефон</td><td>${esc(u.phone)}</td></tr>
-          <tr><td>Город</td><td>${esc(store.city)}</td></tr>
-          <tr><td>Условия</td><td>Оптовые, −${OPT_DISCOUNT*100}%</td></tr>
-        </table>
-        <p class="note">Подставляются в счёт автоматически — не нужно диктовать менеджеру каждый раз.</p>
-      </div>
-      <div>
-        <p class="eyebrow">Избранное</p><h3>Рабочий список</h3>
-        ${favList.length
-          ? `<div style="margin-top:20px">${gridHTML(favList)}</div>`
-          : `<p style="color:var(--steel);font-size:14px;margin-top:16px">Пока пусто. Отмечайте позиции сердечком в каталоге — здесь соберётся ваш постоянный список расходников.</p>`}
-      </div>
-    </div>
-  </div></section>`;
-};
+view.account = () => `<section class="screen on"><div class="wrap"><div class="partner-access">
+<p class="crumbs"><a href="#/">Главная</a> / Оптовый доступ</p><h1>Получить оптовый доступ</h1>
+<p class="sf-intro">Для моек, детейлинг-студий и магазинов. Подберём ассортимент и согласуем условия закупки под ваши задачи.</p>
+<ol class="access-steps"><li><b>Расскажите о бизнесе</b><span>Город, профиль работы и интересующие товары.</span></li><li><b>Получите предложение</b><span>Менеджер уточнит наличие и условия поставки.</span></li><li><b>Согласуйте заказ</b><span>Подтвердим итог и выставим счёт.</span></li></ol>
+<a class="btn" href="#/wholesale">Получить оптовые условия</a><p class="note">Заявки обрабатывает менеджер. Регистрация и пароль не нужны.</p></div></div></section>`;
 
 /* ── избранное ── */
 view.favorites = () => `<section class="screen on"><div class="wrap">
@@ -1695,7 +1564,7 @@ view.wholesale = () => `<section class="screen on"><div class="wrap">
       <p style="color:var(--steel);font-size:14.5px;margin:16px 0 0;max-width:50ch">Автомойка, детейлинг-студия, магазин автотоваров или СТО — работаем напрямую от официального дилера, без наценки посредников.</p>
       <ul class="ticks">
         <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Прямые поставки Koch Chemie, Zvizzer, AuTech и других брендов</li>
-        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Личный кабинет с оптовым прайсом и историей заказов</li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Индивидуальное предложение и сопровождение заказа менеджером</li>
         <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Подбор химии под ваше оборудование и тип лака</li>
         <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Обучение и выездные семинары для мастеров</li>
         <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Склад в Ростове-на-Дону и доставка по югу России</li>
@@ -1780,7 +1649,7 @@ view.privacy = () => `<section class="screen on"><div class="wrap">
   <div class="legal-doc">
     <p>Настоящая Политика конфиденциальности действует в отношении всей информации, которую ООО «Правильные Технологии» (ИНН 6165176208, ОГРН 1126165006593) может получить о пользователе во время использования сайта правильная-технология.рф.</p>
     <h4>1. Какие данные мы собираем</h4>
-    <p>Имя, телефон, электронную почту, название и реквизиты компании — только те данные, которые пользователь указывает сам при оформлении заявки, заявки на оптовое сотрудничество или входе в личный кабинет. Мы не запрашиваем и не храним данные банковских карт — оплата по счёту происходит вне сайта.</p>
+    <p>Имя, телефон, электронную почту, название и реквизиты компании пользователь указывает при подготовке заявки. Пока прямая отправка не подключена, форма готовит текст письма: пользователь самостоятельно отправляет его из своей почты. Поля формы не сохраняются в хранилище браузера. Пароли и данные банковских карт сайт не запрашивает.</p>
     <h4>2. Как мы используем данные</h4>
     <p>Только для обработки заявки: связаться с покупателем, подтвердить наличие, выставить счёт, оформить доставку. Данные не передаются третьим лицам, кроме транспортных компаний в объёме, необходимом для доставки заказа.</p>
     <h4>3. Cookie</h4>
@@ -1801,8 +1670,8 @@ view.terms = () => `<section class="screen on"><div class="wrap">
     <p>Используя сайт, пользователь соглашается с условиями настоящего соглашения. Сайт предоставляет информацию о товарах, ценах и наличии в справочных целях; актуальность остатков и цены на момент оформления подтверждает менеджер.</p>
     <h4>2. Оформление заявки</h4>
     <p>Оформление заявки через корзину не является публичной офертой и не предполагает автоматической онлайн-оплаты. Заявка считается принятой к обработке после подтверждения менеджером.</p>
-    <h4>3. Личный кабинет</h4>
-    <p>Доступ к оптовым ценам предоставляется зарегистрированным партнёрам. Пользователь несёт ответственность за сохранность своего логина и пароля.</p>
+    <h4>3. Оптовые условия</h4>
+    <p>Ассортимент и индивидуальные условия согласовываются с менеджером. Регистрация и авторизация на сайте пока не доступны; логин и пароль не требуются.</p>
     <h4>4. Ответственность</h4>
     <p>Правообладатель сайта не несёт ответственности за содержимое сайтов третьих лиц, на которые пользователь может перейти по ссылкам с сайта.</p>
     <h4>5. Контакты</h4>
@@ -1848,11 +1717,11 @@ view.cookies = () => `<section class="screen on"><div class="wrap">
     <ul>
       <li>Содержимое корзины и списка избранного — чтобы не терялись при перезагрузке страницы;</li>
       <li>Выбранный город — чтобы не выбирать его заново при каждом визите;</li>
-      <li>Статус входа в личный кабинет — чтобы показывать оптовые цены зарегистрированным партнёрам;</li>
+      <li>Последний полученный курс валют и дата его обновления — для расчёта каталожных цен;</li>
       <li>Факт согласия с использованием cookie — чтобы не показывать баннер повторно.</li>
     </ul>
     <h4>3. Сторонние сервисы</h4>
-    <p>Сайт не использует Google Analytics, Яндекс.Метрику, рекламные пиксели и любые другие сервисы, которые бы устанавливали cookie-файлы или собирали данные о поведении пользователя для сторонних компаний. Единственное внешнее обращение — курс валют ЦБ РФ (cbr-xml-daily.ru) для расчёта цены; оно не связано с данными пользователя и не передаёт никакой личной информации.</p>
+    <p>На сайте не подключены Google Analytics, Яндекс.Метрика и рекламные пиксели. Для курса валют браузер обращается к cbr-xml-daily.ru: сервис получает технические данные сетевого запроса, включая IP-адрес. Поля заявок в этот запрос не включаются. При переходе в Яндекс Карты, WhatsApp или почтовое приложение действуют правила соответствующего сервиса.</p>
     <h4>4. Как отключить</h4>
     <p>Пользователь может в любой момент удалить сохранённые данные через настройки браузера (очистка данных сайта / localStorage) — это не нарушит работу сайта, только сбросит корзину, избранное и выбранный город к значениям по умолчанию.</p>
     <h4>5. Контакты</h4>
@@ -2141,20 +2010,7 @@ document.addEventListener("click", e => {
 
   if (t.closest("#filtersToggle")){ $("#sideWrap").classList.toggle("open"); return; }
   if (t.closest("#cityBtn")){ openCity(); return; }
-  if (t.closest("#openLogin")){
-    $("#llogin").style.borderColor = ""; $("#lpass").style.borderColor = "";
-    const h = $("#loginHint");
-    h.style.color = ""; h.textContent = "Телефон или почта и пароль от 6 символов. После входа по каталогу появятся оптовые цены.";
-    $("#loginModal").classList.add("on"); return;
-  }
-  if (t.closest("#logout")){ store.user = null; save("pt_user", null); render(); return; }
-
-  const rep = t.closest("[data-repeat]");
-  if (rep){
-    const pick = P.map((p,i)=>i).filter(i => P[i][F.ST]).slice(rep.dataset.repeat === "1" ? 0 : 6, rep.dataset.repeat === "1" ? 6 : 9);
-    pick.forEach(i => addToCart(i));
-    location.hash = "#/cart"; return;
-  }
+  if (t.closest("#openLogin")){ location.hash = "#/wholesale"; return; }
 
   const city = t.closest("[data-city]");
   if (city){
@@ -2220,107 +2076,21 @@ $("#searchForm").addEventListener("submit", e => {
 /* город */
 function openCity(){
   const groups = [
-    {t:"Представительство и склад", list:CITIES.filter(c => c.o)},
-    {t:"Доставка транспортной компанией", list:CITIES.filter(c => !c.o)},
+    {t:"Магазин и самовывоз", list:CITIES.filter(c => c.a)},
+    {t:"Доставка и региональные менеджеры", list:CITIES.filter(c => !c.a)},
   ];
   $("#cityBody").innerHTML = groups.map(g => `<div class="city-group">
     <h5>${g.t}</h5>
     <div class="city-list">${g.list.map(c => `
-      <button class="city-opt ${c.n===store.city?"on":""}" data-city="${c.n}">
-        ${c.n}<i>${phoneFmt(c.ph)}</i>
+      <button class="city-opt ${c.n===store.city?"on":""}" data-city="${c.n}" aria-pressed="${c.n===store.city}">
+        ${c.n}<i>${c.a || "Доставка транспортной компанией"}<br>${phoneFmt(c.ph)}</i>
       </button>`).join("")}</div>
   </div>`).join("") + `<p class="note">От города зависит телефон менеджера и способ получения. Адрес склада — Ростов-на-Дону, ул. Ерёменко, 45.</p>`;
   $("#cityModal").classList.add("on");
+  $("#cityModal").querySelector(".city-opt.on, .city-opt").focus();
 }
 
-/* вход */
-/* Логин — телефон (10–11 цифр) или почта. Пароль — от 6 символов. */
-const isPhone = v => /^\+?[\d\s()-]{10,18}$/.test(v) && v.replace(/\D/g,"").length >= 10;
-const isEmail = v => /^[^\s@]+@[^\s@]+\.[a-zA-Zа-яА-Я]{2,}$/.test(v);
-
-function loginError(el, msg){
-  el.style.borderColor = "var(--signal)";
-  const hint = $("#loginHint");
-  hint.textContent = msg;
-  hint.style.color = "var(--signal)";
-}
-
-$("#loginForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const login = $("#llogin").value.trim();
-  const pass = $("#lpass").value.trim();
-
-  if (!isPhone(login) && !isEmail(login)){
-    loginError($("#llogin"), "Введите телефон (+7 900 000-00-00) или почту (mail@company.ru)");
-    return;
-  }
-  $("#llogin").style.borderColor = "";
-
-  if (pass.length < 6){
-    loginError($("#lpass"), "Пароль — минимум 6 символов");
-    return;
-  }
-  $("#lpass").style.borderColor = "";
-  store.user = {phone: login, company:"Детейлинг-центр «Юг»"};
-  save("pt_user", store.user);
-  $("#loginModal").classList.remove("on");
-  location.hash = "#/account"; render();
-});
-
-/* оформление заявки */
-document.addEventListener("submit", e => {
-  if (e.target.id === "orderForm"){
-    e.preventDefault();
-    const items = Object.entries(store.cart).map(([i,q]) => ({n:P[i][F.N], q, p:price(P[i])}));
-    const order = {
-      no: "ПТ-" + String(Date.now()).slice(-6),
-      name: $("#oname").value.trim(),
-      phone: $("#ophone").value.trim(),
-      city: $("#ocity").value === "Другой город" && $("#ocityOther").value.trim() ? $("#ocityOther").value.trim() : $("#ocity").value,
-      ship: document.querySelector('input[name="ship"]:checked').value,
-      comment: $("#ocomm").value.trim(),
-      items, total: cartTotal(), opt: isOpt(),
-    };
-    store.lastOrder = order; save("pt_order", order);
-    sendToInbox("Заказ № " + order.no, orderText(order));
-    store.cart = {}; save("pt_cart", store.cart);
-    location.hash = "#/done"; render();
-  }
-
-  if (e.target.id === "partnerForm"){
-    e.preventDefault();
-    const body = `Заявка на оптовые условия
-
-Имя: ${$("#pname").value}
-Телефон: ${$("#pphone").value}
-Компания: ${$("#pcomp").value}
-Форма организации: ${$("#pform").value}
-ИНН: ${$("#pinn").value || "не указан"}
-Почта: ${$("#pemail").value || "не указана"}
-Город: ${$("#pcity").value === "Другой город" && $("#pcityOther").value.trim() ? $("#pcityOther").value.trim() : $("#pcity").value}
-Профиль: ${$("#pactivity").value}
-Ожидаемый объём закупок: ${$("#pvolume").value}
-Комментарий: ${$("#pcomment").value || "—"}`;
-    sendToInbox("Заявка на оптовые условия", body);
-    e.target.innerHTML = `<p class="eyebrow">Принято</p><h3>Заявка отправлена</h3>
-      <p style="font-size:14px;color:var(--steel);margin:14px 0 0">Менеджер свяжется в рабочее время, Пн–Пт с 09:00 до 18:00.</p>
-      <p class="note">В боевой версии заявка уходит на почту и в Telegram менеджеру.</p>`;
-  }
-});
-
-/* Отправка на почту. В демо адрес — ящик разработчика, не рабочая почта магазина.
-   На file:// запрос заблокируется браузером — это нормально, кнопки дублирования работают всегда. */
-function sendToInbox(subject, text){
-  try {
-    const fd = new FormData();
-    fd.append("_subject", subject);
-    fd.append("Заявка", text);
-    fd.append("_captcha", "false");
-    fd.append("_template", "table");
-    fetch("https://formsubmit.co/ajax/" + DEMO_INBOX, {method:"POST", body:fd})
-      .catch(() => {});
-  } catch(e){}
-}
+/* Request validation and explicit delivery state are handled by client-flows.js. */
 
 /* cookie-баннер */
 if (!load("pt_cookies_ok", false)){
@@ -2338,7 +2108,9 @@ fetchUsdRate();
 $("#footYear").textContent = new Date().getFullYear();
 </script>
 <script src="shinemate-data.js?v=20261002"></script>
-<script src="retail-search.js?v=20261003-retail2"></script>
-<script src="storefront.js?v=20261003-retail2"></script>
+<script src="retail-search.js?v=20261003-delivery1"></script>
+<script src="request-client.js?v=20261003-delivery1"></script>
+<script src="client-flows.js?v=20261003-delivery2"></script>
+<script src="storefront.js?v=20261003-delivery2"></script>
 </body>
 </html>
