@@ -1,4 +1,8 @@
 /* Client mobile corrections; desktop compositions remain unchanged. */
+.city-scroll-lock{position:fixed;top:var(--city-scroll);width:100%;overflow:hidden}
+.product-favorite{margin-top:16px;width:100%;min-height:44px}
+.field label{font-family:var(--sans);text-transform:none;letter-spacing:0;font-size:14px}
+.field input,.field select{min-height:48px}
 .footer-disclosure>summary{font-size:14px;font-weight:650;color:#edf1f5;list-style:none;margin-bottom:16px}
 .footer-disclosure>summary::-webkit-details-marker{display:none}
 @media(min-width:768px){.footer-disclosure>summary{pointer-events:none}}

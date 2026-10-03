@@ -6,6 +6,12 @@
 <title>Правильные технологии — автохимия и оборудование для детейлинга</title>
 <meta name="description" content="Официальный дилер Koch Chemie на юге России. Автохимия, полировальные пасты, круги, оборудование и расходники для автомоек и детейлинг-центров.">
 <link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="canonical" href="https://matras0v.github.io/pravilnye-tehnologii/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Правильные технологии — автохимия и оборудование">
+<meta property="og:description" content="Материалы для мойки, полировки и ухода за автомобилем. Подбор оборудования и оптовые заявки.">
+<meta property="og:url" content="https://matras0v.github.io/pravilnye-tehnologii/">
+<meta property="og:image" content="https://matras0v.github.io/pravilnye-tehnologii/img/logo-honeycomb.png">
 <style>
 /* Шрифт заголовков — свой файл в /fonts, без запроса к Google Fonts (пункт из чек-листа Роскомнадзора: не использовать сервисы Google). */
 @font-face{
@@ -588,7 +594,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 </style>
 <link rel="stylesheet" href="storefront.css?v=20261003-delivery1">
 <link rel="stylesheet" href="delivery-polish.css?v=20261003-delivery1">
-<link rel="stylesheet" href="mobile-final.css?v=20261003-mobile1">
+<link rel="stylesheet" href="mobile-final.css?v=20261003-final2">
 </head>
 <body>
 
@@ -1276,8 +1282,8 @@ function plural(n, a, b, c){
 
 /* ── карточка товара ── */
 view.product = id => {
+  if (!/^\d+$/.test(String(id)) || !Array.isArray(P[id])) return view.notFound();
   const p = P[id];
-  if (!p) return view.home();
   const myVariants = VARIANTS[id];
   const same = dedupeVariants(
     P.map((x,i) => i).filter(i => !myVariants.includes(i) && P[i][F.CAT] === p[F.CAT] && P[i][F.B] === p[F.B])
@@ -1877,6 +1883,7 @@ function applyHash(){
   render();
 }
 
+view.notFound = () => `<section class="screen on"><div class="wrap"><p class="crumbs"><a href="#/">Главная</a> / Страница не найдена</p><h1>Страница не найдена</h1><p class="sf-intro">Возможно, ссылка устарела. Найдите товар по названию или артикулу в поиске сверху.</p><div class="sf-actions"><a class="btn" href="#/catalog">Открыть каталог</a><a class="btn ghost" href="#/">На главную</a></div></div></section>`;
 function render(){
   const path = (location.hash.slice(2) || "").split("?")[0];
   const seg = path.split("/").filter(Boolean);
@@ -1906,7 +1913,7 @@ function render(){
     case "offer":     html = view.offer(); break;
     case "contacts":  html = view.contacts(); break;
     case "scale":     html = view.scale(); break;
-    default:          html = view.home();
+    default:          html = view.notFound();
   }
   $("#main").innerHTML = html;
   paintChrome();
@@ -2109,9 +2116,10 @@ fetchUsdRate();
 $("#footYear").textContent = new Date().getFullYear();
 </script>
 <script src="shinemate-data.js?v=20261002"></script>
-<script src="retail-search.js?v=20261003-mobile1"></script>
+<script src="retail-search.js?v=20261003-final2"></script>
 <script src="request-client.js?v=20261003-delivery1"></script>
-<script src="client-flows.js?v=20261003-delivery2"></script>
-<script src="storefront.js?v=20261003-mobile1"></script>
+<script src="client-flows.js?v=20261003-final2"></script>
+<script src="storefront.js?v=20261003-final2"></script>
+<script src="release-polish.js?v=20261003-final1"></script>
 </body>
 </html>

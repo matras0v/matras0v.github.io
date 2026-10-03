@@ -46,7 +46,7 @@
     const order=form.id==='orderForm', prefix=order?'o':'p';
     const payload={type:order?'order':'wholesale',requestId:form.dataset.requestId ||= crypto.randomUUID(),consent:{accepted:true,version:'2026-10-03'},customer:{name:val(form,prefix+'name'),phone:val(form,prefix+'phone'),email:val(form,prefix+'email'),city:cities(form,prefix)},comment:val(form,order?'ocomm':'pcomment')};
     if(order){
-      payload.items=Object.entries(store.cart).map(([i,q])=>({sku:P[i][F.ART]||'',title:P[i][F.N],variant:variantLabel(+i),quantity:q,unitPrice:price(P[i]),availability:P[i][F.ST]?'in_stock':'on_request'}));
+      payload.items=Object.entries(store.cart).map(([i,q])=>({productId:Number(i),sku:P[i][F.ART]||'',title:P[i][F.N],variant:variantLabel(+i),quantity:q,unitPrice:price(P[i]),availability:P[i][F.ST]?'in_stock':'on_request'}));
       payload.total=cartTotal();payload.currency='RUB';payload.shipping=form.querySelector('[name=ship]:checked').value;
       if(!payload.items.length){status.textContent='Корзина пуста. Сначала добавьте товары.';return;}
     }else payload.business={company:val(form,'pcomp'),legalForm:val(form,'pform'),inn:val(form,'pinn'),activity:val(form,'pactivity'),volume:val(form,'pvolume')};
