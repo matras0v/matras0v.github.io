@@ -1,0 +1,3 @@
+# Package sources/config/templates are not web endpoints. Upload request.php separately to /api/.
+Options -Indexes
+Require all denied

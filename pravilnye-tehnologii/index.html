@@ -1904,6 +1904,7 @@ function render(){
     case "brands":    html = view.brands(); break;
     case "promo":     html = view.promo(); break;
     case "wholesale": html = view.wholesale(); break;
+    case "contact-request": html = view["contact-request"] ? view["contact-request"]() : view.notFound(); break;
     case "delivery":  html = view.delivery(); break;
     case "privacy":   html = view.privacy(); break;
     case "terms":     html = view.terms(); break;
@@ -2118,8 +2119,9 @@ $("#footYear").textContent = new Date().getFullYear();
 </script>
 <script src="shinemate-data.js?v=20261002"></script>
 <script src="retail-search.js?v=20261005-final1"></script>
-<script src="request-client.js?v=20261005-final1"></script>
-<script src="client-flows.js?v=20261005-final1"></script>
+<script src="request-config.js?v=20261006-forms1"></script>
+<script src="request-client.js?v=20261006-forms1"></script>
+<script src="client-flows.js?v=20261006-forms1"></script>
 <script src="storefront.js?v=20261005-final1"></script>
 <script src="release-polish.js?v=20261003-final1"></script>
 <script src="delivery-final.js?v=20261005-final1"></script>
