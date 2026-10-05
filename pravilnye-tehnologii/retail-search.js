@@ -26,13 +26,16 @@ const RetailSearch = (() => {
   panel.append(status,list,all);form.append(panel);
   input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-expanded','false');input.setAttribute('aria-controls','searchOptions');
   let active=-1, hits=[];
+  const requestBrands=['Glitz','Dry Monster','Little Joe','Ultra','Space Cosmetics'];
   const close=()=>{panel.hidden=true;active=-1;input.setAttribute('aria-expanded','false');input.removeAttribute('aria-activedescendant');};
   function show(){
     const q=input.value.trim();if(!q){close();return;}
     const found=find(q); hits=found.slice(0,8);active=-1;
+    const brandHits=requestBrands.filter(b=>normalize(b).includes(normalize(q))).slice(0,3);
     input.removeAttribute('aria-activedescendant');
     list.innerHTML=hits.map((i,n)=>{const p=P[i];return `<a id="searchOption${n}" class="search-option" role="option" aria-selected="false" tabindex="-1" href="#/product/${i}"><img src="img/${esc(p[F.IMG])}" alt="" width="56" height="64"><span><b>${esc(p[F.N])}</b><small>${esc(BR[p[F.B]])}${p[F.ART]?' · '+esc(p[F.ART]):''}</small></span><strong>${priceOnRequest(p)?'По запросу':money(price(p))}</strong></a>`;}).join('');
-    status.textContent=found.length?`Найдено позиций: ${found.length}`:'Ничего не найдено. Попробуйте название, бренд или артикул.';
+    list.insertAdjacentHTML('beforeend',brandHits.map((b,n)=>`<a id="searchOption${hits.length+n}" class="search-option" role="option" aria-selected="false" tabindex="-1" href="#/brand/${encodeURIComponent(b)}"><span><b>${esc(b)}</b><small>Ассортимент бренда — по запросу</small></span><strong>Открыть →</strong></a>`).join(''));
+    status.textContent=found.length?`Найдено позиций: ${found.length}`:brandHits.length?'Найден бренд. Наличие и цены уточнит менеджер.':'Ничего не найдено. Попробуйте название, бренд или артикул.';
     all.href='#/catalog?q='+encodeURIComponent(q);all.textContent='Все результаты →';all.hidden=!found.length;
     panel.hidden=false;input.setAttribute('aria-expanded','true');
   }
@@ -41,11 +44,11 @@ const RetailSearch = (() => {
     if(e.isComposing)return;
     if(e.key==='Escape'){e.preventDefault();close();return;}
     if(e.key==='ArrowDown'||e.key==='ArrowUp'){
-      e.preventDefault();if(panel.hidden)show();if(!hits.length)return;
-      active=active<0?(e.key==='ArrowDown'?0:hits.length-1):(active+(e.key==='ArrowDown'?1:-1)+hits.length)%hits.length;
+      e.preventDefault();if(panel.hidden)show();const count=list.children.length;if(!count)return;
+      active=active<0?(e.key==='ArrowDown'?0:count-1):(active+(e.key==='ArrowDown'?1:-1)+count)%count;
       [...list.children].forEach((el,n)=>el.setAttribute('aria-selected',String(n===active)));
       input.setAttribute('aria-activedescendant','searchOption'+active);list.children[active].scrollIntoView({block:'nearest'});
-    }else if(e.key==='Enter'&&!panel.hidden&&active>=0){e.preventDefault();location.hash='#/product/'+hits[active];close();}
+    }else if(e.key==='Enter'&&!panel.hidden&&active>=0){e.preventDefault();location.hash=list.children[active].getAttribute('href');close();}
     else if(e.key==='Tab')close();
   });
   panel.addEventListener('click',e=>{if(e.target.closest('a'))close();});

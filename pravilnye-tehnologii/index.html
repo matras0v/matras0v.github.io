@@ -596,6 +596,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <link rel="stylesheet" href="delivery-polish.css?v=20261003-delivery1">
 <link rel="stylesheet" href="mobile-final.css?v=20261003-final2">
 <link rel="stylesheet" href="brand-feedback.css?v=20261005-client1">
+<link rel="stylesheet" href="delivery-final.css?v=20261005-final1">
 </head>
 <body>
 
@@ -711,13 +712,12 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
         <li><a class="mono" href="tel:+79613011919">+7 961 301-19-19</a> <span style="color:var(--steel)">(Ростовская обл.)</span></li>
         <li><a class="mono" href="tel:+79613011818">+7 961 301-18-18</a> <span style="color:var(--steel)">(Краснодарский край)</span></li>
         <li><a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a></li>
-        <li>Ростов-на-Дону,<br>ул. Ерёменко, 45</li>
-        <li>Пн–Пт 09:00–18:00</li>
+        <li><a href="#/contacts">Адрес и реквизиты →</a></li>
       </ul>
     </div>
   </div>
   <div class="wrap foot-legal">
-    <span>ООО «Правильные Технологии» · ИНН 6165176208 · ОГРН 1126165006593</span>
+    <span>ООО «Правильные Технологии» · ИНН 6165176208 · ОГРН 1126165006593<br>Юридический адрес: 344038, Ростов-на-Дону, ул. Шеболдаева, 2Д, оф. 10</span>
     <span>© <span id="footYear"></span> правильная-технология.рф</span>
   </div>
 </footer>
@@ -1665,7 +1665,7 @@ view.privacy = () => `<section class="screen on"><div class="wrap">
     <h4>4. Права пользователя</h4>
     <p>Пользователь вправе запросить удаление своих данных, написав на <a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a>.</p>
     <h4>5. Контакты</h4>
-    <p>ООО «Правильные Технологии», г. Ростов-на-Дону, ул. Ерёменко, 45. Почта: <a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a>, телефон: <a class="mono" href="tel:+79613011919">+7 961 301-19-19</a>.</p>
+    <p>ООО «Правильные Технологии». Юридический адрес: 344038, г. Ростов-на-Дону, ул. Шеболдаева, 2Д, оф. 10. Магазин: ул. Ерёменко, 45. Почта: <a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a>, телефон: <a class="mono" href="tel:+79613011919">+7 961 301-19-19</a>.</p>
   </div>
 </div></section>`;
 
@@ -1720,7 +1720,7 @@ view.cookies = () => `<section class="screen on"><div class="wrap">
   <div class="legal-doc">
     <p>Настоящий документ определяет, какие технологии хранения данных использует сайт правильная-технология.рф, принадлежащий ООО «Правильные Технологии» (ИНН 6165176208, ОГРН 1126165006593, далее — Оператор), и для чего.</p>
     <h4>1. Что именно хранится</h4>
-    <p>Сайт не устанавливает cookie-файлы для аналитики, рекламы или отслеживания между сайтами. Вместо этого используется технология localStorage — хранилище данных браузера, которое остаётся на устройстве пользователя и никогда не передаётся ни на сервер Оператора, ни каким-либо третьим лицам.</p>
+    <p>Сайт сохраняет корзину, избранное, город и настройки в localStorage вашего браузера. Поля заявок и пароли туда не записываются. Аналитические и рекламные счётчики не подключены. Встроенная карта Яндекса загружается только по вашему нажатию; после этого Яндекс получает технические данные запроса и может использовать собственные cookie согласно своей политике.</p>
     <h4>2. Для чего используется</h4>
     <ul>
       <li>Содержимое корзины и списка избранного — чтобы не терялись при перезагрузке страницы;</li>
@@ -1748,7 +1748,7 @@ view.about = () => `<section class="screen on"><div class="wrap">
     <h4>Кому подходит</h4>
     <p>Автомойкам, детейлинг-студиям, магазинам автотоваров, СТО — розница и опт с прямыми ценами дилера, подбором химии под конкретный пост и оборудование.</p>
     <h4>Реквизиты</h4>
-    <p>ООО «Правильные Технологии» · ИНН 6165176208 · ОГРН 1126165006593<br>Ростов-на-Дону, ул. Ерёменко, 45</p>
+    <p>ООО «Правильные Технологии» · ИНН 6165176208 · ОГРН 1126165006593<br>Юридический адрес: 344038, Ростов-на-Дону, ул. Шеболдаева, 2Д, оф. 10.<br>Магазин: Ростов-на-Дону, ул. Ерёменко, 45.</p>
   </div>
 </div></section>`;
 
@@ -1782,7 +1782,7 @@ view.offer = () => `<section class="screen on"><div class="wrap">
     <h4>4. Возврат</h4>
     <p>Условия возврата — на отдельной странице «<a href="#/returns">Условия возврата</a>».</p>
     <h4>5. Реквизиты</h4>
-    <p>ООО «Правильные Технологии» · ИНН 6165176208 · ОГРН 1126165006593 · Ростов-на-Дону, ул. Ерёменко, 45 · <a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a></p>
+    <p>ООО «Правильные Технологии» · ИНН 6165176208 · ОГРН 1126165006593 · Юридический адрес: 344038, Ростов-на-Дону, ул. Шеболдаева, 2Д, оф. 10 · <a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a></p>
   </div>
 </div></section>`;
 
@@ -1814,7 +1814,7 @@ view.contacts = () => {
         <div class="cline"><i>Юрлицо</i><b>ООО «Правильные Технологии»</b></div>
         <div class="cline"><i>ИНН</i><b class="mono">6165176208</b></div>
         <div class="cline"><i>ОГРН</i><b class="mono">1126165006593</b></div>
-        <div class="cline"><i>Юр. адрес</i><b>Ростов-на-Дону, ул. Ерёменко, 45</b></div>
+        <div class="cline"><i>Юр. адрес</i><b>344038, Ростов-на-Дону, ул. Шеболдаева, 2Д, оф. 10</b></div>
       </div>
       <div class="contact-card">
         <h3>Где мы работаем</h3>
@@ -2117,10 +2117,11 @@ fetchUsdRate();
 $("#footYear").textContent = new Date().getFullYear();
 </script>
 <script src="shinemate-data.js?v=20261002"></script>
-<script src="retail-search.js?v=20261003-final2"></script>
-<script src="request-client.js?v=20261003-delivery1"></script>
-<script src="client-flows.js?v=20261003-final2"></script>
-<script src="storefront.js?v=20261005-client1"></script>
+<script src="retail-search.js?v=20261005-final1"></script>
+<script src="request-client.js?v=20261005-final1"></script>
+<script src="client-flows.js?v=20261005-final1"></script>
+<script src="storefront.js?v=20261005-final1"></script>
 <script src="release-polish.js?v=20261003-final1"></script>
+<script src="delivery-final.js?v=20261005-final1"></script>
 </body>
 </html>

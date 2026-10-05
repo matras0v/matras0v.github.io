@@ -8,7 +8,7 @@ const RequestClient = (() => {
   async function send(payload, options = {}) {
     const url = options.endpoint ?? endpoint;
     if (!url) throw new Error('NEEDS_ENDPOINT');
-    if (!/^\/api\/[a-zA-Z0-9/_-]+$/.test(url)) throw new Error('INVALID_ENDPOINT');
+    if (!/^\/api\/[a-zA-Z0-9/_-]+(?:\.php)?$/.test(url)) throw new Error('INVALID_ENDPOINT');
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? 15000);
     try {
