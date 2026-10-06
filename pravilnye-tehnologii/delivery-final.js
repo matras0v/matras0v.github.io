@@ -1,18 +1,13 @@
-/* Verified store facts. Third-party map is opt-in, never loaded on first visit. */
+/* Verified store location. Public map embed loads when approaching the visible contact block. */
 (() => {
   const location = document.createElement('section');
   location.className='store-location';location.setAttribute('aria-label','Магазин и самовывоз');
   location.innerHTML=`<div class="wrap"><div class="store-service"><span>↗ Работа с оптовыми клиентами</span><span>✓ Профессиональный ассортимент</span><span>＋ Консультация и подбор материалов</span></div>
-    <div class="store-location-grid"><div><p class="sf-kicker">Магазин и самовывоз</p><h2>Правильные технологии.<br>На связи и рядом.</h2><p class="store-address">Ростов-на-Дону<br>ул. Ерёменко, 45</p><p>Пн–Пт 09:00–18:00<br>Сб–Вс — выходной</p>
+    <div class="store-location-grid"><div><p class="sf-kicker">Магазин и самовывоз</p><h2>Магазин<br>в Ростове-на-Дону</h2><p class="store-address">Ростов-на-Дону<br>ул. Ерёменко, 45</p><p>Пн–Пт 09:00–18:00<br>Сб–Вс — выходной</p>
     <div class="store-contact-links"><a href="tel:+79613011919">+7 (961) 301-19-19</a><a href="tel:+79613011818">+7 (961) 301-18-18</a><a href="mailto:iq_technologii@mail.ru">iq_technologii@mail.ru</a></div>
     <div class="sf-actions"><a class="btn" href="tel:+79613011919">Позвонить</a><a class="btn ghost" href="https://wa.me/79613011919" target="_blank" rel="noopener">WhatsApp ↗</a><a class="btn ghost" href="mailto:iq_technologii@mail.ru">Email ↗</a></div></div>
-    <div class="store-map"><div class="store-map-prompt"><p class="sf-kicker">Как добраться</p><h3>Ждём на Ерёменко, 45</h3><p>Постройте маршрут до магазина на Яндекс Картах.</p><div class="sf-actions"><button class="btn" data-load-map>Показать карту</button><a class="btn ghost" href="https://yandex.ru/maps/org/pravilnyye_tekhnologii/81518304967/" target="_blank" rel="noopener">Открыть на карте ↗</a></div><p class="note">Карта загрузится с серверов Яндекса только после нажатия. При этом Яндекс получит технические данные запроса.</p></div></div></div></div>`;
+    <div class="store-map"><iframe title="Правильные технологии — Ростов-на-Дону, Ерёменко, 45" src="https://yandex.ru/map-widget/v1/?oid=81518304967&ol=biz&z=16" loading="lazy" referrerpolicy="no-referrer"></iframe><a class="btn ghost map-external" href="https://yandex.ru/maps/org/pravilnyye_tekhnologii/81518304967/" target="_blank" rel="noopener">Маршрут в Яндекс Картах ↗</a></div></div><p class="map-disclosure">Карта предоставлена Яндексом. При её загрузке сервис получает технические данные запроса.</p></div>`;
   document.querySelector('footer').before(location);
-  location.querySelector('[data-load-map]').addEventListener('click',()=>{
-    const frame=document.createElement('iframe');frame.title='Правильные технологии — Ростов-на-Дону, Ерёменко, 45';
-    frame.src='https://yandex.ru/map-widget/v1/?oid=81518304967&ol=biz&z=16';frame.referrerPolicy='no-referrer';frame.loading='lazy';
-    location.querySelector('.store-map').replaceChildren(frame);
-  });
   const previous=render;
   function closeFilters(){const side=document.querySelector('#sideWrap');side?.classList.remove('open','on');document.body.classList.remove('filter-sheet-lock');document.querySelector('#filtersToggle')?.setAttribute('aria-expanded','false');}
   render=function(){

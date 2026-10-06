@@ -39,17 +39,17 @@ const SF = (() => {
     return image(id,eager).replace('<img ',`<img data-product-id="${id}" data-brand="${esc(brand)}" `);
   };
   const ep820 = P.findIndex(p=>BR[p[F.B]]==='ShineMate' && p[F.N].startsWith('EP820'));
-  const storeGroup = (id, brand) => `<figure class="sf-assortment-group">${sceneProduct(id,brand,true)}<figcaption>${esc(brand)}</figcaption></figure>`;
+  const storeGroup = (id, brand) => `<figure class="hero-store-group">${sceneProduct(id,brand,true)}<figcaption>${esc(brand)}</figcaption></figure>`;
   const scenes = [
-    {title:'Автокосметика<br>и оборудование<br>для детейлинга.', text:'В ассортименте магазина — Koch Chemie, ShineMate, Gyeon и другие бренды. Выберите товары для вашей мойки или студии.', link:'#/catalog', cta:'Открыть каталог', alt:'Ассортимент магазина: разные бренды', style:'all', media:storeGroup(1,'Koch Chemie')+storeGroup(ep820,'ShineMate')+storeGroup(503,'Gyeon')},
-    {title:'Koch Chemie.<br>Пасты для полировки.', text:'Heavy Cut, Fine Cut и Micro Cut. Выберите пасту по задаче и нужному объёму.', link:'#/catalog/polish?brand=Koch%20Chemie', cta:'Смотреть пасты Koch', alt:'Полировальные пасты Koch Chemie', style:'koch', media:[17,1,20].map(i=>sceneProduct(i,'Koch Chemie')).join('')},
-    {title:'ShineMate.<br>Полировальные<br>машинки.', text:'Роторные, эксцентриковые и аккумуляторные модели. Характеристики и комплектация — в карточках товаров.', link:href('ShineMate'), cta:'Смотреть ShineMate', alt:'Оборудование ShineMate', style:'machines', media:sceneProduct(ep820,'ShineMate')+sceneProduct(P.findIndex(p=>BR[p[F.B]]==='ShineMate' && p[F.N].startsWith('EB213')),'ShineMate')},
-    {title:'ZviZZer.<br>Круги для полировки.', text:'Поролоновые и меховые круги. Выбирайте по размеру, материалу и жёсткости.', link:href('Zvizzer'), cta:'Смотреть круги ZviZZer', alt:'Полировальные круги ZviZZer', style:'zvizzer', media:[55,57,60].map(i=>sceneProduct(i,'Zvizzer')).join('')},
-    {title:'Gyeon.<br>Мойка и подготовка<br>кузова.', text:'Bathe, Foam и Prep: шампунь, пена для предварительной мойки и обезжириватель. Цены и наличие уточнит менеджер.', link:'#/catalog/wash?brand=Gyeon', cta:'Смотреть средства Gyeon', alt:'Мойка и подготовка кузова Gyeon', style:'wash', media:[503,504,505].map(i=>sceneProduct(i,'Gyeon')).join('')}
+    {title:'Автохимия и оборудование<br>для детейлинга', text:'В ассортименте магазина — Koch Chemie, ShineMate, Gyeon и другие бренды. Выберите товары для вашей мойки или студии.', link:'#/catalog', cta:'Открыть каталог', alt:'Ассортимент магазина: разные бренды', style:'all', media:storeGroup(1,'Koch Chemie')+storeGroup(ep820,'ShineMate')+storeGroup(503,'Gyeon')},
+    {title:'Пасты для полировки<br>Koch Chemie', text:'Heavy Cut, Fine Cut и Micro Cut. Выберите пасту по задаче и нужному объёму.', link:'#/catalog/polish?brand=Koch%20Chemie', cta:'Смотреть пасты Koch', alt:'Полировальные пасты Koch Chemie', style:'koch', media:[17,1,20].map(i=>sceneProduct(i,'Koch Chemie')).join('')},
+    {title:'Полировальные машинки<br>ShineMate', text:'Роторные, эксцентриковые и аккумуляторные модели. Характеристики и комплектация — в карточках товаров.', link:href('ShineMate'), cta:'Смотреть ShineMate', alt:'Оборудование ShineMate', style:'machines', media:sceneProduct(ep820,'ShineMate')+sceneProduct(P.findIndex(p=>BR[p[F.B]]==='ShineMate' && p[F.N].startsWith('EB213')),'ShineMate')},
+    {title:'Круги для полировки<br>ZviZZer', text:'Поролоновые и меховые круги. Выбирайте по размеру, материалу и жёсткости.', link:href('Zvizzer'), cta:'Смотреть круги ZviZZer', alt:'Полировальные круги ZviZZer', style:'zvizzer', media:[55,57,60].map(i=>sceneProduct(i,'Zvizzer')).join('')},
+    {title:'Мойка и подготовка кузова<br>с Gyeon', text:'Bathe, Foam и Prep: шампунь, пена для предварительной мойки и обезжириватель. Цены и наличие уточнит менеджер.', link:'#/catalog/wash?brand=Gyeon', cta:'Смотреть средства Gyeon', alt:'Мойка и подготовка кузова Gyeon', style:'wash', media:[503,504,505].map(i=>sceneProduct(i,'Gyeon')).join('')}
   ];
   let slide = 0, timer, observer, paused = false;
   function go(n) {
-    const slides = [...document.querySelectorAll('.sf-slide')];
+    const slides = [...document.querySelectorAll('.hero-slide')];
     if (!slides.length) return;
     slide = (n + slides.length) % slides.length;
     slides.forEach((el, i) => { el.classList.toggle('active', i === slide); el.inert = i !== slide; el.setAttribute('aria-hidden', String(i !== slide)); });
@@ -57,13 +57,13 @@ const SF = (() => {
   }
   view.home = () => `<div class="sf-home">
     <section class="sf-hero hex-bg" aria-label="Подбор товаров">
-      <div class="wrap sf-hero-frame">
-        ${scenes.map((s, i) => `<div class="sf-slide ${i === 0 ? 'active' : ''}" ${i ? 'inert aria-hidden="true"' : ''}><div class="sf-hero-copy"><p class="sf-kicker">Правильные технологии / Детейлинг</p><h1>${s.title}</h1><p class="sf-lede">${s.text}</p><div class="sf-actions"><a class="btn sf-primary" href="${s.link}">${s.cta} ↗</a><a class="sf-text-link" href="#/wholesale">Оптовым клиентам ↗</a></div></div><div class="sf-hero-art sf-scene sf-scene-${s.style}" data-depth>${s.media}</div></div>`).join('')}
+      <div class="wrap hero-layout-shell">
+        ${scenes.map((s, i) => `<div class="hero-slide ${i === 0 ? 'active' : ''}" ${i ? 'inert aria-hidden="true"' : ''}><div class="hero-copy-zone"><p class="sf-kicker">Правильные технологии / Детейлинг</p><h1 class="hero-title">${s.title}</h1><p class="sf-lede">${s.text}</p><div class="sf-actions"><a class="btn sf-primary" href="${s.link}">${s.cta} ↗</a><a class="sf-text-link" href="#/wholesale">Оптовым клиентам ↗</a></div></div><div class="hero-media-zone hero-media-${s.style}" data-depth>${s.media}</div></div>`).join('')}
         <div class="sf-hero-bottom"><div class="sf-hero-stats"><span><b>${P.length}</b> позиций в каталоге</span><span>Подбор для моек и студий</span></div><div class="sf-controls"><button data-sf-prev aria-label="Предыдущий слайд">←</button>${scenes.map((s,i) => `<button class="sf-dot ${i ? '' : 'active'}" data-sf-slide="${i}" aria-label="${s.alt}" aria-pressed="${i === 0}"></button>`).join('')}<button data-sf-next aria-label="Следующий слайд">→</button><button data-sf-pause aria-label="Остановить автопрокрутку">Ⅱ</button></div></div>
       </div>
     </section>
     <section class="sf-section sf-categories"><div class="wrap">${sectionHead('Категории товаров')}<div class="sf-category-grid">${CATS.map(category).join('')}</div></div></section>
-    <section class="sf-section"><div class="wrap">${sectionHead('Выбор из каталога')}<p class="sf-intro">Полировка, мойка и уход за автомобилем.</p>${gridHTML(dedupeVariants(CATS.flatMap(c => select(c.id, 1))).slice(0, 4))}</div></section>
+    <section class="sf-section"><div class="wrap">${sectionHead('Товары для ежедневной работы')}<p class="sf-intro">Полировка, мойка и уход за автомобилем.</p>${gridHTML(dedupeVariants(CATS.flatMap(c => select(c.id, 1))).slice(0, 4))}</div></section>
     <section class="sf-section sf-brand-section"><div class="wrap">${sectionHead('Бренды', '#/brands', 'Все бренды')}<div class="sf-brand-rail">${brands.map(brandCard).join('')}</div></div></section>
     <section class="sf-section sf-story"><div class="wrap sf-story-grid"><div class="sf-story-art" data-depth><img src="img/editorial/shinemate-pads.webp" alt="Круги для полировки ShineMate" width="1000" height="800" loading="lazy"></div><div><p class="sf-kicker">ShineMate</p><h2>Круги и оснастка ShineMate</h2><p class="sf-intro">Меховые, поролоновые и микрофибровые круги. Размеры, крепление и назначение указаны в карточках товаров.</p><div class="sf-process"><a href="#/catalog/equipment?brand=ShineMate"><b>Полировальные машинки</b><span>Смотреть модели ↗</span></a><a href="#/catalog/polish?brand=ShineMate"><b>Круги и пасты ShineMate</b><span>Смотреть материалы ↗</span></a><a href="${href('ShineMate')}"><b>Каталог ShineMate</b><span>Все товары бренда ↗</span></a></div></div></div></section>
     <section class="sf-section"><div class="wrap">${sectionHead('Уход за салоном', '#/catalog/interior')}${gridHTML(select('interior', 4))}</div></section>
@@ -109,7 +109,7 @@ const SF = (() => {
       });
       photo.append(zoom);
     }
-    document.querySelectorAll('.card').forEach(el => el.setAttribute('data-depth', ''));
+    document.querySelectorAll('.sf-story-art').forEach(el => el.setAttribute('data-depth', ''));
     document.querySelectorAll('.side-link:not([href])').forEach(el => {el.tabIndex = 0; el.setAttribute('role','button'); el.onkeydown = e => {if(e.key === 'Enter' || e.key === ' ') {e.preventDefault(); el.click();}};});
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       observer = new IntersectionObserver(entries => entries.forEach(({target,isIntersecting}) => {if(isIntersecting){target.classList.add('sf-visible');observer.unobserve(target);}}), {threshold: .06});
