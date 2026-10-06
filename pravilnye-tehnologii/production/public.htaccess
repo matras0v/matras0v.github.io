@@ -1,0 +1,26 @@
+Options -Indexes
+DirectoryIndex index.html
+
+# Apache 2.4. Configure equivalent rules in nginx if .htaccess is not used.
+<FilesMatch "(?i)(^\.|(?:\.(?:bak|backup|old|orig|save|swp|log|ini|env|sql|sqlite|sqlite3|pem|key|conf|config|inc|ya?ml|toml))$|~$|^(?:composer\.(?:json|lock)|.*(?:config|credentials|private-mail).*\.php)$)">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Leave ACME certificate validation reachable; deny other hidden paths.
+    RewriteRule "(^|/)\.(?!well-known(?:/|$))" - [F,L]
+    RewriteRule "^(?:private|backend|production|tests|logs|request-metadata)(?:/|$)" - [F,L,NC]
+    # API and static misses must remain errors, never index.html.
+    RewriteRule "^(?:api|img|fonts|assets)(?:/|$)" - [L,NC]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule "^[^.]*$" index.html [L]
+</IfModule>
+# HTTPS is enabled in the hosting panel; no proxy-sensitive redirect here.

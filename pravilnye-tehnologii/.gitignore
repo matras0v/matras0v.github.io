@@ -1,0 +1,11 @@
+# Generated delivery archive and local-only project notes.
+*.zip
+PROJECT_STATE.md
+VISUAL_QA.md
+qa.html
+.DS_Store
+__pycache__/
+node_modules/
+private/
+mail-config.php
+.env*

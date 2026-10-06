@@ -69,6 +69,9 @@ function pt_outside_root(string $path, string $root): string {
 function pt_config(): array {
     $root=realpath($_SERVER['DOCUMENT_ROOT'] ?? '');if (!$root) throw new RuntimeException('root');
     $file=getenv('PT_CONFIG_FILE') ?: '';
+    // Default package layout: public_html beside private; custom hosts can set PT_CONFIG_FILE.
+    $default=dirname($root).'/private/mail-config.php';
+    if ($file === '' && is_file($default)) $file=$default;
     $c=$file !== '' ? require pt_outside_root($file,$root) : [];
     if (!is_array($c)) throw new RuntimeException('config');
     foreach (['enabled'=>'PT_ENABLED','origin'=>'PT_ORIGIN','data_dir'=>'PT_DATA_DIR','rate_secret'=>'PT_RATE_SECRET','from'=>'PT_MAIL_FROM','transport'=>'PT_MAIL_TRANSPORT'] as $key=>$env) {

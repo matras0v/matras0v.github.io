@@ -3,6 +3,10 @@
 GitHub Pages остаётся статическим preview: `request-config.js` содержит пустой endpoint,
 все три формы готовят письмо, отправки не обещают. CSS/hero/каталог не меняются.
 
+Готовый единый ZIP собирается `python3 production/package.py`; используйте `PRODUCTION_INSTALL.md`.
+В ZIP endpoint уже настроен, config автоматически ищется в соседней private/mail-config.php.
+Ниже — эквивалентная ручная установка.
+
 ## Загрузка
 
 1. Загрузить существующий frontend целиком, включая обновлённые `index.html`,

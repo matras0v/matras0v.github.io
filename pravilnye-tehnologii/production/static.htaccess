@@ -1,0 +1,5 @@
+Options -Indexes
+# Deny executable files even if the host maps them to a PHP/CGI handler.
+<FilesMatch "(?i)\.(?:php[0-9]*|phtml|phar|cgi|pl|py|sh)(?:\.|$)">
+    Require all denied
+</FilesMatch>
