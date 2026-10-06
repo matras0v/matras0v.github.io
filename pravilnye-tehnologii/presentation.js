@@ -1,17 +1,19 @@
 /* Final presentation uses existing catalog records and leaves all store handlers intact. */
 (() => {
-  const icons={map:'M12 22s8-8 8-14a8 8 0 0 0-16 0c0 6 8 14 8 14Z M15 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0',phone:'M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 2-2 3-4 2C9 19 5 15 3 7c-1-2 0-4 2-4Z',mail:'M3 5h18v14H3z M3 5l9 7 9-7',chat:'M21 11a9 9 0 0 1-9 9H4l-2 2 1-7a9 9 0 1 1 18-4Z M7 10h10 M7 14h6',box:'M3 7l9-5 9 5v11l-9 5-9-5z M3 7l9 5 9-5 M12 12v11 M7 4l10 5',check:'M4 12l5 5L20 6',list:'M8 5h13 M8 12h13 M8 19h13 M3 5h1 M3 12h1 M3 19h1',card:'M2 5h20v14H2z M2 10h20 M6 15h4'};
+  const icons={clock:'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z M12 7v5l3 2',whatsapp:'M20.5 11.7a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.4-4.8a8.5 8.5 0 1 1 16.1-4Z M8.2 7.5c.3-.2.6-.1.8.3l.8 1.8c.1.3 0 .5-.3.8l-.6.6c.7 1.6 1.9 2.8 3.6 3.5l.7-.9c.2-.3.5-.4.8-.2l1.8.8c.4.2.5.4.4.8-.2 1.1-.9 1.7-2 1.6-3.5-.4-6.8-3.6-7.2-7-.1-1 .3-1.6 1.2-2.1Z',map:'M12 22s8-8 8-14a8 8 0 0 0-16 0c0 6 8 14 8 14Z M15 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0',phone:'M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 2-2 3-4 2C9 19 5 15 3 7c-1-2 0-4 2-4Z',mail:'M3 5h18v14H3z M3 5l9 7 9-7',chat:'M21 11a9 9 0 0 1-9 9H4l-2 2 1-7a9 9 0 1 1 18-4Z M7 10h10 M7 14h6',box:'M3 7l9-5 9 5v11l-9 5-9-5z M3 7l9 5 9-5 M12 12v11 M7 4l10 5',check:'M4 12l5 5L20 6',list:'M8 5h13 M8 12h13 M8 19h13 M3 5h1 M3 12h1 M3 19h1',card:'M2 5h20v14H2z M2 10h20 M6 15h4'};
   const icon=name=>`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${icons[name]||icons.box}"/></svg>`;
   const imageGroup=ids=>`<div class="editorial-products">${ids.filter(i=>P[i]).map(i=>`<figure><img src="img/${esc(P[i][F.IMG])}" alt="${esc(P[i][F.N])}" width="320" height="320" loading="lazy" decoding="async"><figcaption>${esc(BR[P[i][F.B]])}</figcaption></figure>`).join('')}</div>`;
   const panel=(title,text,ids,link='#/contact-request',label='Помочь с подбором')=>`<aside class="editorial-panel"><div><p class="sf-kicker">Из ассортимента магазина</p><h2>${title}</h2><p>${text}</p><a class="btn ghost" href="${link}">${label} ↗</a></div>${imageGroup(ids)}</aside>`;
   const actionIcons=()=>document.querySelectorAll('.store-location .sf-actions a,.contact-primary .sf-actions a').forEach(a=>{
     if(a.querySelector('svg'))return;
-    const href=a.getAttribute('href');let name=href.startsWith('tel:')?'phone':href.startsWith('mailto:')?'mail':href.includes('wa.me')?'chat':href.includes('yandex.ru/maps')?'map':null;
+    const href=a.getAttribute('href');let name=href.startsWith('tel:')?'phone':href.startsWith('mailto:')?'mail':href.includes('wa.me')?'whatsapp':href.includes('yandex.ru/maps')?'map':null;
     if(name){a.classList.add('contact-action');a.insertAdjacentHTML('afterbegin',icon(name));}
   });
-  const mast=document.querySelector('.masthead');
-  const syncHeader=()=>document.documentElement.style.setProperty('--mast-height',mast.getBoundingClientRect().height+'px');
-  new ResizeObserver(syncHeader).observe(mast);syncHeader();
+  const mast=document.querySelector('.masthead'),nav=document.querySelector('.mainnav');
+  const syncHeader=()=>{const height=mast.getBoundingClientRect().height;document.documentElement.style.setProperty('--mast-height',height+'px');if(!nav.classList.contains('menu-open'))document.documentElement.style.setProperty('--header-clearance',(height+nav.getBoundingClientRect().height+16)+'px');};
+  const headerObserver=new ResizeObserver(syncHeader);headerObserver.observe(mast);headerObserver.observe(nav);syncHeader();
+  document.querySelectorAll('.store-contact-panel .store-address').forEach(el=>{el.classList.add('contact-fact');el.insertAdjacentHTML('afterbegin',icon('map'));const hours=el.nextElementSibling;hours.classList.add('contact-fact');hours.insertAdjacentHTML('afterbegin',icon('clock'));});
+  document.querySelectorAll('.store-contact-links a,footer a[href^="tel:"],footer a[href^="mailto:"]').forEach(a=>{a.classList.add('contact-detail');a.insertAdjacentHTML('afterbegin',icon(a.getAttribute('href').startsWith('tel:')?'phone':'mail'));});
   const labels=['box','check','chat'];
   document.querySelectorAll('.store-service>span').forEach((el,i)=>{el.textContent=['Оптовые условия','Профессиональный ассортимент','Помощь с подбором'][i];el.insertAdjacentHTML('afterbegin',`<i class="service-icon">${icon(labels[i])}</i>`);});
   const about=document.querySelector('.foot-about');const oldBrand=about?.querySelector('b');
@@ -37,6 +39,7 @@
   render=function(){
     previous();const main=document.querySelector('#main'),route=location.hash.slice(2).split('?')[0];
     main.classList.toggle('page-wholesale',route==='wholesale');main.classList.toggle('page-delivery',route==='delivery');
+    if(route==='account'){const access=main.querySelector('.partner-access');access.classList.add('partner-access-rich');access.insertAdjacentHTML('beforeend',`<div class="partner-visual"><p class="sf-kicker">Из ассортимента магазина</p>${imageGroup([1,503,536])}<p>Автохимия, полировальные материалы и оборудование для ежедневной работы.</p></div>`);}
     if(route==='wholesale')main.querySelector('.two>div:first-child')?.insertAdjacentHTML('beforeend',panel('Ассортимент под задачи вашей студии','Укажите нужные материалы и объём закупки. Менеджер уточнит наличие и подготовит предложение.',[1,503,536],'#/catalog','Посмотреть каталог'));
     if(route==='delivery'){
       main.querySelectorAll('.dir').forEach((el,i)=>el.insertAdjacentHTML('afterbegin',`<span class="delivery-icon">${icon(['list','check','card','box'][i])}</span>`));
