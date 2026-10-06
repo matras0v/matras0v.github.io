@@ -1,14 +1,17 @@
 /* Final presentation uses existing catalog records and leaves all store handlers intact. */
 (() => {
-  const icons={phone:'M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 2-2 3-4 2C9 19 5 15 3 7c-1-2 0-4 2-4Z',mail:'M3 5h18v14H3z M3 5l9 7 9-7',chat:'M21 11a9 9 0 0 1-9 9H4l-2 2 1-7a9 9 0 1 1 18-4Z M7 10h10 M7 14h6',box:'M3 7l9-5 9 5v11l-9 5-9-5z M3 7l9 5 9-5 M12 12v11 M7 4l10 5',check:'M4 12l5 5L20 6',list:'M8 5h13 M8 12h13 M8 19h13 M3 5h1 M3 12h1 M3 19h1',card:'M2 5h20v14H2z M2 10h20 M6 15h4'};
+  const icons={map:'M12 22s8-8 8-14a8 8 0 0 0-16 0c0 6 8 14 8 14Z M15 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0',phone:'M5 3h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 2-2 3-4 2C9 19 5 15 3 7c-1-2 0-4 2-4Z',mail:'M3 5h18v14H3z M3 5l9 7 9-7',chat:'M21 11a9 9 0 0 1-9 9H4l-2 2 1-7a9 9 0 1 1 18-4Z M7 10h10 M7 14h6',box:'M3 7l9-5 9 5v11l-9 5-9-5z M3 7l9 5 9-5 M12 12v11 M7 4l10 5',check:'M4 12l5 5L20 6',list:'M8 5h13 M8 12h13 M8 19h13 M3 5h1 M3 12h1 M3 19h1',card:'M2 5h20v14H2z M2 10h20 M6 15h4'};
   const icon=name=>`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${icons[name]||icons.box}"/></svg>`;
   const imageGroup=ids=>`<div class="editorial-products">${ids.filter(i=>P[i]).map(i=>`<figure><img src="img/${esc(P[i][F.IMG])}" alt="${esc(P[i][F.N])}" width="320" height="320" loading="lazy" decoding="async"><figcaption>${esc(BR[P[i][F.B]])}</figcaption></figure>`).join('')}</div>`;
   const panel=(title,text,ids,link='#/contact-request',label='Помочь с подбором')=>`<aside class="editorial-panel"><div><p class="sf-kicker">Из ассортимента магазина</p><h2>${title}</h2><p>${text}</p><a class="btn ghost" href="${link}">${label} ↗</a></div>${imageGroup(ids)}</aside>`;
   const actionIcons=()=>document.querySelectorAll('.store-location .sf-actions a,.contact-primary .sf-actions a').forEach(a=>{
     if(a.querySelector('svg'))return;
-    const href=a.getAttribute('href');let name=href.startsWith('tel:')?'phone':href.startsWith('mailto:')?'mail':href.includes('wa.me')?'chat':null;
+    const href=a.getAttribute('href');let name=href.startsWith('tel:')?'phone':href.startsWith('mailto:')?'mail':href.includes('wa.me')?'chat':href.includes('yandex.ru/maps')?'map':null;
     if(name){a.classList.add('contact-action');a.insertAdjacentHTML('afterbegin',icon(name));}
   });
+  const mast=document.querySelector('.masthead');
+  const syncHeader=()=>document.documentElement.style.setProperty('--mast-height',mast.getBoundingClientRect().height+'px');
+  new ResizeObserver(syncHeader).observe(mast);syncHeader();
   const labels=['box','check','chat'];
   document.querySelectorAll('.store-service>span').forEach((el,i)=>{el.textContent=['Оптовые условия','Профессиональный ассортимент','Помощь с подбором'][i];el.insertAdjacentHTML('afterbegin',`<i class="service-icon">${icon(labels[i])}</i>`);});
   const about=document.querySelector('.foot-about');const oldBrand=about?.querySelector('b');
@@ -44,6 +47,7 @@
       if(record&&!location.hash.includes('q=')){const ids=dedupeVariants(P.map((_,i)=>i).filter(i=>P[i][F.CAT]===cat)).slice(0,3);main.querySelector('.catalog')?.insertAdjacentHTML('beforebegin',panel(esc(record.name),esc(record.note),ids,'#/contact-request','Подобрать материалы'));}
     }
     if(route==='promo')main.querySelectorAll('.promo-card').forEach((el,i)=>{const p=P[[503,1,222][i]];el.insertAdjacentHTML('afterbegin',`<img class="promo-visual" src="img/${esc(p[F.IMG])}" alt="${esc(p[F.N])}" loading="lazy" width="320" height="320">`);});
+    main.querySelectorAll('.editorial-products,.sf-category').forEach(el=>el.setAttribute('data-depth',''));
     actionIcons();seo(main);
   };
   render();
