@@ -1,5 +1,6 @@
 <?php
 /* COPY OUTSIDE document root and Git; configure PT_CONFIG_FILE to its absolute path. */
+// Recipient is fixed in request.php: iq_technologii@mail.ru; not configurable by clients.
 return [
     'enabled' => false, // enable only on final PHP host
     'origin' => 'https://production.example', // exact HTTPS origin, no trailing slash, ASCII/punycode

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 /* Upload this file to /api/request.php. PHP 8.2+, mbstring; no database or PII storage. */
-const PT_RECIPIENT = 'zakaz@qptech.ru';
+const PT_RECIPIENT = 'iq_technologii@mail.ru';
 function pt_fields(array $value, array $allowed): void {
     if (array_diff(array_keys($value), $allowed)) throw new InvalidArgumentException('fields');
 }
@@ -104,7 +104,7 @@ function pt_mail_content(array $p, int $now): array {
     if ($p['type'] === 'order') {
         $lines[]='Получение: '.$p['shipping'];$lines[]='';$lines[]='Товары:';
         foreach ($p['items'] as $i=>$item) {
-            $lines[]=($i+1).'. '.$item['title'];$lines[]='Артикул: '.($item['sku'] ?: 'уточняется');
+            $lines[]=($i+1).'. '.$item['title'];$lines[]='ID товара: '.$item['productId'];$lines[]='Артикул: '.($item['sku'] ?: 'уточняется');
             $lines[]='Вариант: '.($item['variant'] ?: 'не указан');$lines[]='Количество: '.$item['quantity'];
             $lines[]='Цена на сайте на момент заявки: '.$item['unitPrice'].' RUB';$lines[]='';
         }

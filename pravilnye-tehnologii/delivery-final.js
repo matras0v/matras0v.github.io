@@ -4,8 +4,8 @@
   location.className='store-location';location.setAttribute('aria-label','Магазин и самовывоз');
   location.innerHTML=`<div class="wrap"><div class="store-service"><span>↗ Работа с оптовыми клиентами</span><span>✓ Профессиональный ассортимент</span><span>＋ Консультация и подбор материалов</span></div>
     <div class="store-location-grid"><div><p class="sf-kicker">Магазин и самовывоз</p><h2>Правильные технологии.<br>На связи и рядом.</h2><p class="store-address">Ростов-на-Дону<br>ул. Ерёменко, 45</p><p>Пн–Пт 09:00–18:00<br>Сб–Вс — выходной</p>
-    <div class="store-contact-links"><a href="tel:+79613011919">+7 (961) 301-19-19</a><a href="tel:+79613011818">+7 (961) 301-18-18</a><a href="mailto:zakaz@qptech.ru">zakaz@qptech.ru</a></div>
-    <div class="sf-actions"><a class="btn" href="tel:+79613011919">Позвонить</a><a class="btn ghost" href="https://wa.me/79613011919" target="_blank" rel="noopener">WhatsApp ↗</a><a class="btn ghost" href="mailto:zakaz@qptech.ru">Email ↗</a></div></div>
+    <div class="store-contact-links"><a href="tel:+79613011919">+7 (961) 301-19-19</a><a href="tel:+79613011818">+7 (961) 301-18-18</a><a href="mailto:iq_technologii@mail.ru">iq_technologii@mail.ru</a></div>
+    <div class="sf-actions"><a class="btn" href="tel:+79613011919">Позвонить</a><a class="btn ghost" href="https://wa.me/79613011919" target="_blank" rel="noopener">WhatsApp ↗</a><a class="btn ghost" href="mailto:iq_technologii@mail.ru">Email ↗</a></div></div>
     <div class="store-map"><div class="store-map-prompt"><p class="sf-kicker">Как добраться</p><h3>Ждём на Ерёменко, 45</h3><p>Постройте маршрут до магазина на Яндекс Картах.</p><div class="sf-actions"><button class="btn" data-load-map>Показать карту</button><a class="btn ghost" href="https://yandex.ru/maps/org/pravilnyye_tekhnologii/81518304967/" target="_blank" rel="noopener">Открыть на карте ↗</a></div><p class="note">Карта загрузится с серверов Яндекса только после нажатия. При этом Яндекс получит технические данные запроса.</p></div></div></div></div>`;
   document.querySelector('footer').before(location);
   location.querySelector('[data-load-map]').addEventListener('click',()=>{

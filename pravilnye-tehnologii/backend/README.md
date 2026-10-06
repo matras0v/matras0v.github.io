@@ -20,7 +20,7 @@ GitHub Pages остаётся статическим preview: `request-config.js
    Не помещать реальные credentials в проект, JS, Git или публичную папку.
 4. Указать точный production HTTPS `origin` без `/` (IDN — punycode),
    авторизованный хостингом `from`, случайный `rate_secret` (генератор в шаблоне),
-   `enabled=true`. Получатель неизменяемый: **zakaz@qptech.ru**.
+   `enabled=true`. Получатель неизменяемый: **iq_technologii@mail.ru**.
 5. При настроенном MTA выбрать `transport=mail`. Никакого автоматического переключения
    после ошибки SMTP нет. Для SMTP: в приватной папке выполнить `composer install --no-dev`
    с `backend/composer.json`, указать внешний `vendor/autoload.php`, сервер/логин/пароль,
@@ -30,7 +30,7 @@ GitHub Pages остаётся статическим preview: `request-config.js
    `window.PT_REQUEST_ENDPOINT = '/api/request.php';`.
    Preview в GitHub остаётся с пустым значением; клиент дополнительно отключает его на github.io.
 7. Проверить одну контактную заявку (`#/contacts` → «Отправить заявку»), одну оптовую,
-   один заказ. Владелец проверяет Inbox/Spam zakaz@qptech.ru, читаемые русские тексты,
+   один заказ. Владелец проверяет Inbox/Spam iq_technologii@mail.ru, читаемые русские тексты,
    состав/варианты/количество, Reply-To. Настроить SPF/DKIM/DMARC с хостингом.
 
 ## Контракт и ограничения

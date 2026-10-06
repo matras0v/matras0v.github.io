@@ -52,8 +52,10 @@ if __name__=='__main__':
             assert request(origin,'{')[0]==422
             for kind in ('contact','wholesale','order'):
                 p=payload(kind);r=request(origin,p);assert r[0]==200 and r[1]['requestId']==p['requestId'] and r[1]['delivery']=='mail_transport_accepted'
-                msg=email.message_from_bytes(mailfile.read_bytes());assert msg['To']=='zakaz@qptech.ru';assert msg['Reply-To']=='qa@example.invalid';assert 'Тестовая заявка' in msg.get_payload(decode=True).decode('utf-8')
-                if kind=='order':assert 'Артикул: 405001' in msg.get_payload(decode=True).decode('utf-8')
+                msg=email.message_from_bytes(mailfile.read_bytes());assert msg['To']=='iq_technologii@mail.ru';assert msg['Reply-To']=='qa@example.invalid';assert 'Тестовая заявка' in msg.get_payload(decode=True).decode('utf-8')
+                if kind=='order':
+                    body=msg.get_payload(decode=True).decode('utf-8')
+                    assert all(value in body for value in ['ID товара: 1','Артикул: 405001','Вариант: 1 л','Количество: 3','4520.00 RUB','13560.00 RUB'])
             assert request(origin,payload('contact')|{'recipient':'evil@example.invalid'})[0]==422
             r=request(origin,payload('contact'));assert r[0]==429 and r[2]['Retry-After']=='900'
             for path in state.iterdir():assert 'QA Test' not in path.read_text()

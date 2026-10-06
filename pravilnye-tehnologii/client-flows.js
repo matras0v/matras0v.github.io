@@ -57,7 +57,7 @@
     payload.requestId=previousAttempt?.fingerprint===fingerprint?previousAttempt.requestId:crypto.randomUUID();
     requestAttempts.set(form,{fingerprint,requestId:payload.requestId});
     const text=[order?'Заявка на заказ':contact?'Контактная заявка':'Запрос оптовых условий',`Имя: ${payload.customer.name}`,`Телефон: ${payload.customer.phone}`,`Почта: ${payload.customer.email||'не указана'}`,`Город: ${payload.customer.city}`,
-      ...(order?[`Получение: ${payload.shipping}`,...payload.items.map(x=>`${x.title}; арт. ${x.sku||'уточняется'}; ${x.variant}; ${x.quantity} шт. × ${money(x.unitPrice)}; ${x.availability==='in_stock'?'в наличии':'под заказ'}`),`Итого по каталогу: ${money(payload.total)}`]:contact?[]:[`Компания: ${payload.business.company}`,`Форма: ${payload.business.legalForm}`,`ИНН: ${payload.business.inn||'не указан'}`,`Профиль: ${payload.business.activity}`,`Закупки: ${payload.business.volume}`]),`Комментарий: ${payload.comment||'нет'}`].join('\n');
+      ...(order?[`Получение: ${payload.shipping}`,...payload.items.map(x=>`${x.title}; ID ${x.productId}; арт. ${x.sku||'уточняется'}; ${x.variant}; ${x.quantity} шт. × ${money(x.unitPrice)}; ${x.availability==='in_stock'?'в наличии':'под заказ'}`),`Итого по каталогу: ${money(payload.total)}`]:contact?[]:[`Компания: ${payload.business.company}`,`Форма: ${payload.business.legalForm}`,`ИНН: ${payload.business.inn||'не указан'}`,`Профиль: ${payload.business.activity}`,`Закупки: ${payload.business.volume}`]),`Комментарий: ${payload.comment||'нет'}`].join('\n');
     if(!RequestClient.configured){
       status.replaceChildren();const title=document.createElement('b');title.textContent='Письмо подготовлено, но ещё не отправлено';
       const copy=document.createElement('p');copy.textContent='Проверьте текст ниже. Отправьте его на '+SHOP_EMAIL+' из почтового приложения. Корзина останется на месте.';
@@ -73,7 +73,7 @@
       status.textContent='Заявка отправлена в почтовую систему. Номер: '+result.requestId+'. Получение письма магазином пока не подтверждено.';
       if(order){for(const item of payload.items){const index=item.productId;if(index>=0){const left=(store.cart[index]||0)-item.quantity;if(left>0)store.cart[index]=left;else delete store.cart[index];}}save('pt_cart',store.cart);paintChrome();}
       form.querySelectorAll('input,select,textarea,button[type=submit]').forEach(el=>el.disabled=true);
-    }catch(error){status.textContent='Не удалось подтвердить отправку заявки. Попробуйте ещё раз или напишите на '+SHOP_EMAIL+'. Данные остаются на этой странице.';button.disabled=false;}
+    }catch(error){status.textContent='Не удалось подтвердить отправку заявки. Попробуйте ещё раз или напишите на ';const email=document.createElement('a');email.href='mailto:'+SHOP_EMAIL;email.textContent=SHOP_EMAIL;status.append(email,document.createTextNode('. Данные остаются на этой странице.'));button.disabled=false;}
     finally{form.dataset.sending='false';form.removeAttribute('aria-busy');button.textContent='Отправить заявку';}
   });
   view.contacts=()=>{
