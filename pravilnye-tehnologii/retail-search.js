@@ -26,7 +26,7 @@ const RetailSearch = (() => {
   panel.append(status,list,all);form.append(panel);
   input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');input.setAttribute('aria-expanded','false');input.setAttribute('aria-controls','searchOptions');
   let active=-1, hits=[];
-  const requestBrands=['Glitz','Dry Monster','Little Joe','Ultra','Space Cosmetics'];
+  const requestBrands=['Glitz','Dry Monster','Ultra Technology','Space Cosmetics'];
   const close=()=>{panel.hidden=true;active=-1;input.setAttribute('aria-expanded','false');input.removeAttribute('aria-activedescendant');};
   function show(){
     const q=input.value.trim();if(!q){close();return;}

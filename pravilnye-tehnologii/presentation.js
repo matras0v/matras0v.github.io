@@ -12,11 +12,11 @@
   document.querySelectorAll('.store-contact-panel .store-address').forEach(el=>{el.classList.add('contact-fact');el.insertAdjacentHTML('afterbegin',icon('map'));const hours=el.nextElementSibling;hours.classList.add('contact-fact');hours.insertAdjacentHTML('afterbegin',icon('clock'));});
   document.querySelectorAll('.store-contact-links a,footer a[href^="tel:"],footer a[href^="mailto:"]').forEach(a=>{a.classList.add('contact-detail');a.insertAdjacentHTML('afterbegin',icon(a.getAttribute('href').startsWith('tel:')?'phone':'mail'));});
   const mapCard=document.querySelector('.store-map');
-  mapCard.insertAdjacentHTML('afterbegin','<div class="map-brandbar"><img src="img/logo-honeycomb.png" width="26" height="26" alt="" loading="lazy"><span>Наш магазин · Ерёменко, 45</span></div>');
+  mapCard.insertAdjacentHTML('afterbegin','<div class="map-brandbar"><img src="img/brands/pt-client-mark.svg" width="26" height="26" alt="" loading="lazy"><span>Наш магазин · Ерёменко, 45</span></div>');
   const labels=['box','check','chat'];
   document.querySelectorAll('.store-service>span').forEach((el,i)=>{el.textContent=['Оптовые условия','Профессиональный ассортимент','Помощь с подбором'][i];el.insertAdjacentHTML('afterbegin',`<i class="service-icon">${icon(labels[i])}</i>`);});
   const about=document.querySelector('.foot-about');const oldBrand=about?.querySelector('b');
-  if(oldBrand){const brand=document.createElement('div');brand.className='foot-brandmark';brand.innerHTML='<img src="img/logo-honeycomb.png" alt="" loading="lazy" width="44" height="44"><strong>Правильные технологии</strong>';oldBrand.replaceWith(brand);}
+  if(oldBrand){const brand=document.createElement('div');brand.className='foot-brandmark';brand.innerHTML='<img class="client-lockup" src="img/brands/pt-client.svg?v=2" alt="Правильные технологии" loading="lazy" width="155" height="133">';oldBrand.replaceWith(brand);}
   function seo(main){
     const heading=main.querySelector('h1,h2')||main.querySelector('.empty h3');
     if(heading && !main.querySelector('h1')){const h=document.createElement('h1');h.className=heading.className;h.innerHTML=heading.innerHTML;heading.replaceWith(h);}

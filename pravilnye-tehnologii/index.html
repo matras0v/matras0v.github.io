@@ -12,7 +12,7 @@
 <meta property="og:title" content="Правильные технологии — автохимия и оборудование">
 <meta property="og:description" content="Материалы для мойки, полировки и ухода за автомобилем. Подбор оборудования и оптовые заявки.">
 <meta property="og:url" content="https://matras0v.github.io/pravilnye-tehnologii/">
-<meta property="og:image" content="https://matras0v.github.io/pravilnye-tehnologii/img/logo-honeycomb.png">
+<meta property="og:image" content="https://matras0v.github.io/pravilnye-tehnologii/img/brands/pt-client-mark.svg">
 <style>
 /* Шрифт заголовков — свой файл в /fonts, без запроса к Google Fonts (пункт из чек-листа Роскомнадзора: не использовать сервисы Google). */
 @font-face{
@@ -597,9 +597,10 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <link rel="stylesheet" href="delivery-polish.css?v=20261003-delivery1">
 <link rel="stylesheet" href="mobile-final.css?v=20261003-final2">
 <link rel="stylesheet" href="brand-feedback.css?v=20261005-client1">
-<link rel="stylesheet" href="delivery-final.css?v=20261007-commerce1">
-<link rel="stylesheet" href="presentation.css?v=20261007-commerce1">
-<link rel="stylesheet" href="commerce.css?v=20261007-commerce1">
+<link rel="stylesheet" href="delivery-final.css?v=20261008-meeting3">
+<link rel="stylesheet" href="presentation.css?v=20261008-meeting3">
+<link rel="stylesheet" href="commerce.css?v=20261008-meeting3">
+<link rel="stylesheet" href="meeting.css?v=20261008-meeting3">
 </head>
 <body>
 
@@ -607,7 +608,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <header class="masthead">
   <div class="wrap">
     <a href="#/" class="logo">
-      <img class="logo-mark" src="img/logo-honeycomb.png" alt="Правильные технологии">
+      <img class="logo-mark" src="img/brands/pt-client-mark.svg" alt="Правильные технологии">
       <span>
         <b>Правильные технологии</b>
         <span>Официальный дилер Koch Chemie</span>
@@ -672,11 +673,11 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
       <h5>Каталог</h5>
       <ul>
         <li><a href="#/catalog/polish">Полировка</a></li>
-        <li><a href="#/catalog/wash">Мойка и уход</a></li>
-        <li><a href="#/catalog/interior">Салон и химчистка</a></li>
+        <li><a href="#/catalog/wash">Мойка и экстерьер</a></li>
+        <li><a href="#/catalog/interior">Интерьер</a></li>
         <li><a href="#/catalog/wheels">Диски и стекло</a></li>
         <li><a href="#/catalog/equipment">Оборудование</a></li>
-        <li><a href="#/catalog/supplies">Расходники</a></li>
+        <li><a href="#/catalog/supplies">Сопутствующие материалы</a></li>
         <li><a href="#/catalog/marine">Водный транспорт</a></li>
       </ul>
     </div>
@@ -712,8 +713,8 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
     <div class="foot-col">
       <h5>Контакты</h5>
       <ul>
-        <li><a class="mono" href="tel:+79613011919">+7 961 301-19-19</a> <span style="color:var(--steel)">(Ростовская обл.)</span></li>
-        <li><a class="mono" href="tel:+79613011818">+7 961 301-18-18</a> <span style="color:var(--steel)">(Краснодарский край)</span></li>
+        <li><a class="mono" href="tel:+79613011919">+7 961 301-19-19</a> <span style="color:var(--steel)"></span></li>
+        <li><a class="mono" href="tel:+79613011818">+7 961 301-18-18</a> <span style="color:var(--steel)"></span></li>
         <li><a href="mailto:iq_technologii@mail.ru">iq_technologii@mail.ru</a></li>
         <li><a href="#/contacts">Адрес и реквизиты →</a></li>
       </ul>
@@ -822,12 +823,12 @@ const dedupeVariants = list => {
 };
 
 const CATS = [
+  {id:"wash",      name:"Мойка и экстерьер",      note:"Шампуни, пена, воски"},
+  {id:"interior",  name:"Интерьер", note:"Кожа, ткань, пластик"},
   {id:"polish",    name:"Полировка",         note:"Пасты, круги, подложки"},
-  {id:"wash",      name:"Мойка и уход",      note:"Шампуни, пена, воски"},
-  {id:"interior",  name:"Салон и химчистка", note:"Кожа, ткань, пластик"},
   {id:"wheels",    name:"Диски и стекло",    note:"Очистители, антидождь"},
   {id:"equipment", name:"Оборудование",      note:"Машинки, АВД, пылесосы"},
-  {id:"supplies",  name:"Расходники",        note:"Микрофибра, ёмкости, щётки"},
+  {id:"supplies",  name:"Сопутствующие материалы",        note:"Микрофибра, ёмкости, щётки"},
   {id:"marine",    name:"Водный транспорт",  note:"Koch Marine — катера и яхты"},
 ];
 const CAT_NAME = Object.fromEntries(CATS.map(c => [c.id, c.name]));
@@ -850,21 +851,7 @@ const STEPS = [
   {code:"P", no:"01–03 за проход", name:"Одношаговые", note:"One Cut &amp; Finish. Режет и полирует сразу — для потока на мойке."},
 ];
 
-const CITIES = [
-  {n:"Ростов-на-Дону",  o:1, ph:"+79613011919", a:"ул. Ерёменко, 45"},
-  {n:"Краснодар",       o:1, ph:"+79613011818"},
-  {n:"Сочи",            o:1, ph:"+79613011818"},
-  {n:"Новороссийск",    o:1, ph:"+79613011818"},
-  {n:"Анапа",           o:1, ph:"+79613011818"},
-  {n:"Таганрог",        o:0, ph:"+79613011919"},
-  {n:"Шахты",           o:0, ph:"+79613011919"},
-  {n:"Волгодонск",      o:0, ph:"+79613011919"},
-  {n:"Ставрополь",      o:0, ph:"+79613011818"},
-  {n:"Пятигорск",       o:0, ph:"+79613011818"},
-  {n:"Волгоград",       o:0, ph:"+79613011919"},
-  {n:"Симферополь",     o:0, ph:"+79613011818"},
-  {n:"Другой город",    o:0, ph:"+79613011919"},
-];
+const CITIES = [{n:"Ростов-на-Дону", o:1, ph:"+79613011919", a:"ул. Ерёменко, 45"}];
 
 /* Снимок отзывов с Яндекс.Карт от 26.08.2026 (карточка организации, 40 отзывов, средняя 5.0).
    Текст — краткий пересказ своими словами, не дословная цитата; полный текст — по ссылке. */
@@ -910,7 +897,7 @@ async function fetchUsdRate(){
 
 /* ═══════════════════ состояние ═══════════════════ */
 const store = {
-  city: load("pt_city", "Ростов-на-Дону"),
+  city: "Ростов-на-Дону",
   cart: load("pt_cart", {}),
   fav:  load("pt_fav", []),
   user: null,
@@ -997,6 +984,8 @@ const BRAND_LOGO = {
   "Zvizzer":"brands/zvizzer.png",
   "AuTech":"brands/autech.png",
   "Marolex":"brands/marolex.png",
+  "ShineMate":"brands/shinemate.webp",
+  "Space Cosmetics":"editorial/space.png",
 };
 const brandVisual = (b, i) => BRAND_LOGO[b] || brandThumb(i);
 
@@ -1303,7 +1292,7 @@ view.product = id => {
         <p class="eyebrow">${esc(BR[p[F.B]])}</p>
         <h1>${esc(p[F.N])}</h1>
         ${p[F.ART] ? `<p class="mono" style="font-size:12.5px;color:var(--steel);margin:2px 0 0">арт. ${esc(p[F.ART])}</p>` : ""}
-        <p class="product-desc">${esc((DS[p[F.D]] || '').split(/(?<=[.!?])\s/)[0])}</p>
+        <p class="product-desc">${esc(((typeof MeetingContent !== 'undefined' && MeetingContent.descriptions[id]) || DS[p[F.D]] || '').split(/(?<=[.!?])\s/)[0])}</p>
         ${myVariants.length > 1 ? `<div class="variant-switch">
           ${myVariants.slice().sort((a,b) => price(P[a])-price(P[b])).map(j => `
             <a href="#/product/${j}" data-variant="${j}" class="variant-pill ${j==id?"on":""} ${P[j][F.ST]?"":"oos"}">
@@ -1346,7 +1335,7 @@ view.product = id => {
         <p class="note">Оплата не онлайн: вы оформляете заявку, менеджер подтверждает наличие и выставляет счёт.</p>
       </div>
     </div>
-    <div class="sf-detail"><h2>О товаре</h2><p>${esc(DS[p[F.D]] || 'Подробности применения уточните у менеджера.')}</p></div>
+    <div class="sf-detail"><h2>О товаре</h2><p>${esc((typeof MeetingContent !== 'undefined' && MeetingContent.descriptions[id]) || DS[p[F.D]] || 'Подробности применения уточните у менеджера.')}</p></div>
     ${same.length ? `<div style="margin-top:64px">
       <div class="head"><div><p class="eyebrow">Тот же бренд и раздел</p><h2>Также в каталоге</h2></div></div>
       ${gridHTML(same)}
@@ -1428,11 +1417,11 @@ view.checkout = () => {
           <label for="oemail">Почта (необязательно)</label><input id="oemail" type="email" autocomplete="email" placeholder="mail@example.ru">
         </div><div class="field">
           <label for="ocity">Город</label>
-          <select id="ocity">${CITIES.map(c => `<option ${c.n===store.city?"selected":""}>${c.n}</option>`).join("")}</select>
+          <input id="ocity" value="Ростов-на-Дону" readonly>
         </div>
         <div class="field" id="ocityOtherWrap" style="${store.city==="Другой город"?"":"display:none"}">
           <label for="ocityOther">Укажите ваш город</label>
-          <input id="ocityOther" placeholder="Например, Астрахань">
+          <input id="ocityOther" placeholder="Ростов-на-Дону">
         </div>
         <div class="field">
           <label>Получение</label>
@@ -1547,7 +1536,7 @@ view.promo = () => `<section class="screen on"><div class="wrap">
       <p class="eyebrow">Комплект</p>
       <h3>Стартовый набор для поста мойки</h3>
       <p>Предмоечная химия, шампунь, воск-консервант и микрофибра — рассчитаны на объём одного поста на месяц. Собираем под ваше оборудование.</p>
-      <a class="more" href="#/catalog/wash">Раздел «Мойка и уход» →</a>
+      <a class="more" href="#/catalog/wash">Раздел «Мойка и экстерьер» →</a>
     </div>
     <div class="promo-card">
       <p class="eyebrow">Комплект</p>
@@ -1571,7 +1560,7 @@ view.wholesale = () => `<section class="screen on"><div class="wrap">
   <div class="two">
     <div>
       <p class="eyebrow">Для бизнеса</p>
-      <h1>Поставки для вашего бизнеса</h1>
+      <h1>Опт и партнёрам</h1>
       <p style="color:var(--steel);font-size:14.5px;margin:16px 0 0;max-width:50ch">Подберём автохимию, оборудование и расходники для автомойки, детейлинг-студии, магазина или СТО. Согласуем ассортимент и условия поставки.</p>
       <ul class="ticks">
         <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Прямые поставки Koch Chemie, Zvizzer, AuTech и других брендов</li>
@@ -1600,7 +1589,7 @@ view.wholesale = () => `<section class="screen on"><div class="wrap">
       <div class="field"><label for="pemail">Почта</label><input id="pemail" type="email" placeholder="mail@company.ru"></div>
       <div class="two-col">
         <div class="field"><label for="pcity">Город</label>
-          <select id="pcity">${CITIES.map(c => `<option ${c.n===store.city?"selected":""}>${c.n}</option>`).join("")}</select>
+          <input id="pcity" value="Ростов-на-Дону" readonly>
         </div>
         <div class="field"><label for="pactivity">Профиль</label>
           <select id="pactivity">
@@ -1610,7 +1599,7 @@ view.wholesale = () => `<section class="screen on"><div class="wrap">
       </div>
       <div class="field" id="pcityOtherWrap" style="${store.city==="Другой город"?"":"display:none"}">
         <label for="pcityOther">Укажите ваш город</label>
-        <input id="pcityOther" placeholder="Например, Астрахань">
+        <input id="pcityOther" placeholder="Ростов-на-Дону">
       </div>
       <div class="field"><label for="pvolume">Ожидаемый объём закупок в месяц</label>
         <select id="pvolume">
@@ -2131,14 +2120,15 @@ fetchUsdRate();
 $("#footYear").textContent = new Date().getFullYear();
 </script>
 <script src="shinemate-data.js?v=20261002"></script>
-<script src="retail-search.js?v=20261007-commerce1"></script>
+<script src="retail-search.js?v=20261008-meeting3"></script>
 <script src="request-config.js?v=20261006-forms1"></script>
 <script src="request-client.js?v=20261006-forms1"></script>
-<script src="client-flows.js?v=20261007-commerce1"></script>
-<script src="storefront.js?v=20261007-commerce1"></script>
+<script src="client-flows.js?v=20261008-meeting3"></script>
+<script src="meeting-content.js?v=20261008-meeting3"></script>
+<script src="storefront.js?v=20261008-meeting3"></script>
 <script src="release-polish.js?v=20261003-final1"></script>
-<script src="delivery-final.js?v=20261007-commerce1"></script>
-<script src="presentation.js?v=20261007-commerce1"></script>
-<script src="commerce.js?v=20261007-commerce1"></script>
+<script src="delivery-final.js?v=20261008-meeting3"></script>
+<script src="presentation.js?v=20261008-meeting3"></script>
+<script src="commerce.js?v=20261008-meeting3"></script>
 </body>
 </html>

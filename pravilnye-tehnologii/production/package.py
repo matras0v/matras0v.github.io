@@ -18,7 +18,7 @@ output = root / 'pravilnye-tehnologii-production-final.zip'
 files = {}
 frontend = ['index.html','catalog.js','shinemate-data.js','retail-search.js',
     'request-client.js','client-flows.js','storefront.js','release-polish.js','delivery-final.js',
-    'commerce.js','commerce.css','presentation.js','presentation.css','brand-feedback.css','delivery-final.css','delivery-polish.css','storefront.css','mobile-final.css']
+    'meeting-content.js','meeting.css','commerce.js','commerce.css','presentation.js','presentation.css','brand-feedback.css','delivery-final.css','delivery-polish.css','storefront.css','mobile-final.css']
 for name in frontend:
     files['public_html/'+name] = (root/name).read_bytes()
 files['public_html/request-config.js'] = b"/* Public endpoint only; no credentials. */\nwindow.PT_REQUEST_ENDPOINT = '/api/request.php';\n"

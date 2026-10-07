@@ -1,0 +1,1478 @@
+{
+  "products": 648,
+  "uniqueImages": 593,
+  "failures": [],
+  "duplicates": [
+    {
+      "img": "shinemate/ep804.webp",
+      "ids": [
+        538,
+        539
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/ex620.webp",
+      "ids": [
+        541,
+        542
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/es700.webp",
+      "ids": [
+        546,
+        547
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/es516.webp",
+      "ids": [
+        548,
+        549
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/eb213.webp",
+      "ids": [
+        556,
+        562
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/eb200a.webp",
+      "ids": [
+        557,
+        558,
+        559,
+        560,
+        561
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/battery-18v.webp",
+      "ids": [
+        563,
+        564
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/battery-108v.webp",
+      "ids": [
+        565,
+        566
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/plate-flexedge-small.webp",
+      "ids": [
+        570,
+        571,
+        572
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/plate-flexedge.webp",
+      "ids": [
+        573,
+        574
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/plate-multihole.webp",
+      "ids": [
+        575,
+        576,
+        577
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/plate-sanding.webp",
+      "ids": [
+        578,
+        579
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/extension-80mm.webp",
+      "ids": [
+        581,
+        582
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/foam-flat-t120.webp",
+      "ids": [
+        583,
+        584,
+        585
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/foam-flat-t80.webp",
+      "ids": [
+        586,
+        587,
+        588
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/foam-flat-t60.webp",
+      "ids": [
+        589,
+        590,
+        591
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/foam-flat-t40.webp",
+      "ids": [
+        592,
+        593,
+        594
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/foam-flat-t10.webp",
+      "ids": [
+        595,
+        596,
+        597
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/foam-diamond-t120.webp",
+      "ids": [
+        598,
+        599,
+        600
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/foam-diamond-t80.webp",
+      "ids": [
+        601,
+        602,
+        603
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/foam-diamond-t60.webp",
+      "ids": [
+        604,
+        605,
+        606
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/foam-diamond-t40.webp",
+      "ids": [
+        607,
+        608,
+        609
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/foam-diamond-t10.webp",
+      "ids": [
+        610,
+        611,
+        612
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/wool-t130.webp",
+      "ids": [
+        613,
+        614,
+        615,
+        616,
+        617,
+        618
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/wool-short-red.webp",
+      "ids": [
+        619,
+        620,
+        621
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/wool-short-blue.webp",
+      "ids": [
+        622,
+        623,
+        624
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/microfiber-t100.webp",
+      "ids": [
+        625,
+        626,
+        627
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/microfiber-t20.webp",
+      "ids": [
+        628,
+        629,
+        630
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/spot-pads.webp",
+      "ids": [
+        631,
+        632,
+        633
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/tool-bag.webp",
+      "ids": [
+        639,
+        640
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    },
+    {
+      "img": "shinemate/towel.webp",
+      "ids": [
+        646,
+        647
+      ],
+      "brands": [
+        "ShineMate"
+      ]
+    }
+  ],
+  "review": [
+    {
+      "i": 18,
+      "brand": "Koch Chemie",
+      "name": "ONE CUT & FINISH P6.01 - Одношаговая полировальная паста с защитным эффектом (1л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 21,
+      "brand": "Koch Chemie",
+      "name": "Micro Cut M3.01 1л. Полировальная паста антиголограммная (P3000)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 24,
+      "brand": "Koch Chemie",
+      "name": "Micro Cut & Finish 2.02 Антиголограммная паста 1 л",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 25,
+      "brand": "Koch Chemie",
+      "name": "Micro Cut & Finish 2.02 антиголограммная паста 250 мл",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 28,
+      "brand": "Koch Chemie",
+      "name": "Меховой круг из натурального меха Ø 150 мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 29,
+      "brand": "Koch Chemie",
+      "name": "Меховой круг с натуральным мехом Ø 135 мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 34,
+      "brand": "Koch Chemie",
+      "name": "Полировальный круг Полутвердый Ø 160 x 30 мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 35,
+      "brand": "Koch Chemie",
+      "name": "Полировальный круг Полу-твердый Ø 160 x 50 мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 36,
+      "brand": "Koch Chemie",
+      "name": "Полировальный круг Полу-твердый Ø 130 x 30 мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 37,
+      "brand": "Koch Chemie",
+      "name": "Полировальный круг Полу-твердый Ø 80 x 30 мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 38,
+      "brand": "Koch Chemie",
+      "name": "Полировальный круг Полу-твердый Ø 210 x 30 мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 49,
+      "brand": "Koch Chemie",
+      "name": "Анти-голограммный полировальный круг 135x25 мм рифлёный",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 50,
+      "brand": "Koch Chemie",
+      "name": "Анти-голограммный полировальный круг Ø 80 x 30 мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 55,
+      "brand": "Zvizzer",
+      "name": "Набор термоустойчивых полировальных кругов разной плотности Thermo Detailing Line, 80мм, 5шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 56,
+      "brand": "Zvizzer",
+      "name": "Набор термоустойчивых полировальных кругов разной плотности Thermo Detailing Line, 125мм, 5шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 57,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Wool 160/20/150мм. Комплект 2 шт. Полировальный круг из натурального стриженого меха на полутвёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 58,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Wool 160/20/150мм. Комплект 2 шт. Полировальный круг из натурального стриженого меха на твёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 59,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Pads ULTRA HARD 160/20/150мм Комплект 2 шт. Полировальный термостойкий поролоновый белый круг твёрдый 14 kPa",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 60,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Pads SOFT 160/20/150мм Комплект 2 шт. Полировальный термостойкий поролоновый бордовый круг мягкий 8 kPa",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 61,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Pads ULTRA HARD 160/20/150мм Комплект 2 шт. Полировальный термостойкий поролоновый серый круг ультра жёсткий 20 kPa",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 62,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Pads ULTRA HARD 90/20/80мм Комплект 2 шт. Полировальный термостойкий поролоновый белый круг твёрдый 14 kPa",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 63,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Pads SOFT 90/20/80мм Комплект 2 шт. Полировальный термостойкий поролоновый бордовый круг мягкий 8 kPa",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 64,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Pads ULTRA HARD 90/20/80мм Комплект 2 шт. Полировальный термостойкий поролоновый серый круг ультра жёсткий 20 kPa",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 65,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 160/20/150мм Комплект 2шт. Полировальный круг микрофра короткая на твёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 66,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 160/20/150мм Комплект 2шт. Полировальный круг микрофра короткая на мягком Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 67,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 140/20/125мм Комплект 2шт. Полировальный круг микрофра короткая на мягком Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 68,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 90/20/80мм Комплект 2шт. Полировальный круг микрофра короткая на полутвёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 69,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 70/20/55мм Комплект 5шт. Полировальный круг микрофра короткая на полутвёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 70,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Hybrid 160/15/150мм Комплект 2 шт. Полировальный гибридный круг из натурального и искусственного меха на полутвёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 71,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Hybrid 160/15/150мм Комплект 2 шт. Полировальный гибридный круг из натурального и искусственного меха на GN –твёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 72,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Hybrid 90/15/80мм Комплект 2 шт. Полировальный гибридный круг из натурального и искусственного меха на BK –мягком Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 73,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Hybrid 70/15/55мм Комплект 5 шт. Полировальный гибридный круг из натурального и искусственного меха на BK –мягком Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 74,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Pads ULTRA SOFT 140/20/125мм Комплект 2 шт. Полировальный термостойкий поролоновый чёрный круг ультра мягкий 5 kPa",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 75,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Pads SOFT 140/20/125мм Комплект 2 шт. Полировальный термостойкий поролоновый бордовый круг мягкий 8 kPa",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 76,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Pads ULTRA HARD 140/20/125мм Комплект 2 шт. Полировальный термостойкий поролоновый белый круг твёрдый 14 kPa",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 77,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Pads HEAVY 140/20/125мм Комплект 2 шт. Полировальный термостойкий поролоновый зелёный круг жёсткий 17 kPa",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 78,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Pads ULTRA HARD 140/20/125мм Комплект 2 шт. Полировальный термостойкий поролоновый серый круг ультра жёсткий 20 kPa",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 79,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 140/20/125мм Комплект 2шт. Полировальный круг микрофибра короткая на полутвёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 80,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 160/20/150мм Комплект 2шт. Полировальный круг микрофибра короткая на полутвёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 81,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 90/20/80мм Комплект 2шт. Полировальный круг микрофра короткая на твёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 82,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 140/20/125мм Комплект 2шт. Полировальный круг микрофра короткая на твёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 83,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 90/30/80мм Комплект 2шт. Полировальный микрофибровый круг на полутвёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 84,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 140/30/125мм Комплект 2шт. Полировальный микрофибровый круг на полутвёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 85,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 160/30/150мм Комплект 2шт. Полировальный микрофибровый круг на полутвёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 86,
+      "brand": "Zvizzer",
+      "name": "Zvizzer Thermo Microfiber 90/30/80мм Комплект 2шт. Полировальный микрофибровый круг на твёрдом Termo поролоне с липучкой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 91,
+      "brand": "AuTech",
+      "name": "Полировальный круг поролон финишный мягкий Trapez 90/25/80мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 93,
+      "brand": "AuTech",
+      "name": "Полировальный круг поролон полутвёрдый Trapez 90/25/80мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 94,
+      "brand": "AuTech",
+      "name": "Полировальный круг поролон полутвёрдый Trapez 140/25/125мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 95,
+      "brand": "AuTech",
+      "name": "Полировальный круг поролон твёрдый Trapez 90/25/80мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 96,
+      "brand": "AuTech",
+      "name": "Полировальный круг поролон твёрдый Trapez 140/25/125мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 97,
+      "brand": "AuTech",
+      "name": "Полировальный круг поролон финишный мягкий Standard 150/12/140мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 98,
+      "brand": "AuTech",
+      "name": "Полировальный круг поролон полутвёрдый Standard 150/12/140мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 99,
+      "brand": "AuTech",
+      "name": "Полировальный круг поролон полутвёрдый Standard 150/20/140мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 100,
+      "brand": "AuTech",
+      "name": "Полировальный круг поролон твёрдый Standard 150/12/140мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 103,
+      "brand": "AuTech",
+      "name": "Полировальный меховой круг Doodle Wool-Pad, black 80/25/80мм шерсть длинная 15мм",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 107,
+      "brand": "AuTech",
+      "name": "Комплект полировальных кругов диаметром 75 мм - 9 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 108,
+      "brand": "AuTech",
+      "name": "Полировальная насадка для гибкого вала (цилиндр, конус) полутвердая - комплект 15 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 113,
+      "brand": "Koch Chemie",
+      "name": "MULTI STAR SIO2 - Бесконтактное щелочное средство для предварительной мойки автомобиля, (33 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 116,
+      "brand": "Koch Chemie",
+      "name": "MULTI STAR N - Универсальное щелочное бесконтактное моющее средство под разные типы воды, (5л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 118,
+      "brand": "Koch Chemie",
+      "name": "MULTI STAR L Универсальное бесконтактное моющее средство 33л",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 121,
+      "brand": "Koch Chemie",
+      "name": "MULTI STAR N - Универсальное щелочное бесконтактное моющее средство под разные типы воды, (33 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 124,
+      "brand": "Koch Chemie",
+      "name": "Green star NTA-Frei - Универсальное щелочное средство для бережной первичной мойки поверхностей без NTA* (11 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 125,
+      "brand": "Koch Chemie",
+      "name": "Multi Star NTA-Frei - Состав для первичной мойки (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 128,
+      "brand": "Koch Chemie",
+      "name": "Green star NTA-Frei - Универсальное щелочное средство для бережной первичной мойки поверхностей без NTA* (5 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 129,
+      "brand": "Koch Chemie",
+      "name": "Gentle Snow Foam X-Mas - Высокопенная pH-нейтральная пена для предварительной и ручной мойки автомобиля. Кислотность (pH) 8,0 (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 133,
+      "brand": "Koch Chemie",
+      "name": "MULTI STAR N - Универсальное щелочное бесконтактное моющее средство под разные типы воды, (23 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 135,
+      "brand": "Koch Chemie",
+      "name": "MULTI STAR N - Универсальное щелочное бесконтактное моющее средство под разные типы воды, (22 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 141,
+      "brand": "Koch Chemie",
+      "name": "TWIN SHAMPOO - Высококонцентрированный, без фосфата и растворителей, не фосфорнокислый, щелочной комбинированный продукт (пена и шампунь), (10 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 143,
+      "brand": "Koch Chemie",
+      "name": "ACTIVE-FOAM - Высококонцентрированная ароматная пена с запахом сандалового дерева для мойки автомобиля на портальных, туннельных, ручных мойках и мойках самообслуживания, (33 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 144,
+      "brand": "Koch Chemie",
+      "name": "GLANZWACHSSHAMPOO - рН-нейтральный мультифункциональный концентрированный шампунь для ручной мойки с защищающими компонентами для автомобильного лака, (10 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 147,
+      "brand": "Koch Chemie",
+      "name": "SUPER FOAM - Чистящая, активная пена для моек самообслуживания и ручной мойки «Евро Мойка», (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 148,
+      "brand": "Koch Chemie",
+      "name": "Super Foam - Чистящая пена для моек самообслуживания и ручной мойки \"Евро Мойка\" 11 кг",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 149,
+      "brand": "Koch Chemie",
+      "name": "SUPER FOAM - Чистящая, активная пена для моек самообслуживания и ручной мойки «Евро Мойка», (33 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 150,
+      "brand": "Koch Chemie",
+      "name": "ACTIVE-FOAM - Высококонцентрированная ароматная пена с запахом лимонника SPRING для мойки автомобиля на портальных, туннельных, ручных мойках и мойках самообслуживания, (33 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 152,
+      "brand": "Koch Chemie",
+      "name": "ACTIVE-FOAM - Высококонцентрированная ароматная пена с запахом сандалового дерева для мойки автомобиля на портальных, туннельных, ручных мойках и мойках самообслуживания, (1 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 157,
+      "brand": "Koch Chemie",
+      "name": "Super Foam Fruit Bowl -Активная пена для глубокого очищения (5 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 158,
+      "brand": "Koch Chemie",
+      "name": "Super Foam Fruit Bowl -Активная пена для глубокого очищения (1л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 162,
+      "brand": "Koch Chemie",
+      "name": "TWIN SHAMPOO - Высококонцентрированный, без фосфата и растворителей, не фосфорнокислый, щелочной комбинированный продукт (пена и шампунь), (21 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 163,
+      "brand": "Koch Chemie",
+      "name": "Super Foam Fruit Bowl -Активная пена для глубокого очищения (20 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 166,
+      "brand": "Koch Chemie",
+      "name": "Активная пена Super Foam NTA frei* для глубокого очищения ЛКП pH 12, 10л",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 168,
+      "brand": "Koch Chemie",
+      "name": "PROTECTORWAX - Консервирующий полимер премиум–класса, (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 169,
+      "brand": "Koch Chemie",
+      "name": "PROTECTORWAX - Консервирующий полимер премиум–класса, (10 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 174,
+      "brand": "Koch Chemie",
+      "name": "HOCHGLANZTROCKNER - Сильно концентрированный горячий воск для вспомогательной сушки ЛКП автомобиля, (10 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 175,
+      "brand": "Koch Chemie",
+      "name": "NANOCRYSTAL POLISH HYDROPHOB - Состав для бесконтактной полировки после мойки автомобиля с гидрофобным эффектом, (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 178,
+      "brand": "Koch Chemie",
+      "name": "NANOCRYSTAL POLISH 30л. Пенная полировка (Гидрофильный эффект)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 186,
+      "brand": "Koch Chemie",
+      "name": "Spray Sealant S0.02 - Водоотталкивающий полироль-спрей для зеркальной полировки лакокрасочных поверхностей (500мл)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 190,
+      "brand": "Koch Chemie",
+      "name": "TEERWASCHE A - Концентрат для быстрого очищения от смолы, (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 192,
+      "brand": "Koch Chemie",
+      "name": "INSECT DIRTREMOVER - Очиститель следов от насекомых, (11 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 193,
+      "brand": "Koch Chemie",
+      "name": "TEERWASCHE Очиститель смолы для наружного применения 1л",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 194,
+      "brand": "Koch Chemie",
+      "name": "TEERWASCHE Очиститель смолы для наружного применения 10 л",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 197,
+      "brand": "Koch Chemie",
+      "name": "BAUMHARZENTFERNER - Состав служит для быстрого удаления смолы и почек от деревьев, (10 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 199,
+      "brand": "AuTech",
+      "name": "Меламиновая губка 110х70х30 мм - упаковка 6 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 200,
+      "brand": "Koch Chemie",
+      "name": "MICROFASER-REINIGUNGSHANDSCHUH Оранжевая рукавица из микрофазера",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 201,
+      "brand": "Koch Chemie",
+      "name": "MICROFASER FROTTEETUCH Микрофибра салфетка 40*40 см, серая, 360 гр оверлоченная 2 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 205,
+      "brand": "AuTech",
+      "name": "Микрофибра салфетка 40*40 см, серая, 360 гр к-т 2 штуки",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 207,
+      "brand": "AuTech",
+      "name": "Микрофибра 40х40 250 гр. для нанесения составов 100% полиэстер. комплект - 5 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 208,
+      "brand": "AuTech",
+      "name": "Микрофибра 40х40 250 гр. для нанесения составов 100% полиэстер. комплект - 100 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 210,
+      "brand": "AuTech",
+      "name": "PROFI-MICROFASERTUCH BLAU Микрофибра салфетка 40*40 см, голубая, 400гр, комплект 3 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 212,
+      "brand": "AuTech",
+      "name": "Губка- шпатель на деревянной ручке, комплект 10 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 213,
+      "brand": "AuTech",
+      "name": "Меламиновая губка высокой плотности 110х70х30 мм - упаковка 8 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 215,
+      "brand": "AuTech",
+      "name": "Губка- шпатель на деревянной ручке, комплект 5 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 218,
+      "brand": "Koch Chemie",
+      "name": "Microfaser Frotteetuch blau - Микрофибра салфетка 40*40 см, синяя, оверлоченная",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 233,
+      "brand": "Koch Chemie",
+      "name": "Wash & Finish - Мойка без воды + защита (1 л.)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 239,
+      "brand": "Koch Chemie",
+      "name": "DUFTSTOFF - Ароматизатор с запахом «Весенняя свежесть» (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 240,
+      "brand": "Koch Chemie",
+      "name": "DUFTSTOFF - Ароматизатор с запахом «Морской бриз» (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 242,
+      "brand": "Koch Chemie",
+      "name": "DUFTSTOFF - Ароматизатор с запахом «Малина» (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 243,
+      "brand": "Koch Chemie",
+      "name": "DUFTSTOFF - Ароматизатор с запахом «Лимон» (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 244,
+      "brand": "Koch Chemie",
+      "name": "DUFTSTOFF - Ароматизатор с запахом «Апельсин» (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 245,
+      "brand": "Koch Chemie",
+      "name": "DUFTSTOFF - Ароматизатор с запахом «Bazooka - Bubble Gum» (1 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 259,
+      "brand": "Koch Chemie",
+      "name": "QUATTRO-ACID-STAR XL - 4-х кислотный очиститель колёсных дисков автомобиля, (11 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 260,
+      "brand": "Koch Chemie",
+      "name": "TRIPLE ACID STAR - 3-х кислотный очиститель колёсных дисков автомобиля, (11 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 261,
+      "brand": "Koch Chemie",
+      "name": "FELGENREINIGER EXTREM - Кислотный очиститель поверхности дисков автомобиля, (11 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 262,
+      "brand": "Koch Chemie",
+      "name": "FELGENREINIGER K - Кислотный очиститель с ингибитором для различных поверхностей автомобиля, (12 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 265,
+      "brand": "Koch Chemie",
+      "name": "FELGENBLITZ ALKALISCH - Щелочной очиститель колёсных дисков, допуск Daimler AG, (33 кг)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 271,
+      "brand": "Koch Chemie",
+      "name": "Alkali Wheel Cleaner - Щелочной очиститель колёсных дисков, (25 л)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 272,
+      "brand": "AuTech",
+      "name": "Ведро для мойки поролоновых полировальных кругов",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 274,
+      "brand": "AuTech",
+      "name": "Щётка из микрофибры для очистки дисков, 44 см",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 275,
+      "brand": "AuTech",
+      "name": "Щётка для глубокого очищения поверхностей BLACK ROCKET 45 см",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 288,
+      "brand": "AuTech",
+      "name": "Салфетки для нанесения защитных составов 10*10 см серые уп-ка 100 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 295,
+      "brand": "Koch Chemie",
+      "name": "SPEEDGLASSCLEANER очиститель стекла 140мл",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 297,
+      "brand": "AuTech",
+      "name": "Салфетка для стекол 40х40 см. голубая",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 299,
+      "brand": "AuTech",
+      "name": "Насадки-удлинители для полировальных машинок марки AUTECH набор из 3-х шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 327,
+      "brand": "Cyclone",
+      "name": "Курок для Циклона Z010 и Торнадора Z020",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 328,
+      "brand": "AuTech",
+      "name": "Пылесос трехтурбинный пылеводосос для сухой и влажной уборки помещений и автотранспорта, с телескопическим шлангом, мощность -3600 Вт., 60 л",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 329,
+      "brand": "AuTech",
+      "name": "Пылесос трехтурбинный пылеводосос для сухой и влажной уборки помещений и автотранспорта, мощность -3600 Вт., 60л",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 330,
+      "brand": "AuTech",
+      "name": "Пылесос двухтурбинный пылеводосос для сухой и влажной уборки помещений и автотранспорта, с телескопическим шлангом, мощность -2400 Вт., 60 л",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 331,
+      "brand": "AuTech",
+      "name": "Пылесос двухтурбинный пылеводосос для сухой и влажной уборки помещений и автотранспорта, мощность -2400 Вт., 60л",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 332,
+      "brand": "AuTech",
+      "name": "Пылесос однотурбинный пылеводосос для сухой и влажной уборки помещений и автотранспорта, мощность -1500 Вт., 30л",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 336,
+      "brand": "AuTech",
+      "name": "Пылесос для уборки помещений и автотранспорта, 3000 Вт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 344,
+      "brand": "Koch Chemie",
+      "name": "MICROFASER FROTTEETUCH Микрофибра салфетка 40*40 см, серая, 360 гр оверлоченная 1 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 346,
+      "brand": "Koch Chemie",
+      "name": "Polish and Sealing Towel - Профессиональная микрофибровая салфетка без краев 40 х 40 см. Комплект 5 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 348,
+      "brand": "Koch Chemie",
+      "name": "Cалфетка из микрофибры для нанесения керамических составов KCX coating towel, к-т 5 штук",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 349,
+      "brand": "Koch Chemie",
+      "name": "Полировочная салфетка из микрофибры. KCX pro allrounder towel",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 350,
+      "brand": "Koch Chemie",
+      "name": "Аппликатор для нанесения керамических составов Applikatorblock Ceramic 90 x 40 x 24 mm, уп-ка 5 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 351,
+      "brand": "AuTech",
+      "name": "Усиленный Атомайзер непрерывного распыления 250 мл",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 358,
+      "brand": "AuTech",
+      "name": "Сумка-пояс детейлера",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 359,
+      "brand": "Koch Chemie",
+      "name": "Салфетка для протирки 80 х 55 см. к-кт 2 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 363,
+      "brand": "AuTech",
+      "name": "PROFI-MICROFASERTUCH Полотенце оверлоченное 55*80 см, СИНЕЕ, 400гр/м2 для сушки авто",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 367,
+      "brand": "AuTech",
+      "name": "Пескоотделитель красный для ведра 266 х 65 мм для мойки автомобиля",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 377,
+      "brand": "AuTech",
+      "name": "Пневмопистолет большой, длина курка 26 см",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 378,
+      "brand": "AuTech",
+      "name": "Пневмопистолет малый, длина курка 13 см",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 381,
+      "brand": "AuTech",
+      "name": "Бутылка с триггером 150 мл",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 382,
+      "brand": "AuTech",
+      "name": "Бутылка с пенообразователем 200 мл",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 389,
+      "brand": "Marolex",
+      "name": "Помповый опрыскиватель Industry Alka line LITE 5 (EPDM)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 395,
+      "brand": "Koch Chemie",
+      "name": "Foamer Bottle - Бутылка с пенообразователем 150 мл",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 422,
+      "brand": "AuTech",
+      "name": "Универсальная щетка с мягким ворсом",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 425,
+      "brand": "AuTech",
+      "name": "Кисточки из натурального ворса для ухода за салоном автомобиля, комплект 2 шт",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 441,
+      "brand": "ColourLock",
+      "name": "Ручка CleanGrip для щетки COLOURLOCK для чистки кожи LZ-851496",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 446,
+      "brand": "ColourLock",
+      "name": "Вискозная салфетка Colourlock Viskosetücher, комплект 20 штук LZ-11073/20",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 447,
+      "brand": "ColourLock",
+      "name": "Вискозная салфетка Colourlock Viskosetücher, комплект 2 штуки LZ-11073/2",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 463,
+      "brand": "Finisher",
+      "name": "JustPerfect THE FINISHER — универсальный Quick Detailer для безупречного финиша (500 мл) 77721-500ML-01",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 467,
+      "brand": "Finisher",
+      "name": "DisplayExpert - Специальный растворитель жиров для чувствительных дисплеев и гладких поверхностей (100 мл) 77718-100ML-01",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 472,
+      "brand": "PACA",
+      "name": "SUPER LUBE - Многофункциональная универсальная смазка (400 мл) 50-00609",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 499,
+      "brand": "Gyeon",
+      "name": "Q2 Mohs EVO - Керамическое покрытие для кузова на основе модифицированных полисиланазов",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 500,
+      "brand": "Gyeon",
+      "name": "Q2 Syncro EVO - Двухслойное керамическое покрытие (база + топ-слой)",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 501,
+      "brand": "Gyeon",
+      "name": "Q2 CanCoat EVO - Керамическое покрытие в форме спрея",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 502,
+      "brand": "Gyeon",
+      "name": "Q2 One EVO - Керамическое покрытие начального уровня",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 503,
+      "brand": "Gyeon",
+      "name": "Q2M Bathe - Концентрированный pH-нейтральный автошампунь",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 504,
+      "brand": "Gyeon",
+      "name": "Q2M Foam - Пена для предварительной мойки",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 505,
+      "brand": "Gyeon",
+      "name": "Q2M Prep - Обезжириватель перед нанесением покрытия",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 506,
+      "brand": "Gyeon",
+      "name": "Q2M QuickDetailer - Быстрый детейлер для регулярного ухода",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 507,
+      "brand": "Gyeon",
+      "name": "Q2M Iron Redefined - Очиститель от металлических частиц",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 508,
+      "brand": "Gyeon",
+      "name": "Q2M Tar Redefined - Очиститель от смолы и битумных пятен",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 509,
+      "brand": "Gyeon",
+      "name": "Q2M Glass - Очиститель автомобильных стёкол",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 510,
+      "brand": "Gyeon",
+      "name": "Q2M Tire Cleaner - Очиститель шин и резины",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 511,
+      "brand": "Gyeon",
+      "name": "Q2M APC - Универсальный очиститель салона и кузова",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 512,
+      "brand": "Gyeon",
+      "name": "Q2M LeatherCleaner Strong - Сильный очиститель кожи",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 513,
+      "brand": "Gyeon",
+      "name": "Q2M Interior Detailer - Быстрый уход за салоном с антибактериальным эффектом",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 514,
+      "brand": "Gyeon",
+      "name": "Q2M Polish - Поролоновый круг для финишной полировки",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 515,
+      "brand": "Gyeon",
+      "name": "Q2M Compound - Абразивная паста для съёма дефектов",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 516,
+      "brand": "Gyeon",
+      "name": "Q2M WheelBrush - Щётка для мойки дисков",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 517,
+      "brand": "Hendlex",
+      "name": "Hendlex M3X - Керамическое покрытие для кузова, новая формула нанокерамики",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 518,
+      "brand": "Hendlex",
+      "name": "Hendlex M3 - Нанокерамическое покрытие для кузова",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 519,
+      "brand": "Hendlex",
+      "name": "Hendlex NC9 PRO - Профессиональное нанокерамическое покрытие",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 520,
+      "brand": "Hendlex",
+      "name": "Hendlex DC60 Sprayable Ceramic - Керамика в форме спрея",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 521,
+      "brand": "Hendlex",
+      "name": "Hendlex Glass Pro - Гидрофобное покрытие для автостёкол",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 522,
+      "brand": "Hendlex",
+      "name": "Hendlex Glass Xtreme - Усиленное гидрофобное покрытие для стёкол",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 523,
+      "brand": "Hendlex",
+      "name": "Hendlex Invisible Wipers - Покрытие «невидимые дворники»",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 524,
+      "brand": "Hendlex",
+      "name": "Hendlex Antifog - Антизапотевающее нанопокрытие",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 525,
+      "brand": "Hendlex",
+      "name": "Hendlex Instant Antifog - Антизапотевающее покрытие мгновенного действия",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 526,
+      "brand": "Hendlex",
+      "name": "Hendlex Sofa/Bed - Защитное нанопокрытие для мягкой мебели",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 527,
+      "brand": "Hendlex",
+      "name": "Hendlex Textile Pro - Защита автомобильного текстиля",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 528,
+      "brand": "Hendlex",
+      "name": "Hendlex Textile - Защитное нанопокрытие для тканей",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 529,
+      "brand": "Hendlex",
+      "name": "Hendlex Leather Matte Effect - Защитное покрытие для кожи, матовый эффект",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 530,
+      "brand": "Hendlex",
+      "name": "Hendlex Leather Shine Effect - Защитное покрытие для кожи, глянцевый эффект",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 531,
+      "brand": "Hendlex",
+      "name": "Hendlex Plastic&Metal - Гидрофобное покрытие для пластика и металла",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 532,
+      "brand": "Hendlex",
+      "name": "Hendlex Plastic Renewer - Восстановитель пластика",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 533,
+      "brand": "Hendlex",
+      "name": "Hendlex Nano Scrub - Очиститель-скраб перед нанокерамикой",
+      "reason": "No article in supplied data; do not replace image by guess"
+    },
+    {
+      "i": 534,
+      "brand": "Hendlex",
+      "name": "Hendlex Paint Prepare - Концентрат для подготовки поверхности",
+      "reason": "No article in supplied data; do not replace image by guess"
+    }
+  ],
+  "scope": "Structural checks and explicit scene mappings. Missing article or source provenance is not exact visual identity verification."
+}
