@@ -597,8 +597,8 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <link rel="stylesheet" href="delivery-polish.css?v=20261003-delivery1">
 <link rel="stylesheet" href="mobile-final.css?v=20261003-final2">
 <link rel="stylesheet" href="brand-feedback.css?v=20261005-client1">
-<link rel="stylesheet" href="delivery-final.css?v=20261007-final5">
-<link rel="stylesheet" href="presentation.css?v=20261007-final5">
+<link rel="stylesheet" href="delivery-final.css?v=20261007-contained8">
+<link rel="stylesheet" href="presentation.css?v=20261007-contained8">
 </head>
 <body>
 
@@ -957,7 +957,7 @@ function paintChrome(){
   const fb = $("#favBadge");
   fb.hidden = store.fav.length === 0; fb.textContent = store.fav.length;
 
-  $("#accLabel").textContent = "Оптовикам";
+  $("#accLabel").textContent = "Оптовый доступ";
 
   const route = location.hash.split("/")[1] || "";
   document.querySelectorAll("#nav a").forEach(a => {
@@ -2123,10 +2123,11 @@ $("#footYear").textContent = new Date().getFullYear();
 <script src="retail-search.js?v=20261005-final1"></script>
 <script src="request-config.js?v=20261006-forms1"></script>
 <script src="request-client.js?v=20261006-forms1"></script>
-<script src="client-flows.js?v=20261007-final5"></script>
-<script src="storefront.js?v=20261007-final5"></script>
+<script src="client-flows.js?v=20261007-contained8"></script>
+<script src="storefront.js?v=20261007-contained8"></script>
 <script src="release-polish.js?v=20261003-final1"></script>
-<script src="delivery-final.js?v=20261007-final5"></script>
-<script src="presentation.js?v=20261007-final5"></script>
+<script src="delivery-final.js?v=20261007-contained8"></script>
+<script src="presentation.js?v=20261007-contained8"></script>
+<script src="store-map.js?v=20261007-contained8"></script>
 </body>
 </html>

@@ -20,10 +20,11 @@
   const compactHeader=()=>{scrollFrame=0;const compact=document.body.classList.contains('header-compact');if(scrollY>120&&!compact)document.body.classList.add('header-compact');else if(scrollY<20&&compact)document.body.classList.remove('header-compact');};
   window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(compactHeader);},{passive:true});compactHeader();
   const navLinks=document.querySelector('#nav'),more=document.createElement('div');more.className='nav-more';
-  more.innerHTML='<button class="more-toggle" aria-expanded="false" aria-controls="more-links" aria-label="Ещё разделы"><span aria-hidden="true">•••</span> Ещё</button><div id="more-links" class="more-panel" hidden></div>';
+  more.innerHTML='<button class="more-toggle" aria-expanded="false" aria-controls="more-links" aria-label="Ещё разделы">Ещё <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></button><div id="more-links" class="more-panel" hidden></div>';
   navLinks.append(more);const moreButton=more.querySelector('button'),morePanel=more.querySelector('.more-panel');
-  const secondary=[...navLinks.querySelectorAll(':scope>a')].filter(a=>['#/wholesale','#/delivery','#/contacts'].includes(a.getAttribute('href')));
+  const secondary=[...navLinks.querySelectorAll(':scope>a')].filter(a=>['#/delivery','#/contacts'].includes(a.getAttribute('href')));
   for(const [url,title] of [['#/about','О компании'],['#/privacy','Документы и политика']]){const a=document.createElement('a');a.href=url;a.textContent=title;secondary.push(a);}
+  secondary.sort((a,b)=>['#/about','#/contacts','#/delivery','#/privacy'].indexOf(a.getAttribute('href'))-['#/about','#/contacts','#/delivery','#/privacy'].indexOf(b.getAttribute('href')));
   secondary.forEach(a=>{const url=a.getAttribute('href');a.insertAdjacentHTML('afterbegin',icon(url==='#/contacts'?'phone':url==='#/delivery'?'box':url==='#/wholesale'?'list':url==='#/about'?'map':'check'));});
   const closeMore=(focus=false)=>{morePanel.hidden=true;moreButton.setAttribute('aria-expanded','false');if(focus)moreButton.focus();};
   const placeMore=()=>{closeMore();if(matchMedia('(min-width:768px)').matches){secondary.forEach(a=>morePanel.append(a));more.hidden=false;}else{secondary.forEach(a=>navLinks.insertBefore(a,more));more.hidden=true;}};
@@ -58,6 +59,7 @@
     main.classList.toggle('page-wholesale',route==='wholesale');main.classList.toggle('page-delivery',route==='delivery');
     if(route==='account'){const access=main.querySelector('.partner-access');access.classList.add('partner-access-rich');access.insertAdjacentHTML('beforeend',`<div class="partner-visual"><p class="sf-kicker">Из ассортимента магазина</p>${imageGroup([1,503,536])}<p>Автохимия, полировальные материалы и оборудование для ежедневной работы.</p></div>`);}
     if(route==='wholesale')main.querySelector('.two>div:first-child')?.insertAdjacentHTML('beforeend',panel('Ассортимент под задачи вашей студии','Укажите нужные материалы и объём закупки. Менеджер уточнит наличие и подготовит предложение.',[1,503,536],'#/catalog','Посмотреть каталог'));
+    if(route==='about'){const text=main.querySelector('.legal-doc'),layout=document.createElement('div');layout.className='about-layout';text.before(layout);layout.append(text);layout.insertAdjacentHTML('beforeend',panel('Материалы для ежедневной работы','Автохимия, оборудование и расходники из ассортимента магазина. Поможем подобрать товары под вашу задачу.',[1,503,536],'#/catalog','Перейти в каталог'));}
     if(route==='delivery'){
       main.querySelectorAll('.dir').forEach((el,i)=>el.insertAdjacentHTML('afterbegin',`<span class="delivery-icon">${icon(['list','check','card','box'][i])}</span>`));
       main.querySelector('.wrap')?.insertAdjacentHTML('beforeend',panel('Уточним наличие и способ получения','Самовывоз — на Ерёменко, 45. Условия отправки транспортной компанией согласуем при подтверждении заявки.',[1,503,222],'#/contacts','Связаться с магазином'));
@@ -67,7 +69,7 @@
       if(record&&!location.hash.includes('q=')){const ids=dedupeVariants(P.map((_,i)=>i).filter(i=>P[i][F.CAT]===cat)).slice(0,3);main.querySelector('.catalog')?.insertAdjacentHTML('beforebegin',panel(esc(record.name),esc(record.note),ids,'#/contact-request','Подобрать материалы'));}
     }
     if(route==='promo')main.querySelectorAll('.promo-card').forEach((el,i)=>{const p=P[[503,1,222][i]];el.insertAdjacentHTML('afterbegin',`<img class="promo-visual" src="img/${esc(p[F.IMG])}" alt="${esc(p[F.N])}" loading="lazy" width="320" height="320">`);});
-    main.querySelectorAll('.editorial-products,.sf-category').forEach(el=>el.setAttribute('data-depth',''));
+    main.querySelectorAll('.editorial-products').forEach(el=>el.setAttribute('data-depth',''));
     actionIcons();seo(main);
   };
   render();

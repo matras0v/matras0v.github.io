@@ -18,7 +18,7 @@ output = root / 'pravilnye-tehnologii-production-final.zip'
 files = {}
 frontend = ['index.html','catalog.js','shinemate-data.js','retail-search.js',
     'request-client.js','client-flows.js','storefront.js','release-polish.js','delivery-final.js',
-    'presentation.js','presentation.css','brand-feedback.css','delivery-final.css','delivery-polish.css','storefront.css','mobile-final.css']
+    'store-map.js','presentation.js','presentation.css','brand-feedback.css','delivery-final.css','delivery-polish.css','storefront.css','mobile-final.css']
 for name in frontend:
     files['public_html/'+name] = (root/name).read_bytes()
 files['public_html/request-config.js'] = b"/* Public endpoint only; no credentials. */\nwindow.PT_REQUEST_ENDPOINT = '/api/request.php';\n"
@@ -28,6 +28,8 @@ for folder, extensions in [('img',{'.jpg','.jpeg','.png','.webp','.svg','.ico','
             if path.is_symlink() or any(part.startswith('.') for part in path.relative_to(root).parts):
                 raise ValueError('Unexpected asset path')
             files['public_html/'+path.relative_to(root).as_posix()] = path.read_bytes()
+for name in ['leaflet.js','leaflet.css','LICENSE']:
+    files['public_html/vendor/leaflet/'+name]=(root/'vendor/leaflet'/name).read_bytes()
 mapping = {
     'public_html/api/request.php':'backend/request.php',
     'public_html/.htaccess':'production/public.htaccess',
