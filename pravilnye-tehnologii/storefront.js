@@ -132,9 +132,9 @@ const SF = (() => {
   document.addEventListener('pointermove', e => {
     if(!matchMedia('(hover:hover) and (prefers-reduced-motion:no-preference)').matches)return;
     const el=e.target.closest('[data-depth]'); if(!el)return;
-    const r=el.getBoundingClientRect();el.style.setProperty('--rx', ((e.clientY-r.top)/r.height-.5)*-3+'deg');el.style.setProperty('--ry',((e.clientX-r.left)/r.width-.5)*3+'deg');
+    const r=el.getBoundingClientRect();el.style.setProperty('--tx',((e.clientX-r.left)/r.width-.5)*16+'px');el.style.setProperty('--ty',((e.clientY-r.top)/r.height-.5)*16+'px');el.style.setProperty('--rx', ((e.clientY-r.top)/r.height-.5)*-3+'deg');el.style.setProperty('--ry',((e.clientX-r.left)/r.width-.5)*3+'deg');
   });
-  document.addEventListener('pointerout',e=>{const el=e.target.closest('[data-depth]');if(el&&!el.contains(e.relatedTarget)){el.style.removeProperty('--rx');el.style.removeProperty('--ry');}});
+  document.addEventListener('pointerout',e=>{const el=e.target.closest('[data-depth]');if(el&&!el.contains(e.relatedTarget)){el.style.removeProperty('--rx');el.style.removeProperty('--ry');el.style.removeProperty('--tx');el.style.removeProperty('--ty');}});
   render();
   return {brands};
 })();

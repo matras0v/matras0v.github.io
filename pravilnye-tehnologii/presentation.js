@@ -9,29 +9,10 @@
     const href=a.getAttribute('href');let name=href.startsWith('tel:')?'phone':href.startsWith('mailto:')?'mail':href.includes('wa.me')?'whatsapp':href.includes('yandex.ru/maps')?'map':null;
     if(name){a.classList.add('contact-action');a.insertAdjacentHTML('afterbegin',icon(name));}
   });
-  const mast=document.querySelector('.masthead'),nav=document.querySelector('.mainnav');
-  const syncHeader=()=>{const height=mast.getBoundingClientRect().height;document.documentElement.style.setProperty('--mast-height',height+'px');if(!nav.classList.contains('menu-open'))document.documentElement.style.setProperty('--header-clearance',(height+nav.getBoundingClientRect().height+16)+'px');};
-  const headerObserver=new ResizeObserver(syncHeader);headerObserver.observe(mast);headerObserver.observe(nav);syncHeader();
   document.querySelectorAll('.store-contact-panel .store-address').forEach(el=>{el.classList.add('contact-fact');el.insertAdjacentHTML('afterbegin',icon('map'));const hours=el.nextElementSibling;hours.classList.add('contact-fact');hours.insertAdjacentHTML('afterbegin',icon('clock'));});
   document.querySelectorAll('.store-contact-links a,footer a[href^="tel:"],footer a[href^="mailto:"]').forEach(a=>{a.classList.add('contact-detail');a.insertAdjacentHTML('afterbegin',icon(a.getAttribute('href').startsWith('tel:')?'phone':'mail'));});
   const mapCard=document.querySelector('.store-map');
   mapCard.insertAdjacentHTML('afterbegin','<div class="map-brandbar"><img src="img/logo-honeycomb.png" width="26" height="26" alt="" loading="lazy"><span>Наш магазин · Ерёменко, 45</span></div>');
-  let scrollFrame=0;
-  const compactHeader=()=>{scrollFrame=0;const compact=document.body.classList.contains('header-compact');if(scrollY>120&&!compact)document.body.classList.add('header-compact');else if(scrollY<20&&compact)document.body.classList.remove('header-compact');};
-  window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(compactHeader);},{passive:true});compactHeader();
-  const navLinks=document.querySelector('#nav'),more=document.createElement('div');more.className='nav-more';
-  more.innerHTML='<button class="more-toggle" aria-expanded="false" aria-controls="more-links" aria-label="Ещё разделы">Ещё <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></button><div id="more-links" class="more-panel" hidden></div>';
-  navLinks.append(more);const moreButton=more.querySelector('button'),morePanel=more.querySelector('.more-panel');
-  const secondary=[...navLinks.querySelectorAll(':scope>a')].filter(a=>['#/delivery','#/contacts'].includes(a.getAttribute('href')));
-  for(const [url,title] of [['#/about','О компании'],['#/privacy','Документы и политика']]){const a=document.createElement('a');a.href=url;a.textContent=title;secondary.push(a);}
-  secondary.sort((a,b)=>['#/about','#/contacts','#/delivery','#/privacy'].indexOf(a.getAttribute('href'))-['#/about','#/contacts','#/delivery','#/privacy'].indexOf(b.getAttribute('href')));
-  secondary.forEach(a=>{const url=a.getAttribute('href');a.insertAdjacentHTML('afterbegin',icon(url==='#/contacts'?'phone':url==='#/delivery'?'box':url==='#/wholesale'?'list':url==='#/about'?'map':'check'));});
-  const closeMore=(focus=false)=>{morePanel.hidden=true;moreButton.setAttribute('aria-expanded','false');if(focus)moreButton.focus();};
-  const placeMore=()=>{closeMore();if(matchMedia('(min-width:768px)').matches){secondary.forEach(a=>morePanel.append(a));more.hidden=false;}else{secondary.forEach(a=>navLinks.insertBefore(a,more));more.hidden=true;}};
-  moreButton.addEventListener('click',()=>{const open=morePanel.hidden;morePanel.hidden=!open;moreButton.setAttribute('aria-expanded',String(open));});
-  moreButton.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){e.preventDefault();e.stopPropagation();morePanel.hidden=false;moreButton.setAttribute('aria-expanded','true');secondary[0].focus();}});
-  more.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();closeMore(true);}else if(['ArrowDown','ArrowUp','Home','End'].includes(e.key)&&secondary.includes(document.activeElement)){e.preventDefault();const i=secondary.indexOf(document.activeElement),n=e.key==='Home'?0:e.key==='End'?secondary.length-1:(i+(e.key==='ArrowDown'?1:-1)+secondary.length)%secondary.length;secondary[n].focus();}});
-  more.addEventListener('focusout',e=>{if(!more.contains(e.relatedTarget))closeMore();});document.addEventListener('click',e=>{if(!more.contains(e.target))closeMore();});window.addEventListener('hashchange',()=>closeMore());matchMedia('(min-width:768px)').addEventListener('change',placeMore);placeMore();
   const labels=['box','check','chat'];
   document.querySelectorAll('.store-service>span').forEach((el,i)=>{el.textContent=['Оптовые условия','Профессиональный ассортимент','Помощь с подбором'][i];el.insertAdjacentHTML('afterbegin',`<i class="service-icon">${icon(labels[i])}</i>`);});
   const about=document.querySelector('.foot-about');const oldBrand=about?.querySelector('b');

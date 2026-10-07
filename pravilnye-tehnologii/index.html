@@ -597,8 +597,9 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <link rel="stylesheet" href="delivery-polish.css?v=20261003-delivery1">
 <link rel="stylesheet" href="mobile-final.css?v=20261003-final2">
 <link rel="stylesheet" href="brand-feedback.css?v=20261005-client1">
-<link rel="stylesheet" href="delivery-final.css?v=20261007-contained8">
-<link rel="stylesheet" href="presentation.css?v=20261007-contained8">
+<link rel="stylesheet" href="delivery-final.css?v=20261007-commerce1">
+<link rel="stylesheet" href="presentation.css?v=20261007-commerce1">
+<link rel="stylesheet" href="commerce.css?v=20261007-commerce1">
 </head>
 <body>
 
@@ -952,12 +953,12 @@ function paintChrome(){
 
   const cn = cartCount();
   const cb = $("#cartBadge");
-  cb.hidden = cn === 0; cb.textContent = cn;
+  cb.hidden = false; cb.textContent = cn;
 
   const fb = $("#favBadge");
   fb.hidden = store.fav.length === 0; fb.textContent = store.fav.length;
 
-  $("#accLabel").textContent = "Оптовый доступ";
+  $("#accLabel").textContent = "Оптовым клиентам";
 
   const route = location.hash.split("/")[1] || "";
   document.querySelectorAll("#nav a").forEach(a => {
@@ -1993,7 +1994,17 @@ document.addEventListener("click", e => {
   if (buy){ addToCart(buy.dataset.buy, Math.max(1, parseInt($("#qtyVal").value,10) || 1)); location.hash = "#/cart"; return; }
 
   const fav = t.closest("[data-fav]");
-  if (fav){ e.preventDefault(); toggleFav(parseInt(fav.dataset.fav,10)); return; }
+  if (fav){
+    e.preventDefault();
+    const quantity = $("#qtyVal")?.value;
+    toggleFav(parseInt(fav.dataset.fav,10));
+    if (quantity && $("#qtyVal")) {
+      $("#qtyVal").value = quantity;
+      const priceEl = $("#pdpPrice");
+      if (priceEl) priceEl.textContent = money(Number(priceEl.dataset.unit) * Math.max(1, parseInt(quantity,10) || 1));
+    }
+    return;
+  }
 
   const q = t.closest("[data-q]");
   if (q){ const el = $("#qtyVal"); let v = parseInt(el.value,10) || 1;
@@ -2120,14 +2131,14 @@ fetchUsdRate();
 $("#footYear").textContent = new Date().getFullYear();
 </script>
 <script src="shinemate-data.js?v=20261002"></script>
-<script src="retail-search.js?v=20261005-final1"></script>
+<script src="retail-search.js?v=20261007-commerce1"></script>
 <script src="request-config.js?v=20261006-forms1"></script>
 <script src="request-client.js?v=20261006-forms1"></script>
-<script src="client-flows.js?v=20261007-contained8"></script>
-<script src="storefront.js?v=20261007-contained8"></script>
+<script src="client-flows.js?v=20261007-commerce1"></script>
+<script src="storefront.js?v=20261007-commerce1"></script>
 <script src="release-polish.js?v=20261003-final1"></script>
-<script src="delivery-final.js?v=20261007-contained8"></script>
-<script src="presentation.js?v=20261007-contained8"></script>
-<script src="store-map.js?v=20261007-contained8"></script>
+<script src="delivery-final.js?v=20261007-commerce1"></script>
+<script src="presentation.js?v=20261007-commerce1"></script>
+<script src="commerce.js?v=20261007-commerce1"></script>
 </body>
 </html>
