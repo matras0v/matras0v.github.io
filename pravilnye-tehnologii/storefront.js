@@ -36,7 +36,7 @@ const SF = (() => {
   // Marketing images are tied to real catalog records, including brand identity.
   const sceneProduct = (id, brand, eager=false) => {
     if (!P[id] || BR[P[id][F.B]] !== brand) throw new Error('Marketing brand mismatch: '+brand+' / '+id);
-    return image(id,eager).replace('<img ',`<img data-product-id="${id}" data-brand="${esc(brand)}" `);
+    return `<span class="hero-product-layer">${image(id,eager).replace('<img ',`<img data-product-id="${id}" data-brand="${esc(brand)}" `)}</span>`;
   };
   const ep820 = P.findIndex(p=>BR[p[F.B]]==='ShineMate' && p[F.N].startsWith('EP820'));
   const storeGroup = (id, brand) => `<figure class="hero-store-group">${sceneProduct(id,brand,true)}<figcaption>${esc(brand)}</figcaption></figure>`;
