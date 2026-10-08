@@ -597,12 +597,12 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <link rel="stylesheet" href="delivery-polish.css?v=20261003-delivery1">
 <link rel="stylesheet" href="mobile-final.css?v=20261003-final2">
 <link rel="stylesheet" href="brand-feedback.css?v=20261005-client1">
-<link rel="stylesheet" href="delivery-final.css?v=20261008-release4">
-<link rel="stylesheet" href="presentation.css?v=20261008-release4">
-<link rel="stylesheet" href="commerce.css?v=20261008-release4">
-<link rel="stylesheet" href="meeting.css?v=20261008-release4">
-<link rel="stylesheet" href="studio.css?v=20261008-release4">
-<link rel="stylesheet" href="refinement.css?v=20261008-release4">
+<link rel="stylesheet" href="delivery-final.css?v=20261009-campaign2">
+<link rel="stylesheet" href="presentation.css?v=20261009-campaign2">
+<link rel="stylesheet" href="commerce.css?v=20261009-campaign2">
+<link rel="stylesheet" href="meeting.css?v=20261009-campaign2">
+<link rel="stylesheet" href="studio.css?v=20261009-campaign2">
+<link rel="stylesheet" href="refinement.css?v=20261009-campaign2">
 </head>
 <body>
 
@@ -1100,7 +1100,7 @@ view.home = () => {
         const slides = [
           {img: stepThumb("H"), eyebrow: "Подбор по шагу полировки", title: "От съёма риски до финишного блеска", text: "H → F → M — ступень абразивности зашита прямо в артикуле Koch Chemie. Выбираете шаг работы — попадаете в нужные позиции.", cta: "Смотреть шкалу", href: "#/scale"},
           {img: brandThumb(5), eyebrow: "Новые бренды", title: "ColourLock, Finisher, PACA, Joybond", text: "Добавили ещё 4 бренда с прямых поставок — уход за кожей и тканью салона, финишные полироли, техническая химия для поста.", cta: "Смотреть бренды", href: "#/brands"},
-          {img: catThumb("equipment"), eyebrow: "Оптовым клиентам", title: "Работаем напрямую, без наценки посредников", text: "Подбираем химию под ваш пост и обучаем работе с ней — от первичной мойки до финишной полировки.", cta: "Получить условия", href: "#/wholesale"},
+          {img: catThumb("equipment"), eyebrow: "Оптовым клиентам", title: "Подбираем ассортимент для бизнеса", text: "Подбираем составы и материалы под ваше оборудование — от первичной мойки до финишной полировки.", cta: "Получить условия", href: "#/wholesale"},
           {img: catThumb("polish"), eyebrow: "На складе в Ростове", title: `${P.filter(p=>p[F.ST]).length} позиций в наличии`, text: "Забрать сегодня или отправить транспортной компанией по югу России и дальше.", cta: "Весь каталог", href: "#/catalog?stock=1"},
         ];
         return `
@@ -1197,7 +1197,7 @@ view.home = () => {
       <div class="promo-band hex-bg">
         <div>
           <h3>Оптовые условия для моек и студий</h3>
-          <p>Работаем напрямую, без наценки посредников. Подбираем химию под ваш пост и обучаем работе с ней — от первичной мойки до финишной полировки.</p>
+          <p>Подбираем ассортимент для бизнеса. Подбираем составы и материалы под ваше оборудование — от первичной мойки до финишной полировки.</p>
         </div>
         <a class="btn light" href="#/wholesale">Получить условия</a>
       </div>
@@ -1541,7 +1541,7 @@ view.brands = () => {
   };
   return `<section class="screen on"><div class="wrap">
     <p class="crumbs"><a href="#/">Главная</a> / Бренды</p>
-    <div class="head"><div><p class="eyebrow">Прямые поставки</p><h2>Бренды в каталоге</h2></div></div>
+    <div class="head"><div><p class="eyebrow">Ассортимент магазина</p><h2>Бренды в каталоге</h2></div></div>
     <div class="dir-grid">
       ${BR.map((b,i) => `<a class="dir" href="#/catalog?brand=${encodeURIComponent(b)}">
         <span class="dir-thumb"><img src="img/${brandVisual(b,i)}" alt="" loading="lazy"></span>
@@ -1596,11 +1596,11 @@ view.wholesale = () => `<section class="screen on"><div class="wrap">
       <h1>Опт и партнёрам</h1>
       <p style="color:var(--steel);font-size:14.5px;margin:16px 0 0;max-width:50ch">Подберём автохимию, оборудование и расходники для автомойки, детейлинг-студии, магазина или СТО. Согласуем ассортимент и условия поставки.</p>
       <ul class="ticks">
-        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Прямые поставки Koch Chemie, Zvizzer, AuTech и других брендов</li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Koch Chemie, ZviZZer, AuTech и другие бренды в ассортименте</li>
         <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Индивидуальное предложение и сопровождение заказа менеджером</li>
         <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Подбор химии под ваше оборудование и тип лака</li>
-        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Обучение и выездные семинары для мастеров</li>
-        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Склад в Ростове-на-Дону и доставка по югу России</li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Консультация по совместимости составов и материалов</li>
+        <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Самовывоз из магазина в Ростове-на-Дону</li>
       </ul>
     </div>
     <form class="form-card" id="partnerForm">
@@ -1767,11 +1767,11 @@ view.about = () => `<section class="screen on"><div class="wrap">
   <p class="crumbs"><a href="#/">Главная</a> / О компании</p>
   <div class="head"><div><p class="eyebrow">Компания</p><h2>О компании</h2></div></div>
   <div class="legal-doc">
-    <p>ООО «Правильные Технологии» — официальный дилер Koch Chemie на юге России. Работаем напрямую с производителем, без посредников: склад в Ростове-на-Дону, доставка по Ростовской области, Краснодарскому краю и дальше по югу России транспортными компаниями.</p>
+    <p>ООО «Правильные Технологии» — магазин автохимии, оборудования и материалов для детейлинга в Ростове-на-Дону. Официальный дилер Koch Chemie, ShineMate, Space Cosmetics и COLOURLOCK. Магазин и самовывоз — на ул. Ерёменко, 45.</p>
     <h4>Что мы поставляем</h4>
     <p>Полировальные пасты и круги, автошампуни и составы для мойки, химия для салона, средства для дисков и стекла, оборудование и расходники — Koch Chemie, AuTech, Zvizzer, Marolex, Cyclone, ColourLock, Finisher, PACA, Joybond.</p>
     <h4>Кому подходит</h4>
-    <p>Автомойкам, детейлинг-студиям, магазинам автотоваров, СТО — розница и опт с прямыми ценами дилера, подбором химии под конкретный пост и оборудование.</p>
+    <p>Автомойкам, детейлинг-студиям, магазинам автотоваров, СТО — розница и опт, подбор химии под конкретную задачу и оборудование.</p>
     <h4>Реквизиты</h4>
     <p>ООО «Правильные Технологии» · ИНН 6165176208 · ОГРН 1126165006593<br>Юридический адрес: 344038, Ростов-на-Дону, ул. Шеболдаева, 2Д, оф. 10.<br>Магазин: Ростов-на-Дону, ул. Ерёменко, 45.</p>
   </div>
@@ -2153,17 +2153,17 @@ fetchUsdRate();
 $("#footYear").textContent = new Date().getFullYear();
 </script>
 <script src="shinemate-data.js?v=20261002"></script>
-<script src="zvizzer-data.js?v=20261008-release4"></script>
-<script src="studio-media.js?v=20261008-release4"></script>
-<script src="retail-search.js?v=20261008-release4"></script>
+<script src="zvizzer-data.js?v=20261009-campaign2"></script>
+<script src="studio-media.js?v=20261009-campaign2"></script>
+<script src="retail-search.js?v=20261009-campaign2"></script>
 <script src="request-config.js?v=20261006-forms1"></script>
 <script src="request-client.js?v=20261006-forms1"></script>
-<script src="client-flows.js?v=20261008-release4"></script>
-<script src="meeting-content.js?v=20261008-release4"></script>
-<script src="storefront.js?v=20261008-release4"></script>
+<script src="client-flows.js?v=20261009-campaign2"></script>
+<script src="meeting-content.js?v=20261009-campaign2"></script>
+<script src="storefront.js?v=20261009-campaign2"></script>
 <script src="release-polish.js?v=20261003-final1"></script>
-<script src="delivery-final.js?v=20261008-release4"></script>
-<script src="presentation.js?v=20261008-release4"></script>
-<script src="commerce.js?v=20261008-release4"></script>
+<script src="delivery-final.js?v=20261009-campaign2"></script>
+<script src="presentation.js?v=20261009-campaign2"></script>
+<script src="commerce.js?v=20261009-campaign2"></script>
 </body>
 </html>

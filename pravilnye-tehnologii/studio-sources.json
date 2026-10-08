@@ -20,5 +20,30 @@
     "microfiber-application.webp": "https://koch.ru/blog/novaya-ustoychivaya-gidrofobnost/",
     "koch-m3-403250.webp": "https://koch.ru/katalog/polirovka-avtomobilya/abrazivnaya-polirol/antigologrammnaya-polirovalnaya-pasta/micro-cut-m3-02-antigologrammnaya-finishnaya-abrazivnaya-pasta/ — exact 403250 / 250 ml"
   },
-  "zvizzer_articles": "https://www.zvizzer.com/wp-content/uploads/2024/03/ZVIZZER_DETAILING.pdf"
+  "zvizzer_articles": "https://www.zvizzer.com/wp-content/uploads/2024/03/ZVIZZER_DETAILING.pdf",
+  "placements_2026_10_09": {
+    "hero": [
+      "real catalog 541/1/258/55/206; store assortment explicitly marked",
+      "koch-polishing.webp background composition",
+      "editorial/shinemate.webp + official logo",
+      "catalog 648/649/650/55/57/60",
+      "colourlock.webp"
+    ],
+    "dealers": [
+      "coating-application.webp",
+      "workbench.webp",
+      "space-quazar.webp",
+      "ColourLock catalog family"
+    ],
+    "categories": "studio-media.js: seven actual category mappings; grouped equipment/supplies",
+    "feature": "catalog ZviZZer composition distinct from hero",
+    "consultation": "ZviZZer 649/59/60 compatible compounds/pads",
+    "brand_directory": "brand-specific product families, polishing-tool, space-apollo, leather-care; official logos where available",
+    "promotions": [
+      "microfiber-application.webp",
+      "koch-polishing.webp",
+      "workbench.webp"
+    ],
+    "note": "Category navigation intentionally shares category imagery with destination. No new photo or logo source invented. Dry Monster/Glitz/Ultra retain typographic inquiry cards without verified logo assets."
+  }
 }
