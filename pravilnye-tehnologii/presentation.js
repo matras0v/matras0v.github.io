@@ -51,8 +51,8 @@
       if(record&&!location.hash.includes('q=')){const ids=dedupeVariants(P.map((_,i)=>i).filter(i=>P[i][F.CAT]===cat)).slice(0,3);main.querySelector('.catalog')?.insertAdjacentHTML('beforebegin',panel(esc(record.name),esc(record.note),ids,'#/contact-request','Подобрать материалы'));}
     }
     if(route==='promo')main.querySelectorAll('.promo-card').forEach((el,i)=>{const p=P[[503,1,222][i]];el.insertAdjacentHTML('afterbegin',`<img class="promo-visual" src="img/${esc(p[F.IMG])}" alt="${esc(p[F.N])}" loading="lazy" width="320" height="320">`);});
-    const scene=route.startsWith('catalog/')?StudioMedia.categories[route.split('/')[1]]:({about:'studio/workshop.webp',delivery:'studio/workbench.webp',wholesale:'editorial/shinemate.webp',account:'editorial/shinemate.webp'})[route];
-    if(scene)main.querySelectorAll('.editorial-products').forEach(el=>{el.className='studio-panel-photo';el.innerHTML=`<img class="studio-photo" src="img/${scene}" alt="${route.startsWith('catalog/')?'Материалы и применение':'Оборудование и работа в студии'}" width="1280" height="800" loading="lazy" decoding="async">`;});
+    if(route.startsWith('catalog/')){const cat=route.split('/')[1];if(StudioMedia.categories[cat])main.querySelectorAll('.editorial-products').forEach(el=>{el.className='studio-panel-photo';el.innerHTML=StudioMedia.art(cat);});}
+    if(['about','delivery','wholesale','account'].includes(route))main.querySelectorAll('.editorial-products').forEach(el=>{const picks=({about:[117,222,258],delivery:[352,350,339],wholesale:[541,648,339],account:[1,222,258]})[route];el.innerHTML=picks.map(i=>`<figure><img src="img/${esc(P[i][F.IMG])}" alt="${esc(P[i][F.N])}" width="320" height="320" loading="lazy"><figcaption>${esc(BR[P[i][F.B]])}</figcaption></figure>`).join('');el.classList.add('refined-panel-products');});
     main.querySelectorAll('.editorial-products').forEach(el=>el.setAttribute('data-depth',''));
     actionIcons();seo(main);
   };

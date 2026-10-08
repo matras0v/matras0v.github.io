@@ -23,5 +23,5 @@ const MeetingContent = (() => {
   for(const c of Object.keys(categoryFamilies))categoryFamilies[c]=categoryFamilies[c].filter(i=>P[i]&&pCat(i,c));
   for(const [brand,list] of Object.entries(families))for(const i of list)if(BR[P[i][F.B]]!==brand)throw Error('Brand media mismatch '+brand+'/'+i);
   const descriptions={324:'Аккумуляторная полировальная машинка AuTech iBrid Pro Line в комплектации Extended Kit 12V и 220V. Комплектацию уточните перед заказом.',434:'Комплект COLOURLOCK LZ-224600 для смешивания красок.'};
-  return {descriptions,families,official,labels,stories,categoryFamilies,daily:[125,2,206,258]};
+  return {descriptions,families,official,labels,stories,categoryFamilies,daily:[1,222,258,648]};
 })();
