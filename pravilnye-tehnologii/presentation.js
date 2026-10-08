@@ -17,6 +17,7 @@
   document.querySelectorAll('.store-service>span').forEach((el,i)=>{el.textContent=['Оптовые условия','Профессиональный ассортимент','Помощь с подбором'][i];el.insertAdjacentHTML('afterbegin',`<i class="service-icon">${icon(labels[i])}</i>`);});
   const about=document.querySelector('.foot-about');const oldBrand=about?.querySelector('b');
   if(oldBrand){const brand=document.createElement('div');brand.className='foot-brandmark';brand.innerHTML='<img class="client-lockup" src="img/brands/pt-client.svg?v=2" alt="Правильные технологии" loading="lazy" width="155" height="133">';oldBrand.replaceWith(brand);}
+  const footerDescription=about?.querySelector('p');if(footerDescription)footerDescription.textContent='Официальный дилер Koch Chemie, ShineMate, Space Cosmetics и COLOURLOCK. Автохимия, оборудование и материалы для детейлинга. Магазин в Ростове-на-Дону.';
   function seo(main){
     const heading=main.querySelector('h1,h2')||main.querySelector('.empty h3');
     if(heading && !main.querySelector('h1')){const h=document.createElement('h1');h.className=heading.className;h.innerHTML=heading.innerHTML;heading.replaceWith(h);}
@@ -50,6 +51,8 @@
       if(record&&!location.hash.includes('q=')){const ids=dedupeVariants(P.map((_,i)=>i).filter(i=>P[i][F.CAT]===cat)).slice(0,3);main.querySelector('.catalog')?.insertAdjacentHTML('beforebegin',panel(esc(record.name),esc(record.note),ids,'#/contact-request','Подобрать материалы'));}
     }
     if(route==='promo')main.querySelectorAll('.promo-card').forEach((el,i)=>{const p=P[[503,1,222][i]];el.insertAdjacentHTML('afterbegin',`<img class="promo-visual" src="img/${esc(p[F.IMG])}" alt="${esc(p[F.N])}" loading="lazy" width="320" height="320">`);});
+    const scene=route.startsWith('catalog/')?StudioMedia.categories[route.split('/')[1]]:({about:'studio/workshop.webp',delivery:'studio/workbench.webp',wholesale:'editorial/shinemate.webp',account:'editorial/shinemate.webp'})[route];
+    if(scene)main.querySelectorAll('.editorial-products').forEach(el=>{el.className='studio-panel-photo';el.innerHTML=`<img class="studio-photo" src="img/${scene}" alt="${route.startsWith('catalog/')?'Материалы и применение':'Оборудование и работа в студии'}" width="1280" height="800" loading="lazy" decoding="async">`;});
     main.querySelectorAll('.editorial-products').forEach(el=>el.setAttribute('data-depth',''));
     actionIcons();seo(main);
   };

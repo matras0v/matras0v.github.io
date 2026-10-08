@@ -16,7 +16,7 @@ else: origin=None
 root = Path(__file__).resolve().parents[1]
 output = root / 'pravilnye-tehnologii-production-final.zip'
 files = {}
-frontend = ['index.html','catalog.js','shinemate-data.js','retail-search.js',
+frontend = ['zvizzer-data.js','studio-media.js','studio.css','index.html','catalog.js','shinemate-data.js','retail-search.js',
     'request-client.js','client-flows.js','storefront.js','release-polish.js','delivery-final.js',
     'meeting-content.js','meeting.css','commerce.js','commerce.css','presentation.js','presentation.css','brand-feedback.css','delivery-final.css','delivery-polish.css','storefront.css','mobile-final.css']
 for name in frontend:

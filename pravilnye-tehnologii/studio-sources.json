@@ -1,0 +1,20 @@
+{
+  "scope": "Local optimized assets from manufacturer pages and client-owned project. No retail prices or stock imported.",
+  "assets": {
+    "koch-polishing.webp": "https://koch.ru/company/",
+    "leather-care.webp": "https://koch.ru/company/",
+    "wheel-care.webp": "https://koch.ru/company/",
+    "colourlock.webp": "https://koch.ru/",
+    "marine.webp": "https://koch.ru/",
+    "space-quazar.webp": "https://spacecosmetics.ru/",
+    "space-apollo.webp": "https://spacecosmetics.ru/",
+    "workshop.webp": "Client-owned ShineMate project: surface-after-1280.webp",
+    "workbench.webp": "Client-owned ShineMate project: stage-1280.webp",
+    "polishing-tool.webp": "Client-owned ShineMate project: hero-da-1280.webp",
+    "preparation.webp": "Client-owned ShineMate project: defect-process-bg-poster.webp",
+    "zv-hc4000.webp": "https://www.zvizzer.com/detailing-polishes/",
+    "zv-mc3000.webp": "https://www.zvizzer.com/detailing-polishes/",
+    "zv-fc2000.webp": "https://www.zvizzer.com/detailing-polishes/"
+  },
+  "zvizzer_articles": "https://www.zvizzer.com/wp-content/uploads/2024/03/ZVIZZER_DETAILING.pdf"
+}

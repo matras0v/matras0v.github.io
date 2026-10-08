@@ -1,7 +1,7 @@
 /* Offline integrity checks: no network and no mutation of product records. */
 const fs=require('fs'),vm=require('vm'),path=require('path');
 const root=path.resolve(__dirname,'..');const ctx={VARIANTS:{},F:{N:0,B:1,PR:2,IMG:3,ST:4,CAT:5,D:6,VOL:7,ART:8}};vm.createContext(ctx);
-for(const f of ['catalog.js','shinemate-data.js','meeting-content.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),ctx);
+for(const f of ['catalog.js','shinemate-data.js','zvizzer-data.js','meeting-content.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),ctx);
 vm.runInContext('this.rows=P;this.brands=BR;this.content=MeetingContent;',ctx);
 const failures=[],review=[],images=new Map(),cats=['wash','interior','polish','wheels','equipment','supplies','marine'];
 ctx.rows.forEach((p,i)=>{const brand=ctx.brands[p[1]],img=p[3];if(!fs.existsSync(path.join(root,'img',img)))failures.push({i,reason:'missing image',img});if(!cats.includes(p[5]))failures.push({i,reason:'unknown category'});if(/Little Joe|^DM(?: |$)/i.test(brand))failures.push({i,reason:'removed brand'});if(!Number.isFinite(p[2])||!Number.isFinite(p[4]))failures.push({i,reason:'invalid price/stock'});if(!p[8])review.push({i,brand,name:p[0],reason:'No article in supplied data; do not replace image by guess'});if(!images.has(img))images.set(img,[]);images.get(img).push(i);});
