@@ -597,12 +597,12 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <link rel="stylesheet" href="delivery-polish.css?v=20261003-delivery1">
 <link rel="stylesheet" href="mobile-final.css?v=20261003-final2">
 <link rel="stylesheet" href="brand-feedback.css?v=20261005-client1">
-<link rel="stylesheet" href="delivery-final.css?v=20261008-refine4">
-<link rel="stylesheet" href="presentation.css?v=20261008-refine4">
-<link rel="stylesheet" href="commerce.css?v=20261008-refine4">
-<link rel="stylesheet" href="meeting.css?v=20261008-refine4">
-<link rel="stylesheet" href="studio.css?v=20261008-refine4">
-<link rel="stylesheet" href="refinement.css?v=20261008-refine4">
+<link rel="stylesheet" href="delivery-final.css?v=20261008-release4">
+<link rel="stylesheet" href="presentation.css?v=20261008-release4">
+<link rel="stylesheet" href="commerce.css?v=20261008-release4">
+<link rel="stylesheet" href="meeting.css?v=20261008-release4">
+<link rel="stylesheet" href="studio.css?v=20261008-release4">
+<link rel="stylesheet" href="refinement.css?v=20261008-release4">
 </head>
 <body>
 
@@ -970,6 +970,35 @@ function toggleFav(i){
   save("pt_fav", store.fav); paintChrome(); render();
 }
 
+
+/* Shared card purchase flow: explicit variant choice, existing cart persistence. */
+let quickOrigin = null;
+function cartNotice(){
+  let status=document.getElementById('cartNotice');
+  if(!status){status=document.createElement('div');status.id='cartNotice';status.setAttribute('role','status');status.setAttribute('aria-live','polite');document.body.append(status);}
+  status.textContent='Добавлено в корзину';status.classList.add('visible');
+  clearTimeout(cartNotice.timer);cartNotice.timer=setTimeout(()=>status.classList.remove('visible'),2200);
+}
+function quickSelect(id,origin){
+  let dialog=document.getElementById('quickSelect');
+  if(!dialog){dialog=document.createElement('dialog');dialog.id='quickSelect';dialog.setAttribute('aria-labelledby','quickTitle');document.body.append(dialog);
+    dialog.addEventListener('close',()=>{if(quickOrigin?.isConnected)quickOrigin.focus();});
+    dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+  }
+  quickOrigin=origin;
+  dialog.innerHTML=`<div class="quick-head"><div><small>${esc(BR[P[id][F.B]])}</small><h2 id="quickTitle">Выберите вариант</h2></div><button type="button" data-quick-close aria-label="Закрыть выбор варианта">×</button></div><p class="quick-name">${esc(P[id][F.N])}</p><div class="quick-options">${VARIANTS[id].map(i=>{const p=P[i],available=!!p[F.ST]&&!priceOnRequest(p);return `<div class="quick-option"><img src="img/${esc(p[F.IMG])}" alt="" width="70" height="80"><div><b>${esc(variantLabel(i)||p[F.N])}</b><small>Арт. ${esc(p[F.ART]||'уточняется')}</small><strong>${priceOnRequest(p)?'Цена по запросу':money(price(p))}</strong><small>${p[F.ST]?'В наличии':'Под заказ'}</small></div>${available?`<button type="button" class="btn" data-quick-buy="${i}" aria-label="Добавить ${esc(variantLabel(i))} в корзину">Добавить +</button>`:`<a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Здравствуйте! Уточните цену и наличие: '+p[F.N]+' · '+p[F.ART])}">Уточнить</a>`}</div>`;}).join('')}</div>`;
+  dialog.showModal();
+}
+document.addEventListener('click',e=>{
+  const open=e.target.closest('[data-quick]');if(open){e.preventDefault();quickSelect(+open.dataset.quick,open);return;}
+  if(e.target.closest('[data-quick-close]')){document.getElementById('quickSelect').close();return;}
+  const buy=e.target.closest('[data-quick-buy]');if(!buy)return;
+  e.preventDefault();const id=+buy.dataset.quickBuy;
+  if(buy.disabled||!P[id]?.[F.ST]||priceOnRequest(P[id]))return;
+  buy.disabled=true;addToCart(id);document.getElementById('quickSelect').close();cartNotice();
+});
+window.addEventListener('hashchange',()=>document.getElementById('quickSelect')?.close());
+
 /* Первое фото товара раздела/бренда — для подложек на главной. Предпочитаем то, что в наличии. */
 function repImg(pred){
   const idx = P.map((p,i) => i).filter(pred);
@@ -999,9 +1028,10 @@ function cardHTML(i){
   const inCart = !!store.cart[i];
   const step = STEP[i];
   const anyStock = variants.some(j => P[j][F.ST]);
-  const minPrice = Math.min(...variants.map(j => price(P[j])));
-  const minRetail = Math.min(...variants.map(j => fxPrice(P[j])));
-  const onRequest = priceOnRequest(p);
+  const pricedVariants = variants.filter(j => !priceOnRequest(P[j]));
+  const minPrice = Math.min(...pricedVariants.map(j => price(P[j])));
+  const minRetail = Math.min(...pricedVariants.map(j => fxPrice(P[j])));
+  const onRequest = pricedVariants.length === 0;
   return `<article class="card">
     <button class="fav ${store.fav.includes(i)?"on":""}" data-fav="${i}" aria-label="${store.fav.includes(i)?'Убрать из избранного':'В избранное'}" aria-pressed="${store.fav.includes(i)}">
       <svg viewBox="0 0 24 24"><path d="M12 20.5S3 15 3 8.7A4.7 4.7 0 0 1 12 6a4.7 4.7 0 0 1 9 2.7c0 6.3-9 11.8-9 11.8z"/></svg>
@@ -1023,11 +1053,12 @@ function cardHTML(i){
         ${onRequest
           ? `<a class="add" href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Здравствуйте! Уточните цену: " + p[F.N])}" target="_blank" rel="noopener" aria-label="Уточнить цену"><svg viewBox="0 0 24 24"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21z"/></svg></a>`
         : multi
-          ? `<a class="add" href="#/product/${i}" aria-label="Выбрать вариант"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></a>`
+          ? `<button class="add" type="button" data-quick="${i}" aria-label="Выбрать вариант и добавить в корзину" title="Выбрать вариант"><svg viewBox="0 0 24 24"><path d="M3 3h2l2 12h12l2-8H7M10 20h.01M18 20h.01M14 3v8M10 7h8"/></svg></button>`
+          : !p[F.ST] ? `<a class="add request-stock" href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Здравствуйте! Уточните наличие: " + p[F.N])}" target="_blank" rel="noopener" aria-label="Уточнить наличие"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H8l-4 4zM8 8h8M8 12h5"/></svg></a>`
           : `<button class="add ${inCart?"in":""}" data-add="${i}" aria-label="Добавить в корзину">
               ${inCart
                 ? `<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>`
-                : `<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>`}
+                : `<svg viewBox="0 0 24 24"><path d="M3 3h2l2 12h12l2-8H7M10 20h.01M18 20h.01M14 3v8M10 7h8"/></svg>`}
             </button>`}
       </div>
     </div>
@@ -1975,7 +2006,7 @@ document.addEventListener("click", e => {
   if (bd){ bannerGoto(+bd.dataset.banner); bannerStart(); return; }
 
   const add = t.closest("[data-add]");
-  if (add){ addToCart(add.dataset.add); add.classList.add("in");
+  if (add){ e.preventDefault(); if(add.disabled) return; if(!P[+add.dataset.add]?.[F.ST] || priceOnRequest(P[+add.dataset.add])) return; add.disabled=true; addToCart(add.dataset.add); cartNotice(); setTimeout(()=>{add.disabled=false;},450); add.classList.add("in");
     add.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>'; return; }
 
   const variant = t.closest("[data-variant]");
@@ -2122,17 +2153,17 @@ fetchUsdRate();
 $("#footYear").textContent = new Date().getFullYear();
 </script>
 <script src="shinemate-data.js?v=20261002"></script>
-<script src="zvizzer-data.js?v=20261008-refine4"></script>
-<script src="studio-media.js?v=20261008-refine4"></script>
-<script src="retail-search.js?v=20261008-refine4"></script>
+<script src="zvizzer-data.js?v=20261008-release4"></script>
+<script src="studio-media.js?v=20261008-release4"></script>
+<script src="retail-search.js?v=20261008-release4"></script>
 <script src="request-config.js?v=20261006-forms1"></script>
 <script src="request-client.js?v=20261006-forms1"></script>
-<script src="client-flows.js?v=20261008-refine4"></script>
-<script src="meeting-content.js?v=20261008-refine4"></script>
-<script src="storefront.js?v=20261008-refine4"></script>
+<script src="client-flows.js?v=20261008-release4"></script>
+<script src="meeting-content.js?v=20261008-release4"></script>
+<script src="storefront.js?v=20261008-release4"></script>
 <script src="release-polish.js?v=20261003-final1"></script>
-<script src="delivery-final.js?v=20261008-refine4"></script>
-<script src="presentation.js?v=20261008-refine4"></script>
-<script src="commerce.js?v=20261008-refine4"></script>
+<script src="delivery-final.js?v=20261008-release4"></script>
+<script src="presentation.js?v=20261008-release4"></script>
+<script src="commerce.js?v=20261008-release4"></script>
 </body>
 </html>
