@@ -1,0 +1,40 @@
+/* Real external authentication; no local password or simulated signed-in state. */
+(() => {
+  const cfg=window.PT_AUTH_CONFIG||{};
+  const enabled=/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/.test(cfg.url||'')&&/^sb_publishable_[A-Za-z0-9_-]+$/.test(cfg.publishableKey||'');
+  let client=null,user=null,mode='login',busy=false,message='',ready=false;
+  const recovery=new URLSearchParams(location.search).get('auth')==='recovery';
+  const isAccount=()=>location.hash.split('?')[0]==='#/account';
+  const refresh=()=>{if(isAccount())render();};
+  const link=(route,text)=>`<a class="btn ghost" href="#/${route}">${text} ↗</a>`;
+  const field=(label,name,type='text',value='')=>`<label>${label}<input name="${name}" type="${type}" value="${esc(value)}" ${name==='display_name'?'maxlength="80"':'required'} ${type==='password'?'minlength="12" maxlength="128" autocomplete="'+(mode==='login'?'current-password':'new-password')+'"':type==='email'?'autocomplete="email" maxlength="254"':'autocomplete="name"'}></label>`;
+  view.account=()=>`<section class="screen on"><div class="wrap"><p class="crumbs"><a href="#/">Главная</a> / Личный кабинет</p><div class="account-layout"><div class="account-intro"><p class="sf-kicker">Ваш магазин. Ваши списки.</p><h1>Личный кабинет</h1><p>Собирайте расходники в избранное и возвращайтесь к своей корзине.</p><div class="account-shortcuts">${link('favorites','Избранное')}${link('cart','Корзина')}${link('catalog','Продолжить покупки')}</div><a class="sf-text-link" href="#/wholesale">Опт и партнёрам ↗</a></div><div class="account-panel">
+  ${!enabled?'<p class="account-notice">Вход и регистрация пока не подключены. Корзина и избранное доступны без входа и сохраняются в этом браузере.</p>':''}
+  ${enabled&&!ready?'<p role="status">Подключаем личный кабинет…</p>':user?`<h2>${recovery?'Новый пароль':'Ваш профиль'}</h2><p>${esc(user.email||'')}</p><form data-account-form="${recovery?'password':'profile'}">${recovery?field('Новый пароль (от 12 символов)','password','password'):field('Имя','display_name','text',user.user_metadata?.display_name||'')}<button class="btn" ${busy?'disabled':''}>${recovery?'Сохранить пароль':'Сохранить имя'}</button></form>${recovery?'':`<div class="account-sync"><h3>Мои покупки на других устройствах</h3><p>Сохраняется список товаров и количество. Цены и наличие проверяются по текущему каталогу.</p><button class="btn ghost" data-account-action="save" ${busy?'disabled':''}>Сохранить корзину и избранное</button><button class="btn ghost" data-account-action="restore" ${busy?'disabled':''}>Добавить сохранённые товары в этот браузер</button></div>`}<button class="account-text-button" data-account-action="logout" ${busy?'disabled':''}>Выйти из аккаунта</button>`:
+  `<nav class="account-tabs" aria-label="Доступ к аккаунту"><button data-account-mode="login" aria-pressed="${mode==='login'}">Вход</button><button data-account-mode="register" aria-pressed="${mode==='register'}">Регистрация</button></nav><h2>${mode==='reset'?'Восстановить пароль':mode==='register'?'Создать аккаунт':'Рады видеть вас снова'}</h2><form data-account-form="${mode}"><fieldset ${!enabled||!client||busy?'disabled':''}>${mode==='register'?field('Имя','display_name'):''}${field('Email','email','email')}${mode==='reset'?'':field('Пароль (от 12 символов)','password','password')}<button class="btn" type="submit">${mode==='reset'?'Отправить ссылку':mode==='register'?'Зарегистрироваться':'Войти'}</button></fieldset></form><button class="account-text-button" data-account-mode="reset">Забыли пароль?</button><p class="account-privacy">Продолжая, вы соглашаетесь с <a href="#/privacy">политикой обработки данных</a>.</p>`}
+  <p class="account-status" role="status" aria-live="polite">${esc(message)}</p></div></div></div></section>`;
+  function validState(raw){const cart={},fav=[];for(const [id,n] of Object.entries(raw?.cart||{})){if(/^\d+$/.test(id)&&P[+id]&&Number.isInteger(n)&&n>0&&n<=999)cart[id]=n;}for(const id of Array.isArray(raw?.favorites)?raw.favorites:[]){if(Number.isInteger(id)&&P[id]&&!fav.includes(id))fav.push(id);}return {cart,favorites:fav};}
+  const callback=type=>{const u=new URL('.',location.href);if(type)u.searchParams.set('auth',type);u.hash='/account';return u.href;};
+  async function run(action){if(busy||!client)return;busy=true;message='';refresh();try{await action();}catch{message='Не удалось выполнить действие. Проверьте данные и подключение, затем попробуйте ещё раз.';}finally{busy=false;refresh();}}
+  document.addEventListener('submit',e=>{const form=e.target.closest('[data-account-form]');if(!form)return;e.preventDefault();if(!enabled||!ready||!form.reportValidity())return;const data=Object.fromEntries(new FormData(form));const kind=form.dataset.accountForm;form.querySelectorAll('input[type=password]').forEach(x=>x.value='');run(async()=>{
+    let result;
+    if(kind==='login')result=await client.auth.signInWithPassword({email:data.email.trim(),password:data.password});
+    if(kind==='register')result=await client.auth.signUp({email:data.email.trim(),password:data.password,options:{emailRedirectTo:callback(),data:{display_name:data.display_name.trim().slice(0,80)}}});
+    if(kind==='reset')result=await client.auth.resetPasswordForEmail(data.email.trim(),{redirectTo:callback('recovery')});
+    if(kind==='profile')result=await client.auth.updateUser({data:{display_name:data.display_name.trim().slice(0,80)}});
+    if(kind==='password')result=await client.auth.updateUser({password:data.password});
+    if(result?.error)throw result.error;
+    if(kind==='register')message='Если регистрация доступна, письмо с подтверждением отправлено. Проверьте свою почту.';
+    if(kind==='reset')message='Если этот адрес зарегистрирован, на него придёт ссылка для восстановления.';
+    if(kind==='profile'){user=result.data.user;message='Имя сохранено.';}
+    if(kind==='password'){history.replaceState(null,'',callback());location.reload();}
+  });});
+  document.addEventListener('click',e=>{const tab=e.target.closest('[data-account-mode]');if(tab){mode=tab.dataset.accountMode;message='';refresh();return;}const button=e.target.closest('[data-account-action]');if(!button||!user)return;const action=button.dataset.accountAction;run(async()=>{
+    if(action==='logout'){const {error}=await client.auth.signOut();if(error)throw error;user=null;message='Вы вышли. Корзина и избранное этого браузера сохранены.';return;}
+    const {data:identity,error:authError}=await client.auth.getUser();if(authError||!identity.user)throw authError||new Error('No session');const id=identity.user.id;
+    if(action==='save'){const state=validState({cart:store.cart,favorites:store.fav});const {error}=await client.from('customer_shopping').upsert({user_id:id,...state,updated_at:new Date().toISOString()},{onConflict:'user_id'});if(error)throw error;message='Корзина и избранное сохранены в аккаунте.';}
+    if(action==='restore'){const {data,error}=await client.from('customer_shopping').select('cart,favorites').eq('user_id',id).maybeSingle();if(error)throw error;if(!data){message='В аккаунте ещё нет сохранённого списка.';return;}const state=validState(data);for(const [id,n]of Object.entries(state.cart))store.cart[id]=Math.max(store.cart[id]||0,n);store.fav=[...new Set([...store.fav,...state.favorites])];save('pt_cart',store.cart);save('pt_fav',store.fav);paintChrome();message='Сохранённые товары добавлены. Текущая корзина не удалена.';}
+  });});
+  async function init(){if(!enabled){ready=true;refresh();return;}try{const {createClient}=await import('https://esm.sh/@supabase/supabase-js@2.102.0');client=createClient(cfg.url,cfg.publishableKey,{auth:{flowType:'pkce',persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storageKey:'pt_auth_session'}});client.auth.onAuthStateChange((event,session)=>{user=session?.user||null;queueMicrotask(refresh);});const {data,error}=await client.auth.getUser();if(!error)user=data.user;ready=true;refresh();}catch{ready=true;message='Сервис входа временно недоступен. Покупки без входа работают.';refresh();}}
+  init();
+})();

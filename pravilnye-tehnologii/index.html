@@ -597,12 +597,13 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <link rel="stylesheet" href="delivery-polish.css?v=20261003-delivery1">
 <link rel="stylesheet" href="mobile-final.css?v=20261003-final2">
 <link rel="stylesheet" href="brand-feedback.css?v=20261005-client1">
-<link rel="stylesheet" href="delivery-final.css?v=20261009-photo-final">
-<link rel="stylesheet" href="presentation.css?v=20261009-photo-final">
-<link rel="stylesheet" href="commerce.css?v=20261009-photo-final">
-<link rel="stylesheet" href="meeting.css?v=20261009-photo-final">
-<link rel="stylesheet" href="studio.css?v=20261009-photo-final">
-<link rel="stylesheet" href="refinement.css?v=20261009-photo-final">
+<link rel="stylesheet" href="delivery-final.css?v=20261010-completion2">
+<link rel="stylesheet" href="presentation.css?v=20261010-completion2">
+<link rel="stylesheet" href="commerce.css?v=20261010-completion2">
+<link rel="stylesheet" href="meeting.css?v=20261010-completion2">
+<link rel="stylesheet" href="studio.css?v=20261010-completion2">
+<link rel="stylesheet" href="refinement.css?v=20261010-completion2">
+<link rel="stylesheet" href="completion.css?v=20261010-completion2">
 </head>
 <body>
 
@@ -752,10 +753,10 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
   </div>
 </div>
 
-<!-- No password form: wholesale access is handled by a manager. -->
+<!-- Account UI is supplied by account.js; wholesale conditions remain manager-assisted. -->
 
 <!-- ?v= меняется при каждом обновлении каталога: иначе браузер отдаёт старую версию из кеша -->
-<script src="catalog.js?v=20260827d"></script>
+<script src="catalog.js?v=20261010-completion2"></script>
 <script>
 "use strict";
 
@@ -947,7 +948,7 @@ function paintChrome(){
   const fb = $("#favBadge");
   fb.hidden = store.fav.length === 0; fb.textContent = store.fav.length;
 
-  $("#accLabel").textContent = "Оптовым клиентам";
+  $("#accLabel").textContent = "Личный кабинет";
 
   const route = location.hash.split("/")[1] || "";
   document.querySelectorAll("#nav a").forEach(a => {
@@ -1011,6 +1012,7 @@ const stepThumb = code => repImg(i => STEP[i] === code);
 
 /* Официальные логотипы там, где они у нас есть; для остальных брендов — фото их товара. */
 const BRAND_LOGO = {
+  "Ultra Technology":"brands/ultra.webp",
   "PACA":"brands/paca.webp", "Dry Monster":"brands/dry.webp", "Glitz":"brands/glitz.webp", "Joybond":"brands/joybond.webp", "Gyeon":"brands/gyeon.svg", "Hendlex":"brands/hendlex.webp", "Finisher":"brands/finisher.svg", "ColourLock":"brands/colourlock.svg",
   "Koch Chemie":"brands/koch-chemie.svg",
   "Zvizzer":"brands/zvizzer.png",
@@ -1509,11 +1511,7 @@ function orderText(o){
 }
 
 /* ── кабинет ── */
-view.account = () => `<section class="screen on"><div class="wrap"><div class="partner-access">
-<p class="crumbs"><a href="#/">Главная</a> / Оптовый доступ</p><h1>Оптовые условия для бизнеса</h1>
-<p class="sf-intro">Для моек, детейлинг-студий и магазинов. Подберём ассортимент и согласуем условия закупки под ваши задачи.</p>
-<ol class="access-steps"><li><b>Расскажите о бизнесе</b><span>Город, профиль работы и интересующие товары.</span></li><li><b>Получите предложение</b><span>Менеджер уточнит наличие и условия поставки.</span></li><li><b>Согласуйте заказ</b><span>Подтвердим итог и выставим счёт.</span></li></ol>
-<a class="btn" href="#/wholesale">Получить оптовые условия</a><p class="note">Заявки обрабатывает менеджер. Регистрация и пароль не нужны.</p></div></div></section>`;
+view.account = () => `<section class="screen on"><div class="wrap"><h1>Личный кабинет</h1><p role="status">Загрузка…</p></div></section>`;
 
 /* ── избранное ── */
 view.favorites = () => `<section class="screen on"><div class="wrap">
@@ -1683,11 +1681,11 @@ view.privacy = () => `<section class="screen on"><div class="wrap">
   <div class="legal-doc">
     <p>Настоящая Политика конфиденциальности действует в отношении всей информации, которую ООО «Правильные Технологии» (ИНН 6165176208, ОГРН 1126165006593) может получить о пользователе во время использования сайта правильная-технология.рф.</p>
     <h4>1. Какие данные мы собираем</h4>
-    <p>Имя, телефон, электронную почту, название и реквизиты компании пользователь указывает при подготовке заявки. Пока прямая отправка не подключена, форма готовит текст письма: пользователь самостоятельно отправляет его из своей почты. Поля формы не сохраняются в хранилище браузера. Пароли и данные банковских карт сайт не запрашивает.</p>
+    <p>Имя, телефон, электронную почту, название и реквизиты компании пользователь указывает при подготовке заявки. Пока прямая отправка не подключена, форма готовит текст письма: пользователь самостоятельно отправляет его из своей почты. Поля формы не сохраняются в хранилище браузера. Данные банковских карт сайт не запрашивает. Вход в личный кабинет пока не подключён. После подключения сервиса Supabase Auth пароль будет передаваться только сервису авторизации по защищённому соединению; сайт не сохраняет пароль в браузере.</p>
     <h4>2. Как мы используем данные</h4>
-    <p>Только для обработки заявки: связаться с покупателем, подтвердить наличие, выставить счёт, оформить доставку. Данные не передаются третьим лицам, кроме транспортных компаний в объёме, необходимом для доставки заказа.</p>
+    <p>Для обработки заявки: связаться с покупателем, подтвердить наличие, выставить счёт, оформить доставку. При подключении личного кабинета — также для входа и хранения выбранных пользователем списков. Для доставки необходимые сведения передаются транспортной компании; данные аккаунта после подключения обрабатывает сервис авторизации Supabase.</p>
     <h4>3. Cookie</h4>
-    <p>Сайт использует технологии хранения данных браузера для работы корзины, избранного и запоминания города — исключительно на стороне устройства пользователя, без передачи третьим лицам. Подробнее — в <a href="#/cookies">Политике в отношении cookie</a>.</p>
+    <p>Сайт использует технологии хранения данных браузера для работы корзины, избранного и запоминания города — исключительно на стороне устройства пользователя, без передачи третьим лицам, пока вход не подключён. При включении личного кабинета сервис Supabase будет хранить email, имя и данные авторизации; корзина и избранное отправляются в аккаунт только по нажатию «Сохранить». Сессия входа сохраняется на устройстве до выхода. Подробнее — в <a href="#/cookies">Политике в отношении cookie</a>.</p>
     <h4>4. Права пользователя</h4>
     <p>Пользователь вправе запросить удаление своих данных, написав на <a href="mailto:iq_technologii@mail.ru">iq_technologii@mail.ru</a>.</p>
     <h4>5. Контакты</h4>
@@ -2153,18 +2151,20 @@ applyHash();
 fetchUsdRate();
 $("#footYear").textContent = new Date().getFullYear();
 </script>
-<script src="shinemate-data.js?v=20261002"></script>
-<script src="zvizzer-data.js?v=20261009-photo-final"></script>
-<script src="studio-media.js?v=20261009-photo-final"></script>
-<script src="retail-search.js?v=20261009-photo-final"></script>
+<script src="shinemate-data.js?v=20261010-completion2"></script>
+<script src="zvizzer-data.js?v=20261010-completion2"></script>
+<script src="studio-media.js?v=20261010-completion2"></script>
+<script src="retail-search.js?v=20261010-completion2"></script>
 <script src="request-config.js?v=20261006-forms1"></script>
 <script src="request-client.js?v=20261006-forms1"></script>
-<script src="client-flows.js?v=20261009-photo-final"></script>
-<script src="meeting-content.js?v=20261009-photo-final"></script>
-<script src="storefront.js?v=20261009-photo-final"></script>
+<script src="client-flows.js?v=20261010-completion2"></script>
+<script src="meeting-content.js?v=20261010-completion2"></script>
+<script src="storefront.js?v=20261010-completion2"></script>
 <script src="release-polish.js?v=20261003-final1"></script>
-<script src="delivery-final.js?v=20261009-photo-final"></script>
-<script src="presentation.js?v=20261009-photo-final"></script>
-<script src="commerce.js?v=20261009-photo-final"></script>
+<script src="delivery-final.js?v=20261010-completion2"></script>
+<script src="presentation.js?v=20261010-completion2"></script>
+<script src="commerce.js?v=20261010-completion2"></script>
+<script src="account-config.js?v=20261010-completion2"></script>
+<script src="account.js?v=20261010-completion2"></script>
 </body>
 </html>

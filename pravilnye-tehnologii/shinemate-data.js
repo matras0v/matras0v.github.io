@@ -1129,3 +1129,6 @@ const SHINEMATE_CATALOG = [
   }
 }
 
+
+// 75061 is an adapter, not the pictured extension shaft. Await exact vendor photo.
+P.find(p => p[8] === "75061")[3] = "photo-pending.svg";

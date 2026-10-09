@@ -39,7 +39,6 @@
   render=function(){
     previous();const main=document.querySelector('#main'),route=location.hash.slice(2).split('?')[0];
     main.classList.toggle('page-wholesale',route==='wholesale');main.classList.toggle('page-delivery',route==='delivery');
-    if(route==='account'){const access=main.querySelector('.partner-access');access.classList.add('partner-access-rich');access.insertAdjacentHTML('beforeend',`<div class="partner-visual"><p class="sf-kicker">Из ассортимента магазина</p>${imageGroup([1,503,536])}<p>Автохимия, полировальные материалы и оборудование для ежедневной работы.</p></div>`);}
     if(route==='wholesale')main.querySelector('.two>div:first-child')?.insertAdjacentHTML('beforeend',panel('Ассортимент под задачи вашей студии','Укажите нужные материалы и объём закупки. Менеджер уточнит наличие и подготовит предложение.',[1,503,536],'#/catalog','Посмотреть каталог'));
     if(route==='about'){const text=main.querySelector('.legal-doc'),layout=document.createElement('div');layout.className='about-layout';text.before(layout);layout.append(text);layout.insertAdjacentHTML('beforeend',panel('Профессиональная автохимия и оборудование','Подбираем материалы, инструмент и средства ухода для автомоек, детейлинг-студий и автовладельцев.',[1,503,536],'#/catalog','Перейти в каталог'));}
     if(route==='delivery'){

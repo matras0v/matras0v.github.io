@@ -16,7 +16,7 @@ else: origin=None
 root = Path(__file__).resolve().parents[1]
 output = root / 'pravilnye-tehnologii-production-final.zip'
 files = {}
-frontend = ['refinement.css','zvizzer-data.js','studio-media.js','studio.css','index.html','catalog.js','shinemate-data.js','retail-search.js',
+frontend = ['completion.css','account.js','account-config.js','refinement.css','zvizzer-data.js','studio-media.js','studio.css','index.html','catalog.js','shinemate-data.js','retail-search.js',
     'request-client.js','client-flows.js','storefront.js','release-polish.js','delivery-final.js',
     'meeting-content.js','meeting.css','commerce.js','commerce.css','presentation.js','presentation.css','brand-feedback.css','delivery-final.css','delivery-polish.css','storefront.css','mobile-final.css']
 for name in frontend:
@@ -36,6 +36,7 @@ mapping = {
     'private/.htaccess':'production/private.htaccess',
     'private/mail-config.example.php':'backend/config/mail.example.php',
     'private/composer.json':'backend/composer.json',
+    'private/account-schema.sql':'backend/account-schema.sql',
     'private/self-check.php':'production/self-check.php',
     'PRODUCTION_INSTALL.md':'PRODUCTION_INSTALL.md',
 }

@@ -33,7 +33,7 @@ const SF = (() => {
   const shinemateCampaign=()=>`<div class="shinemate-campaign">${campaignLogo('ShineMate')}${photo('editorial/shinemate.webp','Машинки, кейсы, аккумуляторы и оборудование ShineMate')}</div>`;
   const adviceCampaign=()=>`<div class="advice-campaign advice-photo">${photo('final/compound-apply.webp','Подготовка полировального круга к работе')}</div>`;
   const dealerArt=b=>photo(({'Koch Chemie':'final/kc-40.webp','ShineMate':'final/polisher-holders.webp','ColourLock':'final/cl-16.webp','Space Cosmetics':'studio/space-quazar.webp'})[b.name],label(b.name));
-  const discovery=b=>`<a class="discovery-card discovery-${b.name.replace(/[^a-z]/gi,'').toLowerCase()}" href="${href(b.name)}"><div class="discovery-art">${BRAND_LOGO[b.name]?logo(b.name):''}</div><div><h3>${esc(label(b.name))}</h3><p>${esc(specialties[b.name]||b.note||'Ассортимент по запросу')}</p><span>${b.ids.length?'Открыть товары':'Связаться с магазином'} ↗</span></div></a>`;
+  const discovery=b=>`<a class="discovery-card discovery-${b.name.replace(/[^a-z]/gi,'').toLowerCase()}" href="${href(b.name)}"><div class="discovery-art">${BRAND_LOGO[b.name]?logo(b.name):b.name==='Cyclone'?image(326):''}</div><div><h3>${esc(label(b.name))}</h3><p>${esc(specialties[b.name]||b.note||'Ассортимент по запросу')}</p><span>${b.ids.length?'Открыть товары':'Связаться с магазином'} ↗</span></div></a>`;
   const brandArt = b => {
     const files={'ShineMate':'studio/polishing-tool.webp','Space Cosmetics':'studio/space-quazar.webp'};
     if(files[b.name])return photo(files[b.name],label(b.name));
