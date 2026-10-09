@@ -23,27 +23,69 @@
   "zvizzer_articles": "https://www.zvizzer.com/wp-content/uploads/2024/03/ZVIZZER_DETAILING.pdf",
   "placements_2026_10_09": {
     "hero": [
-      "real catalog 541/1/258/55/206; store assortment explicitly marked",
-      "koch-polishing.webp background composition",
-      "editorial/shinemate.webp + official logo",
-      "catalog 648/649/650/55/57/60",
-      "colourlock.webp"
+      "Transparent authentic catalog products on CSS graphite; explicitly store assortment",
+      "studio/koch-polishing.webp",
+      "editorial/shinemate.webp",
+      "ZviZZer genuine catalog compounds/pads",
+      "final/cl-15.webp"
     ],
     "dealers": [
-      "coating-application.webp",
-      "workbench.webp",
-      "space-quazar.webp",
-      "ColourLock catalog family"
+      "final/kc-40.webp",
+      "final/polisher-holders.webp",
+      "studio/space-quazar.webp (directory: space-apollo)",
+      "final/cl-16.webp"
     ],
-    "categories": "studio-media.js: seven actual category mappings; grouped equipment/supplies",
-    "feature": "catalog ZviZZer composition distinct from hero",
-    "consultation": "ZviZZer 649/59/60 compatible compounds/pads",
-    "brand_directory": "brand-specific product families, polishing-tool, space-apollo, leather-care; official logos where available",
+    "categories": "studio-media.js; category and matching navigation deliberately share assets",
+    "care_steps": [
+      "final/cl-5.webp",
+      "final/cl-7.webp",
+      "final/ex605.webp",
+      "studio/coating-application.webp",
+      "final/step-finish.webp"
+    ],
+    "consultation": "final/compound-apply.webp",
+    "about": "final/pad-workshop.webp",
+    "contacts": "final/contact-work.webp (clearly labeled assortment illustration, not store/staff)",
+    "delivery": "final/cl-14.webp original packaged kits",
+    "wholesale": "final/tool-bags.webp",
     "promotions": [
-      "microfiber-application.webp",
-      "koch-polishing.webp",
-      "workbench.webp"
+      "final/promo-wash.webp",
+      "final/promo-polish.webp",
+      "final/promo-interior.webp"
     ],
-    "note": "Category navigation intentionally shares category imagery with destination. No new photo or logo source invented. Dry Monster/Glitz/Ultra retain typographic inquiry cards without verified logo assets."
+    "unresolved_logos": [
+      "Ultra Technology",
+      "Cyclone"
+    ],
+    "source_note": "Original manufacturer/distributor identities retained. No fabricated marks. Source attribution records provenance, not a separate license grant."
+  },
+  "final_photographic_assets": {
+    "final/cl-5.webp": "https://www.thefinisher.com/userdata/dcshop/category_icon/602725_the_finisher_autowaesche_und_reinigung.png",
+    "final/cl-7.webp": "https://www.thefinisher.com/userdata/dcshop/category_icon/512806_7q0a1539_bea.jpg",
+    "final/cl-14.webp": "https://www.thefinisher.com/userdata/dcshop/category_icon/460115_colourlock_komplett-sets.png",
+    "final/cl-15.webp": "https://www.thefinisher.com/userdata/dcshop/category_icon/720843_colourlock_lederreiniger.png",
+    "final/cl-16.webp": "https://www.thefinisher.com/userdata/dcshop/category_icon/243042_colourlock_lederpflege.png",
+    "final/kc-40.webp": "https://www.koch-chemie.com/media/_processed_/d/e/csm_Webseite_Teaser_Kampagnenbild_KCx_Protection_Unit_0311731ad9.jpg",
+    "final/tool-cart.webp": "Client-owned ShineMate project: catalog-media/scene/tool-cart.webp",
+    "final/polisher-holders.webp": "Client-owned ShineMate project: catalog-media/scene/polisher-holders.webp",
+    "final/pad-workshop.webp": "Client-owned ShineMate project: catalog-media/scene/pad-workshop.webp",
+    "final/wash-kit.webp": "Client-owned ShineMate project: catalog-media/scene/wash-kit.webp",
+    "final/ep820.webp": "Client-owned ShineMate project: catalog-media/scene/ep820.webp",
+    "final/ex605.webp": "Client-owned ShineMate project: catalog-media/scene/ex605.webp",
+    "final/tool-bags.webp": "Client-owned ShineMate project: catalog-media/scene/tool-bags.webp",
+    "final/compound-apply.webp": "Client-owned ShineMate project: catalog-media/scene/compound-apply.webp",
+    "final/contact-work.webp": "Client-owned ShineMate project: catalog-media/scene/eb251-5.webp",
+    "final/step-finish.webp": "Client-owned ShineMate project: media/stage-result.webp",
+    "final/promo-polish.webp": "https://www.thefinisher.com/userdata/dcshop/category_icon/521480_the_finisher_autopolitur_2.jpeg",
+    "final/promo-interior.webp": "https://www.thefinisher.com/userdata/dcshop/category_icon/330433_blog_interior_brush_set_pinsel_gruen_2.jpg",
+    "final/promo-wash.webp": "https://gyeon.co/wp-content/uploads/2026/05/washmaintenance.webp",
+    "brands/dry.webp": "https://static.tildacdn.com/tild3433-3032-4535-b334-663962323831/_18.png",
+    "brands/glitz.webp": "https://dev.sappo.ru/upload/iblock/c66/a23q12kbxednpngj8bw0jkk2y3cojzra.jpg",
+    "brands/joybond.webp": "https://joybond.co.jp/cms/wp-content/themes/joybond/img/img_logo.gif",
+    "brands/hendlex.webp": "https://hendlex.com/wp-content/uploads/2022/11/logo-1-151x32-1.webp",
+    "brands/paca.webp": "https://dev.sappo.ru/upload/iblock/6e8/6e868d75020f12337bf7fca3df7f9f1d.jpg",
+    "brands/gyeon.svg": "https://gyeon.co/ — original inline brand-logo SVG paths",
+    "brands/finisher.svg": "https://www.koch-chemie.com/media/content/logos/logo_the-finisher-2025.svg",
+    "brands/colourlock.svg": "https://www.koch-chemie.com/media/content/logos/logo_colourlock.svg"
   }
 }
