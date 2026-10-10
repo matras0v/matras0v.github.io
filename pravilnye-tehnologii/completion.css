@@ -25,3 +25,27 @@
 
 /* Saved-request and account order states share the existing store surfaces. */
 .request-status{overflow-wrap:anywhere;line-height:1.7}.request-saved{padding:20px;background:#18342e;border:1px solid #719f8c66;border-radius:12px;color:#e2f4ec}.account-orders{border-top:1px solid #8192a044;margin-top:28px;padding-top:16px}.account-orders>p{font-size:12px;line-height:1.65;color:#b5c7d1}.account-order{margin-top:18px;padding:18px;border:1px solid #879caa44;border-radius:12px;background:#12212b}.account-order header{display:flex;flex-wrap:wrap;gap:10px;position:static;background:none;padding:0;box-shadow:none;height:auto}.account-order header b{font-size:12px;overflow-wrap:anywhere}.account-order header span{font-size:11px;color:#b7dccb}.account-order time,.account-order small{display:block;font-size:11px;color:#a8bcc9;margin-top:7px}.account-order ul{padding-left:18px;font-size:13px;line-height:1.6}.account-order li{margin-block:12px}.account-order p{font-size:13px}.account-orders .btn{font-size:12px}
+
+/* Shared optical logo frame and account actions. */
+.studio-other .discovery-art{height:140px;min-height:140px;background:#fff;border-radius:10px;padding:20px}
+.studio-other .discovery-art .meeting-brand-logo{width:100%;height:100%;max-width:230px;padding:0;object-fit:contain;object-position:center;transform:none;mix-blend-mode:normal}
+.studio-other .discovery-drymonster .meeting-brand-logo{max-width:150px}
+.studio-other .discovery-marolex .meeting-brand-logo{max-width:150px}
+.studio-other .discovery-joybond .meeting-brand-logo{max-width:210px}
+.studio-other .discovery-hendlex .discovery-art{background:#111a22}
+.studio-other .discovery-hendlex .meeting-brand-logo{max-width:185px}
+.account-shortcuts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.account-shortcuts .account-shortcut{min-height:62px;padding:16px;display:flex;gap:12px;justify-content:flex-start;border-radius:12px;text-align:left;white-space:normal}
+.account-shortcut svg{width:22px;height:22px;flex-shrink:0}.account-shortcut .account-arrow{margin-left:auto;color:#b9c8d1}
+.account-shortcut:hover{background:#293b49;border-color:#94a4b4}.account-shortcut:focus-visible{outline:2px solid #d995a1;outline-offset:4px}.account-shortcut:active{transform:translateY(1px)}
+.location-preview .location-yandex{display:block;width:100%;height:440px;min-height:440px;flex:1;border:0;filter:none!important}
+@media(max-width:767px){.account-shortcuts{grid-template-columns:1fr}.location-preview .location-yandex{height:370px;min-height:370px}}
+
+.brand-logo-crop{display:block;position:relative;overflow:hidden;flex:none}
+.logo-zvizzer{width:210px;height:65px}.logo-zvizzer img{position:absolute;width:210px;height:auto;max-width:none;left:0;top:-20px;filter:brightness(0)}
+.logo-ultra{width:218px;height:124px;border-radius:0}.logo-ultra img{position:absolute;width:230px;height:auto;max-width:none;left:-6px;top:-8px}
+.studio-other .discovery-ultratechnology .discovery-art{background:#000}
+.studio-other .discovery-glitz .meeting-brand-logo,.studio-other .discovery-paca .meeting-brand-logo{max-width:230px;mix-blend-mode:multiply}
+.studio-brand:first-child .studio-brand-media,.brand-directory-dealer:first-child .directory-scene{background:#080b0c}
+.studio-brand:first-child .studio-brand-media img,.brand-directory-dealer:first-child .directory-scene img{object-fit:contain;object-position:center}
+.studio-other .discovery-cyclone .discovery-art img{width:240px!important;height:120px!important;max-width:100%;padding:0!important;object-fit:contain}

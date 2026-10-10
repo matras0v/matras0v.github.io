@@ -89,5 +89,11 @@
     "brands/gyeon.svg": "https://gyeon.co/ — original inline brand-logo SVG paths",
     "brands/finisher.svg": "https://www.koch-chemie.com/media/content/logos/logo_the-finisher-2025.svg",
     "brands/colourlock.svg": "https://www.koch-chemie.com/media/content/logos/logo_colourlock.svg"
+  },
+  "final_visual_correction": {
+    "zvizzer-client.png": "Client-supplied Downloads/zvizzer.png, copied unchanged; wordmark viewport crops badge/stars only; no redraw",
+    "Ultra": "Existing client logo displayed below native resolution with border excluded by viewport",
+    "Cyclone": "No verified standalone logo found; original catalog photograph retained",
+    "map": "Official Yandex widget centered at existing verified store coordinates; provider ads not suppressed"
   }
 }
