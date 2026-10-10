@@ -10,7 +10,7 @@
   const refresh=()=>{if(isAccount())render();};
   const link=(route,text)=>`<a class="btn ghost" href="#/${route}">${text} ↗</a>`;
   const orderView=()=>`<section class="account-orders"><h3>Мои заказы</h3><p>Заявки, оформленные после входа в этот аккаунт. Гостевые заявки сюда автоматически не добавляются.</p>${!RequestClient.configured?'<p class="account-notice">История заказов появится после подключения сервера заявок.</p>':`<button class="btn ghost" data-account-action="orders">Обновить историю</button><p role="status">${esc(orderMessage)}</p>${orders===null?'':orders.length?orders.map(o=>`<article class="account-order"><header><b>№ ${esc(o.id)}</b><span>${esc(({received:'Заявка принята',processing:'В обработке',ready:'Готов к выдаче',completed:'Завершён',cancelled:'Отменён'})[o.status]||'Статус уточняется')}</span></header><time>${esc(new Date(o.createdAt).toLocaleString('ru-RU'))}</time><ul>${o.items.map(i=>`<li>${esc(i.title)} · ${esc(i.variant)} · ${esc(i.quantity)} шт.<small>Арт. ${esc(i.sku||'уточняется')} · ${i.unitPrice===null?'Цена по запросу':esc(money(Number(i.unitPrice)))}</small></li>`).join('')}</ul><p>${o.total===null?'Итог уточнит менеджер':'Сумма заявки: '+esc(money(Number(o.total)))}</p></article>`).join(''):'<p>Пока нет заказов. Можно продолжить покупки в каталоге.</p>'}`}</section>`;
-  async function token(){if(!enabled||!client||!user)return null;const {data,error}=await client.auth.getSession();if(error)throw error;return data.session?.access_token||null;}
+  async function token(){if(!enabled||!client||!user)return null;const {data,error}=await client.auth.getSession();if(error)throw error;if(!data.session?.access_token)throw new Error('SIGN_IN_REQUIRED');return data.session.access_token;}
   window.PTAccount=Object.freeze({token});
   async function loadOrders(){if(!user||!RequestClient.configured)return;const subject=user.id;orderMessage='Загружаем заказы…';refresh();try{const result=await RequestClient.history(await token());if(user?.id!==subject)return;orders=result;orderMessage='';}catch{if(user?.id===subject)orderMessage='Не удалось загрузить историю. Попробуйте ещё раз.';}refresh();}
   const field=(label,name,type='text',value='')=>`<label>${label}<input name="${name}" type="${type}" value="${esc(value)}" ${name==='display_name'?'maxlength="80"':'required'} ${type==='password'?'minlength="12" maxlength="128" autocomplete="'+(mode==='login'?'current-password':'new-password')+'"':type==='email'?'autocomplete="email" maxlength="254"':'autocomplete="name"'}></label>`;
@@ -30,7 +30,7 @@
     if(kind==='profile')result=await client.auth.updateUser({data:{display_name:data.display_name.trim().slice(0,80)}});
     if(kind==='password')result=await client.auth.updateUser({password:data.password});
     if(result?.error)throw result.error;
-    if(kind==='register')message='Если регистрация доступна, письмо с подтверждением отправлено. Проверьте свою почту.';
+    if(kind==='register')message='Запрос регистрации принят сервисом. Для завершения проверьте письмо с подтверждением; получение письма не подтверждено.';
     if(kind==='reset')message='Если этот адрес зарегистрирован, на него придёт ссылка для восстановления.';
     if(kind==='profile'){user=result.data.user;message='Имя сохранено.';}
     if(kind==='password'){history.replaceState(null,'',callback());location.reload();}
