@@ -1,9 +1,9 @@
-/* Public configuration only. Never put a service-role key or SMTP password here.
-   1. Create/choose the authorized Supabase project; run backend/account-schema.sql.
-   2. Enable email confirmation and production SMTP in Supabase Auth.
-   3. Site URL: https://matras0v.github.io/pravilnye-tehnologii/
-      Allowed redirects: https://matras0v.github.io/pravilnye-tehnologii/**
-   4. Set project URL and sb_publishable_... key below. Keep email confirmation enabled.
-   5. Verify signup, confirmation, login, reset and RLS with two separate customers.
-   Reference: https://supabase.com/docs/guides/auth/passwords */
-window.PT_AUTH_CONFIG = Object.freeze({url:'',publishableKey:''});
+/* PUBLIC values only; never a service-role key.
+ * Before enabling: owner approves RU-based Auth/database/storage/backups and applicable processing terms.
+ * Use an authorized self-hosted Supabase deployment in that region; no foreign cloud is selected here.
+ * Run backend/account-schema.sql in its database; enable email confirmation + SMTP.
+ * Configure Site URL and exact redirects for this storefront, including ?auth=recovery#/account.
+ * Match backend mail-config.php auth_url/auth_public_key; enable auth_region_confirmed there.
+ * Verify registration/confirmation/login/reset, two-user RLS and protected order history before launch.
+ * Reference: https://supabase.com/docs/guides/self-hosting */
+window.PT_AUTH_CONFIG=Object.freeze({url:'',publishableKey:'',regionApproved:false});

@@ -597,13 +597,13 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <link rel="stylesheet" href="delivery-polish.css?v=20261003-delivery1">
 <link rel="stylesheet" href="mobile-final.css?v=20261003-final2">
 <link rel="stylesheet" href="brand-feedback.css?v=20261005-client1">
-<link rel="stylesheet" href="delivery-final.css?v=20261010-completion2">
-<link rel="stylesheet" href="presentation.css?v=20261010-completion2">
-<link rel="stylesheet" href="commerce.css?v=20261010-completion2">
-<link rel="stylesheet" href="meeting.css?v=20261010-completion2">
-<link rel="stylesheet" href="studio.css?v=20261010-completion2">
-<link rel="stylesheet" href="refinement.css?v=20261010-completion2">
-<link rel="stylesheet" href="completion.css?v=20261010-completion2">
+<link rel="stylesheet" href="delivery-final.css?v=20261010-orders1">
+<link rel="stylesheet" href="presentation.css?v=20261010-orders1">
+<link rel="stylesheet" href="commerce.css?v=20261010-orders1">
+<link rel="stylesheet" href="meeting.css?v=20261010-orders1">
+<link rel="stylesheet" href="studio.css?v=20261010-orders1">
+<link rel="stylesheet" href="refinement.css?v=20261010-orders1">
+<link rel="stylesheet" href="completion.css?v=20261010-orders1">
 </head>
 <body>
 
@@ -756,7 +756,7 @@ footer{background-color:var(--graphite);color:var(--mist);margin-top:0}
 <!-- Account UI is supplied by account.js; wholesale conditions remain manager-assisted. -->
 
 <!-- ?v= меняется при каждом обновлении каталога: иначе браузер отдаёт старую версию из кеша -->
-<script src="catalog.js?v=20261010-completion2"></script>
+<script src="catalog.js?v=20261010-orders1"></script>
 <script>
 "use strict";
 
@@ -1681,7 +1681,7 @@ view.privacy = () => `<section class="screen on"><div class="wrap">
   <div class="legal-doc">
     <p>Настоящая Политика конфиденциальности действует в отношении всей информации, которую ООО «Правильные Технологии» (ИНН 6165176208, ОГРН 1126165006593) может получить о пользователе во время использования сайта правильная-технология.рф.</p>
     <h4>1. Какие данные мы собираем</h4>
-    <p>Имя, телефон, электронную почту, название и реквизиты компании пользователь указывает при подготовке заявки. Пока прямая отправка не подключена, форма готовит текст письма: пользователь самостоятельно отправляет его из своей почты. Поля формы не сохраняются в хранилище браузера. Данные банковских карт сайт не запрашивает. Вход в личный кабинет пока не подключён. После подключения сервиса Supabase Auth пароль будет передаваться только сервису авторизации по защищённому соединению; сайт не сохраняет пароль в браузере.</p>
+    <p>Имя, телефон, электронную почту, название и реквизиты компании пользователь указывает при подготовке заявки. Пока прямая отправка не подключена, форма готовит текст письма: пользователь самостоятельно отправляет его из своей почты. Поля формы не сохраняются в хранилище браузера. После подключения сервера и отправки заявки её содержание сохраняется в защищённой базе магазина для обработки заказа; номер заявки показывается только после подтверждения сохранения. Данные банковских карт сайт не запрашивает. Вход в личный кабинет пока не подключён. После подключения сервиса Supabase Auth пароль будет передаваться только сервису авторизации по защищённому соединению; сайт не сохраняет пароль в браузере.</p>
     <h4>2. Как мы используем данные</h4>
     <p>Для обработки заявки: связаться с покупателем, подтвердить наличие, выставить счёт, оформить доставку. При подключении личного кабинета — также для входа и хранения выбранных пользователем списков. Для доставки необходимые сведения передаются транспортной компании; данные аккаунта после подключения обрабатывает сервис авторизации Supabase.</p>
     <h4>3. Cookie</h4>
@@ -2151,20 +2151,20 @@ applyHash();
 fetchUsdRate();
 $("#footYear").textContent = new Date().getFullYear();
 </script>
-<script src="shinemate-data.js?v=20261010-completion2"></script>
-<script src="zvizzer-data.js?v=20261010-completion2"></script>
-<script src="studio-media.js?v=20261010-completion2"></script>
-<script src="retail-search.js?v=20261010-completion2"></script>
-<script src="request-config.js?v=20261006-forms1"></script>
-<script src="request-client.js?v=20261006-forms1"></script>
-<script src="client-flows.js?v=20261010-completion2"></script>
-<script src="meeting-content.js?v=20261010-completion2"></script>
-<script src="storefront.js?v=20261010-completion2"></script>
+<script src="shinemate-data.js?v=20261010-orders1"></script>
+<script src="zvizzer-data.js?v=20261010-orders1"></script>
+<script src="studio-media.js?v=20261010-orders1"></script>
+<script src="retail-search.js?v=20261010-orders1"></script>
+<script src="request-config.js?v=20261010-orders1"></script>
+<script src="request-client.js?v=20261010-orders1"></script>
+<script src="client-flows.js?v=20261010-orders1"></script>
+<script src="meeting-content.js?v=20261010-orders1"></script>
+<script src="storefront.js?v=20261010-orders1"></script>
 <script src="release-polish.js?v=20261003-final1"></script>
-<script src="delivery-final.js?v=20261010-completion2"></script>
-<script src="presentation.js?v=20261010-completion2"></script>
-<script src="commerce.js?v=20261010-completion2"></script>
-<script src="account-config.js?v=20261010-completion2"></script>
-<script src="account.js?v=20261010-completion2"></script>
+<script src="delivery-final.js?v=20261010-orders1"></script>
+<script src="presentation.js?v=20261010-orders1"></script>
+<script src="commerce.js?v=20261010-orders1"></script>
+<script src="account-config.js?v=20261010-orders1"></script>
+<script src="account.js?v=20261010-orders1"></script>
 </body>
 </html>
