@@ -88,12 +88,15 @@
     "brands/paca.webp": "https://dev.sappo.ru/upload/iblock/6e8/6e868d75020f12337bf7fca3df7f9f1d.jpg",
     "brands/gyeon.svg": "https://gyeon.co/ — original inline brand-logo SVG paths",
     "brands/finisher.svg": "https://www.koch-chemie.com/media/content/logos/logo_the-finisher-2025.svg",
-    "brands/colourlock.svg": "https://www.koch-chemie.com/media/content/logos/logo_colourlock.svg"
+    "brands/colourlock.svg": "https://www.koch-chemie.com/media/content/logos/logo_colourlock.svg",
+    "final/koch-heavy-campaign.webp": "Official https://www.koch-chemie.com/en/company/expertblog/improved-heavy-cut-system ; original 1296x728 Blogpost_H9.02_HeavyCutPad_2749fa4026.png, WebP90; dealer only.",
+    "final/koch-detailing-campaign.webp": "Official https://www.koch-chemie.com/en/products/automotive ; 1982x1116 csm_detailling-thumb_739cbe4bbf.jpg, WebP90; hero only."
   },
   "final_visual_correction": {
-    "zvizzer-client.png": "Client-supplied Downloads/zvizzer.png, copied unchanged; wordmark viewport crops badge/stars only; no redraw",
+    "zvizzer-client.png": "Client-supplied Downloads/zvizzer.png, unchanged full authentic color logo; no badge in source, no cropping or recoloring.",
     "Ultra": "Existing client logo displayed below native resolution with border excluded by viewport",
     "Cyclone": "No verified standalone logo found; original catalog photograph retained",
-    "map": "Official Yandex widget centered at existing verified store coordinates; provider ads not suppressed"
+    "map": "Official Yandex widget centered at existing verified store coordinates; provider ads not suppressed",
+    "dry-client.webp": "Client-supplied Downloads/1kkb5dwexv9di23g9b2auo2jo7yr5r6f.webp, copied byte-for-byte with blue accents."
   }
 }

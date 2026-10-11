@@ -29,7 +29,7 @@
 /* Shared optical logo frame and account actions. */
 .studio-other .discovery-art{height:140px;min-height:140px;background:#fff;border-radius:10px;padding:20px}
 .studio-other .discovery-art .meeting-brand-logo{width:100%;height:100%;max-width:230px;padding:0;object-fit:contain;object-position:center;transform:none;mix-blend-mode:normal}
-.studio-other .discovery-drymonster .meeting-brand-logo{max-width:150px}
+.studio-other .discovery-drymonster .meeting-brand-logo{max-width:176px}
 .studio-other .discovery-marolex .meeting-brand-logo{max-width:150px}
 .studio-other .discovery-joybond .meeting-brand-logo{max-width:210px}
 .studio-other .discovery-hendlex .discovery-art{background:#111a22}
@@ -42,10 +42,23 @@
 @media(max-width:767px){.account-shortcuts{grid-template-columns:1fr}.location-preview .location-yandex{height:370px;min-height:370px}}
 
 .brand-logo-crop{display:block;position:relative;overflow:hidden;flex:none}
-.logo-zvizzer{width:210px;height:65px}.logo-zvizzer img{position:absolute;width:210px;height:auto;max-width:none;left:0;top:-20px;filter:brightness(0)}
+.studio-other .discovery-zvizzer .discovery-art{background:#111a22;padding:10px}
+.logo-zvizzer{width:188px;height:120px;max-width:100%}.logo-zvizzer img{display:block;width:100%;height:100%;object-fit:contain;filter:none}
 .logo-ultra{width:218px;height:124px;border-radius:0}.logo-ultra img{position:absolute;width:230px;height:auto;max-width:none;left:-6px;top:-8px}
 .studio-other .discovery-ultratechnology .discovery-art{background:#000}
 .studio-other .discovery-glitz .meeting-brand-logo,.studio-other .discovery-paca .meeting-brand-logo{max-width:230px;mix-blend-mode:multiply}
 .studio-brand:first-child .studio-brand-media,.brand-directory-dealer:first-child .directory-scene{background:#080b0c}
-.studio-brand:first-child .studio-brand-media img,.brand-directory-dealer:first-child .directory-scene img{object-fit:contain;object-position:center}
+.studio-brand:first-child .studio-brand-media img,.brand-directory-dealer:first-child .directory-scene img{object-fit:cover;object-position:55% center}
 .studio-other .discovery-cyclone .discovery-art img{width:240px!important;height:120px!important;max-width:100%;padding:0!important;object-fit:contain}
+
+/* Full photographic canvases preserve original product and working context. */
+.studio-brand-media,.brand-directory-dealer .directory-scene{height:auto;aspect-ratio:4/3}
+.dealer-spacecosmetics .studio-brand-media img{object-position:50% 8%;transform:none}
+.dealer-spacecosmetics .directory-scene img{object-position:50% 8%;transform:none}
+.dealer-colourlock .studio-brand-media img,.dealer-colourlock .directory-scene img{object-position:20% 50%;transform:none}
+.studio-home .koch-campaign{position:relative;display:block;background:#22313a}
+.studio-home .hero-media-zone .koch-campaign>.studio-photo{width:100%;height:100%;object-fit:cover!important;object-position:61% center;transform:none!important}
+.koch-campaign:after{content:'';position:absolute;inset:65% 0 0;background:linear-gradient(transparent,#071017c9);pointer-events:none}
+.studio-home .hero-media-zone .koch-signature{position:absolute;z-index:1;left:24px;bottom:23px;width:170px!important;height:48px!important;object-fit:contain!important;filter:brightness(0) invert(1);mix-blend-mode:normal!important;background:transparent!important;transform:none!important}
+
+.studio-other .discovery-card{align-items:stretch}
