@@ -68,7 +68,7 @@
 .studio-home .hero-media-zone .koch-campaign>.studio-photo{object-fit:contain!important;object-position:center;background:#111}
 .koch-campaign:after{display:none}
 .dealer-shinemate .studio-brand-media,.dealer-shinemate .directory-scene{overflow:hidden}
-.dealer-shinemate .studio-brand-media img,.dealer-shinemate .directory-scene img{object-fit:cover;object-position:center bottom;transform:scale(1.22)!important;transform-origin:center bottom}
+
 .studio-category-photo>.studio-photo,.shop-category-visual>.studio-photo{display:block;width:100%!important;height:100%!important;max-width:none;object-fit:cover!important;padding:0!important;border-radius:0;background:transparent}
 .studio-category-photo>img[src*="wash-kit"],.shop-category-visual>img[src*="wash-kit"]{transform:scale(1.16)!important;transform-origin:center}
 .studio-category-photo>img[src*="ep820"],.shop-category-visual>img[src*="ep820"]{object-position:45% center;transform:none!important}
@@ -86,5 +86,24 @@
 @media(max-width:1100px){.shop-categories{grid-template-columns:repeat(2,minmax(0,1fr))}.shop-categories>a{grid-template-columns:96px minmax(0,1fr);gap:12px}.shop-categories .shop-category-visual{width:96px;height:100px}.shop-categories>a>span:last-child{display:none}}
 @media(max-width:600px){.shop-mega{padding:16px}.shop-categories{grid-template-columns:1fr;gap:12px}.shop-categories>a{min-height:128px;padding:12px;grid-template-columns:100px minmax(0,1fr)}.shop-categories .shop-category-visual{width:100px;height:100px}.shop-categories b{font-size:18px}.shop-categories small{font-size:12px}.location-address-preview{padding:32px 24px}}
 /* Trim only the photographed white border, retaining every machine. */
-.dealer-shinemate .studio-brand-media,.dealer-shinemate .directory-scene{position:relative;aspect-ratio:850/543}
-.dealer-shinemate .studio-brand-media img,.dealer-shinemate .directory-scene img{position:absolute;left:-1.1765%;bottom:0;width:102.353%!important;height:118.785%!important;max-width:none;object-fit:cover;transform:none!important}
+.dealer-shinemate .studio-brand-media,.dealer-shinemate .directory-scene{position:relative;aspect-ratio:828/535}
+.dealer-shinemate .studio-brand-media img,.dealer-shinemate .directory-scene img{position:absolute;left:-2.174%;bottom:0;width:105.073%!important;height:120.561%!important;max-width:none;object-fit:cover;transform:none!important}
+
+/* Final framing pass: source borders stay outside clipped photographic canvases. */
+@container(min-width:72rem){
+ .studio-home .hero-slide:has(.hero-media-koch){grid-template-columns:minmax(0,.72fr) minmax(0,1.4fr);gap:32px}
+ .studio-home .hero-slide:has(.hero-media-koch) .hero-title{font-size:clamp(34px,3.3cqi,48px)!important}
+}
+.studio-home .hero-media-zone.hero-media-koch{max-width:1122px;width:100%;align-self:center}
+.studio-help>div:first-child:has(.advice-photo){height:auto;aspect-ratio:706/546}
+.advice-campaign.advice-photo{position:relative;height:100%;min-height:0}
+.advice-campaign.advice-photo>.studio-photo{position:absolute;left:-2.833%;top:-3.664%;width:105.666%!important;height:107.327%!important;max-width:none;min-height:0;object-fit:cover;transform:none!important}
+.promo-card .promo-scene{height:auto;aspect-ratio:499/335}
+.promo-card .promo-scene img,.promo-card:nth-child(2) .promo-scene img{object-fit:cover;object-position:center;width:100%;height:100%;display:block}
+.shop-mega{width:min(1480px,calc(100vw - 24px));max-width:1480px;padding:24px}
+.shop-categories>a{grid-template-columns:148px minmax(0,1fr) 18px;min-height:178px;padding:14px;gap:16px;transition:background .18s,border-color .18s}
+.shop-categories .shop-category-visual{width:148px;height:146px}
+.shop-categories b{font-size:21px}.shop-categories small{font-size:14px}
+.shop-categories>a:focus-visible{outline:2px solid #d995a1;outline-offset:2px;background:#2b3d49}
+@media(max-width:1200px){.shop-categories{grid-template-columns:repeat(2,minmax(0,1fr))}.shop-categories>a{grid-template-columns:130px minmax(0,1fr);min-height:160px}.shop-categories .shop-category-visual{width:130px;height:128px}.shop-categories>a>span:last-child{display:none}}
+@media(max-width:600px){.shop-mega{padding:16px}.shop-categories{grid-template-columns:1fr}.shop-categories>a{grid-template-columns:112px minmax(0,1fr);min-height:142px;padding:12px;gap:14px}.shop-categories .shop-category-visual{width:112px;height:116px}.shop-categories b{font-size:18px}.shop-categories small{font-size:12px}}

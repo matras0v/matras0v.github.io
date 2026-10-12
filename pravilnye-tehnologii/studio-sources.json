@@ -96,7 +96,7 @@
     "zvizzer-client.png": "Client-supplied Downloads/zvizzer.png, unchanged full authentic color logo; no badge in source, no cropping or recoloring.",
     "Ultra": "Existing client logo displayed below native resolution with border excluded by viewport",
     "Cyclone": "No verified standalone logo found; original catalog photograph retained",
-    "map": "Ad-free address preview, explicitly not a map; verified store coordinates and official Yandex organization/route links. Static API key unavailable.",
+    "map": "Official interactive Yandex map-widget restored at verified store coordinates. Provider attribution and ads unmodified; organization and route links preserved.",
     "dry-client.webp": "Client-supplied Downloads/1kkb5dwexv9di23g9b2auo2jo7yr5r6f.webp, copied byte-for-byte with blue accents.",
     "koch-original": "Original https://koch.ru/upload/iblock/c92/c9229bbc94bbf28fea75041c139a463d.jpg from official company page, 1122x339 unchanged JPEG. No higher-resolution original found; not 2K."
   }
