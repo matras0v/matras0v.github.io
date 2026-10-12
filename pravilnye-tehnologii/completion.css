@@ -62,3 +62,29 @@
 .studio-home .hero-media-zone .koch-signature{position:absolute;z-index:1;left:24px;bottom:23px;width:170px!important;height:48px!important;object-fit:contain!important;filter:brightness(0) invert(1);mix-blend-mode:normal!important;background:transparent!important;transform:none!important}
 
 .studio-other .discovery-card{align-items:stretch}
+
+/* Final production corrections: retain original campaign and crop source borders. */
+.studio-home .hero-media-zone.hero-media-koch{height:auto!important;aspect-ratio:1122/339;background:#111!important;overflow:hidden}
+.studio-home .hero-media-zone .koch-campaign>.studio-photo{object-fit:contain!important;object-position:center;background:#111}
+.koch-campaign:after{display:none}
+.dealer-shinemate .studio-brand-media,.dealer-shinemate .directory-scene{overflow:hidden}
+.dealer-shinemate .studio-brand-media img,.dealer-shinemate .directory-scene img{object-fit:cover;object-position:center bottom;transform:scale(1.22)!important;transform-origin:center bottom}
+.studio-category-photo>.studio-photo,.shop-category-visual>.studio-photo{display:block;width:100%!important;height:100%!important;max-width:none;object-fit:cover!important;padding:0!important;border-radius:0;background:transparent}
+.studio-category-photo>img[src*="wash-kit"],.shop-category-visual>img[src*="wash-kit"]{transform:scale(1.16)!important;transform-origin:center}
+.studio-category-photo>img[src*="ep820"],.shop-category-visual>img[src*="ep820"]{object-position:45% center;transform:none!important}
+.shop-mega{max-width:1380px;padding:28px}
+.shop-categories{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.shop-categories>a{display:grid;grid-template-columns:118px minmax(0,1fr) 16px;min-height:142px;padding:14px;gap:16px}
+.shop-categories .shop-category-visual{width:118px;height:110px}
+.shop-categories b{font-size:19px;line-height:1.25}
+.shop-categories small{font-size:13px;line-height:1.45}
+.location-address-preview{flex:1;padding:48px 36px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;background:radial-gradient(ellipse at top right,#354c5c,#14212c 75%)}
+.location-address-preview>svg{color:#cf596a;margin-bottom:25px}
+.location-address-preview h3{font-size:clamp(25px,3vw,38px);line-height:1.25;margin:10px 0 20px}
+.location-address-preview p{color:#c1cdd5}
+.location-address-preview small{max-width:360px;font-size:13px;line-height:1.6;color:#a8b9c5}
+@media(max-width:1100px){.shop-categories{grid-template-columns:repeat(2,minmax(0,1fr))}.shop-categories>a{grid-template-columns:96px minmax(0,1fr);gap:12px}.shop-categories .shop-category-visual{width:96px;height:100px}.shop-categories>a>span:last-child{display:none}}
+@media(max-width:600px){.shop-mega{padding:16px}.shop-categories{grid-template-columns:1fr;gap:12px}.shop-categories>a{min-height:128px;padding:12px;grid-template-columns:100px minmax(0,1fr)}.shop-categories .shop-category-visual{width:100px;height:100px}.shop-categories b{font-size:18px}.shop-categories small{font-size:12px}.location-address-preview{padding:32px 24px}}
+/* Trim only the photographed white border, retaining every machine. */
+.dealer-shinemate .studio-brand-media,.dealer-shinemate .directory-scene{position:relative;aspect-ratio:850/543}
+.dealer-shinemate .studio-brand-media img,.dealer-shinemate .directory-scene img{position:absolute;left:-1.1765%;bottom:0;width:102.353%!important;height:118.785%!important;max-width:none;object-fit:cover;transform:none!important}
