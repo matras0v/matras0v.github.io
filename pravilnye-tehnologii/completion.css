@@ -171,3 +171,18 @@
  .shop-header .search-option:not(:has(img)) strong{grid-column:2}
  .shop-header .search-all{padding:13px 16px;font-size:14px}
 }
+
+/* Keep every category photo on the same image-only hover rhythm. */
+.studio-category-photo{overflow:hidden}
+.studio-category-photo>img.studio-photo{--category-rest:1;--category-hover:1.05;transform:scale(var(--category-rest))!important;transform-origin:center}
+.studio-category-photo>img.studio-photo[src*="wash-kit"]{--category-rest:1.16;--category-hover:1.21}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+ .studio-category-photo>img.studio-photo,.studio-process .step-photo img{transition:transform .36s ease}
+ .studio-category:hover .studio-category-photo>img.studio-photo{transform:scale(var(--category-hover))!important}
+ .studio-process a:hover .step-photo img{transform:scale(1.05)}
+}
+@media(hover:none),(prefers-reduced-motion:reduce){
+ .studio-category-photo>img.studio-photo,.studio-process .step-photo img{transition:none!important}
+ .studio-category:hover .studio-category-photo>img.studio-photo{transform:scale(var(--category-rest))!important}
+ .studio-process a:hover .step-photo img{transform:none}
+}
