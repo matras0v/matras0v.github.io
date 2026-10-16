@@ -21,4 +21,4 @@ Use `tests/README.md` and the two saved Playwright checks. Representative render
 
 ## Release
 
-Implementation validated locally. Commit/push and live Pages verification follow this report; deployment result is recorded in PROJECT_STATE.md.
+Implementation commit `8a893f7` pushed to `origin/main`; GitHub Pages build succeeded. Public https://matras0v.github.io/ verified in a fresh Chromium session: EN/RU × 390/1440 × all three featured projects (12 states), four PT case states, case language switching, return links, concept escape and primary WhatsApp SVG/destination. Zero page errors and HTTP errors. Live captures visually inspected. Final deployment details are preserved in PROJECT_STATE.md.

@@ -12,7 +12,9 @@ Local: /Users/vadimivancenko/Desktop/сайты/portfolio (chat cwd is a differe
 - WhatsApp remains +79184134820; Telegram/Instagram @matras0v; email mskvvmskvv@gmail.com.
 - Preview assets generated: EN/RU × desktop/mobile for all three clients. Primary editorial cards reuse these artboards; no duplicate client iframes run on the homepage. The old clipped reveal observer deadlock was fixed at its source.
 - Local validation: 108 responsive/locale states, 36 JavaScript syntax checks and 16 interaction checks passed. Six additional focus/visibility/mobile/lazy-media/capture groups passed; 183 static internal asset/route references valid. Evidence captured and visually inspected. See QA_REPORT.md. Reusable tests in tests/.
-- GitHub authentication confirmed outside sandbox. Pages uses main branch root (legacy build). Next: commit/push and verify deployed EN/RU, third case and mobile controls. Browser MCP lacks Chrome; installed Playwright Chromium works via bundled package and explicit executable.
+- Implementation commit 8a893f701e2e4bb0bab6a73908b797704714261b pushed to origin/main. GitHub Pages legacy build completed successfully at 2026-10-17 01:27 MSK.
+- Live verified at https://matras0v.github.io/ in a fresh real Chromium browser: EN/RU × 390/1440 × all three feature projects (12 states), PT case in both locales at both widths (4 states), return navigation, concept escape, exact external CTA targets and WhatsApp SVG. Zero page errors and HTTP errors. Rendered live screenshots were captured and visually inspected.
+- Scope complete. Physical iPhone/native Safari/Telegram/Instagram in-app browsers remain unverified. Browser MCP lacks Chrome; installed Playwright Chromium works via bundled package and explicit executable.
 
 ## Existing preview constraints retained
 - Hub .frame[data-live], data-vh and project-specific --win-m compose local websites. Snowzan 900/760 + 1/1.18 mobile is the approved reference. Do not change its image crop.
