@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0B0B0C">
 
-<title>Vadim Ivanchenko — Web Designer for Local Businesses</title>
-<meta name="description" content="I build fast, honest websites for local businesses in Phoenix and Dubai. Detailing, clinics, restaurants, trades. Two days, not two months. You own the files and pay nothing monthly.">
+<title data-i18n="meta-title">MATRAS0V — Independent web design &amp; development</title>
+<meta name="description" content="Independent web design and development. Three live client projects, service websites, specialist catalogs and self-initiated studies." data-i18n-attr="content:meta-description">
+<link rel="stylesheet" href="assets/showcase.css">
+<script src="assets/locale-boot.js"></script>
 <link rel="canonical" href="https://matras0v.github.io/">
 
 <meta property="og:type" content="website">
@@ -1309,7 +1311,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 .js .rv.lines{filter:none;}
 /* media arrives by uncovering, not by sliding — a print coming up in a
    tray, settling those last couple of percent as it reaches the top. */
-.js .rv-clip{clip-path:inset(0 0 100% 0);transform:scale(1.025);}
+.js .rv-clip{clip-path:none;transform:none;}
 .js .rv-clip.in{
   clip-path:inset(0 0 0 0);transform:scale(1);
   transition:clip-path 1.15s var(--ease-in-out), transform 1.15s var(--ease-out);
@@ -1727,7 +1729,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
    Copy resolves out of blur, headings wipe line by line, and the screens
    arrive with depth — three different behaviours, so the page does not
    read as one fadeInUp applied to everything. */
-.js .rv-clip{clip-path:inset(0 0 100% 0);transform:perspective(1400px) rotateX(6deg) scale(1.03);}
+.js .rv-clip{clip-path:none;transform:none;}
 .js .rv-clip.in{transform:perspective(1400px) rotateX(0deg) scale(1);}
 
 @media (prefers-reduced-motion:reduce){
@@ -1747,6 +1749,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   .grain{display:none;}
 }
 </style>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 
 <body>
@@ -1802,16 +1805,15 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     </svg>
   </div>
   <p class="ghost-word par" data-par="-.10" data-pointer=".5" aria-hidden="true">MATRAS0V</p>
-  <div>
+  <div class="hero-copy">
     <p class="eyebrow mono hero-seq"><span class="dot" aria-hidden="true"></span> <i data-i18n="hero-eyebrow">Now booking · US &amp; UAE</i></p>
-    <h1 class="lines"><span class="ln"><i data-i18n="hero-h1-1">Your next customer is</i></span><span class="ln"><i data-i18n="hero-h1-2">looking at your</i></span><span class="ln"><i data-i18n="hero-h1-3">website <em>right now.</em></i></span></h1>
+    <h1 class="lines"><span class="ln"><i data-i18n="hero-h1-1">Your next customer is&nbsp;</i></span> <span class="ln"><i data-i18n="hero-h1-2">looking at your&nbsp;</i></span> <span class="ln"><i data-i18n="hero-h1-3">website <em>right now.</em></i></span></h1>
   </div>
 
   <div class="hero-bar hero-seq" style="--d:.40s">
     <div>
       <p class="hero-sub" data-i18n="hero-sub">
-        I build websites for local businesses — detailing, clinics, restaurants, trades.
-        <strong>Two days, not two months.</strong> You own the files, and there is nothing to pay monthly.
+        I design and build websites for service businesses and specialist stores. <strong>One person, from first sketch to launch.</strong>
       </p>
       <div class="hero-cta">
         <a class="btn btn-shimmer" href="#contact"><span data-i18n="hero-cta-start">Start a project</span></a>
@@ -1824,36 +1826,30 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     </p>
   </div>
 
-  <div class="hero-media rv-clip" style="--lit:rgba(110,91,255,.55)">
-    <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-vh="900/760">
-      <div class="frame-bar" aria-hidden="true"><i></i><span>snowzan.com</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
-      <div class="window">
-        <iframe title="Live preview of the Snowzan Mobile Detailing website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
-      </div>
-    </a>
-    <p class="plate-cap mono">
-      <span data-i18n="plate-live">Live &mdash; Snowzan Mobile Detailing, Phoenix</span>
-      <span data-i18n="plate-built">Built in two days &middot; running at snowzan.com</span>
-    </p>
-  </div>
+  <section class="featured" id="featured" aria-labelledby="featured-title">
+    <div class="featured-heading"><h2 id="featured-title" class="mono" data-i18n="featured-title">Featured live work</h2><span class="mono" data-i18n="featured-count">Three live projects · 01—03</span></div>
+    <div class="featured-tabs" role="tablist" aria-label="Live projects" data-i18n-attr="aria-label:feature-tabs-label"></div>
+    <div class="featured-stage"></div>
+    <div class="featured-bottom"><span class="feature-status mono" role="status" aria-live="polite"></span><button class="feature-pause mono" type="button" aria-pressed="false">Pause autoplay</button></div>
+  </section>
 </section>
 
 <!-- ============================================================ selects -- -->
 <section class="band shell" id="work">
   <div class="band-head">
     <h2 class="lines rv">
-      <span class="ln"><i data-i18n="work-h2">Selects</i></span>
+      <span class="ln"><i data-i18n="work-h2">Selected client work</i></span>
       <svg class="ring" viewBox="0 0 240 90" preserveAspectRatio="none" aria-hidden="true">
         <path d="M64 8 C24 10, 6 28, 8 48 C10 70, 44 84, 108 84 C186 84, 228 68, 232 46 C236 24, 196 8, 130 7 C96 6, 62 12, 44 22"/>
       </svg>
     </h2>
-    <p data-i18n="work-p">One live client, and work I built to show what I can do. Every frame below is the site itself, running — not a screenshot of one.</p>
+    <p data-i18n="work-p">Three live websites. A service business, an equipment specialist and a multi-brand store — each with its own brief and visual identity.</p>
   </div>
 
   <!-- 01 Snowzan — the screen hangs at full width -->
   <article class="select s-01" style="--lit:rgba(110,91,255,.55)">
     <div class="sel-head">
-      <p class="sel-no" data-i18n="sel01-no">Select 01 / 04</p>
+      <p class="sel-no" data-i18n="sel01-no">Select 01 / 03</p>
       <h3 class="sel-name par" data-par=".030">Snowzan</h3>
       <dl class="sel-facts">
         <div><dt data-i18n="fact-where">Where</dt><dd data-i18n="sel01-where">Phoenix, Arizona</dd></div>
@@ -1863,14 +1859,13 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
       </dl>
     </div>
     <div class="sel-media rv-clip">
-      <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study" data-live="work/snowzan/site/index.html" data-vh="900/760">
+      <a class="frame" href="work/snowzan/" aria-label="Read the Snowzan case study">
         <div class="frame-bar" aria-hidden="true"><i></i><span>snowzan.com</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
-        <div class="window">
-          <iframe title="Live preview of the Snowzan website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
-        </div>
+        <picture class="project-art" data-project-art="snowzan"><source media="(max-width:759px)" srcset="assets/previews/snowzan-en-mobile.webp"><img src="assets/previews/snowzan-en-desktop.webp" alt="snowzan first-screen presentation" loading="lazy" width="1400" height="820"></picture>
       </a>
     </div>
     <div class="sel-say rv">
+      <p class="mono" style="font-size:10px;margin-bottom:16px;color:var(--paper-3)" data-i18n="snow-original">Original live website · English</p>
       <p class="sel-role" data-i18n="sel01-role">A growing mobile detailing brand in Phoenix, trading a Google Sites page for something that quotes a price before the customer has to ask.</p>
       <div class="sel-links">
         <a class="btn" href="work/snowzan/"><span data-i18n="cta-read-case">Read the case</span></a>
@@ -1887,7 +1882,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
        blocks running back to back do not read as the same slide twice. -->
   <article class="select s-sm" style="--lit:rgba(254,139,12,.42)">
     <div class="sel-head">
-      <p class="sel-no" data-i18n="selsm-no">Select 02 / 04 <span class="tag tag-live" data-i18n="tag-client">Real client</span></p>
+      <p class="sel-no" data-i18n="selsm-no">Select 02 / 03 <span class="tag tag-live" data-i18n="tag-client">Real client</span></p>
       <h3 class="sel-name par" data-par=".030" data-i18n="selsm-name">ShineMate Russia</h3>
       <dl class="sel-facts">
         <div><dt data-i18n="fact-client">Client</dt><dd data-i18n="selsm-client">ShineMate Russia</dd></div>
@@ -1898,11 +1893,9 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
       </dl>
     </div>
     <div class="sel-media rv-clip">
-      <a class="frame" href="work/shinemate/" aria-label="Read the ShineMate Russia case study" data-live="work/shinemate/preview/index.html" data-vh="820/740" style="--win-m:1/1.34">
+      <a class="frame" href="work/shinemate/" aria-label="Read the ShineMate Russia case study">
         <div class="frame-bar" aria-hidden="true"><i></i><span>shinemate-russia.ru</span><span class="go">Case <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
-        <div class="window">
-          <iframe title="Preview of the ShineMate Russia website" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
-        </div>
+        <picture class="project-art" data-project-art="shinemate"><source media="(max-width:759px)" srcset="assets/previews/shinemate-en-mobile.webp"><img src="assets/previews/shinemate-en-desktop.webp" alt="shinemate first-screen presentation" loading="lazy" width="1400" height="820"></picture>
       </a>
     </div>
     <div class="sel-say rv">
@@ -1914,9 +1907,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     </div>
   </article>
 
+  <article class="select s-pt" style="--lit:rgba(182,37,68,.4)"><div class="sel-head"><p class="sel-no" data-i18n="pt-no">Select 03 / 03 · Live project</p><h3 class="sel-name">Pravilnye<br>Tekhnologii</h3><dl class="sel-facts"><div><dt data-i18n="fact-market">Market</dt><dd data-i18n="pt-market">Russia</dd></div><div><dt data-i18n="fact-type">Type</dt><dd data-i18n="pt-type">Multi-brand detailing catalog</dd></div><div><dt data-i18n="fact-scope">Scope</dt><dd data-i18n="pt-scope">Website design, frontend, catalog presentation</dd></div><div><dt data-i18n="fact-status">Status</dt><dd data-i18n="pt-status">Live project · Russian production site</dd></div></dl></div><div class="sel-media"><a class="frame" href="work/pravilnye-tekhnologii/" aria-label="Pravilnye Tekhnologii — case study"><div class="frame-bar"><i></i><span>правильные-технологии.рф</span><span class="go">↗</span></div><picture class="project-art" data-project-art="pt"><source media="(max-width:759px)" srcset="assets/previews/pt-en-mobile.webp"><img src="assets/previews/pt-en-desktop.webp" alt="Pravilnye Tekhnologii catalog presentation" loading="lazy" width="1400" height="820"></picture></a></div><div class="sel-say"><p class="sel-role" data-i18n="pt-role">A multi-brand automotive detailing store in Russia: professional car-care chemicals, polishing equipment and accessories in one clearer catalog.</p><div class="sel-links"><a class="btn" href="work/pravilnye-tekhnologii/"><span data-i18n="cta-read-case">Read the case</span></a><a class="btn btn-ghost" href="https://правильные-технологии.рф" target="_blank" rel="noopener"><span data-i18n="cta-open-live">Open the live site</span> ↗</a></div></div></article>
+</section>
+<section class="band shell" id="additional"><div class="band-head"><h2 data-i18n="additional-title">Additional work</h2><p data-i18n="additional-copy">A self-initiated design concept and a product I build and run.</p></div>
   <article class="select s-02" style="--lit:rgba(200,145,63,.5)">
     <div class="sel-head">
-      <p class="sel-no" data-i18n="sel02-no">Select 03 / 04 <span class="tag" data-i18n="tag-concept">Concept</span></p>
+      <p class="sel-no" data-i18n="sel02-no">Work 04 / 05 <span class="tag" data-i18n="tag-concept">Concept</span></p>
       <h3 class="sel-name par" data-par=".030">H&amp;M Car Polishing</h3>
       <dl class="sel-facts">
         <div><dt data-i18n="fact-type">Type</dt><dd data-i18n="sel02-type">Self-initiated concept</dd></div>
@@ -1946,7 +1942,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
   <!-- 03 GrimeVPN — and back out through the left -->
   <article class="select s-03" style="--lit:rgba(168,85,247,.5)">
     <div class="sel-head">
-      <p class="sel-no" data-i18n="sel03-no">Select 04 / 04</p>
+      <p class="sel-no" data-i18n="sel03-no">Work 05 / 05</p>
       <h3 class="sel-name par" data-par=".030">GrimeVPN</h3>
       <dl class="sel-facts">
         <div><dt data-i18n="fact-what">What</dt><dd data-i18n="sel03-what">Telegram product, self-initiated</dd></div>
@@ -1989,7 +1985,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
         <div class="frame-bar" aria-hidden="true"><i></i><span>lumen</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Lumen site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
-      <p class="cell-no mono"><span data-i18n="cell-lumen-frame">Frame 04</span><span data-i18n="tag-concept">Concept</span></p>
+      <p class="cell-no mono"><span data-i18n="cell-lumen-frame">Frame 01 / 05</span><span data-i18n="tag-concept">Concept</span></p>
       <h3 class="cell-name">Lumen</h3>
       <p class="cell-role" data-i18n="cell-lumen-role">Aesthetic clinic, Scottsdale — treatment pricing you can work out without calling.</p>
     </a>
@@ -1999,7 +1995,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
         <div class="frame-bar" aria-hidden="true"><i></i><span>aurelis</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Aurelis site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
-      <p class="cell-no mono"><span data-i18n="cell-aurelis-frame">Frame 05</span><span data-i18n="tag-concept">Concept</span></p>
+      <p class="cell-no mono"><span data-i18n="cell-aurelis-frame">Frame 02 / 05</span><span data-i18n="tag-concept">Concept</span></p>
       <h3 class="cell-name">Aurelis</h3>
       <p class="cell-role" data-i18n="cell-aurelis-role">Waterfront residences, Dubai — the floor plan draws itself as you read.</p>
     </a>
@@ -2009,7 +2005,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
         <div class="frame-bar" aria-hidden="true"><i></i><span>lucienne</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Lucienne site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
-      <p class="cell-no mono"><span data-i18n="cell-lucienne-frame">Frame 06</span><span data-i18n="tag-concept">Concept</span></p>
+      <p class="cell-no mono"><span data-i18n="cell-lucienne-frame">Frame 03 / 05</span><span data-i18n="tag-concept">Concept</span></p>
       <h3 class="cell-name">Lucienne</h3>
       <p class="cell-role" data-i18n="cell-lucienne-role">Ready-to-wear — a lookbook you can buy straight off the photograph.</p>
     </a>
@@ -2019,7 +2015,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
         <div class="frame-bar" aria-hidden="true"><i></i><span>ember &amp; oak</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the Ember and Oak site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
-      <p class="cell-no mono"><span data-i18n="cell-emberoak-frame">Frame 07</span><span data-i18n="tag-concept">Concept</span></p>
+      <p class="cell-no mono"><span data-i18n="cell-emberoak-frame">Frame 04 / 05</span><span data-i18n="tag-concept">Concept</span></p>
       <h3 class="cell-name">Ember &amp; Oak</h3>
       <p class="cell-role" data-i18n="cell-emberoak-role">A restaurant whose homepage is simply the menu, with the booking inside it.</p>
     </a>
@@ -2029,7 +2025,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
         <div class="frame-bar" aria-hidden="true"><i></i><span>lustre</span><span class="go">Open <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
         <div class="window"><iframe title="Live preview of the LUSTRE site" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
       </div>
-      <p class="cell-no mono"><span data-i18n="cell-lustre-frame">Frame 08</span><span data-i18n="tag-concept">Concept</span></p>
+      <p class="cell-no mono"><span data-i18n="cell-lustre-frame">Frame 05 / 05</span><span data-i18n="tag-concept">Concept</span></p>
       <h3 class="cell-name">LUSTRE</h3>
       <p class="cell-role" data-i18n="cell-lustre-role">An auto detailing studio — drag the panel and watch the correction happen.</p>
     </a>
@@ -2149,6 +2145,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
 </footer>
 
 <script src="assets/i18n.js"></script>
+<script src="assets/projects.js"></script>
+<script src="assets/showcase.js" defer></script>
 <script>
 window.I18N_HOME_RU = {
   "nav-work": "Работы",
@@ -2156,12 +2154,11 @@ window.I18N_HOME_RU = {
   "nav-about": "Обо мне",
   "nav-cta-full": "Начать проект &middot; Контакты",
   "nav-cta-short": "Контакты",
-
   "hero-eyebrow": "Сейчас беру заказы &middot; США и ОАЭ",
-  "hero-h1-1": "Ваш следующий клиент",
-  "hero-h1-2": "уже смотрит на ваш",
-  "hero-h1-3": "сайт <em>прямо сейчас.</em>",
-  "hero-sub": "Я делаю сайты для локального бизнеса — автомойки, клиники, рестораны, мастерские. <strong>Два дня, а не два месяца.</strong> Файлы принадлежат вам, и платить ежемесячно не нужно.",
+  "hero-h1-1": "Ваш следующий клиент&nbsp;",
+  "hero-h1-2": "уже смотрит на ваш&nbsp;",
+  "hero-h1-3": "сайт&nbsp;<em>прямо сейчас.</em>",
+  "hero-sub": "Сайты для сервисного бизнеса и специализированных магазинов. <strong>Дизайн и разработка — от первого эскиза до запуска.</strong>",
   "hero-cta-start": "Начать проект",
   "hero-cta-work": "Смотреть работы",
   "hero-note": "Или напишите мне прямо сейчас:",
@@ -2170,11 +2167,9 @@ window.I18N_HOME_RU = {
   "hero-meta-3": "Работаю с Финиксом и Дубаем",
   "plate-live": "Работает &mdash; Snowzan Mobile Detailing, Финикс",
   "plate-built": "Построен за два дня &middot; работает на snowzan.com",
-
-  "work-h2": "Избранное",
-  "work-p": "Два реальных клиента и работы, которые показывают, что я умею. Каждый кадр ниже — сам сайт, а не его скриншот.",
-
-  "sel01-no": "Работа 01 / 04",
+  "work-h2": "Клиентские проекты",
+  "work-p": "Три работающих сайта: сервисный бизнес, дистрибьютор оборудования и мультибрендовый магазин. У каждого своя задача и визуальный характер.",
+  "sel01-no": "Работа 01 / 03",
   "fact-where": "Город",
   "fact-builtin": "Срок",
   "fact-scope": "Объём",
@@ -2186,21 +2181,19 @@ window.I18N_HOME_RU = {
   "sel01-role": "Растущий бренд мобильного детейлинга в Финиксе. Вместо страницы на Google Sites — сайт, который называет цену раньше, чем клиент успевает спросить.",
   "cta-read-case": "Читать кейс",
   "cta-open-site": "Открыть сайт",
-
-  "selsm-no": "Работа 02 / 04",
-  "selsm-name": "ShineMate Россия",
+  "selsm-no": "Работа 02 / 03",
+  "selsm-name": "ShineMate Russia",
   "tag-client": "Реальный клиент",
   "fact-client": "Клиент",
   "fact-market": "Рынок",
-  "selsm-client": "ShineMate Россия",
+  "selsm-client": "ShineMate Russia",
   "selsm-market": "Россия",
   "selsm-type": "Официальный дистрибьютор / оборудование для детейлинга",
   "selsm-scope": "Дизайн, разработка, каталог, продуктовый UX, совместимость товаров",
   "selsm-status": "Работает на shinemate-russia.ru",
   "selsm-role": "Сайт официального дистрибьютора ShineMate в России — большой каталог оборудования для полировки, собранный в понятный путь от выбора машинки до совместимых кругов, подложек и паст.",
   "cta-open-live": "Открыть живой сайт",
-
-  "sel02-no": "Работа 03 / 04",
+  "sel02-no": "Работа 04 / 05",
   "tag-concept": "Концепт",
   "fact-type": "Тип",
   "fact-signature": "Фишка",
@@ -2210,8 +2203,7 @@ window.I18N_HOME_RU = {
   "sel02-status": "Сделан, чтобы показать подход",
   "sel02-role": "Концепт студии полировки. На главной вам сразу дают полировальную машинку: проведите по мутной панели — и покрытие оживает под пальцем.",
   "cta-try-polisher": "Попробовать полировку",
-
-  "sel03-no": "Работа 04 / 04",
+  "sel03-no": "Работа 05 / 05",
   "fact-what": "Что это",
   "fact-runson": "Работает через",
   "sel03-what": "Продукт в Telegram, собственная инициатива",
@@ -2219,20 +2211,18 @@ window.I18N_HOME_RU = {
   "sel03-status": "Работает — открыт для первых пользователей",
   "sel03-role": "Не сайт с продуктом где-то сзади, а продукт, который я сделал и веду сам. Telegram-бот продаёт подписки, выдаёт ключи и управляет устройствами — с бэкендом под капотом.",
   "cta-try-bot": "Попробовать бота",
-
   "sheet-h2": "Витрина",
   "sheet-p": "Собственные концепты. Бренды придуманы, но сайты настоящие и полностью рабочие — можно открыть любой.",
-  "cell-lumen-frame": "Кадр 04",
+  "cell-lumen-frame": "Кадр 01 / 05",
   "cell-lumen-role": "Клиника эстетической медицины в Скоттсдейле — цены на процедуры считаются на сайте, без звонка.",
-  "cell-aurelis-frame": "Кадр 05",
+  "cell-aurelis-frame": "Кадр 02 / 05",
   "cell-aurelis-role": "Резиденции у воды в Дубае — план этажа прорисовывается прямо во время чтения.",
-  "cell-lucienne-frame": "Кадр 06",
+  "cell-lucienne-frame": "Кадр 03 / 05",
   "cell-lucienne-role": "Готовая одежда — лукбук, из которого можно купить прямо с фотографии.",
-  "cell-emberoak-frame": "Кадр 07",
+  "cell-emberoak-frame": "Кадр 04 / 05",
   "cell-emberoak-role": "Ресторан, у которого главная страница — это и есть меню, а бронирование встроено прямо в него.",
-  "cell-lustre-frame": "Кадр 08",
+  "cell-lustre-frame": "Кадр 05 / 05",
   "cell-lustre-role": "Студия автодетейлинга — проведите по панели и посмотрите на восстановление покрытия.",
-
   "how-h2": "Как это работает",
   "how-p": "Без брифинга, презентаций и абонентской платы за поддержку. Вы рассказываете о бизнесе — я делаю сайт.",
   "step01-title": "Вы рассказываете, я слушаю",
@@ -2241,20 +2231,17 @@ window.I18N_HOME_RU = {
   "step02-p": "Настоящий сайт по настоящему адресу, а не картинка. Вы открываете его на телефоне, отправляете партнёру и говорите, что не так. Я исправляю в тот же день.",
   "step03-title": "Сайт переезжает на ваш домен",
   "step03-p": "На ваши аккаунты, с вашими паролями — они мне не нужны. После этого я даю простую инструкцию, как менять цены самостоятельно.",
-
   "owns-h3-1": "Это ваше.",
   "owns-h3-2": "Полностью.",
   "owns-li1": "Файлы лежат на вашем компьютере. Отдайте их любому разработчику — он разберётся за минуту.",
   "owns-li2": "Хостинг бесплатен при вашем объёме, на вашем же аккаунте. Ни подписки, ни лицензии, ничего отменять не нужно.",
   "owns-li3": "Домен остаётся вашим. Я никогда его не держу у себя и никогда не прошу пароли.",
   "owns-li4": "Никакого конструктора под капотом. Ничего, что можно забрать или начать брать за это деньги позже.",
-
   "about-h2": "Обо мне",
   "about-lead": "Я <strong>Вадим Иванченко</strong>. Работаю один — в этом и смысл: вы разговариваете с тем, кто делает сайт, и между стратегом, дизайнером и разработчиком, которые в глаза не видели ваших клиентов, ничего не теряется.",
   "about-p1": "Для большинства моих клиентов звонок телефона — это и есть весь бизнес. Детейлинг-бокс. Студия полировки. Клиника. Им не нужна брендбук-система — им нужна страница, которая отвечает на три вопроса, которые задаёт каждый звонящий, ещё до звонка.",
   "about-p2": "Я пишу каждый сайт вручную, на чистых HTML и CSS. Это не ностальгия — именно поэтому страницы открываются мгновенно на телефоне где-нибудь на парковке, поэтому нет ежемесячного счёта и поэтому <strong>вы можете уйти от меня в любой момент</strong>, забрав всё с собой.",
   "about-p3": "Я живу в России и работаю удалённо с клиентами в США и ОАЭ — на английском или на русском, как вам удобнее.",
-
   "contact-h2-1": "Расскажите",
   "contact-h2-2": "о вашем бизнесе.",
   "contact-p": "Чем вы занимаетесь, где вы находитесь и каким должен быть сайт. Если это моё — скажу сразу, если нет — тоже скажу.",
@@ -2264,9 +2251,22 @@ window.I18N_HOME_RU = {
   "chan-telegram": "Telegram",
   "chan-instagram": "Instagram",
   "chan-email": "Email",
-
   "foot-working": "Работаю с США и ОАЭ",
-  "foot-coded": "Написан вручную"
+  "foot-coded": "Написан вручную",
+  "meta-title": "MATRAS0V — Дизайн и разработка сайтов",
+  "meta-description": "Независимый дизайнер и разработчик. Три работающих клиентских сайта, специализированные каталоги и собственные концепты.",
+  "snow-original": "Оригинальный живой сайт · английский",
+  "featured-title": "Избранные живые проекты",
+  "featured-count": "Три работающих сайта · 01—03",
+  "feature-tabs-label": "Работающие сайты",
+  "pt-no": "Работа 03 / 03 · Живой проект",
+  "pt-market": "Россия",
+  "pt-type": "Мультибрендовый каталог детейлинга",
+  "pt-scope": "Дизайн сайта, фронтенд, представление каталога",
+  "pt-status": "Работающий проект · сайт на русском",
+  "pt-role": "Мультибрендовый магазин товаров для детейлинга в России: профессиональная автохимия, полировальное оборудование и аксессуары в одном удобном каталоге.",
+  "additional-title": "Другие работы",
+  "additional-copy": "Собственный дизайн-концепт и продукт, который я создаю и развиваю."
 };
 MLang.init(window.I18N_HOME_RU);
 </script>
@@ -2558,7 +2558,8 @@ MLang.init(window.I18N_HOME_RU);
       var frame = e.target;
       var fr = frame.querySelector('iframe');
       if(fr && !fr.src){
-        fr.src = frame.dataset.live;
+        fr.loading = 'eager'; // IntersectionObserver already provides lazy loading.
+        fr.src = frame.dataset.live + '?lang=' + MLang.get();
         fr.addEventListener('load', function(){ fit(frame); }, {once:true});
       }
       fit(frame);
@@ -3029,11 +3030,7 @@ MLang.init(window.I18N_HOME_RU);
     });
   }, {passive:true});
 
-  /* -- magnetic CTAs -----------------------------------------------------
-     Inside a small radius the button leans toward the pointer, and the
-     highlight inside its face tracks the same position. The offset goes
-     into --mgx/--mgy, which the button's single transform already owns,
-     so the lift and the press state can never be overwritten by this. */
+  /* -- restrained button lighting -------------------------------------- */
   if(fine()){
     document.querySelectorAll('.btn').forEach(function(b){
       var braf = 0;
@@ -3044,8 +3041,7 @@ MLang.init(window.I18N_HOME_RU);
         braf = requestAnimationFrame(function(){
           b.style.setProperty('--mx', x + 'px');
           b.style.setProperty('--my', y + 'px');
-          b.style.setProperty('--mgx', ((x - r.width/2)  * .16).toFixed(1) + 'px');
-          b.style.setProperty('--mgy', ((y - r.height/2) * .26).toFixed(1) + 'px');
+
         });
       });
       b.addEventListener('pointerleave', function(){

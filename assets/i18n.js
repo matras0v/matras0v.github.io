@@ -6,10 +6,8 @@
    second time. Russian lives in one small object each page defines for
    itself (window.I18N_RU) and hands to MLang.init().
 
-   The choice a visitor makes is remembered (localStorage) and carried
-   across every page on the site, but the page never opens in Russian on
-   its own — only an explicit click ever sets the stored language, so a
-   fresh visitor from a shared link always sees English first.
+   Locale priority: explicit URL parameter, stored preference, then English.
+   Internal links preserve the locale; external client URLs remain untouched.
    ========================================================================== */
 (function(){
   var KEY = 'matrasov_lang';
@@ -21,10 +19,10 @@
     try { localStorage.setItem(KEY, v); } catch(e){}
   }
 
-  // Only 'ru' is ever explicitly stored; anything else (including no
-  // stored value at all, a fresh visitor) means English.
+  // Shared links can explicitly select either language without changing route.
   function currentLang(){
-    return readStored() === 'ru' ? 'ru' : 'en';
+    var explicit = new URLSearchParams(location.search).get('lang');
+    return explicit === 'en' || explicit === 'ru' ? explicit : (readStored() === 'ru' ? 'ru' : 'en');
   }
 
   var originalHTML = new WeakMap();
@@ -81,17 +79,49 @@
 
   var activeDict = null;
   var listeners = [];
+  var rootURL = new URL('../', document.currentScript.src);
+  function links(lang){
+    document.querySelectorAll('a[href]').forEach(function(a){
+      var raw=a.getAttribute('href');
+      if(!raw || raw[0]==='#') return;
+      var u=new URL(raw, location.href);
+      if(u.origin===rootURL.origin && u.pathname.startsWith(rootURL.pathname)){
+        u.searchParams.set('lang',lang); a.href=u.href;
+      }
+    });
+    document.querySelectorAll('iframe').forEach(function(fr){
+      try{fr.contentWindow.postMessage({type:'matrasov-language',lang:lang},location.origin);}catch(e){}
+    });
+    document.querySelectorAll('.portfolio-exit').forEach(function(a){a.textContent=lang==='ru'?'← Портфолио':'← MATRAS0V / All work';});
+    document.querySelectorAll('.burg').forEach(function(b){b.setAttribute('aria-label',lang==='ru'?'Меню':'Menu');});
+    document.querySelectorAll('a.brand').forEach(function(b){b.setAttribute('aria-label',lang==='ru'?'MATRAS0V — Главная':'MATRAS0V — Home');});
+    document.querySelectorAll('nav[aria-label]').forEach(function(n){n.setAttribute('aria-label',lang==='ru'?'Разделы':'Sections');});
+    var skip=document.querySelector('.skip'); if(skip) skip.textContent=lang==='ru'?'Перейти к содержимому':'Skip to content';
+  }
+  function notify(lang){ links(lang); listeners.forEach(function(fn){fn(lang);}); }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href]'); if(!a) return;
+    var raw=a.getAttribute('href'); if(!raw || raw[0]==='#') return;
+    var u=new URL(raw,location.href);
+    if(u.origin===rootURL.origin && u.pathname.startsWith(rootURL.pathname)){u.searchParams.set('lang',currentLang());a.href=u.href;}
+  },true);
+  addEventListener('message',function(e){
+    if(e.origin!==location.origin || e.source!==parent || !e.data || e.data.type!=='matrasov-language') return;
+    if(e.data.lang==='en'||e.data.lang==='ru') window.MLang.set(e.data.lang,true);
+  });
+  addEventListener('popstate',function(){var lang=currentLang();applyLang(lang,activeDict);notify(lang);});
 
   window.MLang = {
     STORAGE_KEY: KEY,
     get: currentLang,
     /* Switches language, persists the choice, and re-applies. Safe to call
        with the same language the page is already showing. */
-    set: function(lang){
+    set: function(lang, fromParent){
       lang = lang === 'ru' ? 'ru' : 'en';
       writeStored(lang);
-      applyLang(lang, activeDict);
-      listeners.forEach(function(fn){ try{ fn(lang); }catch(e){} });
+      var u=new URL(location.href);u.searchParams.set('lang',lang);
+      history.replaceState(null,'',u);
+      applyLang(lang, activeDict);notify(lang);
     },
     /* For a page that renders some of its own content from JS (a product
        list built from a data object, a cart) rather than static markup —
@@ -107,6 +137,8 @@
     init: function(dict){
       activeDict = dict || {};
       applyLang(currentLang(), activeDict);
+      links(currentLang());
+      document.querySelectorAll('iframe').forEach(function(fr){fr.addEventListener('load',function(){links(currentLang());});});
       document.querySelectorAll('.lang-btn').forEach(function(b){
         b.addEventListener('click', function(){
           window.MLang.set(b.getAttribute('data-lang'));

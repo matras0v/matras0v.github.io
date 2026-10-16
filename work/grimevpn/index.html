@@ -304,6 +304,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 .rv.in{opacity:1;transform:none;transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none;}}
 </style>
+<script src="../../assets/locale-boot.js"></script>
+<style>.lang-switch{display:flex;gap:8px;align-items:center;flex:none;font:11px ui-monospace,monospace}.lang-btn{background:none;border:0;color:inherit;opacity:.5;cursor:pointer;min-height:44px;min-width:24px}.lang-btn.is-active{opacity:1;text-decoration:underline}.lang-btn:focus-visible{outline:2px solid currentColor}@media(max-width:600px){.nav-in{gap:10px}.nav-in>.btn{font-size:11px;padding:10px 12px}.hero-facts{gap:14px}.hero-grid h1{font-size:clamp(36px,10vw,52px)}}</style><link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
 </head>
 
 <body>
@@ -313,12 +315,12 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
   <div class="wrap nav-in">
     <a class="logo" href="#top"><span class="mark" aria-hidden="true">G</span>Grime<b>VPN</b></a>
     <nav class="nav-links mono" aria-label="Sections">
-      <a href="#what">What it is</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#how">How it works</a>
-      <a href="#faq">Questions</a>
+      <a href="#what"><span data-i18n="ui-0">What it is</span></a>
+      <a href="#pricing"><span data-i18n="ui-1">Pricing</span></a>
+      <a href="#how"><span data-i18n="ui-2">How it works</span></a>
+      <a href="#faq"><span data-i18n="ui-3">Questions</span></a>
     </nav>
-    <a class="btn" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener">Open the bot</a>
+<div class="lang-switch" role="group" aria-label="Language / Язык"><button type="button" class="lang-btn" data-lang="en">EN</button><span>/</span><button type="button" class="lang-btn" data-lang="ru">RU</button></div>    <a class="btn" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener"><span data-i18n="ui-4">Open the bot</span></a>
   </div>
 </header>
 
@@ -329,24 +331,22 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow mono"><i aria-hidden="true"></i> Node up · Finland</p>
-      <h1>There is no app.<br><span>There is a chat.</span></h1>
+      <p class="eyebrow mono"><i aria-hidden="true"></i> <span data-i18n="ui-5">Node up · Finland</span></p>
+      <h1><span data-i18n="ui-6">There is no app.</span><br><span><span data-i18n="ui-7">There is a chat.</span></span></h1>
       <p class="lede">
-        GrimeVPN lives inside Telegram, which you already have. Message the bot,
-        pick a device, and it hands you a link. Nothing to download from a store,
-        nothing to sign up for, no account to close later.
+        <span data-i18n="ui-8">GrimeVPN lives inside Telegram, which you already have. Message the bot, pick a device, and it hands you a link. Nothing to download from a store, nothing to sign up for, no account to close later.</span>
       </p>
       <div class="hero-cta">
         <a class="btn" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener">
-          Start the free week
+          <span data-i18n="ui-9">Start the free week</span>
         </a>
-        <a class="btn btn-ghost" href="#pricing">See the prices</a>
+        <a class="btn btn-ghost" href="#pricing"><span data-i18n="ui-10">See the prices</span></a>
       </div>
       <dl class="hero-facts">
-        <div><dt class="mono">Traffic</dt><dd>Unlimited</dd></div>
-        <div><dt class="mono">Devices</dt><dd>Up to 5</dd></div>
-        <div><dt class="mono">Node</dt><dd>Finland</dd></div>
-        <div><dt class="mono">From</dt><dd>83 ₽ / month</dd></div>
+        <div><dt class="mono"><span data-i18n="ui-11">Traffic</span></dt><dd><span data-i18n="ui-12">Unlimited</span></dd></div>
+        <div><dt class="mono"><span data-i18n="ui-13">Devices</span></dt><dd><span data-i18n="ui-14">Up to 5</span></dd></div>
+        <div><dt class="mono"><span data-i18n="ui-15">Node</span></dt><dd><span data-i18n="ui-16">Finland</span></dd></div>
+        <div><dt class="mono"><span data-i18n="ui-17">From</span></dt><dd><span data-i18n="ui-18">83 ₽ / month</span></dd></div>
       </dl>
     </div>
 
@@ -356,13 +356,13 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
         <span class="mark" aria-hidden="true">G</span>
         <span>
           <b>GrimeVPN</b>
-          <small>bot · replies instantly</small>
+          <small><span data-i18n="ui-19">bot · replies instantly</span></small>
         </span>
-        <span class="tag mono">Demo</span>
+        <span class="tag mono"><span data-i18n="ui-20">Demo</span></span>
       </div>
       <div class="stream" id="stream" aria-live="polite" aria-label="Conversation with the GrimeVPN bot"></div>
       <div class="keys" id="keys"></div>
-      <p class="chat-foot mono">This conversation runs in the page. The real one is in Telegram.</p>
+      <p class="chat-foot mono"><span data-i18n="ui-21">This conversation runs in the page. The real one is in Telegram.</span></p>
     </div>
   </div>
 </section>
@@ -371,29 +371,29 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 <section class="band" id="what">
   <div class="wrap">
     <div class="band-head">
-      <h2>Small on purpose.</h2>
-      <p>Most services sell you ninety countries you will never connect to. This one is a single fast route and a bot that sets it up in under a minute.</p>
+      <h2><span data-i18n="ui-22">Small on purpose.</span></h2>
+      <p><span data-i18n="ui-23">Most services sell you ninety countries you will never connect to. This one is a single fast route and a bot that sets it up in under a minute.</span></p>
     </div>
     <div class="cards">
       <div class="card rv">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.4 3.4 8.3 8 9 4.6-.7 8-4.6 8-9V6z"/></svg>
-        <h3>One node, in Finland</h3>
-        <p>A single route kept fast rather than a map of flags kept slow. Low latency to most of Europe.</p>
+        <h3><span data-i18n="ui-24">One node, in Finland</span></h3>
+        <p><span data-i18n="ui-25">A single route kept fast rather than a map of flags kept slow. Low latency to most of Europe.</span></p>
       </div>
       <div class="card rv">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/><circle cx="12" cy="12" r="3"/></svg>
-        <h3>Five devices, five keys</h3>
-        <p>Every device gets its own link. Lose a phone and you revoke one key instead of resetting everything.</p>
+        <h3><span data-i18n="ui-26">Five devices, five keys</span></h3>
+        <p><span data-i18n="ui-27">Every device gets its own link. Lose a phone and you revoke one key instead of resetting everything.</span></p>
       </div>
       <div class="card rv">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/><circle cx="12" cy="12" r="9"/></svg>
-        <h3>Unlimited traffic</h3>
-        <p>No cap, no throttle after a certain number of gigabytes, no fair-use paragraph hidden in a footer.</p>
+        <h3><span data-i18n="ui-28">Unlimited traffic</span></h3>
+        <p><span data-i18n="ui-29">No cap, no throttle after a certain number of gigabytes, no fair-use paragraph hidden in a footer.</span></p>
       </div>
       <div class="card rv">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <h3>No account anywhere</h3>
-        <p>Your Telegram is the account. There is no password to forget and no email list to get onto.</p>
+        <h3><span data-i18n="ui-30">No account anywhere</span></h3>
+        <p><span data-i18n="ui-31">Your Telegram is the account. There is no password to forget and no email list to get onto.</span></p>
       </div>
     </div>
   </div>
@@ -403,71 +403,71 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 <section class="band" id="pricing">
   <div class="wrap">
     <div class="band-head">
-      <h2>Seven days free.<br>Then this.</h2>
-      <p>No card for the trial. Nothing renews on its own without telling you first.</p>
+      <h2><span data-i18n="ui-32">Seven days free.</span><br><span data-i18n="ui-33">Then this.</span></h2>
+      <p><span data-i18n="ui-34">No card for the trial. Nothing renews on its own without telling you first.</span></p>
     </div>
 
     <div class="plans">
       <div class="plan rv">
-        <p class="term mono">One month</p>
+        <p class="term mono"><span data-i18n="ui-35">One month</span></p>
         <p class="price">119 ₽</p>
-        <p class="per">billed monthly</p>
+        <p class="per"><span data-i18n="ui-36">billed monthly</span></p>
         <ul>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Unlimited traffic</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Up to 5 devices</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Cancel by not renewing</span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><span data-i18n="ui-28">Unlimited traffic</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><span data-i18n="ui-37">Up to 5 devices</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><span data-i18n="ui-38">Cancel by not renewing</span></span></li>
         </ul>
-        <a class="btn btn-ghost" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener">Choose monthly</a>
+        <a class="btn btn-ghost" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener"><span data-i18n="ui-39">Choose monthly</span></a>
       </div>
 
       <div class="plan best rv">
-        <span class="flag mono">Most taken</span>
-        <p class="term mono">Twelve months</p>
+        <span class="flag mono"><span data-i18n="ui-40">Annual plan</span></span>
+        <p class="term mono"><span data-i18n="ui-41">Twelve months</span></p>
         <p class="price">999 ₽</p>
-        <p class="per">about 83 ₽ a month</p>
+        <p class="per"><span data-i18n="ui-42">about 83 ₽ a month</span></p>
         <ul>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Everything in monthly</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Cheapest per month by a long way</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>One payment, then forget about it</span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><span data-i18n="ui-43">Everything in monthly</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><span data-i18n="ui-44">Cheapest per month by a long way</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><span data-i18n="ui-45">One payment, then forget about it</span></span></li>
         </ul>
-        <a class="btn" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener">Choose the year</a>
+        <a class="btn" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener"><span data-i18n="ui-46">Choose the year</span></a>
       </div>
 
       <div class="plan rv">
-        <p class="term mono">Three months</p>
+        <p class="term mono"><span data-i18n="ui-47">Three months</span></p>
         <p class="price">299 ₽</p>
-        <p class="per">about 100 ₽ a month</p>
+        <p class="per"><span data-i18n="ui-48">about 100 ₽ a month</span></p>
         <ul>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Unlimited traffic</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Up to 5 devices</span></li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>A season at a time</span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><span data-i18n="ui-28">Unlimited traffic</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><span data-i18n="ui-37">Up to 5 devices</span></span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><span data-i18n="ui-49">A season at a time</span></span></li>
         </ul>
-        <a class="btn btn-ghost" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener">Choose three months</a>
+        <a class="btn btn-ghost" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener"><span data-i18n="ui-50">Choose three months</span></a>
       </div>
     </div>
-    <p class="plan-note">Prices are in roubles because the bot serves a Russian-speaking audience. Payment happens inside Telegram.</p>
+    <p class="plan-note"><span data-i18n="ui-51">Prices are in roubles because the bot serves a Russian-speaking audience. Payment happens inside Telegram.</span></p>
   </div>
 </section>
 
 <!-- =============================================================== how -- -->
 <section class="band" id="how">
   <div class="wrap">
-    <div class="band-head"><h2>Under a minute, start to connected.</h2></div>
+    <div class="band-head"><h2><span data-i18n="ui-52">Under a minute, start to connected.</span></h2></div>
     <div class="steps">
       <div class="step rv">
         <p class="n">01</p>
-        <h3>Message the bot</h3>
-        <p>Open @GrimeVPNbot and press start. That is the whole sign-up — no email, no password, no card for the trial week.</p>
+        <h3><span data-i18n="ui-53">Message the bot</span></h3>
+        <p><span data-i18n="ui-54">Open @GrimeVPNbot and press start. That is the whole sign-up — no email, no password, no card for the trial week.</span></p>
       </div>
       <div class="step rv">
         <p class="n">02</p>
-        <h3>Say what you are on</h3>
-        <p>iPhone, Android, Mac or Windows. The bot sends a link made for that one device and remembers which is which.</p>
+        <h3><span data-i18n="ui-55">Say what you are on</span></h3>
+        <p><span data-i18n="ui-56">iPhone, Android, Mac or Windows. The bot sends a link made for that one device and remembers which is which.</span></p>
       </div>
       <div class="step rv">
         <p class="n">03</p>
-        <h3>Open it in Happ</h3>
-        <p>The link opens the app and configures it. You tap connect once. Every device after this takes about fifteen seconds.</p>
+        <h3><span data-i18n="ui-57">Open it in Happ</span></h3>
+        <p><span data-i18n="ui-58">The link opens the app and configures it. You tap connect once. Every device after this takes about fifteen seconds.</span></p>
       </div>
     </div>
   </div>
@@ -476,31 +476,31 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 <!-- =============================================================== faq -- -->
 <section class="band" id="faq">
   <div class="wrap">
-    <div class="band-head"><h2>Fair questions.</h2></div>
+    <div class="band-head"><h2><span data-i18n="ui-59">Fair questions.</span></h2></div>
     <div class="faq">
       <details class="q">
-        <summary><span>Why only one country?</span><i aria-hidden="true"></i></summary>
+        <summary><span><span data-i18n="ui-60">Why only one country?</span></span><i aria-hidden="true"></i></summary>
         <div class="a">
-          <p>Because a long list of countries is mostly marketing. Every node costs money to keep fast, and a service this size does one route well rather than forty badly.</p>
-          <p>Finland is the choice because it is close to most of the people using this, which is what actually determines whether video loads.</p>
+          <p><span data-i18n="ui-61">Because a long list of countries is mostly marketing. Every node costs money to keep fast, and a service this size does one route well rather than forty badly.</span></p>
+          <p><span data-i18n="ui-62">Finland is the choice because it is close to most of the people using this, which is what actually determines whether video loads.</span></p>
         </div>
       </details>
       <details class="q">
-        <summary><span>What happens after the free week?</span><i aria-hidden="true"></i></summary>
+        <summary><span><span data-i18n="ui-63">What happens after the free week?</span></span><i aria-hidden="true"></i></summary>
         <div class="a">
-          <p>The keys stop working and the bot asks whether you want to carry on. Nothing charges you quietly, because there is no card on file to charge.</p>
+          <p><span data-i18n="ui-64">The keys stop working and the bot asks whether you want to carry on. Nothing charges you quietly, because there is no card on file to charge.</span></p>
         </div>
       </details>
       <details class="q">
-        <summary><span>Five devices — do they all work at once?</span><i aria-hidden="true"></i></summary>
+        <summary><span><span data-i18n="ui-65">Five devices — do they all work at once?</span></span><i aria-hidden="true"></i></summary>
         <div class="a">
-          <p>Yes. Each one holds its own key, so a phone, a laptop and a TV box can all be connected at the same time without knocking each other off.</p>
+          <p><span data-i18n="ui-66">Yes. Each one holds its own key, so a phone, a laptop and a TV box can all be connected at the same time without knocking each other off.</span></p>
         </div>
       </details>
       <details class="q">
-        <summary><span>Is this a big company?</span><i aria-hidden="true"></i></summary>
+        <summary><span><span data-i18n="ui-67">Is this a big company?</span></span><i aria-hidden="true"></i></summary>
         <div class="a">
-          <p>No. It is one person who built the bot, the backend and the billing, and who answers the messages. That is the honest answer, and it is also why the price is what it is.</p>
+          <p><span data-i18n="ui-68">No. It is one person who built the bot, the backend and the billing, and who answers the messages. That is the honest answer, and it is also why the price is what it is.</span></p>
         </div>
       </details>
     </div>
@@ -509,10 +509,10 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
 
 <section class="last">
   <div class="wrap">
-    <h2>Try it for a week.</h2>
-    <p>No card, no account, no app store. If it is not faster than what you have now, do nothing and it expires.</p>
+    <h2><span data-i18n="ui-69">Try it for a week.</span></h2>
+    <p><span data-i18n="ui-70">No card, no account, no app store. If it is not faster than what you have now, do nothing and it expires.</span></p>
     <div class="hero-cta">
-      <a class="btn" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener">Open @GrimeVPNbot</a>
+      <a class="btn" href="https://t.me/GrimeVPNbot" target="_blank" rel="noopener"><span data-i18n="ui-71">Open @GrimeVPNbot</span></a>
     </div>
   </div>
 </section>
@@ -526,13 +526,13 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
       <span style="margin-left:auto">© <span id="yr">2026</span></span>
     </div>
     <p class="built">
-      <span>Product, bot, backend and site built and run by <a href="../../">Vadim Ivanchenko</a>.</span>
-      <span><a href="../../#work">See the other work →</a></span>
+      <span><span data-i18n="ui-72">Product, bot, backend and site built and run by</span> <a href="../../">Vadim Ivanchenko</a>.</span>
+      <span><a href="../../#work"><span data-i18n="ui-73">See the other work →</span></a></span>
     </p>
   </div>
 </footer>
 
-<script>
+<script src="../../assets/i18n.js"></script><script>MLang.init({"ui-0": "О продукте", "ui-1": "Тарифы", "ui-2": "Как это работает", "ui-3": "Вопросы", "ui-4": "Открыть бота", "ui-5": "Сервер работает · Финляндия", "ui-6": "Без отдельного приложения.", "ui-7": "Всё в чате.", "ui-8": "GrimeVPN работает в Telegram. Напишите боту, выберите устройство и получите ссылку. Без отдельной регистрации, пароля и нового аккаунта.", "ui-9": "Попробовать неделю бесплатно", "ui-10": "Смотреть тарифы", "ui-11": "Трафик", "ui-12": "Без ограничений", "ui-13": "Устройства", "ui-14": "До 5", "ui-15": "Сервер", "ui-16": "Финляндия", "ui-17": "От", "ui-18": "83 ₽ / месяц", "ui-19": "бот · отвечает сразу", "ui-20": "Демо", "ui-21": "Это демонстрация на странице. Настоящий бот — в Telegram.", "ui-22": "Небольшой по замыслу.", "ui-23": "Один быстрый маршрут и бот, который помогает настроить подключение меньше чем за минуту.", "ui-24": "Один сервер в Финляндии", "ui-25": "Один маршрут с низкой задержкой для большей части Европы.", "ui-26": "Пять устройств, пять ключей", "ui-27": "У каждого устройства своя ссылка. Потеряли телефон — отзовите один ключ, остальные продолжат работать.", "ui-28": "Трафик без ограничений", "ui-29": "Без лимита гигабайтов и искусственного замедления после его достижения.", "ui-30": "Без нового аккаунта", "ui-31": "Ваш Telegram уже является аккаунтом. Не нужно запоминать пароль или оставлять email.", "ui-32": "Семь дней бесплатно.", "ui-33": "Затем — на выбор.", "ui-34": "Для пробной недели карта не нужна. Продление — по вашему решению.", "ui-35": "Один месяц", "ui-36": "за месяц", "ui-37": "До 5 устройств", "ui-38": "Не продлевайте, если не нужно", "ui-39": "Выбрать месяц", "ui-40": "На год", "ui-41": "Двенадцать месяцев", "ui-42": "около 83 ₽ в месяц", "ui-43": "Всё из месячного тарифа", "ui-44": "Меньше стоимость месяца", "ui-45": "Один платёж за год", "ui-46": "Выбрать год", "ui-47": "Три месяца", "ui-48": "около 100 ₽ в месяц", "ui-49": "На три месяца", "ui-50": "Выбрать три месяца", "ui-51": "Цены в рублях: бот рассчитан на русскоязычную аудиторию. Оплата — в Telegram.", "ui-52": "От старта до подключения — меньше минуты.", "ui-53": "Напишите боту", "ui-54": "Откройте @GrimeVPNbot и нажмите «Старт». Для пробной недели не нужны email, пароль или карта.", "ui-55": "Выберите устройство", "ui-56": "iPhone, Android, Mac или Windows. Бот выдаст отдельную ссылку для устройства.", "ui-57": "Откройте ссылку в Happ", "ui-58": "Ссылка откроет приложение и добавит настройки. Останется нажать «Подключиться».", "ui-59": "Частые вопросы.", "ui-60": "Почему только одна страна?", "ui-61": "Каждый сервер требует обслуживания. Небольшой сервис сосредоточен на одном маршруте.", "ui-62": "Финляндия близко к основной аудитории, что помогает сохранить небольшую задержку.", "ui-63": "Что будет после бесплатной недели?", "ui-64": "Ключи перестанут работать, и бот предложит продлить подписку. Автоматического списания нет.", "ui-65": "Все пять устройств работают одновременно?", "ui-66": "Да. У каждого устройства свой ключ, поэтому телефон, ноутбук и ТВ могут работать одновременно.", "ui-67": "Это большая компания?", "ui-68": "Нет. Бота, серверную часть и оплату сделал один человек. Он же отвечает на сообщения.", "ui-69": "Попробуйте неделю.", "ui-70": "Без карты и нового аккаунта. Если сервис не подойдёт, просто не продлевайте подписку.", "ui-71": "Открыть @GrimeVPNbot", "ui-72": "Продукт, бот, серверная часть и сайт —", "ui-73": "Другие работы →"});</script><script>
 (function(){
   document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -601,6 +601,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
     }
   };
 
+  var SCRIPT_RU={"start": {"bot": ["Добро пожаловать в <b>GrimeVPN</b>. Трафик без ограничений, до пяти устройств, сервер в Финляндии.", "Семь дней бесплатно. Без карты и отдельного аккаунта — всё в этом чате."], "keys": [["free", "Попробовать неделю бесплатно", "go"], ["price", "Сколько стоит потом?"], ["devices", "Какие устройства?"]]}, "price": {"bot": ["<b>После пробной недели</b><ul><li><em>1 месяц</em> 119 ₽</li><li><em>3 месяца</em> 299 ₽</li><li><em>12 месяцев</em> 999 ₽ — около 83 ₽ в месяц</li></ul>", "Автоматического продления нет. Когда срок закончится, вы решите, продолжать ли."], "keys": [["free", "Попробовать неделю бесплатно", "go"], ["devices", "Какие устройства?"]]}, "devices": {"bot": ["До пяти устройств одновременно: iPhone, Android, Mac, Windows и большинство ТВ-приставок. У каждого своя ссылка.", "Потеряли телефон — отзовите его ключ. Остальные продолжат работать."], "keys": [["free", "Попробовать неделю бесплатно", "go"], ["price", "Сколько стоит потом?"]]}, "free": {"bot": ["Какое устройство подключаем первым?"], "keys": [["ios", "iPhone"], ["android", "Android"], ["desktop", "Mac или Windows"]]}, "end": {"me": "Открыть настоящий бот", "bot": ["Так выглядит процесс подключения. Настоящий бот работает в Telegram."], "keys": [["open", "Открыть @GrimeVPNbot", "go"], ["start", "Повторить демо"]]}, "ios": {"bot": ["Ключ для iPhone. Откройте ссылку в <b>Happ</b>, чтобы добавить настройки.<span class=\"key\">grime://fi-01/key/8f2a-…-c41d</span>", "Нажмите «Подключиться». В подписке остаётся место для других устройств."], "keys": [["end", "Открыть настоящий бот →", "go"]]}, "android": {"bot": ["Ключ для Android. Откройте ссылку в <b>Happ</b>, чтобы добавить настройки.<span class=\"key\">grime://fi-01/key/5b7e-…-9a02</span>", "Нажмите «Подключиться». В подписке остаётся место для других устройств."], "keys": [["end", "Открыть настоящий бот →", "go"]]}, "desktop": {"bot": ["Ключ для компьютера. Откройте ссылку в <b>Happ</b>, чтобы добавить настройки.<span class=\"key\">grime://fi-01/key/1c93-…-7f60</span>", "Нажмите «Подключиться». В подписке остаётся место для других устройств."], "keys": [["end", "Открыть настоящий бот →", "go"]]}};
+  var runToken=0;
   function el(cls, html){
     var d = document.createElement('div');
     d.className = cls; d.innerHTML = html;
@@ -614,7 +616,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
     return t;
   }
 
-  function say(html, delay){
+  function say(html, delay, token){
     return new Promise(function(res){
       if(reduced){
         stream.appendChild(el('msg bot', html)); toBottom(); res(); return;
@@ -622,6 +624,7 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
       var t = typing();
       setTimeout(function(){
         t.remove();
+        if(token!==runToken){res();return;}
         stream.appendChild(el('msg bot', html));
         toBottom(); res();
       }, delay);
@@ -650,7 +653,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
   }
 
   async function run(id, label){
-    var node = SCRIPT[id];
+    var token=++runToken;
+    var node = (MLang.get()==='ru'?SCRIPT_RU:SCRIPT)[id];
     if(!node) return;
     busy = true;
     keys.innerHTML = '';
@@ -662,7 +666,8 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
     }
 
     for(var i = 0; i < node.bot.length; i++){
-      await say(node.bot[i], reduced ? 0 : (i === 0 ? 620 : 780));
+      await say(node.bot[i], reduced ? 0 : (i === 0 ? 620 : 780), token);
+      if(token!==runToken)return;
     }
     busy = false;
     drawKeys(node.keys);
@@ -671,8 +676,10 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);}
   /* The chat sits in the hero, so it starts with the page. If the tab is in
      the background the messages would play to nobody, so hold until it is
      actually being looked at. */
+  MLang.onChange(function(){runToken++;busy=false;stream.innerHTML='';run('start');});
   run('start');
 })();
 </script>
+<script src="../../assets/portfolio-return.js"></script>
 </body>
 </html>

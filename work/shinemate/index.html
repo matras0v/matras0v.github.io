@@ -74,8 +74,8 @@
    which is correct of it — so this page shows a faithful still of the first
    screen and says so, rather than asking the client to weaken a header for
    the sake of a portfolio. Every control here opens the real site. */
-.live-window{aspect-ratio:1/1.22;}
-@media (min-width:760px){ .live-window{aspect-ratio:16/10;} }
+.live-window{aspect-ratio:430/740;}
+@media (min-width:760px){ .live-window{aspect-ratio:1400/820;} }
 .live-window iframe{
   position:absolute;top:0;left:0;
   width:var(--srcw,1400px);height:var(--srch,820px);max-width:none;
@@ -86,6 +86,8 @@
   font-size:13px;line-height:1.5;max-width:62ch;
 }
 </style>
+<script src="../../assets/locale-boot.js"></script>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <div class="atmos" aria-hidden="true"></div>
@@ -227,7 +229,7 @@
         <span class="eyebrow" data-i18n="live-eyebrow">The finished site</span>
         <h2 data-i18n="live-h2">A working catalog,<br>not a presentation mockup.</h2>
       </div>
-      <p data-i18n="live-p">Below is the first screen as it is built. The production site asks not to be embedded in other pages &mdash; which is the right setting for a commercial site to have &mdash; so this is a faithful still rather than a frame around someone else's server. Open it properly to walk the catalog.</p>
+      <p data-i18n="live-p">Below is the first screen as it is built. The production site asks not to be embedded in other pages &mdash; which is the right setting for a commercial site to have &mdash; so this is a locally authored presentation that follows the portfolio language. Open it properly to walk the catalog.</p>
     </div>
 
     <a class="eframe rv-depth" id="liveFrame" href="https://shinemate-russia.ru/" target="_blank" rel="noopener" aria-label="Open the ShineMate Russia website in a new tab">
@@ -240,7 +242,7 @@
         <iframe id="liveSite" title="The first screen of the ShineMate Russia website" data-src="preview/index.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
       </div>
     </a>
-    <p class="note" data-i18n="live-note">The preview above is a still of the real first screen, held in this portfolio. The site itself is live and in Russian &mdash; it sells to a Russian market.</p>
+    <p class="note" data-i18n="live-note">The preview above is a locally authored, translated presentation of the first screen. The site itself is live and in Russian &mdash; it sells to a Russian market.</p>
 
     <div class="cta-row" style="margin-top:var(--s4)">
       <a class="btn btn-lg btn-key" href="https://shinemate-russia.ru/" target="_blank" rel="noopener"><span data-i18n="cta-open-domain">Open shinemate-russia.ru</span> <span class="arrow">&#8599;</span></a>
@@ -273,7 +275,7 @@
           <span data-i18n="chan-email">Email</span> <span class="chan-h">mskvvmskvv@gmail.com</span>
         </a>
       </div>
-      <p class="more-link"><a class="tlink" href="../../#work" data-i18n="more-link">See the other work</a></p>
+      <p class="more-link"><a class="tlink" href="../pravilnye-tekhnologii/">Pravilnye Tekhnologii ↗</a></p><p class="more-link"><a class="tlink" href="../../#work" data-i18n="more-link">See the other work</a></p>
     </div>
   </div>
 </section>
@@ -306,7 +308,7 @@
   }
   new IntersectionObserver(function(en, o){
     if(!en[0].isIntersecting) return;
-    liveSite.src = liveSite.dataset.src;
+    liveSite.src = liveSite.dataset.src+'?lang='+MLang.get();
     o.disconnect();
   }, {rootMargin:'400px'}).observe(liveFrame);
   fitLive();
@@ -329,7 +331,7 @@ window.I18N_SHINEMATE_RU = {
   "cta-view-catalog": "Смотреть каталог",
 
   "fact-client": "Клиент",
-  "fact-client-v": "ShineMate Россия",
+  "fact-client-v": "ShineMate Russia",
   "fact-market": "Рынок",
   "fact-market-v": "Россия",
   "fact-scope": "Объём",
@@ -373,7 +375,7 @@ window.I18N_SHINEMATE_RU = {
   "live-h2": "Рабочий каталог,<br>а не макет для портфолио.",
   "live-p": "Ниже — первый экран так, как он сделан. Продакшен-сайт просит не встраивать себя в чужие страницы — для коммерческого сайта это правильная настройка, поэтому здесь точный слепок, а не рамка вокруг чужого сервера. Откройте сайт, чтобы пройтись по каталогу.",
   "live-go": "Открыть",
-  "live-note": "Выше — слепок реального первого экрана, хранящийся в этом портфолио. Сам сайт работает и написан по-русски — он продаёт на российском рынке.",
+  "live-note": "Выше — локальная презентация первого экрана с переводом для портфолио. Сам сайт работает и написан по-русски — он продаёт на российском рынке.",
   "cta-open-domain": "Открыть shinemate-russia.ru",
   "cta-explore-catalog": "Смотреть каталог",
 
@@ -385,7 +387,7 @@ window.I18N_SHINEMATE_RU = {
   "chan-instagram": "Instagram",
   "chan-email": "Почта",
   "more-link": "Смотреть остальные работы",
-  "foot-note": "ShineMate Россия &middot; работающий production-сайт"
+  "foot-note": "ShineMate Russia &middot; работающий production-сайт"
 };
 MLang.init(window.I18N_SHINEMATE_RU);
 </script>

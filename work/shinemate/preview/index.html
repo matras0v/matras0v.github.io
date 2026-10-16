@@ -1,23 +1,11 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ShineMate Россия — preview</title>
+<title>ShineMate Russia — portfolio presentation</title><script src="../../../assets/locale-boot.js"></script>
 <meta name="robots" content="noindex">
-<!--
-  A portfolio preview of the first screen of shinemate-russia.ru.
 
-  It exists because the production site sends `x-frame-options: SAMEORIGIN`,
-  so the portfolio cannot embed it — and the right response to that is to
-  build a faithful still, not to weaken a client's header. Every control
-  here is inert; the frame around it in the portfolio is the link, and it
-  goes to the real site.
-
-  It stays in Russian because the site is Russian: it sells to a Russian
-  market. Translating it for an English portfolio would misrepresent the
-  work. Tokens below are read off the production site, not invented.
--->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -50,7 +38,7 @@ a{color:inherit;text-decoration:none;}
 .ic svg{width:17px;height:17px;}
 .cta-top{
   background:var(--ink);color:var(--paper);
-  border-radius:99px;padding:11px 20px;font-size:14px;font-weight:500;white-space:nowrap;
+  border-radius:99px;padding:11px 20px;font-size:14px;font-weight:500;white-space:normal;
 }
 
 /* -------------------------------------------------------------- hero -- */
@@ -67,22 +55,23 @@ a{color:inherit;text-decoration:none;}
   gap:40px;align-items:stretch;padding-block:10px 26px;
 }
 .hero > img{
-  margin-right:calc(50% - 50vw);width:calc(100% + (50vw - 50%));max-width:none;
+  margin-right:0;width:100%;max-width:100%;
   height:100%;object-fit:cover;object-position:52% 50%;border-radius:18px 0 0 18px;
 }
 .badge{
   display:inline-flex;align-items:center;gap:8px;
   border:1px solid rgba(254,139,12,.42);color:var(--accent);
   border-radius:99px;padding:6px 14px;
-  font-size:10.5px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;white-space:nowrap;
+  font-size:10.5px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;white-space:normal;
 }
+.badge{white-space:normal;line-height:1.5;max-width:100%;border-radius:12px;}
 .badge i{width:5px;height:5px;border-radius:99px;background:var(--accent);flex:none;}
 h1{
   margin-top:22px;
   font-size:clamp(38px,5.66vw,80px);font-weight:700;
   line-height:1.03;letter-spacing:-.035em;
 }
-h1 span{color:var(--accent);}
+h1 span{color:#858b8e;}
 .lede{margin-top:20px;max-width:46ch;color:var(--muted);font-size:16px;line-height:1.6;}
 .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;}
 .btn{border-radius:99px;padding:15px 26px;font-size:15px;font-weight:500;white-space:nowrap;}
@@ -100,6 +89,7 @@ h1 span{color:var(--accent);}
 .chip img{width:32px;height:32px;object-fit:contain;border-radius:8px;background:var(--paper);}
 .chip b{width:32px;height:32px;border-radius:8px;background:var(--paper);display:grid;place-items:center;color:var(--accent);font-size:15px;}
 
+h1{font-size:clamp(38px,5.1vw,71px)}
 @media (max-width:900px){
   .wrap{padding-inline:20px;}
   .bar{height:62px;gap:14px;}
@@ -107,7 +97,7 @@ h1 span{color:var(--accent);}
   .menu,.ic{display:none;}
   .cta-top{margin-left:auto;padding:10px 15px;font-size:13px;}
   .hero{grid-template-columns:1fr;gap:18px;padding-block:6px 18px;align-content:start;}
-  .hero > img{margin-right:calc(50% - 50vw);width:calc(100% + (50vw - 50%));height:auto;border-radius:14px 0 0 14px;}
+  .hero > img{margin-right:calc(50% - 50vw);width:calc(100% + (50vw - 50%));height:260px;object-fit:cover;border-radius:14px 0 0 14px;}
   h1{margin-top:16px;font-size:clamp(31px,8.4vw,42px);}
   .lede{margin-top:14px;font-size:14.5px;}
   .row{margin-top:22px;gap:9px;}
@@ -117,6 +107,7 @@ h1 span{color:var(--accent);}
   .chip img,.chip b{width:26px;height:26px;}
 }
 </style>
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <div class="stage">
@@ -124,33 +115,33 @@ h1 span{color:var(--accent);}
   <header class="bar">
     <img class="logo" src="../media/logo-shinemate.webp" alt="ShineMate" width="160" height="38">
     <nav class="menu">
-      <span>Каталог</span><span>О ShineMate</span><span>Технологии</span><span>Контакты</span><span class="hot">Оптовикам</span>
+      <span data-i18n="catalog">Catalog</span><span data-i18n="about">About ShineMate</span><span data-i18n="tech">Technology</span><span data-i18n="contact">Contacts</span><span class="hot" data-i18n="wholesale">Wholesale</span>
     </nav>
     <div class="tools">
       <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 1.9.6 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.7 2z"/></svg></span>
       <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></span>
-      <span class="cta-top">Запросить прайс</span>
+      <span class="cta-top" data-i18n="price">Request prices</span>
     </div>
   </header>
 
   <section class="hero">
     <div style="align-self:center">
-      <span class="badge"><i></i>ShineMate — официальный дистрибьютор в России</span>
-      <h1>Оборудование<br><span>для полировки</span><br>автомобиля</h1>
-      <p class="lede">Роторные и эксцентриковые машинки ShineMate для полировки автомобиля — кузова, фар, лакокрасочного покрытия.</p>
+      <span class="badge"><i></i><span data-i18n="badge">ShineMate — official distributor in Russia</span></span>
+      <h1 data-i18n="headline">Professional<br><span>automotive</span><br>polishing equipment</h1>
+      <p class="lede" data-i18n="lede">Rotary and dual-action ShineMate polishers for professional automotive paint correction and finishing.</p>
       <div class="row">
-        <span class="btn btn-d">Смотреть оборудование</span>
-        <span class="btn btn-o">Запросить прайс</span>
+        <span class="btn btn-d" data-i18n="browse">Browse equipment</span>
+        <span class="btn btn-o" data-i18n="price">Request prices</span>
       </div>
       <div class="fam">
-        <span class="chip"><img src="../media/ex620-thumb.webp" alt="">Машинки</span>
-        <span class="chip"><img src="../media/foam-diamond-t80-thumb.webp" alt="">Круги</span>
-        <span class="chip"><b>◆</b>Пасты</span>
+        <span class="chip"><img src="../media/ex620-thumb.webp" alt=""><span data-i18n="machines">Polishers</span></span>
+        <span class="chip"><img src="../media/foam-diamond-t80-thumb.webp" alt=""><span data-i18n="pads">Pads</span></span>
+        <span class="chip"><b>◆</b><span data-i18n="compounds">Compounds</span></span>
       </div>
     </div>
     <img class="shot" src="../media/hero-1920.webp" alt="Полировальное оборудование ShineMate" width="1920" height="1072">
   </section>
 </div>
 </div>
-</body>
+<script src="../../../assets/i18n.js"></script><script>MLang.init({"catalog": "Каталог", "about": "О ShineMate", "tech": "Технологии", "contact": "Контакты", "wholesale": "Оптовикам", "price": "Запросить прайс", "browse": "Смотреть оборудование", "badge": "ShineMate — официальный дистрибьютор в России", "lede": "Роторные и эксцентриковые машинки ShineMate для полировки автомобиля — кузова, фар, лакокрасочного покрытия.", "headline": "Оборудование<br><span>для полировки</span><br>автомобиля", "machines": "Машинки", "pads": "Круги", "compounds": "Пасты"});</script></body>
 </html>

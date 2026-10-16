@@ -696,3 +696,6 @@ footer{border-top:1px solid var(--line);padding-block:var(--s4);background:rgba(
     opacity:1;transform:none;filter:none;transition:none;
   }
 }
+
+@media(max-width:560px){.nav .nav-in{gap:10px}.nav .brand{font-size:21px}.nav .nav-sep{display:none}.nav .back{font-size:10px;gap:5px}.nav .lang-switch{gap:5px;font-size:11px}.nav .nav-contact{display:none}.nav .nav-in>.btn:last-child{display:none}.nav .back{display:inline-flex!important}.nav .nav-spacer{margin-left:auto}}
+.note{margin-top:20px;font-size:13px;line-height:1.6;color:var(--ink-3)}
