@@ -21,3 +21,10 @@ Local: /Users/vadimivancenko/Desktop/сайты/portfolio (chat cwd is a differe
 - Existing desktop/mobile pan subsystem untouched. Concepts remain independent; assets/case.css and case.js are shared only for cases.
 - Existing root outreach/demo folders and pravilnye-tehnologii storefront are unrelated and must not be edited.
 - Screenshots of original Snowzan retain authentic English and are labeled original English website; authored ShineMate/PT artboards follow portfolio locale.
+
+## 2026-10-17 PT case art-direction pass
+- Scope limited to work/pravilnye-tekhnologii case and its own new case.css/case.js/media. Homepage, Snowzan, ShineMate and the external PT site remain unchanged.
+- Exact live PT site inspected read-only, including actual dealer photography and catalog. Replaced logo-based support with the real Koch workbench, ShineMate tool wall, Space Quazar portrait and COLOURLOCK leather-care photographs.
+- New case sequence: compact introduction → photo-rich brand/store presentation → six actual catalog packshots → selected wash/polish/protect photography → existing contact/return controls. Removed repeated generic mobile hero. Prices, stock and unverified commerce claims deliberately omitted. Existing MLang drives EN/RU.
+- Local QA passed: EN/RU × 375, 390, 430, 768, 1024, 1280, 1366, 1440, 1600 (18 states), zero overflow/clipped checked copy/broken loaded images/JS or HTTP errors. Actual 390/1440 captures visually inspected; corrected F6.01 packshot crop. Same-case locale switching, All work, logo, exact catalog/brand links and WhatsApp SVG/destination passed.
+- Ready for commit/push and deployed-case verification.
