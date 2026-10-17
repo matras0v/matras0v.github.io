@@ -13,7 +13,7 @@
 .featured.is-playing .featured-tab[aria-selected="true"]:after{animation:feature-progress 7s linear forwards}
 @keyframes feature-progress{to{width:100%}}
 .featured-stage{display:grid;position:relative;isolation:isolate}
-.feature-slide{grid-area:1/1;min-width:0;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .55s ease,transform .55s ease,visibility .55s;pointer-events:none}
+.feature-slide{grid-area:1/1;min-width:0;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease,visibility .35s;pointer-events:none}
 .feature-slide.is-active{opacity:1;visibility:visible;transform:none;pointer-events:auto}
 .feature-visual{display:block;position:relative;border:1px solid var(--line-2);border-radius:12px;overflow:hidden;background:#11131a;box-shadow:0 20px 100px -60px var(--feature-accent)}
 .feature-visual picture,.feature-visual img{display:block;width:100%;aspect-ratio:1400/820;object-fit:contain}
@@ -98,3 +98,15 @@
 
 /* A fully clipped observer target can never reveal itself. Media is always legible. */
 
+
+/* Final featured controls: one timer, explicit affordances, touch-sized targets. */
+.featured-bottom{align-items:center}.feature-status{max-width:68ch;min-width:0;min-height:3.2em;flex:1}.feature-controls{display:flex;align-items:center;gap:8px;flex:none}.feature-count{font-size:10px;color:var(--paper-2);white-space:nowrap}.feature-progress{display:flex;gap:5px;margin-inline:3px 12px}.feature-progress i{display:block;width:20px;height:3px;background:var(--line-2);border-radius:2px}.feature-progress i.is-active{background:var(--feature-accent);box-shadow:0 0 12px color-mix(in srgb,var(--feature-accent) 35%,transparent)}.feature-arrow,.feature-pause{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border:1px solid var(--line-2);border-radius:9px;background:rgba(239,235,227,.035);color:var(--paper);cursor:pointer;transition:background .2s,border-color .2s}.feature-pause{gap:8px;padding-inline:12px;font-size:10px;min-width:96px}.feature-pause:disabled{display:inline-flex;opacity:.5;cursor:default}.feature-pause>span:first-child{font-size:15px;line-height:1}.featured-tab[aria-selected="true"] small{color:var(--feature-accent)}
+.hm-cover-art,.hm-cover-art img{display:block;width:100%;height:auto;aspect-ratio:1280/820;object-fit:contain}.s-02 .sel-media{opacity:1;clip-path:none;transform:none;transition:none}
+@media(hover:hover){.feature-arrow:hover,.feature-pause:not(:disabled):hover{background:rgba(239,235,227,.09);border-color:var(--feature-accent)}}
+@media(max-width:1100px){.featured-bottom{flex-wrap:wrap}.feature-status{max-width:none;width:100%;flex:auto}.feature-controls{margin-left:auto}}
+@media(max-width:759px){.featured-bottom{align-items:start;gap:12px}.feature-status{max-width:none;width:100%;font-size:8px}.feature-controls{width:100%;justify-content:flex-end;gap:8px}.feature-progress{margin-right:auto;margin-left:4px}.feature-progress i{width:22px}.feature-count{display:none}.feature-pause{display:inline-flex;min-width:90px}.hm-cover-art,.hm-cover-art img{aspect-ratio:430/650}}
+@media(prefers-reduced-motion:reduce){.feature-arrow,.feature-pause{transition:none}}
+
+/* Keep global .mono metrics from changing the control row by project/locale. */
+.featured .feature-status{font-size:9px;line-height:1.6;min-height:3.2em}.featured .feature-pause{font-size:10px;line-height:1.4}.featured .feature-count{font-size:10px;line-height:1.4}
+@media(max-width:759px){.featured .feature-status{font-size:8px;min-height:3.2em}}

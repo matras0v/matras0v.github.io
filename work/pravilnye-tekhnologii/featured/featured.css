@@ -1,0 +1,4 @@
+@import url("../preview/preview.css");
+/* Exact supplied 936×396 banner, shown whole at native aspect ratio. Featured only. */
+.hero{grid-template-columns:1fr 1.7fr;gap:32px;padding-block:30px 26px}.photo{height:auto;aspect-ratio:936/396;border-radius:8px;background:#18232c}.photo>img{width:100%;height:auto;object-fit:contain;object-position:center}.copy>p{font-size:16px}.brands{margin-top:24px}h1{font-size:clamp(45px,4.5vw,64px)}html[lang="ru"] h1{font-size:52px}.selection{margin-top:12px}.selection .packshot{height:200px}footer{padding-top:23px}
+@media(max-width:700px){.hero{grid-template-columns:1fr;gap:22px;padding-block:22px 0}h1,html[lang="ru"] h1{font-size:39px}.copy>p{font-size:13px}.photo{aspect-ratio:936/396;height:auto;border-radius:5px}.photo>img{height:auto;width:100%;object-fit:contain}.selection{margin-top:18px}.selection .packshot{height:145px}.brands{display:none}footer{padding-top:18px}}
