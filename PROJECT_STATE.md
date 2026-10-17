@@ -1,30 +1,28 @@
-# MATRAS0V portfolio — current handoff
+# MATRAS0V portfolio — current state
 
-Live target: https://matras0v.github.io · repository matras0v/matras0v.github.io · main.
-Local: /Users/vadimivancenko/Desktop/сайты/portfolio (chat cwd is a different folder).
+Live: https://matras0v.github.io · GitHub matras0v/matras0v.github.io · main · Pages builds main /.
+Actual checkout: /Users/vadimivancenko/Desktop/сайты/portfolio (chat cwd is a different folder).
 
-## 2026-10-17 implementation
-- Existing single-file hub and shared case/i18n architecture retained. Current source was clean at start, HEAD 8a30f0a.
-- Added one three-project featured stage, canonical assets/projects.js registry, own CSS/JS. Snowzan default, 7s desktop rotation only while visible; hover/focus/interaction/hidden/reduced-motion pause; manual controls and mobile swipe, no mobile autoplay. Static responsive artboards avoid simultaneous live iframes.
-- Added work/pravilnye-tekhnologii case and EN/RU authored preview, using public project-owned product and four-brand images copied read-only from local PT source. Actual exact IDN production domain opened read-only and verified. No production client site/storefront changed, including existing root pravilnye-tehnologii folder.
-- Selected clients ordered Snowzan, ShineMate, PT; H&M and owned GrimeVPN separated as Additional work; concept frames 01–05. Existing Snowzan preview composition retained.
-- Shared MLang extended with URL > storage > EN priority, internal-link locale propagation, same-origin iframe locale bridge, popstate support. Cases preserve current route when switching. ShineMate existing preview localized, headline middle line muted gray, badge wraps. Concepts get a small persistent portfolio escape outside embeds.
-- WhatsApp remains +79184134820; Telegram/Instagram @matras0v; email mskvvmskvv@gmail.com.
-- Preview assets generated: EN/RU × desktop/mobile for all three clients. Primary editorial cards reuse these artboards; no duplicate client iframes run on the homepage. The old clipped reveal observer deadlock was fixed at its source.
-- Local validation: 108 responsive/locale states, 36 JavaScript syntax checks and 16 interaction checks passed. Six additional focus/visibility/mobile/lazy-media/capture groups passed; 183 static internal asset/route references valid. Evidence captured and visually inspected. See QA_REPORT.md. Reusable tests in tests/.
-- Implementation commit 8a893f701e2e4bb0bab6a73908b797704714261b pushed to origin/main. GitHub Pages legacy build completed successfully at 2026-10-17 01:27 MSK.
-- Live verified at https://matras0v.github.io/ in a fresh real Chromium browser: EN/RU × 390/1440 × all three feature projects (12 states), PT case in both locales at both widths (4 states), return navigation, concept escape, exact external CTA targets and WhatsApp SVG. Zero page errors and HTTP errors. Rendered live screenshots were captured and visually inspected.
-- Scope complete. Physical iPhone/native Safari/Telegram/Instagram in-app browsers remain unverified. Browser MCP lacks Chrome; installed Playwright Chromium works via bundled package and explicit executable.
+## Architecture and preserved constraints
+- Existing static hub index.html, shared case.css/case.js and assets/i18n.js. No build dependencies.
+- assets/projects.js is the three-project registry. Featured image artboards use assets/previews/{id}-{en|ru}-{desktop|mobile}.webp. Desktop 1400×820; portrait 430×740. Source previews live under each work/{route}/preview/.
+- Snowzan default; 7s desktop autoplay while visible, pause on hover/focus/hidden/reduced motion; 16s manual hold, keyboard/swipe; no mobile autoplay. No simultaneous feature iframes.
+- MLang: query language > stored > EN; case route preserved, internal links retain language, same-origin iframe locale bridge. Original Snowzan screenshots retain authentic English and are labeled.
+- Snowzan preview crop, ShineMate case/preview, concepts, existing pan system and root demo/storefront folders must remain untouched by PT work.
+- Genuine contacts: WhatsApp +79184134820; Telegram/Instagram @matras0v; email mskvvmskvv@gmail.com.
+- External PT production and its separate local source are read-only: https://правильные-технологии.рф (IDNA xn----7sbgfibseaydudober7b6czgta.xn--p1ai). Local source /Users/vadimivancenko/Desktop/правильные-технологии(сайт).
 
-## Existing preview constraints retained
-- Hub .frame[data-live], data-vh and project-specific --win-m compose local websites. Snowzan 900/760 + 1/1.18 mobile is the approved reference. Do not change its image crop.
-- Existing desktop/mobile pan subsystem untouched. Concepts remain independent; assets/case.css and case.js are shared only for cases.
-- Existing root outreach/demo folders and pravilnye-tehnologii storefront are unrelated and must not be edited.
-- Screenshots of original Snowzan retain authentic English and are labeled original English website; authored ShineMate/PT artboards follow portfolio locale.
+## Completed foundation
+- 8a893f7 implementation + 5c9e6b9 verification: three real projects, EN/RU, navigation, concepts/contacts. Prior 108-state responsive matrix and 16 interaction groups passed; live verified.
+- f0c8228: PT photographic case pass, pushed. V2 steering arrived immediately afterward and superseded its case-only scope.
 
-## 2026-10-17 PT case art-direction pass
-- Scope limited to work/pravilnye-tekhnologii case and its own new case.css/case.js/media. Homepage, Snowzan, ShineMate and the external PT site remain unchanged.
-- Exact live PT site inspected read-only, including actual dealer photography and catalog. Replaced logo-based support with the real Koch workbench, ShineMate tool wall, Space Quazar portrait and COLOURLOCK leather-care photographs.
-- New case sequence: compact introduction → photo-rich brand/store presentation → six actual catalog packshots → selected wash/polish/protect photography → existing contact/return controls. Removed repeated generic mobile hero. Prices, stock and unverified commerce claims deliberately omitted. Existing MLang drives EN/RU.
-- Local QA passed: EN/RU × 375, 390, 430, 768, 1024, 1280, 1366, 1440, 1600 (18 states), zero overflow/clipped checked copy/broken loaded images/JS or HTTP errors. Actual 390/1440 captures visually inspected; corrected F6.01 packshot crop. Same-case locale switching, All work, logo, exact catalog/brand links and WhatsApp SVG/destination passed.
-- Ready for commit/push and deployed-case verification.
+## 2026-10-17 PT V2
+- Authorized scope: PT third feature preview and PT case only; preserve carousel structure and all Snowzan/ShineMate designs and assets.
+- PT preview now has an oversized authentic Koch workbench photo, identity/catalog CTA and real EX620/F6.01/HC4000 product cards. Dedicated mobile composition; four optimized local WebP artboards. Registry explicitly labels curated presentation and Russian live store.
+- Case order: compact intro → signature photographic triptych → equipment/compound/pad depth → real photographic brands → catalog/category links with integrated portrait screen → genuine contact finish. Removed standalone sparse mobile and repeated process section.
+- Authentic local source assets include Koch workbench/workshop campaign, ShineMate equipment/tool wall/in-use polisher, Space Quazar portrait, COLOURLOCK leather care, product packshots and compound application. No invented products/prices/reviews/metrics; translated compositions disclosed. Actual catalog/category/brand routes verified against source.
+- Final local QA: 18 case states (EN/RU × 375/390/430/768/1024/1280/1366/1440/1600), 16 homepage PT states, actual desktop/mobile section renders inspected in both languages, no overflow/clipped checked text/broken images/JS or HTTP errors. Corrected F6.01 scale after visual review.
+- Existing 16-group interaction regression passed, including all three case returns/locales, carousel keyboard/swipe/autoplay/pause/manual hold, exact external links, concept escape and ShineMate iframe localization. Snowzan/ShineMate/shared carousel files have no diff.
+- Reusable scoped test: tests/pt-case.cjs; browser runtime variables match existing tests. Evidence: Codex visualizations/2026/10/16/01a146c0-5005-7791-b902-19148acd20ca/pt-v2.
+- Next: push V2 implementation, verify Pages build and live EN/RU renders/navigation, record deployment result.
+- Browser testing uses installed Playwright Chromium (bundled runtime, explicit Chromium executable); native Safari/physical devices are unverified.

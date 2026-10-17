@@ -47,13 +47,13 @@ window.MATRASOV_PROJECTS = [
       "market": "Russia",
       "type": "Multi-brand automotive detailing store",
       "summary": "Car-care chemicals, polishing equipment and accessories brought together in one clearer catalog.",
-      "production": "Original live website · Russian"
+      "production": "Curated presentation · Russian live store"
     },
     "ru": {
       "market": "Россия",
       "type": "Мультибрендовый магазин детейлинга",
       "summary": "Профессиональная автохимия, полировальное оборудование и аксессуары в одном удобном каталоге.",
-      "production": "Оригинальный сайт · русский"
+      "production": "Презентация портфолио · живой магазин на русском"
     }
   }
 ];
